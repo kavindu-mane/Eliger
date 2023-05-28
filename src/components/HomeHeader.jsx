@@ -3,6 +3,7 @@ import HeaderImage from "../resources/header-bg.svg";
 import Logo from "../resources/Eliger-white-200px.png";
 import HeaderLinks from "./HeaderLinks";
 import HomeImage from "../resources/home-image.svg";
+import Statistics from "./Statistics";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -69,14 +70,28 @@ const Header = () => {
                   <span className="text-white">Us.</span>
                 </span>
               </h1>
+
+              {/* sign up to ride button */}
               <button className="mt-5 rounded-md bg-[#22B84C] px-3 py-2 font-noto text-white hover:bg-orange-600">
                 Sign up to Ride
               </button>
+
+              {/* statistics */}
+              <div className="mt-10 flex">
+                <Statistics caption={"Registered Users"} value={"100+"} />
+                <Statistics caption={"Registered Vehicles"} value={"100+"} />
+                <Statistics caption={"Rides"} value={"1K+"} />
+              </div>
             </div>
           </div>
+
           {/* right side */}
           <div className="mt-5 flex justify-center">
-            <img src={HomeImage} alt="home" className="w-11/12 max-w-xl" />
+            <img
+              src={HomeImage}
+              alt="home"
+              className="w-11/12 max-w-xl md:max-w-2xl"
+            />
           </div>
         </div>
       </div>
