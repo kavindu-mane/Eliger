@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, lazy } from "react";
 import HeaderImage from "../resources/header-bg.svg";
 import Logo from "../resources/Eliger-white-200px.png";
-import HeaderLinks from "./HeaderLinks";
 import HomeImage from "../resources/home-image.svg";
-import Statistics from "./Statistics";
+const Statistics = lazy(() => import("./Statistics"));
+const HeaderLinks = lazy(() => import("./HeaderLinks"));
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -51,19 +51,19 @@ const Header = () => {
             id="menu"
             className="fixed -right-80 z-40 flex h-screen flex-col bg-slate-700 pe-4 ps-3 pt-10 duration-300 md:relative md:right-0 md:h-auto md:flex-row md:bg-transparent md:pt-4"
           >
-            <HeaderLinks link={"/"} text={"Drive"} />
-            <HeaderLinks link={"/"} text={"Ride"} />
-            <HeaderLinks link={"/"} text={"Privacy"} />
-            <HeaderLinks link={"/"} text={"About"} />
-            <HeaderLinks link={"/"} text={"Contact"} />
-            <HeaderLinks link={"/"} text={"FAQ"} />
+            <HeaderLinks link={"/drive"} text={"Drive"} />
+            <HeaderLinks link={"/ride"} text={"Ride"} />
+            <HeaderLinks link={"/privacy"} text={"Privacy"} />
+            <HeaderLinks link={"/about"} text={"About"} />
+            <HeaderLinks link={"/contact"} text={"Contact"} />
+            <HeaderLinks link={"/faq"} text={"FAQ"} />
           </div>
         </div>
         <div className="mt-32 grid gap-3 md:mt-44 md:grid-cols-2">
           {/* left side */}
           <div className="flex items-center justify-center text-center md:text-left">
             <div>
-              <h1 className="font-noto text-4xl font-medium text-white md:text-5xl">
+              <h1 className="mb-5 font-noto text-4xl font-medium text-white md:text-5xl">
                 Ride & Drive <br className="mb-3" />
                 <span className="text-6xl text-[#22B84C] md:text-7xl">
                   WITH <br className="mb-3" />
@@ -72,9 +72,12 @@ const Header = () => {
               </h1>
 
               {/* sign up to ride button */}
-              <button className="mt-5 rounded-md bg-[#22B84C] px-3 py-2 font-noto text-white hover:bg-orange-600">
+              <a
+                className="rounded-md bg-[#22B84C] px-3 py-2 font-noto text-white hover:bg-orange-600"
+                href="/ride"
+              >
                 Sign up to Ride
-              </button>
+              </a>
 
               {/* statistics */}
               <div className="mt-10 flex">
