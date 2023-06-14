@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-const HomeHeader = lazy(() => import("../components/HomeHeader"));
+const HomeHeader = lazy(() => import("../components/Home/HomeHeader"));
 
 const Home = () => {
   return (
