@@ -22,7 +22,7 @@ const linkArray = {
 function App() {
   return (
     <React.Fragment>
-      <Router>
+      <Router basename="/Eliger">
         <Suspense
           fallback={
             <p className="flex h-screen items-center justify-center text-lg italic">
