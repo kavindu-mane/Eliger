@@ -21,7 +21,7 @@ const Header = () => {
   };
   return (
     <React.Fragment>
-      <div className=" flex w-screen justify-between">
+      <div className="flex w-screen justify-between">
         <a href="/">
           <img src={Logo} alt="logo" className="z-50 ms-4 w-32 md:w-40" />
         </a>

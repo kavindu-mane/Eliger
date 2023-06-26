@@ -4,7 +4,7 @@ const HomeHeader = lazy(() => import("../components/Home/HomeHeader"));
 const Home = () => {
   return (
     <React.Fragment>
-      <HomeHeader />
+        <HomeHeader />
     </React.Fragment>
   );
 };
