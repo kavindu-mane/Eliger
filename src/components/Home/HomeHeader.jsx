@@ -7,12 +7,14 @@ const Statistics = lazy(() => import("./Statistics"));
 const HomeHeader = () => {
   return (
     <React.Fragment>
-      <div className="relative">
-        <img
-          src={HeaderImage}
-          alt="header"
-          className="absolute -z-50 min-h-screen w-screen min-w-max"
-        />
+      <div
+        className="relative h-[65rem]"
+        style={{
+          backgroundImage: `url(${HeaderImage})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "auto",
+        }}
+      >
         <Header />
         <div className="mt-32 grid gap-3 md:mt-44 md:grid-cols-2">
           {/* left side */}
