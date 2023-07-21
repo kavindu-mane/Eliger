@@ -2,7 +2,7 @@ import React, { useState, lazy } from "react";
 import Logo from "../resources/Eliger-white-200px.png";
 const HeaderLinks = lazy(() => import("./HeaderLinks"));
 
-const Header = () => {
+const Header = ({ bg = "" }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuSettings = (e) => {
@@ -18,10 +18,19 @@ const Header = () => {
       setMenuOpen(true);
       e.target.innerHTML = "close";
     }
+  
+  };
+
+  const bgColor = () => {
+    return bg === "" ? "bg-slate-800" : "";
   };
   return (
     <React.Fragment>
-      <div className="flex w-screen justify-between">
+      <div
+        className={
+          "py-1 flex w-screen justify-between " + bgColor()
+        }
+      >
         <a href="/">
           <img src={Logo} alt="logo" className="z-50 ms-4 w-32 md:w-40" />
         </a>
@@ -41,7 +50,7 @@ const Header = () => {
           id="menu"
           className="fixed -right-80 z-40 flex h-screen flex-col bg-slate-700 pe-4 ps-3 pt-10 duration-300 md:relative md:right-0 md:h-auto md:flex-row md:bg-transparent md:pt-4"
         >
-          <HeaderLinks link={"/drive"} text={"Drive"} />
+          <HeaderLinks link={"/rent"} text={"Rent"} />
           <HeaderLinks link={"/ride"} text={"Ride"} />
           <HeaderLinks link={"/privacy"} text={"Privacy"} />
           <HeaderLinks link={"/about"} text={"About"} />

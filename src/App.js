@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
-const Drive = lazy(() => import("./pages/Drive"));
+const Rent = lazy(() => import("./pages/Rent"));
 const Faq = lazy(() => import("./pages/Faq"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Ride = lazy(() => import("./pages/Ride"));
@@ -13,13 +13,22 @@ const linkArray = {
   "/": <Home />,
   "/about": <About />,
   "/contact": <Contact />,
-  "/drive": <Drive />,
+  "/rent": <Rent />,
   "/ride": <Ride />,
   "/faq": <Faq />,
   "/privacy": <Privacy />,
 };
 
 function App() {
+  if (
+    localStorage.theme === "dark" ||
+    (!("theme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
   return (
     <React.Fragment>
       <Router>

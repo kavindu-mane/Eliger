@@ -8,14 +8,14 @@ const HomeHeader = () => {
   return (
     <React.Fragment>
       <div
-        className="relative h-[65rem]"
+        className="relative h-[65rem] md:h-[68rem]"
         style={{
           backgroundImage: `url(${HeaderImage})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "auto",
         }}
       >
-        <Header />
+        <Header bg="bg-transparent" />
         <div className="mt-32 grid gap-3 md:mt-44 md:grid-cols-2">
           {/* left side */}
           <div className="flex items-center justify-center text-center md:text-left">
