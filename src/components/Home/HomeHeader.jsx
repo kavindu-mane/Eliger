@@ -8,7 +8,7 @@ const HomeHeader = () => {
   return (
     <React.Fragment>
       <div
-        className="relative h-[65rem] md:h-[68rem]"
+        className="relative z-10 h-[65rem] md:h-[68rem]"
         style={{
           backgroundImage: `url(${HeaderImage})`,
           backgroundRepeat: "no-repeat",
@@ -50,7 +50,7 @@ const HomeHeader = () => {
             <img
               src={HomeImage}
               alt="home"
-              className="w-11/12 max-w-xl md:max-w-2xl"
+              className="w-11/12 max-w-xl md:max-w-2xl xl:max-w-3xl"
             />
           </div>
         </div>

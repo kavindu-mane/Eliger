@@ -6,7 +6,7 @@ const VehicleCard = ({ Img, vehicle, start , passenger}) => {
     <Card
       imgAlt={vehicle}
       imgSrc={Img}
-      className="m-3 max-w-xs shadow-lg drop-shadow-lg"
+      className="m-3 max-w-xs shadow-lg drop-shadow-lg bg-slate-300"
     >
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {vehicle}
