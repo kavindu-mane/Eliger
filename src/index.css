@@ -2,17 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+@layer base {
+  body {
+    @apply bg-slate-100/80 text-black dark:bg-slate-900 dark:text-white overflow-x-hidden
+  }
+
+  :root{
+    @apply overflow-x-hidden;
+  }
+  .font-outline {
+    -webkit-text-stroke: 5px #4ade80;
+  }
+
+  .font-outline-2 {
+    -webkit-text-stroke: 2px #4ade80;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.animation-delay-1 {
+  animation-delay: -1500ms;
+}
+
+
+.animation-delay-2 {
+  animation-delay: -2500ms;
 }
