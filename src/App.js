@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -35,7 +36,7 @@ function App() {
         <Suspense
           fallback={
             <p className="flex h-screen items-center justify-center text-lg italic">
-              Loading please wait...
+              <CgSpinnerTwoAlt className="w-20 h-20 animate-spin text-emerald-400"/>
             </p>
           }
         >
