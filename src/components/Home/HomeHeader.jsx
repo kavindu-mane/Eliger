@@ -20,22 +20,31 @@ const HomeHeader = () => {
           {/* left side */}
           <div className="flex items-center justify-center text-center md:text-left">
             <div>
-              <h1 className="mb-5 font-noto text-4xl font-medium text-white md:text-5xl">
-                Ride & Drive <br className="mb-3" />
-                <span className="text-6xl text-[#22B84C] md:text-7xl">
-                  WITH <br className="mb-3" />
-                  <span className="text-white">Us.</span>
+              <h1 className="mb-8 flex flex-col gap-y-3 font-noto text-4xl font-medium text-white md:text-6xl">
+                <span data-aos="fade-down">Ride & Drive</span>
+                <span
+                  data-aos="fade-right"
+                  className="font-outline-2 text-6xl text-transparent md:text-8xl"
+                >
+                  WITH
+                </span>
+                <span
+                  data-aos="fade-left"
+                  className="text-6xl text-white md:text-8xl"
+                >
+                  Us.
                 </span>
               </h1>
 
               {/* sign up to ride button */}
-              <a
-                className="rounded-md bg-[#22B84C] px-3 py-2 font-noto text-white hover:bg-orange-600"
-                href="/ride"
-              >
-                Sign up to Ride
-              </a>
-
+              <div data-aos="zoom-in" className="w-fit">
+                <a
+                  className="rounded-md bg-[#22B84C] px-3 py-2 font-noto text-white hover:bg-orange-600"
+                  href="/ride"
+                >
+                  Sign up to Ride
+                </a>
+              </div>
               {/* statistics */}
               <div className="mt-10 flex">
                 <Statistics caption={"Registered Users"} value={"100+"} />
@@ -48,6 +57,7 @@ const HomeHeader = () => {
           {/* right side */}
           <div className="mt-5 flex justify-center">
             <img
+              data-aos="fade-left"
               src={HomeImage}
               alt="home"
               className="w-11/12 max-w-xl md:max-w-2xl xl:max-w-3xl"

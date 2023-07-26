@@ -12,6 +12,7 @@ const VehicleCard = lazy(() => import("../components/Home/VehicleCard"));
 const HomeHeader = lazy(() => import("../components/Home/HomeHeader"));
 const Footer = lazy(() => import("../components/Footer"));
 
+// get current time
 const currentTime = () => {
   let currentTime = new Date();
   let ISTTime = new Date(currentTime.getTime() + 330 * 60000)
@@ -20,10 +21,12 @@ const currentTime = () => {
   return ISTTime;
 };
 
+// get today
 const today = () => {
   return new Date().toJSON().slice(0, 10);
 };
 
+// import all items function
 const importAll = (r) => {
   let images = {};
   r.keys().forEach((item, index) => {
@@ -38,6 +41,7 @@ const Home = () => {
   const [district, setDistrict] = useState("Colombo");
   const [driverNeeded, setDriverNeeded] = useState("With Driver");
 
+  // district list
   const districtArray = [
     "Ampara",
     "Anuradhapura",
@@ -66,10 +70,12 @@ const Home = () => {
     "Vauniya",
   ];
 
+  // all images importing function
   const images = importAll(
     require.context("../resources/", false, /.(png|jpe?g|svg)$/)
   );
 
+  // fields of book now option
   const bookNowFields = () => {
     return (
       <>
@@ -81,7 +87,10 @@ const Home = () => {
         </div>
 
         <div className="-mt-1 flex items-center gap-2">
-          <Checkbox id="current-location" />
+          <Checkbox
+            id="current-location"
+            className=" border-2 border-slate-700"
+          />
           <Label htmlFor="current-location">Use my current location</Label>
         </div>
 
@@ -111,6 +120,7 @@ const Home = () => {
     );
   };
 
+  // fields of rent out option
   const rentOutFields = () => {
     return (
       <>
@@ -175,146 +185,238 @@ const Home = () => {
     );
   };
 
+  // carosel images
+  const carouselImages = (i) => {
+    return (
+      <img
+        alt="carousel items"
+        src={images[`carousel-${i}.jpg`]}
+        className="h-[150vh] w-full object-cover opacity-40"
+      />
+    );
+  };
+
   return (
     <React.Fragment>
+      {/* home page hero section */}
       <HomeHeader />
-      <div className="my-10">
-        <div className="relative my-10 -mt-[50vh] flex h-[150vh] w-full flex-col justify-center">
-          <div className="absolute h-[150vh] w-full bg-slate-900">
-            <Carousel leftControl rightControl>
-              <img
-                alt="..."
-                src={images["carousel-1.jpg"]}
-                className="h-[150vh] w-full object-cover opacity-60"
-              />
-              <img
-                alt="..."
-                src={images["carousel-2.jpg"]}
-                className="h-[150vh] w-full object-cover opacity-60"
-              />
-              <img
-                alt="..."
-                src={images["carousel-3.jpg"]}
-                className="h-[150vh] w-full object-cover opacity-60"
-              />
-              <img
-                alt="..."
-                src={images["carousel-4.jpg"]}
-                className="h-[150vh] w-full object-cover opacity-60"
-              />
-              <img
-                alt="..."
-                src={images["carousel-5.jpg"]}
-                className="h-[150vh] w-full object-cover opacity-60"
-              />
-            </Carousel>
-          </div>
-
-          {/* search */}
-          <div className="relative translate-y-1/3">
-            <h1 className="mx-1 my-5 ps-2 text-center font-noto text-2xl text-white md:ps-5 md:text-3xl">
-              Find Vehicles.
-            </h1>
-            <div className="mb-10 flex w-full justify-center px-3">
-              <div className="w-full max-w-xl rounded-md bg-gray-200 p-8 shadow-md drop-shadow-md dark:bg-gray-800 sm:w-2/3 md:w-1/2">
-                <form className="flex w-full max-w-lg flex-col gap-4">
-                  <div>
-                    <div className="mb-2 block">
-                      <Label htmlFor="category" value="Vehicle Category" />
-                    </div>
-                    <Dropdown inline label={category} id="category">
-                      <Dropdown.Item onClick={() => setCategory("Bike")}>
-                        Bike
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => setCategory("Tuk Tuk")}>
-                        Tuk Tuk
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => setCategory("Car")}>
-                        Car
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => setCategory("Van")}>
-                        Van
-                      </Dropdown.Item>
-                    </Dropdown>
-                  </div>
-
-                  <div>
-                    <div className="mb-2 block">
-                      <Label htmlFor="b-method" value="Booking Method" />
-                    </div>
-                    <Dropdown inline label={bookingMethod} id="b-method">
-                      <Dropdown.Item
-                        onClick={() => setBookingMethod("Book Now")}
-                      >
-                        Book Now
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => setBookingMethod("Rentout")}
-                      >
-                        Rentout
-                      </Dropdown.Item>
-                    </Dropdown>
-                  </div>
-
-                  {bookingMethod === "Book Now"
-                    ? bookNowFields()
-                    : rentOutFields()}
-
-                  <Button type="submit">Find</Button>
-                </form>
-              </div>
-            </div>
-          </div>
+      {/* carousel with find form */}
+      <div className="relative my-10 -mt-[50vh] flex h-[150vh] w-full flex-col justify-center">
+        {/* carousel */}
+        <div className="absolute h-[150vh] w-full bg-slate-950">
+          <Carousel leftControl rightControl indicators={true}>
+            {[1, 2, 3, 4, 5].map((i) => {
+              return carouselImages(i);
+            })}
+          </Carousel>
         </div>
 
-        {/* vehicle types */}
-        <div className="bg-gradient-to-br from-sky-700 to-emerald-500 pb-16 pt-10 ">
-          <h1 className="mx-1 my-5 ps-2 text-center text-2xl text-white md:ps-5 md:text-3xl">
-            Explore Our Top Picks: Featured Vehicles.
-          </h1>
-          <div className="mt-10 flex flex-wrap justify-center">
-            <VehicleCard
-              vehicle={"Bikes"}
-              Img={images["bike.jpg"]}
-              start={69}
-              passenger={1}
-            />
-            <VehicleCard
-              vehicle={"Tuk Tuk"}
-              Img={images["tuk.jpg"]}
-              start={99}
-              passenger={3}
-            />
-            <VehicleCard
-              vehicle={"Cars"}
-              Img={images["car.jpeg"]}
-              start={149}
-              passenger={4}
-            />
-            <VehicleCard
-              vehicle={"Vans"}
-              Img={images["van.jpg"]}
-              start={220}
-              passenger={"6 to up"}
-            />
+        {/* search */}
+        <div className="relative mb-10 flex w-full translate-y-1/3 justify-center px-3">
+          {/* find form */}
+          <div
+            data-aos="fade-up"
+            className="w-full max-w-xl rounded-md border border-slate-600 bg-gray-200 p-8 shadow-lg drop-shadow-lg dark:bg-gray-800 sm:w-2/3 md:w-1/2"
+          >
+            <h1 className="mx-1 mb-10 ps-2 text-center font-noto text-2xl text-slate-900 dark:text-white md:ps-5 md:text-3xl">
+              Find Vehicles
+            </h1>
+            <form className="flex w-full max-w-lg flex-col gap-4">
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="category" value="Vehicle Category" />
+                </div>
+                <Dropdown inline label={category} id="category">
+                  <Dropdown.Item onClick={() => setCategory("Bike")}>
+                    Bike
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setCategory("Tuk Tuk")}>
+                    Tuk Tuk
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setCategory("Car")}>
+                    Car
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setCategory("Van")}>
+                    Van
+                  </Dropdown.Item>
+                </Dropdown>
+              </div>
+
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="b-method" value="Booking Method" />
+                </div>
+                <Dropdown inline label={bookingMethod} id="b-method">
+                  <Dropdown.Item onClick={() => setBookingMethod("Book Now")}>
+                    Book Now
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setBookingMethod("Rentout")}>
+                    Rentout
+                  </Dropdown.Item>
+                </Dropdown>
+              </div>
+
+              {bookingMethod === "Book Now" ? bookNowFields() : rentOutFields()}
+
+              <Button type="submit">Find</Button>
+            </form>
+          </div>
+          {/* find form text */}
+          <div className="relative ms-20 hidden items-center xl:flex">
+            <h1 className="flex flex-col text-8xl font-bold uppercase text-white">
+              <span data-aos="fade-left" className="w-fit">
+                Find
+                <br />
+                Vehicle
+              </span>
+              <span
+                data-aos="fade-right"
+                className="font-outline text-transparent"
+              >
+                Anytime
+                <br />
+                Anywhere
+              </span>
+            </h1>
+            {/* blur effect */}
+            <div className="absolute -z-10 h-full w-full bg-slate-950 opacity-40 blur-3xl"></div>
           </div>
         </div>
       </div>
 
-      {/* sign ups */}
-      <div className="my-10 flex justify-center">
-        <a
-          className="mx-5 rounded-md bg-[#22B84C] px-3 py-2 font-noto text-white duration-300 ease-in hover:bg-orange-600"
-          href="/rent"
+      {/* vehicle types */}
+      <div className="relative z-0 my-10 pb-16 pt-5">
+        {/* left matrix */}
+        <img
+          src={images["matrix.svg"]}
+          alt="matrix"
+          className="absolute left-0 top-14 -z-10 -translate-x-1/2 opacity-80 dark:opacity-50"
+        />
+
+        {/* top matrix */}
+        <img
+          src={images["matrix.svg"]}
+          alt="matrix"
+          className="animation-delay-2 absolute left-1/3 top-5 -z-0 -translate-x-1/2 animate-upDown opacity-50 dark:opacity-20"
+        />
+
+        {/* right large matrix */}
+        <img
+          src={images["matrix.svg"]}
+          alt="matrix"
+          className="absolute right-[15%] top-1/4 -z-0 -translate-x-1/2 animate-upDown opacity-50 dark:opacity-20"
+        />
+        <h1 className="mx-1 my-5 flex items-center justify-center text-center text-slate-900 dark:text-white">
+          <span
+            data-aos="fade-right"
+            className="z-0 pe-5 text-end font-sans text-2xl italic md:text-5xl lg:pe-10"
+          >
+            Explore Our
+            <br />
+            Top Picks
+          </span>
+          <span
+            data-aos="fade-left"
+            className="font-outline-2 text-3xl font-bold text-transparent md:text-6xl"
+          >
+            Featured Vehicles
+          </span>
+        </h1>
+        <div className="mt-10 flex flex-wrap justify-center">
+          <VehicleCard
+            vehicle={"Bikes"}
+            Img={images["bike.png"]}
+            start={69}
+            passenger={1}
+          />
+          <VehicleCard
+            vehicle={"Tuk Tuk"}
+            Img={images["tuk.png"]}
+            start={99}
+            passenger={3}
+          />
+          <VehicleCard
+            vehicle={"Cars"}
+            Img={images["car.png"]}
+            start={149}
+            passenger={4}
+          />
+          <VehicleCard
+            vehicle={"Vans"}
+            Img={images["van.png"]}
+            start={220}
+            passenger={"6 to up"}
+          />
+        </div>
+        {/* bottom large matrix */}
+        <img
+          src={images["matrix.svg"]}
+          alt="matrix"
+          className="animation-delay-1 absolute bottom-14 left-1/3 -z-10 -translate-x-1/2 animate-upDown opacity-50 dark:opacity-20"
+        />
+
+        {/* right small matrix */}
+        <img
+          src={images["matrix.svg"]}
+          alt="matrix"
+          className="absolute bottom-0 right-0 -z-0 translate-x-1/2 opacity-70 dark:opacity-40"
+        />
+      </div>
+
+      {/* bottom image area */}
+      <div className="h-fix relative w-full bg-slate-950">
+        <img
+          src={images["carousel-3.jpg"]}
+          alt="bottom button area"
+          className="h-[400px] w-screen rounded-t-lg border-t border-slate-400 object-cover opacity-40 md:h-[500px]"
+        />
+
+        {/* caption text */}
+        <div className="absolute start-0 top-0 flex h-full w-screen flex-col items-center justify-center">
+          <h1
+            data-aos="fade-down"
+            className="my-5 text-5xl text-white md:text-6xl"
+          >
+            Any doubt ?
+          </h1>
+          <div className="flex items-center font-bold">
+            <a
+              data-aos="fade-right"
+              href="/faq"
+              className="text-3xl text-orange-400 duration-300 ease-in hover:text-emerald-400 md:text-4xl"
+            >
+              Visit FAQ
+            </a>
+            <p data-aos="fade-up" className="mx-3 text-2xl text-white">
+              or
+            </p>
+            <a
+              data-aos="fade-left"
+              href="/contact"
+              className="text-3xl text-emerald-400 duration-300 ease-in hover:text-orange-400 md:text-4xl"
+            >
+              CONTACT US
+            </a>
+          </div>
+        </div>
+        {/* battons */}
+        <div
+          data-aos="fade-up"
+          className="absolute bottom-10 mt-20 flex w-screen justify-center"
         >
-          Sign up to Rent
-        </a>
-        <a
-          className="mx-5 rounded-md bg-[#22B84C] px-3 py-2 font-noto text-white duration-300 ease-in hover:bg-orange-600"
-          href="/ride"
-        >
-          Sign up to Ride
-        </a>
+          <a
+            className="mx-5 rounded-md bg-emerald-500 px-3 py-2 font-noto text-white duration-300 ease-in hover:bg-orange-400"
+            href="/rent"
+          >
+            Sign up to Rent
+          </a>
+          <a
+            className="mx-5 rounded-md bg-emerald-500 px-3 py-2 font-noto text-white duration-300 ease-in hover:bg-orange-400"
+            href="/ride"
+          >
+            Sign up to Ride
+          </a>
+        </div>
       </div>
       <Footer />
     </React.Fragment>
