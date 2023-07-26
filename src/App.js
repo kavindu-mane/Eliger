@@ -8,6 +8,7 @@ const Rent = lazy(() => import("./pages/Rent"));
 const Faq = lazy(() => import("./pages/Faq"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Ride = lazy(() => import("./pages/Ride"));
+const Terms = lazy(() => import("./pages/Terms"));
 const Error = lazy(() => import("./pages/Error"));
 
 const linkArray = {
@@ -18,6 +19,8 @@ const linkArray = {
   "/ride": <Ride />,
   "/faq": <Faq />,
   "/privacy": <Privacy />,
+  "/terms": <Terms />,
+  "/*": <Error />,
 };
 
 function App() {
@@ -36,7 +39,7 @@ function App() {
         <Suspense
           fallback={
             <p className="flex h-screen items-center justify-center text-lg italic">
-              <CgSpinnerTwoAlt className="w-20 h-20 animate-spin text-emerald-400"/>
+              <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
             </p>
           }
         >
@@ -44,7 +47,6 @@ function App() {
             {Object.keys(linkArray).map((key) => {
               return <Route key={key} path={key} element={linkArray[key]} />;
             })}
-            <Route path="*" element={<Error />} />
           </Routes>
         </Suspense>
       </Router>
