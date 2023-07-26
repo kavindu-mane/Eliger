@@ -1,7 +1,8 @@
 import React, { lazy } from "react";
+const PrivacyAccordion = lazy(() => import("../components/privacy/PrivacyAccordion"));
 const Header = lazy(() => import("../components/Header"));
 const Footer = lazy(() => import("../components/Footer"));
-import PrivacyAccordion from "../components/privacy/PrivacyAccordion.jxs";
+
 
 const Privacy = () => {
   return (
