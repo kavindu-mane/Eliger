@@ -9,6 +9,8 @@ module.exports = {
     extend: {
       fontFamily: {
         noto: "'Noto Sans', 'sans-serif'",
+        ABeeZee: "'ABeeZee', 'sans-serif'",
+        Poppins: "'Poppins', 'sans-serif'",
       },
       keyframes: {
         upDown: {
