@@ -13,7 +13,7 @@ const Privacy = () => {
       <Header />
       {/* title section */}
       <div className="my-20 w-screen text-center font-Poppins">
-        <h3 className="text-center text-3xl font-bold text-green-400 md:text-4xl">
+        <h3 className="text-center text-4xl font-bold text-green-400 md:text-5xl">
           Privacy Policy
         </h3>
 
