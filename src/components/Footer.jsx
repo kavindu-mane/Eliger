@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Logo from "../resources/Eliger-white-200px.png";
+import Logo from "../resources/Eliger-white.png";
 import { MdDarkMode, MdComputer, MdSunny } from "react-icons/md";
 import { Dropdown } from "flowbite-react";
 
