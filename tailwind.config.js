@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        "slate-750": "#011C2B",
+      },
       fontFamily: {
         noto: "'Noto Sans', 'sans-serif'",
         ABeeZee: "'ABeeZee', 'sans-serif'",
