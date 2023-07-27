@@ -5,8 +5,7 @@ const HeaderLinks = ({ link, text }) => {
     <a
       href={link}
       className={
-        "mx-4 my-3 w-60 font-semibold text-white hover:text-[#41df6d] md:my-0 md:w-auto " +
-        (window.location.href.includes(link) ? "text-[#41df6d]" : "")
+        "h-fit w-[20rem] px-5 py-3 font-Poppins font-semibold text-white duration-200 ease-in hover:bg-slate-800 hover:text-cyan-400 md:w-auto md:py-0 md:hover:bg-transparent"
       }
     >
       {text}
