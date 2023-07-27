@@ -45,8 +45,8 @@ const Privacy = () => {
           {/* blur image */}
           <img
             src={blurImg}
-            alt=""
-            className=" absolute start-0 top-1/2 w-full -translate-y-1/2"
+            alt="blur background"
+            className="absolute start-0 top-1/2 -z-10 w-full -translate-y-1/2"
           />
           <div className="w-full max-w-lg">
             <Accordions datafile={PrivacyData} />
