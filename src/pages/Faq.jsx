@@ -22,8 +22,7 @@ const Faq = () => {
           <Titles title={"FAQ"}>
             <h3>
               Top 7 Frequently Asked Questions about
-              <span className="text-green-500 dark:text-green-400">
-                {" "}
+              <span className="ms-1 text-green-500 dark:text-green-400">
                 Eliger
               </span>
             </h3>
