@@ -9,9 +9,9 @@ const Accordions = ({ datafile }) => {
           {datafile.map((data) => {
             return (
               <Accordion.Panel>
-                <Accordion.Title>{data.question}</Accordion.Title>
+                <Accordion.Title><span className="me-5">{String(data.id).padStart(2, '0')}</span>{data.question}</Accordion.Title>
                 <Accordion.Content>
-                  <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  <p className="mb-2 text-gray-600 dark:text-gray-400">
                     {data.answer}
                   </p>
                 </Accordion.Content>
