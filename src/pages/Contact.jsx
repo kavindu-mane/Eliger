@@ -4,6 +4,7 @@ import { BiPhoneCall } from "react-icons/bi";
 import { MdAlternateEmail, MdOutlineLocationOn } from "react-icons/md";
 const Header = lazy(() => import("../components/Header"));
 const Footer = lazy(() => import("../components/Footer"));
+const Titles = lazy(() => import("../components/Titles"));
 const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
 
 const Contact = () => {
@@ -13,11 +14,13 @@ const Contact = () => {
         <Header />
 
         {/* middle container */}
-        <div className="relative h-full w-screen">
+        <div className="relative flex h-full w-screen flex-col items-center">
           {/* bluer effect */}
           <BackgroundEffect />
-
-          
+          <Titles
+            title={"Contact Us"}
+            subtitle={"Any question or remarks? Just write us a message!"}
+          />
         </div>
 
         <Footer />
