@@ -10,41 +10,38 @@ const Terms = () => {
       <div className="flex min-h-screen flex-col items-center justify-between">
         <Header />
         {/* middle container */}
-        <div className="relative flex h-full w-screen flex-col items-center">
+        <div className=" relevant flex h-full  w-screen flex-col items-center">
           {/* bluer effect */}
           <BackgroundEffect />
-          <Titles title={"Terms & COnditions "}></Titles>
+          <Titles title={"Terms & Conditions "}
+            subtitle={"Welcome to our Eliger Driver and Vehicle Renting System. Before using our platform, please read following terms and conditions."}>
+          </Titles>
         {/* center content */}
-        <p
-          className="mb-3 text-justify font-ABeeZee text-slate-900 dark:text-slate-100"
-          data-aos="fade-right"
-        >
-          &emsp;&emsp;Welcome to our Eliger Driver and Vehicle Renting System.
-          Before using our platform, please read following terms and conditions.
-        </p>
-        <div className="relative h-8 w-3/5 md:h-full">
+        
+        <div className=" w-3/4  md:h-full text-justify space-y-7">
           <div
-            class="h-2/3 w-screen items-center justify-center"
-            data-aos="fade-right"
+            class=" w-9/6 text-justify space-y-7 "
+            
           >
             {/* outer border styles */}
-            <div class="border-center h-3/4 w-3/4 rounded-md">
-              <div class=" justify-content  m-2.5 flex h-4/5 w-3/4 content-center  rounded-lg border border-solid  bg-transparent py-12  ">
+        
+              
                 <div class="content-center">
                   <div class="... flex flex-col space-y-7">
                     {/* title border and styles of User Eligibility */}
-                    <div class=" item-stretch flex  w-1/2 self-center rounded-lg border-2 border-solid border-transparent bg-cyan-900">
-                      <text class="text-center font-extrabold text-black">
-                        {" "}
+                    <div class="  w-1/2  rounded-lg border-2 border-solid border-transparent bg-cyan-900">
+                      <text class="text-center font-extrabold text-white">
+                        
                         User Eligibility
                       </text>
                     </div>
+                     
                     {/* sub title styles of    User Eligibility*/}
                     <ul class="list-inside list-decimal ">
                       <li>
                         &emsp;&emsp;Age Requirement
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                        
+                        
                       </li>
                       {/* content of the   User Eligibility*/}
                       Users must be at least 21 years old to rent a vehicle and
@@ -53,10 +50,11 @@ const Terms = () => {
                       requirement may be higher (e.g., 25 years old). Users will
                       be required to provide valid proof of age during the
                       registration process.
+                      
                       <li>
                         &emsp;&emsp;Valid Driver's License
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                        
+                        
                       </li>
                       Users must hold a valid driver's license issued by the
                       appropriate government authority. The license must be in
@@ -66,7 +64,7 @@ const Terms = () => {
                       specific vehicle category being rented.
                       <li>
                         &emsp;&emsp;Identity Verification
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                       
                       </li>
                       All users must complete the identity verification process
                       before using our service. This is to ensure the safety and
@@ -76,9 +74,10 @@ const Terms = () => {
                       government-issued ID cards, passports, or other relevant
                       documents.
                     </ul>
+                    
                     {/* title border and styles of Bookind and Payment */}
-                    <div class=" item-stretch flex  w-1/2 self-center  rounded-lg border-2 border-solid border-transparent bg-cyan-900">
-                      <text class="font-extrabold text-black">
+                    <div class="   w-1/2   rounded-lg border-2 border-solid border-transparent bg-cyan-900">
+                      <text class="font-extrabold text-white">
                         Bookind and Payment
                       </text>
                     </div>
@@ -86,11 +85,11 @@ const Terms = () => {
                     <ul class="list-inside list-decimal ">
                       <li>
                         &emsp;&emsp;Booking Process
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                        
+                        
                       </li>
                       {/* content of the   Bookind and Payment*/}
-                      <ul class="list-inside list-disc ">
+                      <ul class="list-inside list-none  ">
                         <li>
                           Users can initiate the booking process through our
                           website or mobile application. During booking, users
@@ -108,8 +107,8 @@ const Terms = () => {
                       </ul>
                       <li>
                         &emsp;&emsp;Confirmation and Availability
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                       
+                        
                       </li>
                       Vehicle availability is subject to demand and may vary
                       based on the selected date, time, and location. In the
@@ -118,8 +117,8 @@ const Terms = () => {
                       suitable alternatives.
                       <li>
                         &emsp;&emsp;Payment Authorization
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                       
+                        
                       </li>
                       To secure the booking, users must authorize payment using
                       the provided payment method. The system will hold a
@@ -128,8 +127,8 @@ const Terms = () => {
                       rental period and vehicle inspection.
                       <li>
                         &emsp;&emsp;Payment Methods
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                      
+                        
                       </li>
                       Our system accepts various payment methods, including
                       credit/debit cards and other approved electronic payment
@@ -138,8 +137,8 @@ const Terms = () => {
                       rental charges.
                     </ul>
                     {/* title border and styles of  User Responsibilities */}
-                    <div class=" item-stretch flex  w-1/2 self-center rounded-lg border-2 border-solid border-transparent bg-cyan-900">
-                      <text class="font-extrabold text-black">
+                    <div class="   w-1/2 rounded-lg border-2 border-solid border-transparent bg-cyan-900">
+                      <text class="font-extrabold text-white">
                         User Responsibilities
                       </text>
                     </div>
@@ -147,11 +146,12 @@ const Terms = () => {
                     <ul class="list-inside list-decimal ">
                       <li>
                         &emsp;&emsp;Safe and Responsible Conduct
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                       
+                        
+                        
                       </li>
                       {/* content of the   User Responsibilities */}
-                      <ul class="list-inside list-disc ">
+                      <ul class="list-inside list-none  ">
                         <li>
                           Users must operate the rented vehicle responsibly and
                           in accordance with all local traffic laws and
@@ -167,10 +167,10 @@ const Terms = () => {
                       </ul>
                       <li>
                         &emsp;&emsp;Vehicle Care and Maintenance
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                        
+                        
                       </li>
-                      <ul class="list-inside list-disc ">
+                      <ul class="list-inside list-none  ">
                         <li>
                           Treat the rented vehicle with care and respect. Ensure
                           that it remains clean and free from excessive dirt,
@@ -185,8 +185,8 @@ const Terms = () => {
                       </ul>
                     </ul>
                     {/* title border and styles of  Intellectual Property */}
-                    <div class=" item-stretch flex  w-1/2 self-center rounded-lg border-2 border-solid border-transparent bg-cyan-900">
-                      <text class="font-extrabold text-black">
+                    <div class="   w-1/2  rounded-lg border-2 border-solid border-transparent bg-cyan-900">
+                      <text class="font-extrabold text-white">
                         Intellectual Property
                       </text>
                     </div>
@@ -195,11 +195,11 @@ const Terms = () => {
                       <ul class="list-inside list-decimal ">
                         <li>
                           &emsp;&emsp;Ownership of Intellectual Property
-                          {/* horizontal line */}
-                          <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                         
+                          
                           {/* content of the Intellectual Property */}
                         </li>
-                        <ul class="list-inside list-disc ">
+                        <ul class="list-inside list-none ">
                           <li>
                             All intellectual property associated with our
                             Vehicle and Driver Rent System, including but not
@@ -217,10 +217,11 @@ const Terms = () => {
                         </ul>
                         <li>
                           &emsp;&emsp;Prohibited Use of Intellectual Property
-                          {/* horizontal line */}
-                          <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
+                          
+                          
+                          
                         </li>
-                        <ul class="list-inside list-disc ">
+                        <ul class="list-inside list-none  ">
                           <li>
                             Users are strictly prohibited from using,
                             reproducing, distributing, or displaying any of the
@@ -235,10 +236,11 @@ const Terms = () => {
                         </ul>
                         <li>
                           &emsp;&emsp;Copyright Infringement Claims
-                          {/* horizontal line */}
-                          <div class="h-px w-3/5  flex-grow bg-gray-400"></div>
+                          
+                          
+                          
                         </li>
-                        <ul class="list-inside list-disc ">
+                        <ul class="list-inside list-none ">
                           <li>
                             The service provider respects the rights of
                             copyright holders and will respond to valid
@@ -255,8 +257,8 @@ const Terms = () => {
                       </ul>
                     </div>
                     {/* title border and styles of   Termination of Service */}
-                    <div class=" item-stretch flex  w-1/2 self-center rounded-lg border-2 border-solid border-transparent bg-cyan-900">
-                      <text class="font-extrabold text-black">
+                    <div class="   w-1/2  rounded-lg border-2 border-solid border-transparent bg-cyan-900">
+                      <text class="font-extrabold text-white">
                         Termination of Service
                       </text>
                     </div>
@@ -264,10 +266,11 @@ const Terms = () => {
                     <ul class="list-inside list-decimal ">
                       <li>
                         &emsp;&emsp;Breach of Terms and Policies
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5  flex-grow bg-gray-400"></div>
+                        
+                        
+                        
                         {/* content of the Termination of Service */}
-                        <ul class="list-inside list-disc ">
+                        <ul class="list-inside list-none  ">
                           <li>
                             Users who violate any terms, conditions, or policies
                             outlined in the rental agreement, including but not
@@ -285,9 +288,10 @@ const Terms = () => {
 
                       <li>
                         &emsp;&emsp;Non-Payment or Payment Disputes
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
-                        <ul class="list-inside list-disc ">
+                       
+                       
+                       
+                        <ul class="list-inside list-none  ">
                           <li>
                             Failure to make timely payments for rental charges,
                             additional services, fines, or damages may lead to
@@ -302,9 +306,10 @@ const Terms = () => {
                       </li>
                       <li>
                         &emsp;&emsp;Misuse of Service
-                        {/* horizontal line */}
-                        <div class="h-px w-3/5 flex-grow bg-gray-400"></div>
-                        <ul class="list-inside list-disc ">
+                      
+                       
+                       
+                        <ul class="list-inside list-none  ">
                           <li>
                             Misusing the Vehicle and Driver Rent System,
                             including but not limited to using the service for
@@ -315,8 +320,8 @@ const Terms = () => {
                       </li>
                     </ul>
                     {/* title border and styles of   Cancellation and refund */}
-                    <div class=" item-stretch flex  w-1/2 self-center rounded-lg border-2 border-solid border-transparent bg-cyan-900">
-                      <text class="font-extrabold text-black">
+                    <div class="   w-1/2 rounded-lg border-2 border-solid border-transparent bg-cyan-900">
+                      <text class="font-extrabold text-white">
                         Cancellation and Refund
                       </text>
                     </div>
@@ -325,10 +330,12 @@ const Terms = () => {
                   <ul class="list-inside list-decimal ">
                     <li>
                       &emsp;&emsp;Cancellation Policy
-                      {/* horizontal line */}
-                      <div class="h-px w-3/5  flex-grow bg-gray-400"></div>
+                  
+                     
+                     
                     </li>
-                    <ul class="list-inside list-disc ">
+                    <div class="mb-1">
+                    <ul class="list-inside list-none  ">
                       <li>
                         Users may cancel their booking at any time before the
                         designated cancellation deadline without incurring
@@ -340,12 +347,14 @@ const Terms = () => {
                         result in applicable cancellation fees.
                       </li>
                     </ul>
+                    </div>
                     <li>
                       &emsp;&emsp;Cancellation Process
-                      {/* horizontal line */}
-                      <div class="h-px w-3/5  flex-grow bg-gray-400"></div>
+                      
+                      
+                      
                     </li>
-                    <ul class="list-inside list-disc ">
+                    <ul class="list-inside list-none  ">
                       <li>
                         To cancel a booking, users must contact our help &
                         support team via phone or email and provide the
@@ -359,10 +368,11 @@ const Terms = () => {
                     </ul>
                     <li>
                       &emsp;&emsp;Refund Eligibility
-                      {/* horizontal line */}
-                      <div class="h-px w-3/5  flex-grow bg-gray-400"></div>
+                      
+                      
+                      
                     </li>
-                    <ul class="list-inside list-disc ">
+                    <ul class="list-inside list-none  ">
                       <li>
                         Refunds for cancellations are subject to the
                         cancellation policy and the specific terms agreed upon
@@ -375,12 +385,13 @@ const Terms = () => {
                       </li>
                     </ul>
                   </ul>
+                  
                 </div>
               </div>
             </div>
           </div>
-          </div>
-        </div>
+          
+       
         <Footer />
 
       </div>
