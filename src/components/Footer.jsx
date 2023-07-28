@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Logo from "../resources/Eliger-white.png";
 import { MdDarkMode, MdComputer, MdSunny } from "react-icons/md";
 import { Dropdown } from "flowbite-react";
+import ThemeSwitcher from "./Data/ThmeSwitecher";
 
 const themeIcons = {
   dark: <MdDarkMode className="h-5 w-5" />,
@@ -19,15 +20,7 @@ const Footer = () => {
   );
 
   useEffect(() => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    ThemeSwitcher();
   }, [currentTheme]);
 
   return (
@@ -35,9 +28,9 @@ const Footer = () => {
       <div className="w-full bg-sky-950 text-white">
         <div className="flex flex-col items-center justify-center pb-4 pt-6 md:flex-row">
           <a href="/" className="">
-            <img src={Logo} alt="logo" className="w-32" />
+            <img src={Logo} alt="logo" className="w-32 md:me-5" />
           </a>
-          <a href="terms" className="mx-5 my-3 md:ms-10">
+          <a href="terms" className="mx-5 my-3">
             T&C
           </a>
           <a href="privacy" className="mx-5 my-3">
