@@ -18,12 +18,11 @@ const Drive = () => {
           {/* bluer effect */}
           <BackgroundEffect />
           <Titles
-            title={"Contact Us"}
-            subtitle={"Any question or remarks? Just write us a message!"}
+            title={"Rent Vehicle"}
           />
 
           {/* card */}
-          <div className="my-10 flex w-fit justify-center rounded-md bg-gray-200 p-8 shadow-md drop-shadow-md dark:bg-gray-800">
+          <div className="mb-20 flex w-fit justify-center rounded-md bg-gray-200 p-8 shadow-md drop-shadow-md dark:bg-gray-800">
             <form className="flex max-w-md flex-col gap-4 sm:w-96">
               {!isLogin ? (
                 <div>
