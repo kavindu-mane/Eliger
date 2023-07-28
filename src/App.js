@@ -1,38 +1,11 @@
-import React, { lazy, Suspense } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
-const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
-const Contact = lazy(() => import("./pages/Contact"));
-const Rent = lazy(() => import("./pages/Rent"));
-const Faq = lazy(() => import("./pages/Faq"));
-const Privacy = lazy(() => import("./pages/Privacy"));
-const Ride = lazy(() => import("./pages/Ride"));
-const Terms = lazy(() => import("./pages/Terms"));
-const Error = lazy(() => import("./pages/Error"));
-
-const linkArray = {
-  "/": <Home />,
-  "/about": <About />,
-  "/contact": <Contact />,
-  "/rent": <Rent />,
-  "/ride": <Ride />,
-  "/faq": <Faq />,
-  "/privacy": <Privacy />,
-  "/terms": <Terms />,
-  "/*": <Error />,
-};
+import LinkArray from "./components/Data/RouteData";
+import ThemeSwitcher from "./components/Data/ThmeSwitecher";
 
 function App() {
-  if (
-    localStorage.theme === "dark" ||
-    (!("theme" in localStorage) &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches)
-  ) {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
+  ThemeSwitcher();
   return (
     <React.Fragment>
       <Router>
@@ -44,8 +17,8 @@ function App() {
           }
         >
           <Routes>
-            {Object.keys(linkArray).map((key) => {
-              return <Route key={key} path={key} element={linkArray[key]} />;
+            {Object.keys(LinkArray).map((key) => {
+              return <Route key={key} path={key} element={LinkArray[key]} />;
             })}
           </Routes>
         </Suspense>
