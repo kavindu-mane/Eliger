@@ -11,7 +11,7 @@ const Terms = () => {
       <div className="flex min-h-screen flex-col items-center justify-between">
         <Header />
         {/* middle container */}
-        <div className="relevant flex h-full  w-screen flex-col items-center">
+        <div className="relative flex h-full  w-screen flex-col items-center">
           {/* bluer effect */}
           <BackgroundEffect />
           <Titles title={"Terms & Conditions "}></Titles>
@@ -29,9 +29,11 @@ const Terms = () => {
               {/* terms data */}
               {TermsData.map((terms) => {
                 return (
-                  <div className="space-y-3" data-aos="fade-left">
+                  <div className="space-y-3" data-aos="fade-up">
                     <h3 class="text-lg font-semibold">{terms.title}</h3>
-                    <div className="text-gray-800 dark:text-gray-300">{terms.content}</div>
+                    <div className="text-gray-800 dark:text-gray-300">
+                      {terms.content}
+                    </div>
                   </div>
                 );
               })}
