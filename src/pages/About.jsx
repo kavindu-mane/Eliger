@@ -24,7 +24,10 @@ const About = () => {
             {/* section-01 */}
             <div className="grid w-full p-4 lg:grid-cols-2">
               {/* left-div-image */}
-              <div className="mb-10 flex items-center justify-center lg:mb-0">
+              <div
+                data-aos="fade-right"
+                className="mb-10 flex items-center justify-center lg:mb-0"
+              >
                 <img
                   src={AboutImg}
                   alt="aboutUs"
@@ -32,7 +35,10 @@ const About = () => {
                 />
               </div>
               {/* Right-div */}
-              <div className="mx-3 flex justify-center lg:mx-0 lg:ms-5 lg:justify-start">
+              <div
+                data-aos="fade-left"
+                className="mx-3 flex justify-center lg:mx-0 lg:ms-5 lg:justify-start"
+              >
                 <p className="max-w-lg text-justify">
                   As the market leader and Sri Lanka's most successful start-up
                   business in recent times, we envision the intelligent upgrade
@@ -52,7 +58,10 @@ const About = () => {
             {/* section-02 */}
             <div className="mt-20 flex w-full flex-col-reverse p-4 lg:grid lg:grid-cols-2">
               {/* Left-div-paragraph */}
-              <div className="mx-3 flex flex-col justify-center lg:mx-0 lg:ms-5 lg:justify-end">
+              <div
+                data-aos="fade-right"
+                className="mx-3 flex flex-col justify-center lg:mx-0 lg:ms-5 lg:justify-end"
+              >
                 <p className="mb-5 max-w-lg text-justify">
                   Introducing our outstanding vehicle and driver rent system,
                   where excellence and customer satisfaction are at the heart of
@@ -73,7 +82,10 @@ const About = () => {
                 </p>
               </div>
               {/* Right-div-title */}
-              <div className="mb-10 flex items-center justify-center lg:mb-0">
+              <div
+                data-aos="fade-left"
+                className="mb-10 flex items-center justify-center lg:mb-0"
+              >
                 <h1 className="text-3xl font-semibold dark:text-white">
                   Our Achievements
                 </h1>
@@ -82,16 +94,19 @@ const About = () => {
             {/* section-03 */}
             <div className="mt-20 w-full p-4 lg:grid lg:grid-cols-2">
               {/* Left-div-title */}
-              <div className="mb-10 flex flex-col items-center justify-center lg:mb-0">
+              <div
+                data-aos="fade-right"
+                className="mb-10 flex items-center justify-center lg:mb-0"
+              >
                 <h1 className="text-3xl font-semibold dark:text-white">
                   Core Purpose
                 </h1>
-                <h1 className="text-md font-ABeeZee lowercase italic text-green-500 dark:text-emerald-400">
-                  JOYFUL MOBILITY FOR A BETTER LIFE
-                </h1>
               </div>
               {/* Right-div-paragraph */}
-              <div className="mx-3 flex flex-col justify-center lg:mx-0 lg:ms-5 lg:justify-start">
+              <div
+                data-aos="fade-left"
+                className="mx-3 flex flex-col justify-center lg:mx-0 lg:ms-5 lg:justify-start"
+              >
                 <p className="mb-5 max-w-lg text-justify">
                   Eliger envisions the intelligent upgrade of mobility,
                   consequently inspiring Sri Lanka towards matching global
