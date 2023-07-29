@@ -37,7 +37,7 @@ const HomeHeader = () => {
               </h1>
 
               {/* sign up to ride button */}
-              <div data-aos="zoom-in" className="w-fit">
+              <div data-aos="zoom-in">
                 <a
                   className="rounded-md bg-[#22B84C] px-3 py-2 font-noto text-white hover:bg-orange-600"
                   href="/ride"
