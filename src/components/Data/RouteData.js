@@ -7,6 +7,7 @@ const Faq = lazy(() => import("../../pages/Faq"));
 const Privacy = lazy(() => import("../../pages/Privacy"));
 const Ride = lazy(() => import("../../pages/Ride"));
 const Terms = lazy(() => import("../../pages/Terms"));
+const Login = lazy(() => import("../../pages/Login"));
 const Error = lazy(() => import("../../pages/Error"));
 
 const LinkArray = {
@@ -18,6 +19,7 @@ const LinkArray = {
   "/faq": <Faq />,
   "/privacy": <Privacy />,
   "/terms": <Terms />,
+  "/login": <Login />,
   "/*": <Error />,
 };
 
