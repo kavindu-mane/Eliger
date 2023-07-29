@@ -20,12 +20,12 @@ const Faq = () => {
           <BackgroundEffect />
           {/* title section */}
           <Titles title={"FAQ"}>
-            <h3>
+            <span>
               Top 7 Frequently Asked Questions about
               <span className="ms-1 text-green-500 dark:text-green-400">
                 Eliger
               </span>
-            </h3>
+            </span>
           </Titles>
 
           {/* content section */}

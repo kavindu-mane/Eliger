@@ -25,12 +25,12 @@ const Terms = () => {
               You may not access and use Eliger if You do not agree to the
               version of the Terms posted at the time You access Eliger.
             </p>
-            <div class="flex flex-col space-y-10 ">
+            <div className="flex flex-col space-y-10 ">
               {/* terms data */}
-              {TermsData.map((terms) => {
+              {TermsData.map((terms , i) => {
                 return (
-                  <div className="space-y-3" data-aos="fade-up">
-                    <h3 class="text-lg font-semibold">{terms.title}</h3>
+                  <div className="space-y-3" data-aos="fade-up" key={i}>
+                    <h3 className="text-lg font-semibold">{terms.title}</h3>
                     <div className="text-gray-800 dark:text-gray-300">
                       {terms.content}
                     </div>

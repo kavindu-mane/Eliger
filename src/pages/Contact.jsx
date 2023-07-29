@@ -49,7 +49,6 @@ const Contact = () => {
                 <a
                   href="mailto:contacts@eliger.com"
                   className="my-3 flex items-center"
-                  items-center
                 >
                   <MdAlternateEmail className="me-3" />
                   contacts@eliger.com
@@ -74,7 +73,7 @@ const Contact = () => {
                   {/* first name */}
                   <div data-aos="fade-left" className="space-y-2">
                     <label
-                      for="fname"
+                      htmlFor="fname"
                       className="block font-noto text-sm text-gray-900 after:ml-0.5 after:text-red-500 after:content-['*'] dark:text-white"
                     >
                       First name
@@ -91,7 +90,7 @@ const Contact = () => {
                   {/* last name */}
                   <div data-aos="fade-left" className="space-y-2">
                     <label
-                      for="lname"
+                      htmlFor="lname"
                       className="block font-noto text-sm text-gray-900 after:ml-0.5 after:text-red-500 after:content-['*'] dark:text-white"
                     >
                       Last name
@@ -109,7 +108,7 @@ const Contact = () => {
                 {/* email */}
                 <div data-aos="fade-left" className="space-y-2">
                   <label
-                    for="email"
+                    htmlFor="email"
                     className="block font-noto text-sm text-gray-900 after:ml-0.5 after:text-red-500 after:content-['*'] dark:text-white"
                   >
                     Email
@@ -127,7 +126,7 @@ const Contact = () => {
                 {/* message */}
                 <div data-aos="fade-left" className="space-y-2">
                   <label
-                    for="message"
+                    htmlFor="message"
                     className="block font-noto text-sm text-gray-900 after:ml-0.5 after:text-red-500 after:content-['*'] dark:text-white"
                   >
                     Message

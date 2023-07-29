@@ -149,7 +149,7 @@ const Home = () => {
           >
             {districtArray.map((v) => {
               return (
-                <Dropdown.Item onClick={() => setDistrict(v)}>
+                <Dropdown.Item key={v} onClick={() => setDistrict(v)}>
                   {v}
                 </Dropdown.Item>
               );
@@ -192,6 +192,7 @@ const Home = () => {
         alt="carousel items"
         src={images[`carousel-${i}.jpg`]}
         className="h-[150vh] w-full object-cover opacity-40"
+        key={i}
       />
     );
   };
