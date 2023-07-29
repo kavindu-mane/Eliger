@@ -17,7 +17,7 @@ const HeaderData = [
   },
   {
     link: "/faq",
-    text: "FAG",
+    text: "FAQ",
   },
   {
     link: "/login",
