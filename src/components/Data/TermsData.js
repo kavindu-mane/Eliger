@@ -1,8 +1,8 @@
 const TermsData = [
- {
+  {
     title: "User Eligibility",
     content:
-      "Users must be at least 18 years old to rent a vehicle and request a driver through our system. In some regions or for specific vehicle categories, the minimum age requirement may be higher (e.g., 18 years old). Users will be required to provide valid proof of age during the registration process. Users must hold a valid driver's license issued by the  government authority. The license must be in good standing and not be suspended, revoked, or expired. Additionally, if the user wishes to drive the rented vehicle personally, the license must be applicable to the specific vehicle category being rented. All users must complete the identity verification process before using our service. This is to ensure the safety and security of the community. Users will be required to provide accurate and up-to-date identification information, which may include but is not limited to government-issued ID cards, passports, or other relevant documents.",
+      "Users must be at least 18 years old to rent a vehicle and request a driver through our system. Users will be required to provide valid proof of age during the registration process. Users must hold a valid driver's license issued by the  government authority. The license must be in good standing and not be suspended, revoked, or expired. Additionally, if the user wishes to drive the rented vehicle personally, the license must be applicable to the specific vehicle category being rented. All users must complete the identity verification process before using our service. This is to ensure the safety and security of the community. Users will be required to provide accurate and up-to-date identification information, which may include but is not limited to government-issued ID cards, passports, or other relevant documents.",
   },
   {
     title: "Booking and Payment",
