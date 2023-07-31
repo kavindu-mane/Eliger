@@ -37,7 +37,7 @@ const Header = ({ bg = "bg-slate-800" }) => {
       >
         {/* logo */}
         <a href="/">
-          <img src={Logo} alt="logo" className="z-50 ms-4 w-32 md:w-36" />
+          <img src={Logo} alt="logo" className="ms-4 w-32 md:w-36" />
         </a>
 
         {/* menu button */}

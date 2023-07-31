@@ -7,7 +7,7 @@ import {
   Dropdown,
   Carousel,
 } from "flowbite-react";
-
+import images from "../components/Data/ImageLoader";
 const VehicleCard = lazy(() => import("../components/Home/VehicleCard"));
 const HomeHeader = lazy(() => import("../components/Home/HomeHeader"));
 const Footer = lazy(() => import("../components/Footer"));
@@ -24,15 +24,6 @@ const currentTime = () => {
 // get today
 const today = () => {
   return new Date().toJSON().slice(0, 10);
-};
-
-// import all items function
-const importAll = (r) => {
-  let images = {};
-  r.keys().forEach((item, index) => {
-    images[item.replace("./", "")] = r(item);
-  });
-  return images;
 };
 
 const Home = () => {
@@ -70,10 +61,6 @@ const Home = () => {
     "Vauniya",
   ];
 
-  // all images importing function
-  const images = importAll(
-    require.context("../resources/", false, /.(png|jpe?g|svg)$/)
-  );
 
   // fields of book now option
   const bookNowFields = () => {
@@ -396,7 +383,7 @@ const Home = () => {
               href="/contact"
               className="text-3xl text-emerald-400 duration-300 ease-in hover:text-orange-400 md:text-4xl"
             >
-              CONTACT US
+              Contact Us
             </a>
           </div>
         </div>
