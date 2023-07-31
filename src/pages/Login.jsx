@@ -1,9 +1,13 @@
 import React, { lazy } from "react";
 import { Button, Label, Checkbox, TextInput, Radio } from "flowbite-react";
+import { AiFillCheckCircle } from "react-icons/ai";
+
 const Circles = lazy(() => import("../components/Circles"));
+const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
+const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
 const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
 
-const Register = () => {
+const Login = () => {
   return (
     <React.Fragment>
       {/* outer div */}
@@ -12,6 +16,9 @@ const Register = () => {
         <BackgroundEffect />
         {/* round effect component */}
         <Circles />
+
+        {/* header */}
+        <HeaderSecondary />
 
         {/* form */}
         <div className="flex h-full min-h-screen w-full items-center justify-center px-5 sm:px-10">
@@ -22,10 +29,11 @@ const Register = () => {
             <p className="-mt-3 mb-5 text-sm">
               Enter your credentials to access your account
             </p>
-
+            {/* fields div */}
+            <div className="space-y-4" data-aos="zoom-in"></div>
             {/* email */}
             <div>
-              <div className="mb-2 block">
+              <div className="flex justify-between" data-aos="fade-down">
                 <Label
                   htmlFor="email"
                   value="Email"
@@ -44,7 +52,7 @@ const Register = () => {
 
             {/* password */}
             <div>
-              <div className="mb-2 block">
+              <div className="flex justify-between" data-aos="fade-down">
                 <Label
                   htmlFor="password"
                   value="Password"
@@ -66,6 +74,7 @@ const Register = () => {
                 <Checkbox defaultChecked id="accept" name="accept" />
                 <Label
                   className="flex font-normal text-slate-900 dark:text-gray-200"
+                  data-aos="fade-down"
                   htmlFor="accept"
                 >
                   Remember me
@@ -84,17 +93,22 @@ const Register = () => {
               type="submit"
               name="join"
               value="join"
+              data-aos="fade-up"
               className="mt-5 w-2/3 place-self-center rounded-md bg-green-400 duration-300 ease-in dark:bg-emerald-400"
             >
               Login
             </Button>
 
             {/* login */}
-            <div className="text-center text-sm font-semibold">
+            <div
+              className="text-center text-sm font-semibold "
+              data-aos="fade-down"
+            >
               Don'have an account?{" "}
               <a
                 href="/login"
                 className="ms-1 text-green-500 dark:text-emerald-400"
+                data-aos="fade-down"
               >
                 Sign Up
               </a>
@@ -103,23 +117,10 @@ const Register = () => {
         </div>
 
         {/* footer */}
-        <div className="absolute bottom-3 start-0 w-full text-center text-xs font-semibold text-gray-500">
-          Copyrights 2023 eliger.com
-          <a href="/privacy" target="_blank" className="mx-1">
-            privacy policy
-          </a>
-          |
-          <a href="/terms" target="_blank" className="mx-1">
-            terms
-          </a>
-          |
-          <a href="/faq" target="_blank" className="mx-1">
-            FAQ
-          </a>
-        </div>
+        <FooterSecondary />
       </div>
     </React.Fragment>
   );
 };
 
-export default Register;
+export default Login;
