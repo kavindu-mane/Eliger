@@ -1,11 +1,14 @@
-import React, { lazy } from "react";
+import React, { lazy, useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 const Circles = lazy(() => import("../components/Circles"));
 const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
 const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
 const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
+const PasswordSwitcher = lazy(() => import("../components/PasswordSwitcher"));
 
 const Register = () => {
+  const [isConfPassword, setIsConfPassword] = useState(true);
+  const [isPassword, setIsPassword] = useState(true);
   return (
     <React.Fragment>
       {/* outer div */}
@@ -30,7 +33,7 @@ const Register = () => {
             </div>
 
             {/* password */}
-            <div>
+            <div className="relative">
               <Label
                 htmlFor="password"
                 value="New Password"
@@ -41,14 +44,18 @@ const Register = () => {
                 id="password"
                 name="password"
                 required
-                type="password"
+                type={isPassword ? "password" : "text"}
                 placeholder="********"
                 className="inputs"
+              />
+              <PasswordSwitcher
+                isPassword={isPassword}
+                setIsPassword={setIsPassword}
               />
             </div>
 
             {/* confirm password */}
-            <div>
+            <div className="relative">
               <Label
                 htmlFor="confirmPassword"
                 value="Confirm Password"
@@ -59,9 +66,13 @@ const Register = () => {
                 id="confirmPassword"
                 name="confirmPassword"
                 required
-                type="password"
+                type={isConfPassword ? "password" : "text"}
                 placeholder="********"
                 className="inputs"
+              />
+              <PasswordSwitcher
+                isPassword={isConfPassword}
+                setIsPassword={setIsConfPassword}
               />
             </div>
 
