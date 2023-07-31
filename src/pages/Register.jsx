@@ -1,5 +1,6 @@
 import React, { lazy } from "react";
 import images from "../components/Data/ImageLoader";
+import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 const Circles = lazy(() => import("../components/Circles"));
 const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
 
@@ -42,9 +43,50 @@ const Register = () => {
         </div>
 
         {/* right side */}
-        <div className="min-h-screen w-full lg:w-1/2">
+        <div className="relative min-h-screen w-full lg:w-1/2">
           {/* round effect component */}
           <Circles topOpacity={25} bottomOpacity={30} />
+
+          {/* form */}
+          <form className="flex max-w-md flex-col gap-4">
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="email2" value="Your email" />
+              </div>
+              <TextInput
+                id="email2"
+                placeholder="name@flowbite.com"
+                required
+                shadow
+                type="email"
+              />
+            </div>
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="password2" value="Your password" />
+              </div>
+              <TextInput id="password2" required shadow type="password" />
+            </div>
+            <div>
+              <div className="mb-2 block">
+                <Label htmlFor="repeat-password" value="Repeat password" />
+              </div>
+              <TextInput id="repeat-password" required shadow type="password" />
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox id="agree" />
+              <Label className="flex" htmlFor="agree">
+                <p>I agree with the</p>
+                <a
+                  className="text-cyan-600 hover:underline dark:text-cyan-500"
+                  href="/forms"
+                >
+                  <p>terms and conditions</p>
+                </a>
+              </Label>
+            </div>
+            <Button type="submit">Register new account</Button>
+          </form>
         </div>
       </div>
     </React.Fragment>
