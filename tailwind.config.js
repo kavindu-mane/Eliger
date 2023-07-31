@@ -21,9 +21,15 @@ module.exports = {
           "25%": { transform: "translateY(-20px) rotate(45deg)" },
           "75%": { transform: "translateY(20px) rotate(45deg)" },
         },
+        go: {
+          "0% , 50% , 100%": { transform: "translateX(0)" },
+          "25%": { transform: "translateX(-30px)" },
+          "75%": { transform: "translateX(30px)" },
+        },
       },
       animation: {
         upDown: "upDown  5s linear infinite",
+        go: "go 5s linear infinite",
       },
     },
   },

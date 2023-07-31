@@ -4,10 +4,10 @@
 
 @layer base {
   body {
-    @apply bg-slate-100/80 text-black dark:bg-slate-900 dark:text-white overflow-x-hidden
+    @apply overflow-x-hidden bg-slate-100/80 text-black dark:bg-slate-900 dark:text-white;
   }
 
-  :root{
+  :root {
     @apply overflow-x-hidden;
   }
   .font-outline {
@@ -17,12 +17,15 @@
   .font-outline-2 {
     -webkit-text-stroke: 2px #4ade80;
   }
+
+  .inputs input {
+    @apply dark:bg-slate-700/90 dark:border dark:border-slate-500;
+  }
 }
 
 .animation-delay-1 {
   animation-delay: -1500ms;
 }
-
 
 .animation-delay-2 {
   animation-delay: -2500ms;
