@@ -1,28 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { lazy } from "react";
 import Logo from "../resources/Eliger-white.png";
-import { MdDarkMode, MdComputer, MdSunny } from "react-icons/md";
-import { Dropdown } from "flowbite-react";
-import ThemeSwitcher from "./Data/ThmeSwitecher";
-
-const themeIcons = {
-  dark: <MdDarkMode className="h-5 w-5" />,
-  light: <MdSunny className="h-5 w-5" />,
-  default: <MdComputer className="h-5 w-5" />,
-};
+const ThemeButton = lazy(() => import("./ThemeButton"));
 
 const Footer = () => {
-  const [currentTheme, setCurrentTheme] = useState(
-    !("theme" in localStorage)
-      ? "default"
-      : localStorage.theme === "dark"
-      ? "dark"
-      : "light"
-  );
-
-  useEffect(() => {
-    ThemeSwitcher();
-  }, [currentTheme]);
-
   return (
     <React.Fragment>
       <div className="w-full bg-sky-950 text-white">
@@ -45,39 +25,8 @@ const Footer = () => {
           <a href="faq" className="mx-5 my-3">
             FAQ
           </a>
-          <div className="mx-5 rounded-md bg-sky-500 p-1.5">
-            <Dropdown
-              inline
-              label={themeIcons[currentTheme]}
-              placement="top"
-              arrowIcon={false}
-            >
-              <Dropdown.Item
-                onClick={() => {
-                  setCurrentTheme("dark");
-                  localStorage.theme = "dark";
-                }}
-              >
-                {themeIcons.dark} &ensp;Dark
-              </Dropdown.Item>
-              <Dropdown.Item
-                onClick={() => {
-                  setCurrentTheme("light");
-                  localStorage.theme = "light";
-                }}
-              >
-                {themeIcons.light} &ensp;Light
-              </Dropdown.Item>
-              <Dropdown.Item
-                onClick={() => {
-                  setCurrentTheme("default");
-                  localStorage.removeItem("theme");
-                }}
-              >
-                {themeIcons.default} &ensp;Default
-              </Dropdown.Item>
-            </Dropdown>
-          </div>
+          {/* theme icon */}
+          <ThemeButton />
         </div>
         <div className="border-t border-emerald-100 border-opacity-50 py-2 text-center font-mono text-sm">
           Copyrights 2023 | eliger.com
