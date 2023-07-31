@@ -1,13 +1,18 @@
 import React, { lazy, useState } from "react";
 import { Button, Label, TextInput, Radio } from "flowbite-react";
 import { AiFillCheckCircle } from "react-icons/ai";
+
 const Circles = lazy(() => import("../components/Circles"));
 const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
 const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
 const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
+const PasswordSwitcher = lazy(() => import("../components/PasswordSwitcher"));
 
 const Register = ({ type = "customer" }) => {
   const [accType, setAccType] = useState(type);
+  const [isConfPassword, setIsConfPassword] = useState(true);
+  const [isPassword, setIsPassword] = useState(true);
+
   return (
     <React.Fragment>
       {/* outer div */}
@@ -16,7 +21,6 @@ const Register = ({ type = "customer" }) => {
         <BackgroundEffect />
         {/* round effect component */}
         <Circles />
-
         {/* header */}
         <HeaderSecondary />
 
@@ -177,7 +181,7 @@ const Register = ({ type = "customer" }) => {
               )}
 
               {/* password */}
-              <div>
+              <div className="relative">
                 <Label
                   htmlFor="password"
                   value="Password"
@@ -188,14 +192,18 @@ const Register = ({ type = "customer" }) => {
                   id="password"
                   name="password"
                   required
-                  type="password"
+                  type={isPassword ? "password" : "text"}
                   placeholder="********"
                   className="inputs"
+                />
+                <PasswordSwitcher
+                  isPassword={isPassword}
+                  setIsPassword={setIsPassword}
                 />
               </div>
 
               {/* confirm password */}
-              <div>
+              <div className="relative">
                 <Label
                   htmlFor="confirmPassword"
                   value="Confirm Password"
@@ -206,36 +214,39 @@ const Register = ({ type = "customer" }) => {
                   id="confirmPassword"
                   name="confirmPassword"
                   required
-                  type="password"
+                  type={isConfPassword ? "password" : "text"}
                   placeholder="********"
                   className="inputs"
+                />
+                <PasswordSwitcher
+                  isPassword={isConfPassword}
+                  setIsPassword={setIsConfPassword}
                 />
               </div>
             </div>
 
-            {/* submit */}
-            <Button
-              type="submit"
-              name="join"
-              value="join"
-              className="mt-5 w-2/3 place-self-center rounded-md bg-green-400 duration-300 ease-in dark:bg-emerald-500"
-              data-aos="fade-up"
-            >
-              Join Free
-            </Button>
-
-            {/* login */}
-            <div
-              className="text-center text-sm font-semibold"
-              data-aos="fade-up"
-            >
-              Have an account?
-              <a
-                href="/login"
-                className="ms-1 text-green-500 dark:text-emerald-400"
+            {/* actions */}
+            <div className="flex w-full flex-col space-y-4" data-aos="fade-up">
+              {/* submit */}
+              <Button
+                type="submit"
+                name="join"
+                value="join"
+                className="mt-5 w-2/3 place-self-center rounded-md bg-green-400 duration-300 ease-in dark:bg-emerald-500"
               >
-                Login
-              </a>
+                Join Free
+              </Button>
+
+              {/* login */}
+              <div className="text-center text-sm font-semibold">
+                Have an account?
+                <a
+                  href="/login"
+                  className="ms-1 text-green-500 dark:text-emerald-400"
+                >
+                  Login
+                </a>
+              </div>
             </div>
 
             {/* agreement */}
