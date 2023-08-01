@@ -16,7 +16,7 @@ const Register = ({ type = "customer" }) => {
   return (
     <React.Fragment>
       {/* outer div */}
-      <div className="relative flex min-h-screen w-screen flex-col font-Poppins text-slate-700 dark:text-white">
+      <div className="relative flex min-h-screen w-screen flex-col items-center justify-center font-Poppins text-slate-700 dark:text-white ">
         {/* background effect */}
         <BackgroundEffect />
         {/* round effect component */}
@@ -25,19 +25,17 @@ const Register = ({ type = "customer" }) => {
         <HeaderSecondary />
 
         {/* form */}
-        <div className="flex h-full min-h-screen w-full items-center justify-center px-6 sm:px-10">
-          <form className="my-28 flex w-full max-w-lg flex-col gap-4 sm:my-20 lg:my-5">
-            <div data-aos="fade-down">
-              {/* welcome */}
-              <h1 className="text-3xl font-bold ">Welcome!</h1>
-              {/* subtitle */}
-              <p className="mb-5 mt-1 text-sm">
-                Enter your credentials to create your account
-              </p>
-            </div>
+        <div className="my-28 flex h-auto w-full items-center justify-center px-6 sm:my-16 sm:px-10">
+          <form className="flex w-full max-w-lg flex-col gap-4">
+            {/* welcome */}
+            <h1 className="text-3xl font-bold ">Welcome!</h1>
+            {/* subtitle */}
+            <p className="mb-5 mt-1 text-sm">
+              Enter your credentials to create your account
+            </p>
 
             {/* account type */}
-            <div className="flex justify-between" data-aos="fade-down">
+            <div className="flex justify-between">
               <div className="me-1 w-full">
                 <Label
                   htmlFor="account"
@@ -83,150 +81,147 @@ const Register = ({ type = "customer" }) => {
               </div>
             </div>
 
-            {/* fields div */}
-            <div className="space-y-4" data-aos="zoom-in">
-              {/* name */}
-              <div className="flex flex-col justify-between sm:flex-row">
-                {/* first name */}
-                <div className="mb-4 w-full sm:mb-0 sm:me-1">
-                  <Label
-                    htmlFor="fname"
-                    value="First Name"
-                    className="after:ml-0.5 after:text-red-500 after:content-['*']"
-                  />
-
-                  <TextInput
-                    id="fname"
-                    name="fname"
-                    placeholder="John"
-                    required
-                    type="text"
-                    className="inputs"
-                  />
-                </div>
-                {/* last name */}
-                <div className="w-full sm:ms-1">
-                  <Label
-                    htmlFor="lname"
-                    value="Last Name"
-                    className="after:ml-0.5 after:text-red-500 after:content-['*']"
-                  />
-
-                  <TextInput
-                    id="lname"
-                    name="lname"
-                    placeholder="Tyler"
-                    required
-                    type="text"
-                    className="inputs"
-                  />
-                </div>
-              </div>
-
-              {/* phone */}
-              <div>
+            {/* name */}
+            <div className="flex flex-col justify-between sm:flex-row">
+              {/* first name */}
+              <div className="mb-4 w-full sm:mb-0 sm:me-1">
                 <Label
-                  htmlFor="phone"
-                  value="Phone No"
+                  htmlFor="fname"
+                  value="First Name"
                   className="after:ml-0.5 after:text-red-500 after:content-['*']"
                 />
 
                 <TextInput
-                  id="phone"
-                  name="phone"
-                  placeholder="+94xxxxxxxxx"
+                  id="fname"
+                  name="fname"
+                  placeholder="John"
                   required
                   type="text"
                   className="inputs"
                 />
               </div>
-
-              {/* email */}
-              <div>
+              {/* last name */}
+              <div className="w-full sm:ms-1">
                 <Label
-                  htmlFor="email"
-                  value="Email"
+                  htmlFor="lname"
+                  value="Last Name"
                   className="after:ml-0.5 after:text-red-500 after:content-['*']"
                 />
 
                 <TextInput
-                  id="email"
-                  name="email"
-                  placeholder="example@domain.com"
+                  id="lname"
+                  name="lname"
+                  placeholder="Tyler"
                   required
-                  type="email"
+                  type="text"
                   className="inputs"
-                />
-              </div>
-
-              {/* address */}
-              {accType === "owner" ? (
-                <div>
-                  <Label
-                    htmlFor="address"
-                    value="Address"
-                    className="after:ml-0.5 after:text-red-500 after:content-['*']"
-                  />
-
-                  <TextInput
-                    id="address"
-                    name="address"
-                    required
-                    type="text"
-                    className="inputs"
-                  />
-                </div>
-              ) : (
-                <></>
-              )}
-
-              {/* password */}
-              <div className="relative">
-                <Label
-                  htmlFor="password"
-                  value="Password"
-                  className="after:ml-0.5 after:text-red-500 after:content-['*']"
-                />
-
-                <TextInput
-                  id="password"
-                  name="password"
-                  required
-                  type={isPassword ? "password" : "text"}
-                  placeholder="********"
-                  className="inputs"
-                />
-                <PasswordSwitcher
-                  isPassword={isPassword}
-                  setIsPassword={setIsPassword}
-                />
-              </div>
-
-              {/* confirm password */}
-              <div className="relative">
-                <Label
-                  htmlFor="confirmPassword"
-                  value="Confirm Password"
-                  className="after:ml-0.5 after:text-red-500 after:content-['*']"
-                />
-
-                <TextInput
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  required
-                  type={isConfPassword ? "password" : "text"}
-                  placeholder="********"
-                  className="inputs"
-                />
-                <PasswordSwitcher
-                  isPassword={isConfPassword}
-                  setIsPassword={setIsConfPassword}
                 />
               </div>
             </div>
 
+            {/* phone */}
+            <div>
+              <Label
+                htmlFor="phone"
+                value="Phone No"
+                className="after:ml-0.5 after:text-red-500 after:content-['*']"
+              />
+
+              <TextInput
+                id="phone"
+                name="phone"
+                placeholder="+94xxxxxxxxx"
+                required
+                type="text"
+                className="inputs"
+              />
+            </div>
+
+            {/* email */}
+            <div>
+              <Label
+                htmlFor="email"
+                value="Email"
+                className="after:ml-0.5 after:text-red-500 after:content-['*']"
+              />
+
+              <TextInput
+                id="email"
+                name="email"
+                placeholder="example@domain.com"
+                required
+                type="email"
+                className="inputs"
+              />
+            </div>
+
+            {/* address */}
+            {accType === "owner" ? (
+              <div>
+                <Label
+                  htmlFor="address"
+                  value="Address"
+                  className="after:ml-0.5 after:text-red-500 after:content-['*']"
+                />
+
+                <TextInput
+                  id="address"
+                  name="address"
+                  required
+                  type="text"
+                  className="inputs"
+                />
+              </div>
+            ) : (
+              <></>
+            )}
+
+            {/* password */}
+            <div className="relative">
+              <Label
+                htmlFor="password"
+                value="Password"
+                className="after:ml-0.5 after:text-red-500 after:content-['*']"
+              />
+
+              <TextInput
+                id="password"
+                name="password"
+                required
+                type={isPassword ? "password" : "text"}
+                placeholder="********"
+                className="inputs"
+              />
+              <PasswordSwitcher
+                isPassword={isPassword}
+                setIsPassword={setIsPassword}
+              />
+            </div>
+
+            {/* confirm password */}
+            <div className="relative">
+              <Label
+                htmlFor="confirmPassword"
+                value="Confirm Password"
+                className="after:ml-0.5 after:text-red-500 after:content-['*']"
+              />
+
+              <TextInput
+                id="confirmPassword"
+                name="confirmPassword"
+                required
+                type={isConfPassword ? "password" : "text"}
+                placeholder="********"
+                className="inputs"
+              />
+              <PasswordSwitcher
+                isPassword={isConfPassword}
+                setIsPassword={setIsConfPassword}
+              />
+            </div>
+
             {/* actions */}
-            <div className="flex w-full flex-col space-y-4" data-aos="fade-up">
+            <div className="flex w-full flex-col space-y-4" >
               {/* submit */}
               <Button
                 type="submit"

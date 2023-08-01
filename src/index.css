@@ -19,7 +19,7 @@
   }
 
   .inputs input {
-    @apply dark:bg-slate-700/90 dark:border dark:border-slate-500;
+    @apply dark:border dark:border-slate-500 dark:bg-slate-700/90;
   }
 }
 

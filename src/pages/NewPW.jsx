@@ -12,7 +12,7 @@ const Register = () => {
   return (
     <React.Fragment>
       {/* outer div */}
-      <div className="relative flex min-h-screen w-screen flex-col font-Poppins text-slate-700 dark:text-white">
+      <div className="relative flex min-h-screen w-screen flex-col items-center justify-center font-Poppins text-slate-700 dark:text-white ">
         {/* background effect */}
         <BackgroundEffect />
         {/* round effect component */}
@@ -21,8 +21,8 @@ const Register = () => {
         <HeaderSecondary />
 
         {/* form */}
-        <div className="flex h-full min-h-screen w-full items-center justify-center px-6 sm:px-10">
-          <form className="my-28 flex w-full max-w-lg flex-col gap-4 sm:my-20 lg:my-5">
+        <div className="my-28 flex h-auto w-full items-center justify-center px-6 sm:px-10">
+          <form className="flex w-full max-w-lg flex-col gap-4">
             <div>
               {/* welcome */}
               <h1 className="text-3xl font-bold ">Recover Account</h1>

@@ -10,11 +10,11 @@ const Header = ({ bg = "bg-slate-800" }) => {
     const MENU = document.getElementById("menu").classList;
     const documentElement = document.documentElement.classList;
     if (menuOpen) {
-      MENU.replace("right-0", "-right-full");
+      MENU.add("translate-x-full");
       documentElement.remove("overflow-hidden");
       setMenuOpen(false);
     } else {
-      MENU.replace("-right-full", "right-0");
+      MENU.remove("translate-x-full");
       documentElement.add("overflow-hidden");
       setMenuOpen(true);
     }
@@ -41,7 +41,7 @@ const Header = ({ bg = "bg-slate-800" }) => {
         </a>
 
         {/* menu button */}
-        <button onClick={menuSettings} className="z-[999] me-4 md:hidden">
+        <button onClick={menuSettings} className="z-[999] me-8 md:hidden">
           {!menuOpen ? (
             <RiMenu3Fill className="h-6 w-6 text-white duration-200 hover:text-cyan-400" />
           ) : (
@@ -57,7 +57,7 @@ const Header = ({ bg = "bg-slate-800" }) => {
                 key={data.text}
                 href={data.link}
                 className={
-                  "h-fit w-auto rounded-sm px-5 py-1.5 text-white duration-200 ease-in last:ms-5 last:bg-green-400 last:px-5 last:py-1.5 last:shadow-md last:drop-shadow-md hover:text-cyan-400 last:hover:bg-orange-400 last:hover:text-white md:hover:bg-transparent"
+                  "h-fit last:me-2 w-auto rounded-sm px-5 py-1.5 text-white duration-200 ease-in last:ms-5 last:bg-green-400 last:px-5 last:py-1.5 last:shadow-md last:drop-shadow-md hover:text-cyan-400 last:hover:bg-orange-400 last:hover:text-white md:hover:bg-transparent"
                 }
               >
                 {data.text}
@@ -69,7 +69,7 @@ const Header = ({ bg = "bg-slate-800" }) => {
         {/* header link area vertical */}
         <div
           id="menu"
-          className="fixed -right-full top-0 z-[99] flex h-screen w-screen duration-200"
+          className="fixed left-0 top-0 z-[99] flex h-screen w-screen translate-x-full duration-200"
         >
           <div
             className="h-full w-full backdrop-blur-sm"

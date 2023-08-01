@@ -7,16 +7,14 @@ const Statistics = lazy(() => import("./Statistics"));
 const HomeHeader = () => {
   return (
     <React.Fragment>
-      <div
-        className="relative z-10 h-[65rem] md:h-[68rem]"
-        style={{
-          backgroundImage: `url(${HeaderImage})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "auto",
-        }}
-      >
+      <div className="relative z-10 flex h-full w-screen flex-col items-center">
+        <img
+          src={HeaderImage}
+          alt="wave"
+          className="absolute top-0 -z-50 h-auto min-h-screen w-screen overflow-y-visible object-cover"
+        />
         <Header bg="bg-transparent" />
-        <div className="mt-32 grid gap-3 md:mt-44 md:grid-cols-2">
+        <div className="mt-10 grid h-full w-full place-items-center gap-3 md:mt-20 md:grid-cols-2">
           {/* left side */}
           <div className="flex items-center justify-center text-center md:text-left">
             <div>
@@ -39,7 +37,7 @@ const HomeHeader = () => {
               {/* sign up to ride button */}
               <div data-aos="zoom-in">
                 <a
-                  className="rounded-md bg-[#22B84C] px-3 py-2 font-noto text-white hover:bg-orange-600"
+                  className="rounded-md bg-[#22B84C] px-3 py-2 font-noto text-white duration-300 ease-in hover:bg-orange-400"
                   href="/ride"
                 >
                   Sign up to Ride

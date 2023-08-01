@@ -61,7 +61,6 @@ const Home = () => {
     "Vauniya",
   ];
 
-
   // fields of book now option
   const bookNowFields = () => {
     return (
@@ -178,7 +177,7 @@ const Home = () => {
       <img
         alt="carousel items"
         src={images[`carousel-${i}.jpg`]}
-        className="h-[150vh] w-full object-cover opacity-40"
+        className="h-[150vh] max-h-[120rem] min-h-[60rem] w-full object-cover opacity-40"
         key={i}
       />
     );
@@ -189,9 +188,9 @@ const Home = () => {
       {/* home page hero section */}
       <HomeHeader />
       {/* carousel with find form */}
-      <div className="relative my-10 -mt-[50vh] flex h-[150vh] w-full flex-col justify-center">
+      <div className="relative my-10 -mt-[30vh] flex h-[150vh] max-h-[120rem] min-h-[60rem] w-full flex-col justify-center ">
         {/* carousel */}
-        <div className="absolute h-[150vh] w-full bg-slate-950">
+        <div className="absolute h-[150vh] max-h-[120rem] min-h-[60rem] w-full bg-slate-950">
           <Carousel leftControl rightControl indicators={true}>
             {[1, 2, 3, 4, 5].map((i) => {
               return carouselImages(i);
@@ -200,7 +199,7 @@ const Home = () => {
         </div>
 
         {/* search */}
-        <div className="relative mb-10 flex w-full translate-y-1/3 justify-center px-3">
+        <div className="relative z-50 mb-10 flex w-full translate-y-1/4 justify-center px-3 md:translate-y-1/2">
           {/* find form */}
           <div
             data-aos="fade-up"
@@ -393,13 +392,13 @@ const Home = () => {
           className="absolute bottom-10 mt-20 flex w-screen justify-center"
         >
           <a
-            className="mx-5 rounded-md bg-emerald-500 px-3 py-2 font-noto text-white duration-300 ease-in hover:bg-orange-400"
+            className="mx-5 rounded-md bg-emerald-500 px-3 py-2 text-center font-noto text-white duration-300 ease-in hover:bg-orange-400"
             href="/rent"
           >
             Sign up to Rent
           </a>
           <a
-            className="mx-5 rounded-md bg-emerald-500 px-3 py-2 font-noto text-white duration-300 ease-in hover:bg-orange-400"
+            className="mx-5 rounded-md bg-emerald-500 px-3 py-2 text-center font-noto text-white duration-300 ease-in hover:bg-orange-400"
             href="/ride"
           >
             Sign up to Ride
