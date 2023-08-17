@@ -1,9 +1,6 @@
 import React from "react";
-import { MdOutlineManageAccounts, MdSupportAgent } from "react-icons/md";
-import { VscRequestChanges } from "react-icons/vsc";
+
 import { BiLogOut } from "react-icons/bi";
-import { GiCarKey, GiCarSeat } from "react-icons/gi";
-import { ImUsers } from "react-icons/im";
 
 const enable =
   "my-2 flex cursor-pointer items-center rounded-md p-2 text-start hover:bg-gray-300 dark:hover:bg-gray-900";
