@@ -10,6 +10,7 @@ const Register = lazy(() => import("../../pages/Register"));
 const ForgetPW = lazy(() => import("../../pages/ForgetPW"));
 const Error = lazy(() => import("../../pages/Error"));
 const AdminDashboard = lazy(() => import("../../pages/AdminDashboard"));
+const HelpAndSupportDashboard = lazy(() => import("../../pages/HelpAndSupportDashboard"));
 
 const LinkArray = {
   "/": <Home />,
@@ -24,6 +25,7 @@ const LinkArray = {
   "/terms": <Terms />,
   "/*": <Error />,
   "/admindashboard": <AdminDashboard />,
+  "/helpandsupportdashboard": <HelpAndSupportDashboard />,
 };
 
 export default LinkArray;
