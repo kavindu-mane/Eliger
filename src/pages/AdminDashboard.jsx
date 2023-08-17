@@ -1,22 +1,39 @@
 import React, { lazy } from "react";
 import topics from "../components/Data/adminsidebarData";
+import AccountOption from "../components/Data/AdminGraph/AccountOption";
+import VehicleOption from "../components/Data/AdminGraph/VehicleOption";
 const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
 const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
 const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
 const SideBar = lazy(() => import("../components/SideBar"));
-//const gr1 = lazy(() => import("../components/Admin/gr1"));
-//const gr2 = lazy(() => import("../components/Admin/gr2"));
+const Graphs = lazy(() => import("../components/Admin/Graphs"));
 
 const Admindashboard = () => {
-  // const data = [
-  //   { accountType: "Vehicle Owner", amount: 1000 },
-  //   { accountType: "Customer", amount: 1500 },
-  //   { accountType: "Driver", amount: 2000 },
-  //   // Add more data points as needed
-  // ];
+  const accountsData = {
+    labels: ["Vehicle Owner", "Customer", "Driver"],
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: [10, 23, 12, 12, 13, 14, 17],
+        borderColor: "#fff",
+        backgroundColor: "#fff",
+      },
+    ],
+  };
+  const vehicleData = {
+    labels: ["Cars", "Van", "Tuk Tuk","Bike"],
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: [10, 23, 12, 12, 13, 14, 17],
+        borderColor: "#fff",
+        backgroundColor: "#fff",
+      },
+    ],
+  };
   return (
     <React.Fragment>
-      <div className="flex min-h-screen flex-col items-center justify-between">
+      <div className="relative flex min-h-screen flex-col items-center justify-between">
         {/* middle container */}
         <div className="relative flex h-full w-screen flex-col items-center">
           {/* bluer effect */}
@@ -26,23 +43,18 @@ const Admindashboard = () => {
           <div className="flex min-h-screen w-screen flex-col lg:flex-row">
             {/* Side Bar Area */}
             <div className="h-auto min-h-max w-full lg:w-1/4 xl:w-1/5">
-              <SideBar title={"Admin Dashboard"} dataset={topics}/>
+              <SideBar title={"Administrator"} dataset={topics} />
             </div>
 
             {/* Body Area */}
             <div className="h-auto min-h-max w-full lg:w-3/4 xl:w-4/5">
               {/*Two Graphs*/}
-              <div className="h-auto w-full lg:h-1/2">
-                <div className="flex flex-col pl-10 lg:flex-row">
-                  {/* <gr1 data={data} /> */}
-                  <div className="mb-4 mr-10 mt-10 border border-slate-500 pl-4 pt-8 text-center text-xl">
-                    Graphs
-                  </div>
-                  <div className="mb-4 mr-10 mt-10 border border-slate-500 pl-4 pt-8 text-center text-xl">
-                    Graphs
-                  </div>
-
-                  {/* <gr2 /> */}
+              <div className="flex h-auto w-full flex-col pl-10 pt-20 lg:h-1/2 lg:flex-row">
+                <div className="w-1/2">
+                  <Graphs options={AccountOption} data={accountsData} />
+                </div>
+                <div className="w-1/2">
+                  <Graphs options={VehicleOption} data={vehicleData} />
                 </div>
               </div>
 
