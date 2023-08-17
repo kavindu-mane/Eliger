@@ -4,7 +4,7 @@ const ThemeButton = lazy(() => import("./ThemeButton"));
 
 const HeaderSecondary = () => {
   return (
-    <div className="absolute start-0 top-0 my-2 flex h-fit w-screen items-center justify-between">
+    <div className="absolute start-0 top-0 my-2 flex h-fit w-screen items-center justify-between z-50">
       {/* dark theme logo */}
       <div className="h-fit-w-fit flex">
         <a href="/">
