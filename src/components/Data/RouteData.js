@@ -9,6 +9,7 @@ const Login = lazy(() => import("../../pages/Login"));
 const Register = lazy(() => import("../../pages/Register"));
 const ForgetPW = lazy(() => import("../../pages/ForgetPW"));
 const Error = lazy(() => import("../../pages/Error"));
+const AdminDashboard = lazy(() => import("../../pages/AdminDashboard"));
 
 const LinkArray = {
   "/": <Home />,
@@ -22,6 +23,7 @@ const LinkArray = {
   "/privacy": <Privacy />,
   "/terms": <Terms />,
   "/*": <Error />,
+  "/admindashboard": <AdminDashboard />,
 };
 
 export default LinkArray;
