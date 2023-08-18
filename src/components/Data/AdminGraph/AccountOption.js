@@ -1,36 +1,61 @@
-const colors = { heading: "#00BD56", lable: "#CBB279" };
-if (
-  localStorage.theme === "dark" ||
-  (!("theme" in localStorage) &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches)
-) {
-    colors.heading = "#f00"
-}
 const AccountOption = {
-  indexAxis: "y",
   elements: {
     bar: {
       borderWidth: 2,
     },
   },
   responsive: true,
+  scales: {
+    y: {
+      ticks: {
+        color: "#0f172a",
+        font: {
+          weight: "bold",
+          size: 14,
+        },
+      },
+      title: {
+        text: "Amount",
+        display: true,
+        color: "0f172a",
+        font: {
+          size: 16,
+          weight: "bold",
+        },
+      },
+    },
+    x: {
+      ticks: {
+        color: "#0f172a",
+        font: {
+          weight: "bold",
+          size: 14,
+        },
+      },
+      title: {
+        text: "Account Type",
+        display: true,
+        color: "0f172a",
+        font: {
+          size: 16,
+          weight: "bold",
+        },
+      },
+    },
+  },
   plugins: {
     legend: {
-      position: "right",
+      display: false,
     },
     title: {
       display: true,
-      color: colors.heading,
+      color: "#0f172a",
       font: {
-        size: 16,
+        size: 25,
         weight: "bold",
       },
-
       text: "Acount Type Vs Amount",
     },
-    lable:{
-        color: colors.lable
-    }
   },
 };
 export default AccountOption;
