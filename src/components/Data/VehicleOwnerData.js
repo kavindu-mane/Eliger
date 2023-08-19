@@ -1,10 +1,4 @@
-import {
-  MdRateReview,
-  MdCarRental,
-  MdViewSidebar,
-  MdCardMembership,
-} from "react-icons/md";
-import { VscRequestChanges, VscFeedback } from "react-icons/vsc";
+import { VscRequestChanges } from "react-icons/vsc";
 import { GiCarKey, GiCarSeat } from "react-icons/gi";
 import { ImUsers } from "react-icons/im";
 
