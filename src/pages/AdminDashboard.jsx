@@ -53,13 +53,6 @@ const Admindashboard = () => {
     { percentage: 116.76, isPositive: true },
   ];
 
-  var today = new Date();
-  var month = today.toLocaleString("default", { month: "long" });
-  console.log(month + " " + today.getDate());
-  today.setDate(today.getDate() - 30);
-  var month = today.toLocaleString("default", { month: "long" });
-  console.log(month + " " + today.getDate());
-
   useEffect(() => {});
   return (
     <React.Fragment>
@@ -90,18 +83,17 @@ const Admindashboard = () => {
                     options={AccountOption}
                     data={accountsData}
                     title={"Acount Type Vs Amount"}
+                    percentages={accTypePercentage}
                   />
                 </div>
 
                 {/* graph 2 */}
                 <div className="flex w-full justify-center xl:w-1/2">
-                  <BarGraph
+                  {/* <BarGraph
                     options={VehicleOption}
                     data={vehicleData}
                     title={"Vehicle Type Vs Amount"}
-                  >
-                    <div className="my-3">gdb</div>
-                  </BarGraph>
+                  /> */}
                 </div>
               </div>
 
