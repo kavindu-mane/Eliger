@@ -5,6 +5,7 @@ const AccountOption = {
     },
   },
   responsive: true,
+  maintainAspectRatio: false,
   scales: {
     y: {
       ticks: {
@@ -46,15 +47,6 @@ const AccountOption = {
   plugins: {
     legend: {
       display: false,
-    },
-    title: {
-      display: true,
-      color: "#0f172a",
-      font: {
-        size: 25,
-        weight: "bold",
-      },
-      text: "Acount Type Vs Amount",
     },
   },
 };

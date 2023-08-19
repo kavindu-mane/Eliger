@@ -6,6 +6,7 @@ const VehicleOption = {
     },
   },
   responsive: true,
+  maintainAspectRatio: false,
   scales: {
     y: {
       ticks: {
@@ -47,15 +48,6 @@ const VehicleOption = {
   plugins: {
     legend: {
       display: false,
-    },
-    title: {
-      display: true,
-      color: "#0f172a",
-      font: {
-        size: 25,
-        weight: "bold",
-      },
-      text: "Vehicle Type Vs Amount",
     },
   },
 };
