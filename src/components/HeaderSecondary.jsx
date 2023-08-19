@@ -9,7 +9,7 @@ const HeaderSecondary = () => {
       <div className="h-fit-w-fit flex">
         <a href="/">
           <img
-            src={images["Eliger-white.png"]}
+            src={images["eliger-white.svg"]}
             alt="logo dark"
             className="ms-4 hidden w-32 dark:block md:w-36"
           />
@@ -17,7 +17,7 @@ const HeaderSecondary = () => {
         {/* light theme logo */}
         <a href="/">
           <img
-            src={images["Eliger.png"]}
+            src={images["eliger.svg"]}
             alt="logo light"
             className="ms-4 block w-32 dark:hidden md:w-36"
           />

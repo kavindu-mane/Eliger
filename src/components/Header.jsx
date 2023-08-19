@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../resources/Eliger-white.png";
+import Logo from "../resources/eliger-white.svg";
 import { RiCloseLine, RiMenu3Fill } from "react-icons/ri";
 import HeaderData from "./Data/HeaderData";
 

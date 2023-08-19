@@ -1,4 +1,4 @@
-import React, { lazy, useState, useEffect } from "react";
+import React, { lazy } from "react";
 import topics from "../components/Data/driverSidebar";
 import { Label, Radio } from "flowbite-react";
 import { Card } from "flowbite-react";
@@ -7,7 +7,6 @@ const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
 const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
 const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
 const SideBar = lazy(() => import("../components/SideBarDriver"));
-const Graphs = lazy(() => import("../components/Admin/Graphs"));
 const DriverGraph = lazy(() => import("../components/Driver/DriverGraph"));
 
 const DriverDashboard = () => {
@@ -59,7 +58,7 @@ const DriverDashboard = () => {
                     <p className="font-normal text-gray-700 dark:text-gray-400"></p>
                   </Card>
                 </div>
-                <p className="mt-4 ml-10 font-bold tracking-wide text-green-500">
+                <p className="ml-10 mt-4 font-bold tracking-wide text-green-500">
                   Availability of the driver
                 </p>
                 <div className="flex justify-end">
@@ -95,7 +94,7 @@ const DriverDashboard = () => {
                 <p className=" ml-10 font-bold tracking-wide text-green-500">
                   Month vs Earnings (2023)
                 </p>
-                <div className="ml-10 mb-6 w-9/12 justify-center">
+                <div className="mb-6 ml-10 w-9/12 justify-center">
                   <div className="flex justify-center">
                     <DriverGraph />
                   </div>

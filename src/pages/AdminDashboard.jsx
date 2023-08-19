@@ -53,7 +53,7 @@ const Admindashboard = () => {
             {/* Body Area */}
             <div className="h-auto min-h-max w-full px-5">
               {/*Two Graphs*/}
-              <div className="flex h-auto flex-col gap-y-10 pt-20 xl:flex-row">
+              <div className="flex h-auto flex-col pt-20 xl:flex-row">
                 <div className="flex w-full justify-center xl:w-1/2">
                   <Graphs
                     options={AccountOption}
