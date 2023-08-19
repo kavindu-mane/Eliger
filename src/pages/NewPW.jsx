@@ -1,10 +1,18 @@
 import React, { lazy, useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
-const Circles = lazy(() => import("../components/Circles"));
-const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
-const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
-const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
-const PasswordSwitcher = lazy(() => import("../components/PasswordSwitcher"));
+const Circles = lazy(() => import("../components/common/Circles"));
+const HeaderSecondary = lazy(() =>
+  import("../components/common/HeaderSecondary")
+);
+const FooterSecondary = lazy(() =>
+  import("../components/common/FooterSecondary")
+);
+const BackgroundEffect = lazy(() =>
+  import("../components/common/BackgroundEffect")
+);
+const PasswordSwitcher = lazy(() =>
+  import("../components/common/PasswordSwitcher")
+);
 
 const Register = () => {
   const [isConfPassword, setIsConfPassword] = useState(true);

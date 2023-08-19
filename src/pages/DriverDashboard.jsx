@@ -3,10 +3,16 @@ import topics from "../components/Data/driverSidebar";
 import { Label, Radio } from "flowbite-react";
 import { Card } from "flowbite-react";
 
-const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
-const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
-const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
-const SideBar = lazy(() => import("../components/SideBarDriver"));
+const HeaderSecondary = lazy(() =>
+  import("../components/common/HeaderSecondary")
+);
+const FooterSecondary = lazy(() =>
+  import("../components/common/FooterSecondary")
+);
+const BackgroundEffect = lazy(() =>
+  import("../components/common/BackgroundEffect")
+);
+const SideBar = lazy(() => import("../components/common/SideBarDriver"));
 const DriverGraph = lazy(() => import("../components/Driver/DriverGraph"));
 
 const DriverDashboard = () => {

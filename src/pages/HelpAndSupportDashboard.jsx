@@ -1,9 +1,15 @@
 import React, { lazy } from "react";
 import topics from "../components/Data/helpandsupportData";
-const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
-const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
-const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
-const SideBar = lazy(() => import("../components/SideBar"));
+const HeaderSecondary = lazy(() =>
+  import("../components/common/HeaderSecondary")
+);
+const FooterSecondary = lazy(() =>
+  import("../components/common/FooterSecondary")
+);
+const BackgroundEffect = lazy(() =>
+  import("../components/common/BackgroundEffect")
+);
+const SideBar = lazy(() => import("../components/common/SideBar"));
 //const gr1 = lazy(() => import("../components/Admin/gr1"));
 //const gr2 = lazy(() => import("../components/Admin/gr2"));
 

@@ -10,7 +10,7 @@ import {
 import images from "../components/Data/ImageLoader";
 const VehicleCard = lazy(() => import("../components/Home/VehicleCard"));
 const HomeHeader = lazy(() => import("../components/Home/HomeHeader"));
-const Footer = lazy(() => import("../components/Footer"));
+const Footer = lazy(() => import("../components/common/Footer"));
 
 // get current time
 const currentTime = () => {

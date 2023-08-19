@@ -2,11 +2,13 @@ import React, { lazy } from "react";
 import privacyImg from "../resources/privacy.svg";
 import PrivacyData from "../components/Data/PrivacyData";
 
-const Accordions = lazy(() => import("../components/Accordions"));
-const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
-const Header = lazy(() => import("../components/Header"));
-const Footer = lazy(() => import("../components/Footer"));
-const Titles = lazy(() => import("../components/Titles"));
+const Accordions = lazy(() => import("../components/common/Accordions"));
+const BackgroundEffect = lazy(() =>
+  import("../components/common/BackgroundEffect")
+);
+const Header = lazy(() => import("../components/common/Header"));
+const Footer = lazy(() => import("../components/common/Footer"));
+const Titles = lazy(() => import("../components/common/Titles"));
 
 const Privacy = () => {
   return (

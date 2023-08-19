@@ -1,6 +1,6 @@
 import React, { lazy } from "react";
-const Header = lazy(() => import("../components/Header"));
-const Footer = lazy(() => import("../components/Footer"));
+const Header = lazy(() => import("../components/common/Header"));
+const Footer = lazy(() => import("../components/common/Footer"));
 
 const Error = () => {
   return (

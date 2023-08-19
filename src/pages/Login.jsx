@@ -1,11 +1,19 @@
 import React, { lazy, useState } from "react";
 import { Button, Label, Checkbox, TextInput } from "flowbite-react";
 
-const Circles = lazy(() => import("../components/Circles"));
-const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
-const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
-const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
-const PasswordSwitcher = lazy(() => import("../components/PasswordSwitcher"));
+const Circles = lazy(() => import("../components/common/Circles"));
+const HeaderSecondary = lazy(() =>
+  import("../components/common/HeaderSecondary")
+);
+const FooterSecondary = lazy(() =>
+  import("../components/common/FooterSecondary")
+);
+const BackgroundEffect = lazy(() =>
+  import("../components/common/BackgroundEffect")
+);
+const PasswordSwitcher = lazy(() =>
+  import("../components/common/PasswordSwitcher")
+);
 
 const Login = () => {
   const [isPassword, setIsPassword] = useState(true);
@@ -72,9 +80,7 @@ const Login = () => {
               />
             </div>
 
-            <div
-              className="flex max-w-lg justify-between gap-4"
-            >
+            <div className="flex max-w-lg justify-between gap-4">
               <div className="flex items-center gap-2">
                 {/*checkbox*/}
                 <Checkbox defaultChecked id="accept" name="accept" />
@@ -104,9 +110,7 @@ const Login = () => {
             </Button>
 
             {/* sign up */}
-            <div
-              className="text-center text-sm font-semibold"
-            >
+            <div className="text-center text-sm font-semibold">
               Don't have an account?{" "}
               <a
                 href="/ride"

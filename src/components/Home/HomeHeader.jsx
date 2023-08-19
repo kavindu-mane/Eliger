@@ -1,7 +1,7 @@
 import React, { lazy } from "react";
 import HeaderImage from "../../resources/header-bg.svg";
 import HomeImage from "../../resources/home-image.svg";
-const Header = lazy(() => import("../Header"));
+const Header = lazy(() => import("../common/Header"));
 const Statistics = lazy(() => import("./Statistics"));
 
 const HomeHeader = () => {

@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import Logo from "../resources/eliger-white.svg";
+import Logo from "../../resources/eliger-white.svg";
 const ThemeButton = lazy(() => import("./ThemeButton"));
 
 const Footer = () => {

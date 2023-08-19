@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Logo from "../resources/eliger-white.svg";
+import Logo from "../../resources/eliger-white.svg";
 import { RiCloseLine, RiMenu3Fill } from "react-icons/ri";
-import HeaderData from "./Data/HeaderData";
+import HeaderData from "../Data/HeaderData";
 
 const Header = ({ bg = "bg-slate-800" }) => {
   const [menuOpen, setMenuOpen] = useState(false);

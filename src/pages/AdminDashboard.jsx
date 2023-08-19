@@ -2,11 +2,17 @@ import React, { lazy, useEffect } from "react";
 import topics from "../components/Data/adminsidebarData";
 import AccountOption from "../components/Data/AdminGraph/AccountOption";
 import VehicleOption from "../components/Data/AdminGraph/VehicleOption";
-const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
-const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
-const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
-const SideBar = lazy(() => import("../components/SideBar"));
-const Graphs = lazy(() => import("../components/Admin/Graphs"));
+const HeaderSecondary = lazy(() =>
+  import("../components/common/HeaderSecondary")
+);
+const FooterSecondary = lazy(() =>
+  import("../components/common/FooterSecondary")
+);
+const BackgroundEffect = lazy(() =>
+  import("../components/common/BackgroundEffect")
+);
+const SideBar = lazy(() => import("../components/common/SideBar"));
+const BarGraph = lazy(() => import("../components/common/BarGraph"));
 
 const Admindashboard = () => {
   // account chart
@@ -51,18 +57,21 @@ const Admindashboard = () => {
             </div>
 
             {/* Body Area */}
-            <div className="h-auto min-h-max w-full px-5">
+            <div className="h-auto min-h-max w-full px-5 pt-5 lg:pt-20">
               {/*Two Graphs*/}
-              <div className="flex h-auto flex-col pt-20 xl:flex-row">
+              <h1 className="mb-3 px-3 font-ABeeZee text-2xl font-semibold">
+                New Registrations
+              </h1>
+              <div className="flex h-auto flex-col xl:flex-row">
                 <div className="flex w-full justify-center xl:w-1/2">
-                  <Graphs
+                  <BarGraph
                     options={AccountOption}
                     data={accountsData}
                     title={"Acount Type Vs Amount"}
                   />
                 </div>
                 <div className="flex w-full justify-center xl:w-1/2">
-                  <Graphs
+                  <BarGraph
                     options={VehicleOption}
                     data={vehicleData}
                     title={"Vehicle Type Vs Amount"}

@@ -1,9 +1,11 @@
 import React, { lazy } from "react";
 import TermsData from "../components/Data/TermsData";
-const Header = lazy(() => import("../components/Header"));
-const Footer = lazy(() => import("../components/Footer"));
-const Titles = lazy(() => import("../components/Titles"));
-const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
+const Header = lazy(() => import("../components/common/Header"));
+const Footer = lazy(() => import("../components/common/Footer"));
+const Titles = lazy(() => import("../components/common/Titles"));
+const BackgroundEffect = lazy(() =>
+  import("../components/common/BackgroundEffect")
+);
 
 const Terms = () => {
   return (
@@ -27,7 +29,7 @@ const Terms = () => {
             </p>
             <div className="flex flex-col space-y-10 ">
               {/* terms data */}
-              {TermsData.map((terms , i) => {
+              {TermsData.map((terms, i) => {
                 return (
                   <div className="space-y-3" data-aos="fade-up" key={i}>
                     <h3 className="text-lg font-semibold">{terms.title}</h3>

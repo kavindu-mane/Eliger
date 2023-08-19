@@ -2,11 +2,19 @@ import React, { lazy, useState } from "react";
 import { Button, Label, TextInput, Radio } from "flowbite-react";
 import { AiFillCheckCircle } from "react-icons/ai";
 
-const Circles = lazy(() => import("../components/Circles"));
-const HeaderSecondary = lazy(() => import("../components/HeaderSecondary"));
-const FooterSecondary = lazy(() => import("../components/FooterSecondary"));
-const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
-const PasswordSwitcher = lazy(() => import("../components/PasswordSwitcher"));
+const Circles = lazy(() => import("../components/common/Circles"));
+const HeaderSecondary = lazy(() =>
+  import("../components/common/HeaderSecondary")
+);
+const FooterSecondary = lazy(() =>
+  import("../components/common/FooterSecondary")
+);
+const BackgroundEffect = lazy(() =>
+  import("../components/common/BackgroundEffect")
+);
+const PasswordSwitcher = lazy(() =>
+  import("../components/common/PasswordSwitcher")
+);
 
 const Register = ({ type = "customer" }) => {
   const [accType, setAccType] = useState(type);
@@ -221,7 +229,7 @@ const Register = ({ type = "customer" }) => {
             </div>
 
             {/* actions */}
-            <div className="flex w-full flex-col space-y-4" >
+            <div className="flex w-full flex-col space-y-4">
               {/* submit */}
               <Button
                 type="submit"

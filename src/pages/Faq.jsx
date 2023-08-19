@@ -2,11 +2,13 @@ import React, { lazy } from "react";
 import faqImg from "../resources/faq-image.svg";
 import FaqData from "../components/Data/FaqData";
 
-const Accordions = lazy(() => import("../components/Accordions"));
-const BackgroundEffect = lazy(() => import("../components/BackgroundEffect"));
-const Header = lazy(() => import("../components/Header"));
-const Footer = lazy(() => import("../components/Footer"));
-const Titles = lazy(() => import("../components/Titles"));
+const Accordions = lazy(() => import("../components/common/Accordions"));
+const BackgroundEffect = lazy(() =>
+  import("../components/common/BackgroundEffect")
+);
+const Header = lazy(() => import("../components/common/Header"));
+const Footer = lazy(() => import("../components/common/Footer"));
+const Titles = lazy(() => import("../components/common/Titles"));
 
 const Faq = () => {
   return (

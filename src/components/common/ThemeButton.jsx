@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ThemeSwitcher from "./Data/ThmeSwitecher";
+import ThemeSwitcher from "../Data/ThmeSwitecher";
 import { MdDarkMode, MdComputer, MdSunny } from "react-icons/md";
 import { Dropdown } from "flowbite-react";
 
