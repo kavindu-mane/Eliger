@@ -49,7 +49,7 @@ const Graphs = ({
     },
   ];
   return (
-    <div className="relative m-3 h-fit flex w-full max-w-2xl flex-col rounded-lg bg-white px-4 py-6 shadow-[0_0_50px_20px_#64748b30] drop-shadow-xl dark:bg-[#334257] dark:shadow-[0_0_50px_20px_#0f172a30] 2xl:max-w-3xl">
+    <div className="relative m-3 flex h-fit w-full max-w-2xl flex-col rounded-lg bg-white px-4 py-5 shadow-[0_0_50px_20px_#64748b30] drop-shadow-xl dark:bg-[#334257] dark:shadow-[0_0_50px_20px_#0f172a30] 2xl:max-w-3xl">
       <h1 className="mb-5 text-center font-Poppins text-xl font-medium">
         {title}
       </h1>
@@ -75,7 +75,7 @@ const Graphs = ({
       ) : (
         <></>
       )}
-      <div className="h-80">
+      <div className="h-64">
         <Bar
           options={options}
           data={data}
@@ -84,7 +84,7 @@ const Graphs = ({
       </div>
       {/* percentages */}
       {percentageActive ? (
-        <div className="mb-5 mt-8 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           {percentages.map((values, i) => {
             return (
               <div
@@ -100,7 +100,7 @@ const Graphs = ({
                   )}
                   <span
                     className={
-                      "font-ABeeZee text-3xl font-extrabold " +
+                      "font-ABeeZee text-2xl font-extrabold " +
                       (values.isPositive ? "text-green-500" : "text-red-500")
                     }
                   >
@@ -108,7 +108,7 @@ const Graphs = ({
                   </span>
                 </p>
                 {/* line 2 */}
-                <p className="text-md mt-1 font-Poppins font-medium text-[#4A3933] dark:text-[#FFD93D]">
+                <p className="font-Poppins text-sm font-medium text-[#4A3933] dark:text-[#FFD93D]">
                   {data.labels[i]}
                 </p>
               </div>
