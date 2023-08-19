@@ -8,13 +8,21 @@ import {
   Title,
   Tooltip,
   Legend,
+  PointElement,
+  LineElement,
+  ArcElement,
+  RadialLinearScale,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Chart } from "react-chartjs-2";
 
 ChartJS.register(
+  PointElement,
+  LineElement,
   CategoryScale,
   LinearScale,
+  RadialLinearScale,
   BarElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend
@@ -24,9 +32,10 @@ const Graphs = ({
   options,
   data,
   title,
+  type = "bar",
   titlesActive = true,
   percentageActive = true,
-  percentages = [],
+  dateSettings,
 }) => {
   // data getting
   const getDate = (date) => {
@@ -36,18 +45,13 @@ const Graphs = ({
       today.toLocaleString("default", { month: "long" }) + " " + today.getDate()
     );
   };
+  // calculate percentages
+  const getPercentage = (index) => {
+    const past = data.datasets[0].data[index];
+    const current = data.datasets[1].data[index];
+    return (((current - past) * 100) / past).toFixed(2);
+  };
 
-  // date settings
-  const dateSettings = [
-    {
-      start: 59,
-      end: 30,
-    },
-    {
-      start: 30,
-      end: 0,
-    },
-  ];
   return (
     <div className="relative m-3 flex h-fit w-full max-w-2xl flex-col rounded-lg bg-white px-4 py-5 shadow-[0_0_50px_20px_#64748b30] drop-shadow-xl dark:bg-[#334257] dark:shadow-[0_0_50px_20px_#0f172a30] 2xl:max-w-3xl">
       <h1 className="mb-5 text-center font-Poppins text-xl font-medium">
@@ -76,7 +80,8 @@ const Graphs = ({
         <></>
       )}
       <div className="h-64">
-        <Bar
+        <Chart
+          type={type}
           options={options}
           data={data}
           className="w-full dark:invert-[0.95]"
@@ -85,7 +90,9 @@ const Graphs = ({
       {/* percentages */}
       {percentageActive ? (
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          {percentages.map((values, i) => {
+          {data.labels.map((values, i) => {
+            const percentage = getPercentage(i);
+            const isPositive = percentage >= 0;
             return (
               <div
                 key={i}
@@ -93,7 +100,7 @@ const Graphs = ({
               >
                 {/* line 1 */}
                 <p className="flex items-center space-x-2">
-                  {values.isPositive ? (
+                  {isPositive ? (
                     <BiSolidUpArrow className="text-emerald-600" />
                   ) : (
                     <BiSolidDownArrow className="text-red-500" />
@@ -101,15 +108,15 @@ const Graphs = ({
                   <span
                     className={
                       "font-ABeeZee text-2xl font-extrabold " +
-                      (values.isPositive ? "text-green-500" : "text-red-500")
+                      (isPositive ? "text-green-500" : "text-red-500")
                     }
                   >
-                    {values.percentage}
+                    {percentage}%
                   </span>
                 </p>
                 {/* line 2 */}
                 <p className="font-Poppins text-sm font-medium text-[#4A3933] dark:text-[#FFD93D]">
-                  {data.labels[i]}
+                  {values}
                 </p>
               </div>
             );

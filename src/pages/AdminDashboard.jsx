@@ -2,6 +2,8 @@ import React, { lazy, useEffect } from "react";
 import topics from "../components/Data/adminsidebarData";
 import AccountOption from "../components/Data/AdminGraph/AccountOption";
 import VehicleOption from "../components/Data/AdminGraph/VehicleOption";
+import RevenueOption from "../components/Data/AdminGraph/RevenueOption";
+import BookingOption from "../components/Data/AdminGraph/BookingOption";
 const HeaderSecondary = lazy(() =>
   import("../components/common/HeaderSecondary")
 );
@@ -12,9 +14,17 @@ const BackgroundEffect = lazy(() =>
   import("../components/common/BackgroundEffect")
 );
 const SideBar = lazy(() => import("../components/common/SideBar"));
-const BarGraph = lazy(() => import("../components/common/BarGraph"));
+const BarGraph = lazy(() => import("../components/common/Graphs"));
 
 const Admindashboard = () => {
+  // week days
+  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  // day labels
+  const dayLable = Array.from({ length: 7 }, (_, i) => {
+    let today = new Date();
+    today.setDate(today.getDate() + i - 6);
+    return weekDays[today.getDay()];
+  });
   // account chart
   const accountsData = {
     labels: ["Vehicle Owner", "Customer", "Driver"],
@@ -52,18 +62,67 @@ const Admindashboard = () => {
     ],
   };
 
-  // percentages - account type vs amount
-  const accTypePercentage = [
-    { percentage: 24.76, isPositive: true },
-    { percentage: 28.76, isPositive: false },
-    { percentage: 116.76, isPositive: true },
+  // revenue chart
+  const revenueData = {
+    labels: dayLable,
+    datasets: [
+      {
+        data: [100, 230, 120, 120, 390, 150, 280],
+        borderWidth: 2,
+        borderColor: "#C70039",
+        backgroundColor: "#C70039",
+      },
+      {
+        data: [140, 180, 270, 100, 480, 520, 290],
+        borderWidth: 2,
+        borderColor: "#22A699",
+        backgroundColor: "#22A699",
+      },
+    ],
+  };
+
+  // booking chart
+  const bookingData = {
+    labels: dayLable,
+    datasets: [
+      {
+        data: [10, 21, 17, 12, 39, 29, 28],
+        borderWidth: 2,
+        borderColor: "#9A208C",
+        backgroundColor: "#9A208C",
+      },
+      {
+        data: [14, 18, 27, 10, 23, 12, 19],
+        borderWidth: 2,
+        borderColor: "#3A8891",
+        backgroundColor: "#3A8891",
+      },
+    ],
+  };
+
+
+  // date settings - months
+  const dateSettingsMonths = [
+    {
+      start: 59,
+      end: 30,
+    },
+    {
+      start: 30,
+      end: 0,
+    },
   ];
 
-  const vehicleTypePercentage = [
-    { percentage: 24.76, isPositive: true },
-    { percentage: 28.76, isPositive: false },
-    { percentage: 116.76, isPositive: true },
-    { percentage: 30.7, isPositive: false },
+  // date settings - months
+  const dateSettingsWeeks = [
+    {
+      start: 13,
+      end: 7,
+    },
+    {
+      start: 7,
+      end: 0,
+    },
   ];
 
   useEffect(() => {});
@@ -83,33 +142,64 @@ const Admindashboard = () => {
 
           {/* Body Area */}
           <div className="relative flex w-full flex-col justify-between px-5 pt-4 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
-            {/* heading */}
-            <div className="">
-              <h1 className="my-3 px-3 font-ABeeZee text-2xl font-semibold">
-                New Registrations
-              </h1>
-              {/*Two Graphs*/}
-              <div className="flex h-auto flex-col xl:flex-row">
+            {/* top content area */}
+            <div>
+              {/*four Graphs*/}
+              <div className="flex h-auto flex-wrap">
                 {/* graph 1 */}
                 <div className="flex w-full justify-center xl:w-1/2">
                   <BarGraph
                     options={AccountOption}
                     data={accountsData}
-                    title={"Acount Type Vs Amount"}
-                    percentages={accTypePercentage}
+                    title={
+                      <span>
+                        New Registrations
+                        <small className="ms-1 text-sm font-bold italic">
+                          - Account Type Vs Amount
+                        </small>
+                      </span>
+                    }
+                    dateSettings={dateSettingsMonths}
                   />
                 </div>
-
                 {/* graph 2 */}
                 <div className="flex w-full justify-center xl:w-1/2">
                   <BarGraph
                     options={VehicleOption}
                     data={vehicleData}
-                    title={"Vehicle Type Vs Amount"}
-                    percentages={vehicleTypePercentage}
+                    title={
+                      <span>
+                        New Registrations
+                        <small className="ms-1 text-sm font-bold italic">
+                          - Vehicle Type Vs Amount
+                        </small>
+                      </span>
+                    }
+                    dateSettings={dateSettingsMonths}
+                  />
+                </div>
+                {/* graph 3 */}
+                <div className="flex w-full justify-center xl:w-1/2">
+                  <BarGraph
+                    type="line"
+                    options={RevenueOption}
+                    data={revenueData}
+                    title={"Days vs Revenue"}
+                    dateSettings={dateSettingsWeeks}
+                  />
+                </div>
+                {/* graph 4 */}
+                <div className="flex w-full justify-center xl:w-1/2">
+                  <BarGraph
+                    type="line"
+                    options={BookingOption}
+                    data={bookingData}
+                    title={"Days Vs Booking"}
+                    dateSettings={dateSettingsWeeks}
                   />
                 </div>
               </div>
+
               {/*vehicle registration*/}
               <div className="h-auto w-full px-5">
                 <div className="border border-slate-500 p-1 pb-4 pt-4 text-center text-2xl">
