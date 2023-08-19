@@ -19,10 +19,19 @@ ChartJS.register(
   Legend
 );
 
-const Graphs = ({ options, data }) => {
+const Graphs = ({ options, data , title}) => {
   return (
-    <div className="m-3 h-fit w-full max-w-2xl rounded-lg bg-white px-4 py-6 shadow-[0_0_50px_20px_#64748b30] drop-shadow-xl dark:bg-[#404B69] dark:shadow-[0_0_50px_20px_#0f172a30]">
-      <Bar options={options} data={data} className="dark:invert-[0.95]" />
+    <div className="relative m-3 w-full max-w-3xl rounded-lg bg-white px-4 py-6 shadow-[0_0_50px_20px_#64748b30] drop-shadow-xl dark:bg-[#404B69] dark:shadow-[0_0_50px_20px_#0f172a30] xl:w-[30rem] 2xl:w-full">
+      <h1 className="text-center font-Poppins text-2xl font-semibold mb-5">
+        {title}
+      </h1>
+      <div className="h-[25rem]">
+        <Bar
+          options={options}
+          data={data}
+          className="w-full dark:invert-[0.95]"
+        />
+      </div>
     </div>
   );
 };

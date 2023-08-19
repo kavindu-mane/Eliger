@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, useEffect } from "react";
 import topics from "../components/Data/adminsidebarData";
 import AccountOption from "../components/Data/AdminGraph/AccountOption";
 import VehicleOption from "../components/Data/AdminGraph/VehicleOption";
@@ -33,6 +33,8 @@ const Admindashboard = () => {
       },
     ],
   };
+
+  useEffect(() => {});
   return (
     <React.Fragment>
       <div className="relative flex min-h-screen flex-col items-center justify-between">
@@ -44,19 +46,27 @@ const Admindashboard = () => {
           {/* Content-Area */}
           <div className="flex min-h-screen w-screen flex-col lg:flex-row">
             {/* Side Bar Area */}
-            <div className="h-auto min-h-max w-full lg:w-1/3 lg:max-w-xs xl:w-1/4">
+            <div className="h-auto min-h-max w-full min-w-max lg:max-w-xs">
               <SideBar title={"Administrator"} dataset={topics} />
             </div>
 
             {/* Body Area */}
-            <div className="h-auto min-h-max px-5 lg:w-2/3 xl:w-3/4 2xl:w-full">
+            <div className="h-auto min-h-max w-full px-5">
               {/*Two Graphs*/}
-              <div className="flex h-auto w-full flex-col gap-y-10 pt-20 xl:flex-row">
-                <div className="flex w-full justify-center">
-                  <Graphs options={AccountOption} data={accountsData} />
+              <div className="flex h-auto flex-col gap-y-10 pt-20 xl:flex-row">
+                <div className="flex w-full justify-center xl:w-1/2">
+                  <Graphs
+                    options={AccountOption}
+                    data={accountsData}
+                    title={"Acount Type Vs Amount"}
+                  />
                 </div>
-                <div className="flex w-full justify-center">
-                  <Graphs options={VehicleOption} data={vehicleData} />
+                <div className="flex w-full justify-center xl:w-1/2">
+                  <Graphs
+                    options={VehicleOption}
+                    data={vehicleData}
+                    title={"Vehicle Type Vs Amount"}
+                  />
                 </div>
               </div>
 
