@@ -40,18 +40,16 @@ const Graphs = ({
   // date settings
   const dateSettings = [
     {
-      id: 0,
       start: 59,
       end: 30,
     },
     {
-      id: 1,
       start: 30,
       end: 0,
     },
   ];
   return (
-    <div className="relative m-3 flex w-full max-w-2xl flex-col rounded-lg bg-white px-4 py-6 shadow-[0_0_50px_20px_#64748b30] drop-shadow-xl dark:bg-[#404B69] dark:shadow-[0_0_50px_20px_#0f172a30] xl:w-[30rem] 2xl:w-full 2xl:max-w-3xl">
+    <div className="relative m-3 h-fit flex w-full max-w-2xl flex-col rounded-lg bg-white px-4 py-6 shadow-[0_0_50px_20px_#64748b30] drop-shadow-xl dark:bg-[#334257] dark:shadow-[0_0_50px_20px_#0f172a30] 2xl:max-w-3xl">
       <h1 className="mb-5 text-center font-Poppins text-xl font-medium">
         {title}
       </h1>
@@ -59,17 +57,16 @@ const Graphs = ({
       {/* titles */}
       {titlesActive ? (
         <div className="my-3 w-full place-self-end">
-          {dateSettings.map((dates) => {
+          {dateSettings.map((dates, i) => {
             return (
-              <div className="flex items-center justify-end space-x-4">
+              <div key={i} className="flex items-center justify-end space-x-4">
                 <span className="text-end font-Poppins text-sm font-medium">
                   {getDate(dates.start)}&nbsp;-&nbsp;
                   {dates.end === 0 ? "Today" : getDate(dates.end)}
                 </span>
                 <span
-                  className={`h-4 w-10 rounded-sm bg-[${
-                    data.datasets[dates.id].backgroundColor
-                  }] dark:invert-[0.95]`}
+                  className={"h-4 w-10 rounded-sm dark:invert-[0.95]"}
+                  style={{ backgroundColor: data.datasets[i].backgroundColor }}
                 ></span>
               </div>
             );
@@ -87,12 +84,12 @@ const Graphs = ({
       </div>
       {/* percentages */}
       {percentageActive ? (
-        <div className="mb-5 mt-8 flex flex-col items-center justify-between gap-2 px-16 sm:flex-row xl:flex-col 2xl:flex-row">
+        <div className="mb-5 mt-8 flex flex-wrap items-center justify-center gap-3">
           {percentages.map((values, i) => {
             return (
               <div
                 key={i}
-                className="flex w-full flex-col items-center rounded-lg bg-white p-4 text-center shadow-xl ring-1 ring-gray-500 drop-shadow-xl dark:bg-slate-800"
+                className="flex min-w-[10rem] flex-col items-center rounded-lg bg-white p-4 text-center shadow-xl ring-1 ring-gray-500 drop-shadow-xl dark:bg-slate-800"
               >
                 {/* line 1 */}
                 <p className="flex items-center space-x-2">
@@ -111,7 +108,7 @@ const Graphs = ({
                   </span>
                 </p>
                 {/* line 2 */}
-                <p className="text-md mt-2 font-Poppins font-medium text-[#4A3933] dark:text-[#FFD93D]">
+                <p className="text-md mt-1 font-Poppins font-medium text-[#4A3933] dark:text-[#FFD93D]">
                   {data.labels[i]}
                 </p>
               </div>

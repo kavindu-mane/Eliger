@@ -41,7 +41,13 @@ const Admindashboard = () => {
         data: [10, 23, 12, 12],
         borderWidth: 0,
         borderRadius: 5,
-        backgroundColor: ["#D61C4E", "#2D4059", "#0D7E83", "#FD841F"],
+        backgroundColor: "#d61c4e",
+      },
+      {
+        data: [14, 18, 27, 10],
+        borderWidth: 0,
+        borderRadius: 5,
+        backgroundColor: "#2d4059",
       },
     ],
   };
@@ -51,6 +57,13 @@ const Admindashboard = () => {
     { percentage: 24.76, isPositive: true },
     { percentage: 28.76, isPositive: false },
     { percentage: 116.76, isPositive: true },
+  ];
+
+  const vehicleTypePercentage = [
+    { percentage: 24.76, isPositive: true },
+    { percentage: 28.76, isPositive: false },
+    { percentage: 116.76, isPositive: true },
+    { percentage: 30.70, isPositive: false },
   ];
 
   useEffect(() => {});
@@ -89,11 +102,12 @@ const Admindashboard = () => {
 
                 {/* graph 2 */}
                 <div className="flex w-full justify-center xl:w-1/2">
-                  {/* <BarGraph
+                  <BarGraph
                     options={VehicleOption}
                     data={vehicleData}
                     title={"Vehicle Type Vs Amount"}
-                  /> */}
+                    percentages={vehicleTypePercentage}
+                  />
                 </div>
               </div>
 
