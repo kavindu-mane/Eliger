@@ -63,32 +63,32 @@ const Admindashboard = () => {
     { percentage: 24.76, isPositive: true },
     { percentage: 28.76, isPositive: false },
     { percentage: 116.76, isPositive: true },
-    { percentage: 30.70, isPositive: false },
+    { percentage: 30.7, isPositive: false },
   ];
 
   useEffect(() => {});
   return (
     <React.Fragment>
-      <div className="relative flex min-h-screen flex-col items-center justify-between">
-        {/* middle container */}
-        <div className="relative flex h-full w-screen flex-col items-center">
-          {/* bluer effect */}
-          <BackgroundEffect />
-          <HeaderSecondary />
-          {/* Content-Area */}
-          <div className="flex min-h-screen w-screen flex-col lg:flex-row">
-            {/* Side Bar Area */}
-            <div className="h-auto min-h-max w-full min-w-max lg:max-w-xs">
-              <SideBar title={"Administrator"} dataset={topics} />
-            </div>
+      {/* container */}
+      <div className="relative flex h-full w-screen flex-col items-center">
+        {/* bluer effect */}
+        <BackgroundEffect />
+        <HeaderSecondary />
+        {/* Content-Area */}
+        <div className="flex w-screen flex-col lg:h-screen lg:flex-row lg:overflow-hidden">
+          {/* Side Bar Area */}
+          <div className="w-full min-w-max lg:h-screen lg:max-w-xs">
+            <SideBar title={"Administrator"} dataset={topics} />
+          </div>
 
-            {/* Body Area */}
-            <div className="h-auto min-h-max w-full px-5 pt-5 lg:pt-20">
-              {/*Two Graphs*/}
-              {/* heading */}
+          {/* Body Area */}
+          <div className="relative flex w-full flex-col justify-between px-5 pt-4 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
+            {/* heading */}
+            <div className="">
               <h1 className="my-3 px-3 font-ABeeZee text-2xl font-semibold">
                 New Registrations
               </h1>
+              {/*Two Graphs*/}
               <div className="flex h-auto flex-col xl:flex-row">
                 {/* graph 1 */}
                 <div className="flex w-full justify-center xl:w-1/2">
@@ -110,7 +110,6 @@ const Admindashboard = () => {
                   />
                 </div>
               </div>
-
               {/*vehicle registration*/}
               <div className="h-auto w-full px-5">
                 <div className="border border-slate-500 p-1 pb-4 pt-4 text-center text-2xl">
@@ -118,9 +117,12 @@ const Admindashboard = () => {
                 </div>
               </div>
             </div>
+            {/* footer */}
+            <div className="relative">
+              <FooterSecondary />
+            </div>
           </div>
         </div>
-        <FooterSecondary />
       </div>
     </React.Fragment>
   );
