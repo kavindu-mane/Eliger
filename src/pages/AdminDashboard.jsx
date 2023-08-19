@@ -2,7 +2,6 @@ import React, { lazy, useEffect } from "react";
 import topics from "../components/Data/adminsidebarData";
 import AccountOption from "../components/Data/AdminGraph/AccountOption";
 import VehicleOption from "../components/Data/AdminGraph/VehicleOption";
-import { BiSolidUpArrow } from "react-icons/bi";
 const HeaderSecondary = lazy(() =>
   import("../components/common/HeaderSecondary")
 );
@@ -47,7 +46,19 @@ const Admindashboard = () => {
     ],
   };
 
-  // percentages - account type vs ammount
+  // percentages - account type vs amount
+  const accTypePercentage = [
+    { percentage: 24.76, isPositive: true },
+    { percentage: 28.76, isPositive: false },
+    { percentage: 116.76, isPositive: true },
+  ];
+
+  var today = new Date();
+  var month = today.toLocaleString("default", { month: "long" });
+  console.log(month + " " + today.getDate());
+  today.setDate(today.getDate() - 30);
+  var month = today.toLocaleString("default", { month: "long" });
+  console.log(month + " " + today.getDate());
 
   useEffect(() => {});
   return (
@@ -79,41 +90,7 @@ const Admindashboard = () => {
                     options={AccountOption}
                     data={accountsData}
                     title={"Acount Type Vs Amount"}
-                  >
-                    {/* pass children */}
-                    <div className="my-3 w-full place-self-end">
-                      {/* past month */}
-                      <div className="flex items-center justify-end space-x-4">
-                        <span className="text-end font-Poppins text-sm font-medium">
-                          June 19 - July 19
-                        </span>
-                        <span className="h-4 w-10 rounded-sm bg-[#059669] dark:invert-[0.95]"></span>
-                      </div>
-                      {/* current month */}
-                      <div className="flex items-center justify-end space-x-4">
-                        <span className="text-end font-Poppins text-sm font-medium">
-                          July 19 - Today
-                        </span>
-                        <span className="h-4 w-10 rounded-sm bg-[#ea580c] dark:invert-[0.95]"></span>
-                      </div>
-                      {/* percentage */}
-                      <div className="mt-8 flex justify-between ps-14">
-                        {[1, 2, 3].map((i) => {
-                          return (
-                            <p
-                              key={i}
-                              className="flex items-center space-x-2 text-center"
-                            >
-                              <BiSolidUpArrow className="text-green-500" />
-                              <span className="font-ABeeZee text-4xl font-extrabold">
-                                20.4%
-                              </span>
-                            </p>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </BarGraph>
+                  />
                 </div>
 
                 {/* graph 2 */}
