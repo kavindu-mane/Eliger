@@ -1,7 +1,7 @@
 import React, { lazy } from "react";
 import { Label, Radio } from "flowbite-react";
 import { Card } from "flowbite-react";
-import topics from "../components/Data/vehicleOwnerData";
+import topics from "../components/Data/VehicleOwnerData";
 const HeaderSecondary = lazy(() =>
   import("../components/common/HeaderSecondary")
 );
@@ -12,16 +12,8 @@ const BackgroundEffect = lazy(() =>
   import("../components/common/BackgroundEffect")
 );
 const SideBar = lazy(() => import("../components/common/SideBar"));
-//const gr1 = lazy(() => import("../components/Admin/gr1"));
-//const gr2 = lazy(() => import("../components/Admin/gr2"));
 const DriverGraph = lazy(() => import("../components/Driver/DriverGraph"));
 const VehicleOwnerDashboard = () => {
-  // const data = [
-  //   { accountType: "Vehicle Owner", amount: 1000 },
-  //   { accountType: "Customer", amount: 1500 },
-  //   { accountType: "Driver", amount: 2000 },
-  //   // Add more data points as needed
-  // ];
   return (
     <React.Fragment>
       <div className="flex min-h-screen flex-col items-center justify-between">
@@ -119,7 +111,7 @@ const VehicleOwnerDashboard = () => {
                 <ul class="my-4 space-y-3">
                   <li>
                     <a
-                      href="#"
+                      href="/"
                       class="group flex items-center rounded-lg bg-gray-50 p-3 text-base font-bold text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
                     >
                       <svg
@@ -153,7 +145,7 @@ const VehicleOwnerDashboard = () => {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/"
                       class="group flex items-center rounded-lg bg-gray-50 p-3 text-base font-bold text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
                     >
                       <svg
@@ -187,7 +179,7 @@ const VehicleOwnerDashboard = () => {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/"
                       class="group flex items-center rounded-lg bg-gray-50 p-3 text-base font-bold text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
                     >
                       <svg

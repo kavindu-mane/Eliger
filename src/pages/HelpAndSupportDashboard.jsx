@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import topics from "../components/Data/helpandsupportData";
+import topics from "../components/Data/HelpandsupportData";
 const HeaderSecondary = lazy(() =>
   import("../components/common/HeaderSecondary")
 );
@@ -10,16 +10,8 @@ const BackgroundEffect = lazy(() =>
   import("../components/common/BackgroundEffect")
 );
 const SideBar = lazy(() => import("../components/common/SideBar"));
-//const gr1 = lazy(() => import("../components/Admin/gr1"));
-//const gr2 = lazy(() => import("../components/Admin/gr2"));
 
 const HelpAndSupportDashboard = () => {
-  // const data = [
-  //   { accountType: "Vehicle Owner", amount: 1000 },
-  //   { accountType: "Customer", amount: 1500 },
-  //   { accountType: "Driver", amount: 2000 },
-  //   // Add more data points as needed
-  // ];
   return (
     <React.Fragment>
       <div className="flex min-h-screen flex-col items-center justify-between">
