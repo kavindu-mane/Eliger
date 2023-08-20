@@ -1,6 +1,14 @@
 import React, { useState } from "react";
-import { Button, Checkbox, Label, TextInput, Dropdown } from "flowbite-react";
+import {
+  Button,
+  Checkbox,
+  Label,
+  TextInput,
+  Radio,
+  Select,
+} from "flowbite-react";
 import DatePicker from "react-datepicker";
+import { AiFillCheckCircle } from "react-icons/ai";
 import "react-datepicker/dist/react-datepicker.css";
 
 // district list
@@ -32,44 +40,55 @@ const districtArray = [
   "Vauniya",
 ];
 
+// get tommorow
+const getTomorrow = () => {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  return tomorrow;
+};
+
 const FindVehicles = () => {
-  const [category, setCategory] = useState("Car");
   const [bookingMethod, setBookingMethod] = useState("Book Now");
-  const [district, setDistrict] = useState("Colombo");
-  const [driverNeeded, setDriverNeeded] = useState("With Driver");
   const [startDate, setStartDate] = useState(new Date());
-  //   const [isPassedTime, setIsPassedTime] = useState(true);
+  const [endDate, setEndDate] = useState(getTomorrow());
 
   // filter times with comparing current time
   const filterPassedTime = (time) => {
     const currentDate = new Date();
     const selectedDate = new Date(time);
     const isPassed = currentDate.getTime() < selectedDate.getTime();
-    // setIsPassedTime(isPassed);
     return isPassed;
   };
-
-  // change time to current, if user select wrong time
 
   // fields of book now option
   const bookNowFields = () => {
     return (
       <>
+        {/* pick up location */}
         <div>
           <div className="mb-2 block">
             <Label htmlFor="pick-up" value="Pick up location" />
           </div>
-          <TextInput id="pick-up" type="text" placeholder="Pickup address" />
+          <TextInput
+            id="pick-up"
+            type="text"
+            placeholder="Pickup address"
+            name="pick-up"
+          />
         </div>
 
+        {/* current location checkbox */}
         <div className="-mt-1 flex items-center gap-2">
           <Checkbox
             id="current-location"
             className=" border-2 border-slate-700"
+            name="currenrt-location"
           />
           <Label htmlFor="current-location">Use my current location</Label>
         </div>
 
+        {/* destination location */}
         <div>
           <div className="mb-2 block">
             <Label htmlFor="destination" value="Destination location" />
@@ -78,13 +97,16 @@ const FindVehicles = () => {
             id="destination"
             type="text"
             placeholder="Destination address"
+            name="destination"
           />
         </div>
 
+        {/* pick up time */}
         <div>
-          <div className="mb-2 flex flex-col">
+          <div className="flex flex-col">
             <Label htmlFor="pick-time" value="Pick-up time" />
             <DatePicker
+              id="pick-time"
               selected={startDate}
               onChange={(date) =>
                 setStartDate(date > new Date() ? date : new Date())
@@ -93,6 +115,7 @@ const FindVehicles = () => {
               filterTime={filterPassedTime}
               minDate={new Date()}
               dateFormat="yyyy/MMMM/d , hh:mm aa"
+              name="start-time"
               required
               timeIntervals={10}
               className="mt-3 w-full rounded-md border-none py-2.5 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
@@ -107,54 +130,71 @@ const FindVehicles = () => {
   const rentOutFields = () => {
     return (
       <>
+        {/* driver */}
         <div>
           <div className="mb-2 block">
             <Label htmlFor="driver" value="Driver" />
           </div>
-          <Dropdown inline label={driverNeeded} id="driver">
-            <Dropdown.Item onClick={() => setDriverNeeded("With Driver")}>
-              With Driver
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => setDriverNeeded("Without Driver")}>
-              Without Driver
-            </Dropdown.Item>
-          </Dropdown>
+          <Select id="driver" name="driver" required>
+            <option value="with-driver">With Driver</option>
+            <option value="without-driver">Without Driver</option>
+          </Select>
         </div>
+        {/* district */}
         <div>
           <div className="mb-2 block">
             <Label htmlFor="district" value="District" />
           </div>
-          <Dropdown
-            inline
-            label={district}
-            id="district"
-            className="h-44 overflow-y-scroll"
-          >
-            {districtArray.map((v) => {
+          <Select id="district" name="district" required>
+            {districtArray.map((district, i) => {
               return (
-                <Dropdown.Item key={v} onClick={() => setDistrict(v)}>
-                  {v}
-                </Dropdown.Item>
+                <option key={i} value={district}>
+                  {district}
+                </option>
               );
             })}
-          </Dropdown>
+          </Select>
         </div>
 
+        {/* duration */}
         <div>
           <div className="mb-2 block">
             <Label htmlFor="duration" value="Duration" />
           </div>
           <div
             id="duration"
-            className="flex flex-col items-center justify-between md:flex-row"
+            className="flex flex-col items-center justify-between gap-y-1 space-y-1 md:flex-row md:gap-x-2"
           >
-            <span className="my-1 w-full text-start md:me-2 md:max-w-[3rem]">
-              From :
-            </span>
-
-            <span className="mx-2 my-1 w-full text-start md:max-w-[2rem]">
-              To :
-            </span>
+            {/* start date */}
+            <div className="flex w-full items-center gap-x-2">
+              <span className="my-1 w-12 text-start font-Poppins text-sm font-semibold md:min-w-fit">
+                From :
+              </span>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                minDate={new Date()}
+                dateFormat="yyyy / MMMM / dd"
+                name="from-date"
+                required
+                className="w-full rounded-md border-none py-2.5 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
+              />
+            </div>
+            {/* end date */}
+            <div className="flex w-full items-center gap-x-2">
+              <span className="my-1 w-12 text-start font-Poppins text-sm font-semibold md:min-w-fit">
+                To :
+              </span>
+              <DatePicker
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                minDate={getTomorrow()}
+                dateFormat="yyyy / MMMM / dd"
+                name="to-date"
+                required
+                className="w-full rounded-md border-none py-2.5 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
+              />
+            </div>
           </div>
         </div>
       </>
@@ -165,49 +205,73 @@ const FindVehicles = () => {
     <React.Fragment>
       <div
         data-aos="fade-up"
-        className="w-full max-w-xl rounded-md border border-slate-600 bg-gray-200 p-8 shadow-lg drop-shadow-lg dark:bg-gray-800 sm:w-2/3 lg:w-1/2"
+        className="w-full max-w-xl rounded-md border border-slate-600 bg-gray-200 p-8 shadow-lg drop-shadow-lg dark:bg-gray-800 sm:w-4/5 lg:w-1/2"
       >
         <h1 className="mx-1 mb-10 ps-2 text-center font-noto text-2xl text-slate-900 dark:text-white md:ps-5 md:text-3xl">
           Find Vehicles
         </h1>
         <form className="flex w-full max-w-lg flex-col gap-4">
-          <div>
-            <div className="mb-2 block">
-              <Label htmlFor="category" value="Vehicle Category" />
-            </div>
-            <Dropdown inline label={category} id="category">
-              <Dropdown.Item onClick={() => setCategory("Bike")}>
-                Bike
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => setCategory("Tuk Tuk")}>
-                Tuk Tuk
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => setCategory("Car")}>
-                Car
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => setCategory("Van")}>
-                Van
-              </Dropdown.Item>
-            </Dropdown>
-          </div>
-
+          {/* booking method */}
           <div>
             <div className="mb-2 block">
               <Label htmlFor="b-method" value="Booking Method" />
             </div>
-            <Dropdown inline label={bookingMethod} id="b-method">
-              <Dropdown.Item onClick={() => setBookingMethod("Book Now")}>
-                Book Now
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => setBookingMethod("Rentout")}>
-                Rentout
-              </Dropdown.Item>
-            </Dropdown>
+
+            {/* radio buttons */}
+            <div className="flex gap-1" id="b-method">
+              {["Book Now", "Rentout"].map((method, i) => {
+                return (
+                  <Label className="w-full cursor-pointer" key={i}>
+                    <Radio
+                      name="booking-type"
+                      value={method}
+                      className="inputs peer sr-only"
+                      defaultChecked={method === "Book Now"}
+                      onClick={() => setBookingMethod(method)}
+                    />
+                    <div className="flex h-14 w-full items-center justify-center rounded-md bg-gray-500 text-transparent peer-checked:bg-green-400 peer-checked:text-white">
+                      <AiFillCheckCircle className="h-5 w-5" />
+                      <span className="mx-2 font-semibold text-white">
+                        {method}
+                      </span>
+                    </div>
+                  </Label>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* vehicle category */}
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="v-method" value="Vehicle Category" />
+            </div>
+            <div className="grid grid-cols-2 gap-1 sm:flex" id="v-method">
+              {["Car", "Bike", "Tuk Tuk", "Van"].map((vehicle, i) => {
+                return (
+                  <Label className="w-full cursor-pointer" key={i}>
+                    <Radio
+                      name="vehicle-category"
+                      value={vehicle}
+                      className="inputs peer sr-only"
+                      defaultChecked={vehicle === "Car"}
+                    />
+                    <div className="flex h-14 w-full items-center justify-center rounded-md bg-gray-500 text-gray-400 peer-checked:bg-indigo-500 peer-checked:text-white">
+                      <AiFillCheckCircle className="h-5 w-5" />
+                      <span className="mx-2 font-semibold text-white">
+                        {vehicle}
+                      </span>
+                    </div>
+                  </Label>
+                );
+              })}
+            </div>
           </div>
 
           {bookingMethod === "Book Now" ? bookNowFields() : rentOutFields()}
-
-          <Button type="submit">Find</Button>
+          <Button type="submit" className="mt-3">
+            Find
+          </Button>
         </form>
       </div>
     </React.Fragment>
