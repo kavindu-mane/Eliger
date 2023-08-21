@@ -40,7 +40,7 @@ const Home = () => {
           <div
             className="flex h-full w-full justify-center xl:justify-end"
           >
-            <FindVehicles />
+            <FindVehicles/>
           </div>
           {/* find form text */}
           <div className="relative ms-20 hidden w-full items-center xl:flex">

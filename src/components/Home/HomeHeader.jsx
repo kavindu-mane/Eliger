@@ -7,7 +7,7 @@ const Statistics = lazy(() => import("./Statistics"));
 const HomeHeader = () => {
   return (
     <React.Fragment>
-      <div className="shadow-[0_0_50px_50px_#0f172a] bg-slate-900 relative z-10 flex h-auto min-h-[50rem] w-screen flex-col items-center overflow-y-visible">
+      <div className="md:shadow-[0_0_50px_50px_#0f172a] md:bg-slate-900 relative z-10 flex h-auto min-h-[50rem] w-screen flex-col items-center overflow-y-visible">
         <img
           src={HeaderImage}
           alt="wave"

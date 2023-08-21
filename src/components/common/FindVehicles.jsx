@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import { Autocomplete } from "@react-google-maps/api";
 import {
   Button,
   Checkbox,
@@ -52,6 +53,8 @@ const FindVehicles = ({ isEmbed = false }) => {
   const [bookingMethod, setBookingMethod] = useState("Book Now");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(getTomorrow());
+  const originRef = useRef();
+  const destinationRef = useRef();
 
   // filter times with comparing current time
   const filterPassedTime = (time) => {
@@ -70,12 +73,15 @@ const FindVehicles = ({ isEmbed = false }) => {
           <div className="mb-2 block">
             <Label htmlFor="pick-up" value="Pick up location" />
           </div>
-          <TextInput
-            id="pick-up"
-            type="text"
-            placeholder="Pickup address"
-            name="pick-up"
-          />
+          <Autocomplete>
+            <TextInput
+              id="pick-up"
+              type="text"
+              placeholder="Pickup address"
+              name="pick-up"
+              ref={originRef}
+            />
+          </Autocomplete>
         </div>
 
         {/* current location checkbox */}
@@ -93,12 +99,14 @@ const FindVehicles = ({ isEmbed = false }) => {
           <div className="mb-2 block">
             <Label htmlFor="destination" value="Destination location" />
           </div>
-          <TextInput
-            id="destination"
-            type="text"
-            placeholder="Destination address"
-            name="destination"
-          />
+          <Autocomplete>
+            <TextInput
+              id="destination"
+              type="text"
+              placeholder="Destination address"
+              name="destination"
+            />
+          </Autocomplete>
         </div>
 
         {/* pick up time */}
@@ -167,7 +175,7 @@ const FindVehicles = ({ isEmbed = false }) => {
           >
             {/* start date */}
             <div className="flex w-full items-center gap-x-2">
-              <span className="my-1 w-12 text-start font-Poppins text-sm font-semibold md:min-w-fit">
+              <span className="my-1 w-14 text-start font-Poppins text-sm font-semibold md:min-w-fit">
                 From :
               </span>
               <DatePicker
@@ -182,7 +190,7 @@ const FindVehicles = ({ isEmbed = false }) => {
             </div>
             {/* end date */}
             <div className="flex w-full items-center gap-x-2">
-              <span className="my-1 w-12 text-start font-Poppins text-sm font-semibold md:min-w-fit">
+              <span className="my-1 w-14 text-start font-Poppins text-sm font-semibold md:min-w-fit">
                 To :
               </span>
               <DatePicker
@@ -217,7 +225,7 @@ const FindVehicles = ({ isEmbed = false }) => {
           {/* booking method */}
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="b-method" value="Booking Method" />
+              <Label value="Booking Method" />
             </div>
 
             {/* radio buttons */}
@@ -247,7 +255,7 @@ const FindVehicles = ({ isEmbed = false }) => {
           {/* vehicle category */}
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="v-method" value="Vehicle Category" />
+              <Label value="Vehicle Category" />
             </div>
             <div className="grid grid-cols-2 gap-1 sm:flex" id="v-method">
               {["Car", "Bike", "Tuk Tuk", "Van"].map((vehicle, i) => {
