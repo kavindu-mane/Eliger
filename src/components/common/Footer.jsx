@@ -5,7 +5,7 @@ const ThemeButton = lazy(() => import("./ThemeButton"));
 const Footer = () => {
   return (
     <React.Fragment>
-      <div className="w-full bg-sky-950 text-white">
+      <div className="w-full bg-sky-950 text-white text-sm">
         <div className="flex flex-col items-center justify-center pb-4 pt-6 md:flex-row">
           <a href="/" className="">
             <img src={Logo} alt="logo" className="w-28 md:me-5" />

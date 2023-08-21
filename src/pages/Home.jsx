@@ -13,7 +13,7 @@ const Home = () => {
       <img
         alt="carousel items"
         src={images[`carousel-${i}.jpg`]}
-        className="h-[180vh] max-h-[120rem] min-h-[60rem] w-full object-cover opacity-40"
+        className="h-screen min-h-[50rem] w-full object-cover opacity-40"
         key={i}
       />
     );
@@ -24,9 +24,9 @@ const Home = () => {
       {/* home page hero section */}
       <HomeHeader />
       {/* carousel with find form */}
-      <div className="relative my-10 -mt-[50vh] flex h-[180vh] max-h-[120rem] min-h-[60rem] w-full flex-col justify-center md:-mt-[30vh]">
+      <div className="relative flex min-h-[50rem] w-full h-screen flex-col justify-center">
         {/* carousel */}
-        <div className="absolute h-[180vh] max-h-[120rem] min-h-[60rem] w-full bg-slate-950">
+        <div className="absolute hidden sm:block h-screen min-h-[50rem] w-full bg-slate-950">
           <Carousel leftControl rightControl indicators={true}>
             {[1, 2, 3, 4, 5].map((i) => {
               return carouselImages(i);
@@ -35,11 +35,10 @@ const Home = () => {
         </div>
 
         {/* search */}
-        <div className="relative z-50 mb-10 flex w-full translate-y-[20vh] justify-center px-3 md:translate-y-1/4">
+        <div className="absolute start-0 top-1/2 z-50 mb-10 flex w-full -translate-y-1/2 justify-center px-3">
           {/* find form */}
           <div
-            data-aos="fade-up"
-            className="flex w-full justify-center xl:justify-end"
+            className="flex h-full w-full justify-center xl:justify-end"
           >
             <FindVehicles />
           </div>
@@ -67,7 +66,7 @@ const Home = () => {
       </div>
 
       {/* vehicle types */}
-      <div className="relative z-0 my-10 pb-16 pt-5">
+      <div className="relative z-0 my-10 pb-16">
         {/* left matrix */}
         <img
           src={images["matrix.svg"]}
@@ -79,7 +78,7 @@ const Home = () => {
         <img
           src={images["matrix.svg"]}
           alt="matrix"
-          className="animation-delay-2 absolute left-1/3 top-5 -z-0 -translate-x-1/2 animate-upDown opacity-50 dark:opacity-20"
+          className="animation-delay-2 absolute right-0 top-5 -z-0 -translate-x-1/2 animate-upDown opacity-50 dark:opacity-20 sm:left-1/3"
         />
 
         {/* right large matrix */}
@@ -88,18 +87,16 @@ const Home = () => {
           alt="matrix"
           className="absolute right-[15%] top-1/4 -z-0 -translate-x-1/2 animate-upDown opacity-50 dark:opacity-20"
         />
-        <h1 className="mx-1 my-5 flex items-center justify-center text-center text-slate-900 dark:text-white">
+        <h1 className="mx-1 my-5 flex flex-col items-center justify-center text-center text-slate-900 dark:text-white md:gap-y-2">
           <span
             data-aos="fade-right"
-            className="z-0 pe-5 text-end font-sans text-2xl italic md:text-5xl lg:pe-10"
+            className="z-0 text-end font-sans text-2xl italic sm:text-4xl"
           >
-            Explore Our
-            <br />
-            Top Picks
+            Explore Our Top Picks
           </span>
           <span
             data-aos="fade-left"
-            className="font-outline-2 text-3xl font-bold text-transparent md:text-6xl"
+            className="font-outline-3 dark:font-outline-2 text-3xl font-bold text-transparent sm:text-6xl"
           >
             Featured Vehicles
           </span>
@@ -130,18 +127,18 @@ const Home = () => {
             passenger={"6 to up"}
           />
         </div>
-        {/* bottom large matrix */}
+        {/* bottom small matrix */}
         <img
           src={images["matrix.svg"]}
           alt="matrix"
           className="animation-delay-1 absolute bottom-14 left-1/3 -z-10 -translate-x-1/2 animate-upDown opacity-50 dark:opacity-20"
         />
 
-        {/* right small matrix */}
+        {/* right large matrix */}
         <img
           src={images["matrix.svg"]}
           alt="matrix"
-          className="absolute bottom-0 right-0 -z-0 translate-x-1/2 opacity-70 dark:opacity-40"
+          className="absolute bottom-0 right-0 -z-10 translate-x-1/2 opacity-70 dark:opacity-40"
         />
       </div>
 
@@ -157,7 +154,7 @@ const Home = () => {
         <div className="absolute start-0 top-0 flex h-full w-screen flex-col items-center justify-center">
           <h1
             data-aos="fade-down"
-            className="my-5 text-5xl text-white md:text-6xl"
+            className="my-5 text-4xl text-white md:text-5xl"
           >
             Any doubt ?
           </h1>
@@ -184,16 +181,16 @@ const Home = () => {
         {/* battons */}
         <div
           data-aos="fade-up"
-          className="absolute bottom-10 mt-20 flex w-screen justify-center"
+          className="absolute bottom-10 mt-20 flex w-screen flex-col items-center justify-center gap-y-2 sm:flex-row"
         >
           <a
-            className="mx-5 rounded-md bg-emerald-500 px-3 py-2 text-center font-noto text-white duration-300 ease-in hover:bg-orange-400"
+            className="mx-5 max-w-sm rounded-md bg-emerald-500 px-3 py-2 text-center font-noto text-sm text-white duration-300 ease-in hover:bg-orange-400"
             href="/rent"
           >
             Sign up to Rent
           </a>
           <a
-            className="mx-5 rounded-md bg-emerald-500 px-3 py-2 text-center font-noto text-white duration-300 ease-in hover:bg-orange-400"
+            className="mx-5 max-w-sm rounded-md bg-emerald-500 px-3 py-2 text-center font-noto text-sm text-white duration-300 ease-in hover:bg-orange-400"
             href="/ride"
           >
             Sign up to Ride

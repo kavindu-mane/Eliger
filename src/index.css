@@ -18,6 +18,10 @@
     -webkit-text-stroke: 2px #4ade80;
   }
 
+  .font-outline-3 {
+    -webkit-text-stroke: 2px #019267;
+  }
+
   .inputs input {
     @apply dark:border dark:border-slate-500 dark:bg-slate-700/90;
   }

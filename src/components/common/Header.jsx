@@ -41,7 +41,7 @@ const Header = ({ bg = "bg-slate-800" }) => {
         </a>
 
         {/* menu button */}
-        <button onClick={menuSettings} className="z-[999] me-8 md:hidden">
+        <button onClick={menuSettings} className="z-[999] me-5 sm:me-8 md:hidden">
           {!menuOpen ? (
             <RiMenu3Fill className="h-6 w-6 text-white duration-200 hover:text-cyan-400" />
           ) : (

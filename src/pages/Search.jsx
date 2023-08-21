@@ -11,7 +11,7 @@ const Search = () => {
         <Header />
         {/* container */}
         <div className="flex w-full flex-col-reverse xl:flex-row">
-          <div className="flex w-full flex-col items-center xl:w-1/2">
+          <div className="flex w-full flex-col items-center justify-center xl:w-1/2">
             <FindVehicles isEmbed={true} />
           </div>
           <div className="w-full xl:w-1/2"></div>

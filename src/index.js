@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import AOS from "aos";
 import "aos/dist/aos.css";
 AOS.init({
-  duration: 800,
+  duration: 500,
   easing: "ease-in",
   once: true,
 });
