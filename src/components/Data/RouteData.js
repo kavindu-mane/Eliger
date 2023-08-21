@@ -8,6 +8,7 @@ const Terms = lazy(() => import("../../pages/Terms"));
 const Login = lazy(() => import("../../pages/Login"));
 const Register = lazy(() => import("../../pages/Register"));
 const ForgetPW = lazy(() => import("../../pages/ForgetPW"));
+const Search = lazy(() => import("../../pages/Search"));
 const Error = lazy(() => import("../../pages/Error"));
 const AdminDashboard = lazy(() => import("../../pages/AdminDashboard"));
 const HelpAndSupportDashboard = lazy(() =>
@@ -30,6 +31,7 @@ const LinkArray = {
   "/privacy": <Privacy />,
   "/terms": <Terms />,
   "/*": <Error />,
+  "/search":<Search/>,
   "/admindashboard": <AdminDashboard />,
   "/helpandsupportdashboard": <HelpAndSupportDashboard />,
   "/driverdashboard": <DriverDashboard />,

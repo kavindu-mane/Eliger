@@ -48,7 +48,7 @@ const getTomorrow = () => {
   return tomorrow;
 };
 
-const FindVehicles = () => {
+const FindVehicles = ({ isEmbed = false }) => {
   const [bookingMethod, setBookingMethod] = useState("Book Now");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(getTomorrow());
@@ -204,7 +204,11 @@ const FindVehicles = () => {
   return (
     <React.Fragment>
       <div
-        className="w-full max-w-xl rounded-md border border-slate-600 bg-gray-200 p-8 shadow-lg drop-shadow-lg dark:bg-gray-800"
+        className={`w-full max-w-xl rounded-md ${
+          !isEmbed && "border border-slate-600"
+        } bg-gray-200 p-8 ${
+          !isEmbed && "shadow-lg drop-shadow-lg"
+        } dark:bg-gray-800`}
       >
         <h1 className="mx-1 mb-10 ps-2 text-center font-noto text-2xl text-slate-900 dark:text-white md:ps-5 md:text-3xl">
           Find Vehicles

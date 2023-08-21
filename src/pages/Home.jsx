@@ -37,7 +37,7 @@ const Home = () => {
         {/* search */}
         <div className="relative z-50 mb-10 flex w-full translate-y-1/4 justify-center px-3 md:translate-y-1/2">
           {/* find form */}
-          <div data-aos="fade-up" className="w-full flex justify-center lg:justify-end">
+          <div data-aos="fade-up" className="w-full flex justify-center xl:justify-end">
             <FindVehicles />
           </div>
           {/* find form text */}
