@@ -6,20 +6,6 @@ const HomeHeader = lazy(() => import("../components/Home/HomeHeader"));
 const Footer = lazy(() => import("../components/common/Footer"));
 const FindVehicles = lazy(() => import("../components/common/FindVehicles"));
 
-// get current time
-// const currentTime = () => {
-//   let currentTime = new Date();
-//   let ISTTime = new Date(currentTime.getTime() + 330 * 60000)
-//     .toISOString()
-//     .slice(0, -8);
-//   return ISTTime;
-// };
-
-// get today
-// const today = () => {
-//   return new Date().toJSON().slice(0, 10);
-// };
-
 const Home = () => {
   // carosel images
   const carouselImages = (i) => {
@@ -51,9 +37,11 @@ const Home = () => {
         {/* search */}
         <div className="relative z-50 mb-10 flex w-full translate-y-1/4 justify-center px-3 md:translate-y-1/2">
           {/* find form */}
-          <FindVehicles />
+          <div data-aos="fade-up" className="w-full flex justify-center lg:justify-end">
+            <FindVehicles />
+          </div>
           {/* find form text */}
-          <div className="relative ms-20 hidden items-center xl:flex">
+          <div className="relative w-full ms-20 hidden items-center xl:flex">
             <h1 className="flex flex-col text-8xl font-bold uppercase text-white">
               <span data-aos="fade-left" className="w-fit">
                 Find

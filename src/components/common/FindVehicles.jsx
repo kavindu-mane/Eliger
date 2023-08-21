@@ -204,8 +204,7 @@ const FindVehicles = () => {
   return (
     <React.Fragment>
       <div
-        data-aos="fade-up"
-        className="w-full max-w-xl rounded-md border border-slate-600 bg-gray-200 p-8 shadow-lg drop-shadow-lg dark:bg-gray-800 sm:w-4/5 lg:w-1/2"
+        className="w-full max-w-xl rounded-md border border-slate-600 bg-gray-200 p-8 shadow-lg drop-shadow-lg dark:bg-gray-800"
       >
         <h1 className="mx-1 mb-10 ps-2 text-center font-noto text-2xl text-slate-900 dark:text-white md:ps-5 md:text-3xl">
           Find Vehicles
