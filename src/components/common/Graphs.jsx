@@ -53,7 +53,7 @@ const Graphs = ({
   };
 
   return (
-    <div className="relative m-3 flex h-fit w-full max-w-2xl flex-col rounded-lg bg-white px-4 py-5 shadow-[0_0_50px_20px_#64748b30] drop-shadow-xl dark:bg-[#334257] dark:shadow-[0_0_50px_20px_#0f172a30] 2xl:max-w-3xl">
+    <div className="relative m-3 flex w-full max-w-2xl flex-col rounded-lg bg-white px-4 py-5 shadow-[0_0_50px_20px_#64748b30] drop-shadow-xl dark:bg-[#334257] dark:shadow-[0_0_50px_20px_#0f172a30] 2xl:max-w-3xl">
       <h1 className="mb-5 text-center font-Poppins text-xl font-medium">
         {title}
       </h1>

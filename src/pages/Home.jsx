@@ -13,7 +13,7 @@ const Home = () => {
       <img
         alt="carousel items"
         src={images[`carousel-${i}.jpg`]}
-        className="h-[150vh] max-h-[120rem] min-h-[60rem] w-full object-cover opacity-40"
+        className="h-[180vh] max-h-[120rem] min-h-[60rem] w-full object-cover opacity-40"
         key={i}
       />
     );
@@ -24,9 +24,9 @@ const Home = () => {
       {/* home page hero section */}
       <HomeHeader />
       {/* carousel with find form */}
-      <div className="relative my-10 -mt-[30vh] flex h-[150vh] max-h-[120rem] min-h-[60rem] w-full flex-col justify-center ">
+      <div className="relative my-10 -mt-[50vh] flex h-[180vh] max-h-[120rem] min-h-[60rem] w-full flex-col justify-center md:-mt-[30vh]">
         {/* carousel */}
-        <div className="absolute h-[150vh] max-h-[120rem] min-h-[60rem] w-full bg-slate-950">
+        <div className="absolute h-[180vh] max-h-[120rem] min-h-[60rem] w-full bg-slate-950">
           <Carousel leftControl rightControl indicators={true}>
             {[1, 2, 3, 4, 5].map((i) => {
               return carouselImages(i);
@@ -35,13 +35,16 @@ const Home = () => {
         </div>
 
         {/* search */}
-        <div className="relative z-50 mb-10 flex w-full translate-y-1/4 justify-center px-3 md:translate-y-1/2">
+        <div className="relative z-50 mb-10 flex w-full translate-y-[20vh] justify-center px-3 md:translate-y-1/4">
           {/* find form */}
-          <div data-aos="fade-up" className="w-full flex justify-center xl:justify-end">
+          <div
+            data-aos="fade-up"
+            className="flex w-full justify-center xl:justify-end"
+          >
             <FindVehicles />
           </div>
           {/* find form text */}
-          <div className="relative w-full ms-20 hidden items-center xl:flex">
+          <div className="relative ms-20 hidden w-full items-center xl:flex">
             <h1 className="flex flex-col text-8xl font-bold uppercase text-white">
               <span data-aos="fade-left" className="w-fit">
                 Find
