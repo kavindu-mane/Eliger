@@ -141,7 +141,7 @@ const Admindashboard = () => {
           </div>
 
           {/* Body Area */}
-          <div className="relative flex w-full flex-col justify-between px-5 pt-4 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
+          <div className="relative flex w-full flex-col justify-between px-5 pt-4 md:px-10 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
             {/* top content area */}
             <div>
               {/*four Graphs*/}
