@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Autocomplete } from "@react-google-maps/api";
 import {
   Button,
@@ -50,9 +50,10 @@ const getTomorrow = () => {
   return tomorrow;
 };
 
-const FindVehicles = ({ isEmbed = false }) => {
+const FindVehicles = ({ isEmbed = false, findVehicles }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const formRef = useRef();
 
   // load data if data exist
   let loadedDetails = {};
@@ -258,16 +259,15 @@ const FindVehicles = ({ isEmbed = false }) => {
           !isEmbed && "border border-slate-600"
         } bg-gray-200 p-8 ${
           !isEmbed && "shadow-lg drop-shadow-lg"
-        } dark:bg-gray-800`}
+        } dark:bg-slate-900`}
       >
         <h1 className="mx-1 mb-10 ps-2 text-center font-noto text-2xl text-slate-900 dark:text-white md:ps-5 md:text-3xl">
           Find Vehicles
         </h1>
         <form
           className="flex w-full max-w-lg flex-col gap-4"
-          onSubmit={(event) => {
-            toSearch(event);
-          }}
+          onSubmit={(event) => toSearch(event)}
+          ref={formRef}
         >
           {/* booking method */}
           <div>
@@ -329,9 +329,23 @@ const FindVehicles = ({ isEmbed = false }) => {
           </div>
 
           {bookingMethod === "Book Now" ? bookNowFields() : rentOutFields()}
-          <Button type="submit" className="mt-3">
-            Find
-          </Button>
+          {location.pathname === "/search" ? (
+            <Button
+              type="button"
+              className="mt-3"
+              onClick={() =>
+                findVehicles(
+                  Object.fromEntries(new FormData(formRef.current).entries())
+                )
+              }
+            >
+              Find
+            </Button>
+          ) : (
+            <Button type="submit" className="mt-3">
+              Go To Search
+            </Button>
+          )}
         </form>
       </div>
     </React.Fragment>
