@@ -19,8 +19,6 @@ const Search = () => {
   const findVehicles = (formData) => {
     if (formData["booking-type"] === "Book Now")
       calculateRoute(formData["pick-up"], formData["destination"]);
-
-    console.log(formData);
   };
 
   // canclutate route

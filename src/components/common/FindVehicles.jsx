@@ -95,6 +95,32 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
     return isPassed;
   };
 
+  // get current location
+  const getCurrentLocation = (event) => {
+    if (!event.target.checked) return;
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+
+        if (latitude && longitude) {
+          const geocoder = new window.google.maps.Geocoder();
+          const latLng = { lat: latitude, lng: longitude };
+          geocoder.geocode({ location: latLng }, (results, status) => {
+            if (status === "OK" && results[0]) {
+              document.querySelector("#pick-up").value =
+                results[0].formatted_address;
+            } else {
+              console.error("Geocoder failed", status);
+            }
+          });
+        }
+      });
+    } else {
+      alert("Geolocation unsupported.");
+    }
+  };
+
   // fields of book now option
   const bookNowFields = () => {
     return (
@@ -122,6 +148,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
             className=" border-2 border-slate-700"
             name="currenrt-location"
             defaultChecked={loadedDetails["currenrt-location"] === "on"}
+            onClick={(event) => getCurrentLocation(event)}
           />
           <Label htmlFor="current-location">Use my current location</Label>
         </div>
