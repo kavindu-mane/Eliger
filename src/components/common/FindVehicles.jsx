@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Autocomplete } from "@react-google-maps/api";
 import {
   Button,
@@ -11,6 +11,7 @@ import {
 import DatePicker from "react-datepicker";
 import { AiFillCheckCircle } from "react-icons/ai";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // district list
 const districtArray = [
@@ -50,11 +51,40 @@ const getTomorrow = () => {
 };
 
 const FindVehicles = ({ isEmbed = false }) => {
-  const [bookingMethod, setBookingMethod] = useState("Book Now");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(getTomorrow());
-  const originRef = useRef();
-  const destinationRef = useRef();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // load data if data exist
+  let loadedDetails = {};
+  if (location.state !== null) {
+    loadedDetails = Object.fromEntries(location.state.ref.entries());
+  }
+
+  // pass current values to search page
+  const toSearch = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    navigate("/search", { state: { ref: data } });
+  };
+
+  const [bookingMethod, setBookingMethod] = useState(
+    loadedDetails["booking-type"] || "Book Now"
+  );
+  const [startDateTime, setStartDateTime] = useState(
+    loadedDetails["pick-time"] !== undefined
+      ? new Date(loadedDetails["pick-time"])
+      : new Date()
+  );
+  const [startDate, setStartDate] = useState(
+    loadedDetails["from-date"] !== undefined
+      ? new Date(loadedDetails["from-date"])
+      : new Date()
+  );
+  const [endDate, setEndDate] = useState(
+    loadedDetails["to-date"] !== undefined
+      ? new Date(loadedDetails["to-date"])
+      : getTomorrow()
+  );
 
   // filter times with comparing current time
   const filterPassedTime = (time) => {
@@ -79,7 +109,7 @@ const FindVehicles = ({ isEmbed = false }) => {
               type="text"
               placeholder="Pickup address"
               name="pick-up"
-              ref={originRef}
+              defaultValue={loadedDetails["pick-up"] || ""}
             />
           </Autocomplete>
         </div>
@@ -90,6 +120,7 @@ const FindVehicles = ({ isEmbed = false }) => {
             id="current-location"
             className=" border-2 border-slate-700"
             name="currenrt-location"
+            defaultChecked={loadedDetails["currenrt-location"] === "on"}
           />
           <Label htmlFor="current-location">Use my current location</Label>
         </div>
@@ -105,6 +136,7 @@ const FindVehicles = ({ isEmbed = false }) => {
               type="text"
               placeholder="Destination address"
               name="destination"
+              defaultValue={loadedDetails["destination"] || ""}
             />
           </Autocomplete>
         </div>
@@ -115,15 +147,15 @@ const FindVehicles = ({ isEmbed = false }) => {
             <Label htmlFor="pick-time" value="Pick-up time" />
             <DatePicker
               id="pick-time"
-              selected={startDate}
+              selected={startDateTime}
               onChange={(date) =>
-                setStartDate(date > new Date() ? date : new Date())
+                setStartDateTime(date > new Date() ? date : new Date())
               }
               showTimeSelect
               filterTime={filterPassedTime}
               minDate={new Date()}
               dateFormat="yyyy/MMMM/d , hh:mm aa"
-              name="start-time"
+              name="pick-time"
               required
               timeIntervals={10}
               className="mt-3 w-full rounded-md border-none py-2.5 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
@@ -143,7 +175,12 @@ const FindVehicles = ({ isEmbed = false }) => {
           <div className="mb-2 block">
             <Label htmlFor="driver" value="Driver" />
           </div>
-          <Select id="driver" name="driver" required>
+          <Select
+            id="driver"
+            name="driver"
+            required
+            defaultValue={loadedDetails["driver"] || "with-driver"}
+          >
             <option value="with-driver">With Driver</option>
             <option value="without-driver">Without Driver</option>
           </Select>
@@ -153,7 +190,12 @@ const FindVehicles = ({ isEmbed = false }) => {
           <div className="mb-2 block">
             <Label htmlFor="district" value="District" />
           </div>
-          <Select id="district" name="district" required>
+          <Select
+            id="district"
+            name="district"
+            required
+            defaultValue={loadedDetails["district"] || "Colombo"}
+          >
             {districtArray.map((district, i) => {
               return (
                 <option key={i} value={district}>
@@ -221,7 +263,12 @@ const FindVehicles = ({ isEmbed = false }) => {
         <h1 className="mx-1 mb-10 ps-2 text-center font-noto text-2xl text-slate-900 dark:text-white md:ps-5 md:text-3xl">
           Find Vehicles
         </h1>
-        <form className="flex w-full max-w-lg flex-col gap-4">
+        <form
+          className="flex w-full max-w-lg flex-col gap-4"
+          onSubmit={(event) => {
+            toSearch(event);
+          }}
+        >
           {/* booking method */}
           <div>
             <div className="mb-2 block">
@@ -237,7 +284,7 @@ const FindVehicles = ({ isEmbed = false }) => {
                       name="booking-type"
                       value={method}
                       className="inputs peer sr-only"
-                      defaultChecked={method === "Book Now"}
+                      defaultChecked={method === bookingMethod}
                       onClick={() => setBookingMethod(method)}
                     />
                     <div className="flex h-14 w-full items-center justify-center rounded-md bg-gray-500 text-transparent peer-checked:bg-green-400 peer-checked:text-white">
@@ -265,7 +312,9 @@ const FindVehicles = ({ isEmbed = false }) => {
                       name="vehicle-category"
                       value={vehicle}
                       className="inputs peer sr-only"
-                      defaultChecked={vehicle === "Car"}
+                      defaultChecked={
+                        vehicle === (loadedDetails["vehicle-category"] || "Car")
+                      }
                     />
                     <div className="flex h-14 w-full items-center justify-center rounded-md bg-gray-500 text-gray-400 peer-checked:bg-indigo-500 peer-checked:text-white">
                       <AiFillCheckCircle className="h-5 w-5" />
