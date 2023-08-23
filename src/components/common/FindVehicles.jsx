@@ -10,8 +10,14 @@ import {
 } from "flowbite-react";
 import DatePicker from "react-datepicker";
 import { AiFillCheckCircle } from "react-icons/ai";
+import { ImSpinner2 } from "react-icons/im";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+// create sweet alert object
+const Alert = withReactContent(Swal);
 
 // district list
 const districtArray = [
@@ -58,16 +64,18 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
   // load data if data exist
   let loadedDetails = {};
   if (location.state !== null) {
-    loadedDetails = Object.fromEntries(location.state.ref.entries());
+    loadedDetails = location.state.ref;
+    location.state = null;
   }
 
   // pass current values to search page
   const toSearch = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
-    navigate("/search", { state: { ref: data } });
+    navigate("/search", { state: { ref: Object.fromEntries(data.entries()) } });
   };
 
+  // useStates for input fields
   const [bookingMethod, setBookingMethod] = useState(
     loadedDetails["booking-type"] || "Book Now"
   );
@@ -87,6 +95,15 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
       : getTomorrow()
   );
 
+  // custome allert function with sweet alert 2
+  const setAlert = (icon, title, desc) => {
+    return Alert.fire({
+      icon: icon,
+      title: title,
+      text: desc,
+    });
+  };
+
   // filter times with comparing current time
   const filterPassedTime = (time) => {
     const currentDate = new Date();
@@ -97,27 +114,61 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
 
   // get current location
   const getCurrentLocation = (event) => {
-    if (!event.target.checked) return;
+    const spinner = document.getElementById(
+      "current-location-spinner"
+    ).classList;
 
+    // check checkbox is unchecked
+    if (!event.target.checked) {
+      spinner.add("hidden");
+      return;
+    }
+
+    // check geolocatrion availability
     if (navigator.geolocation) {
+      spinner.replace("hidden", "block");
+      // show info about service
+      setAlert(
+        "info",
+        "GPS Required",
+        "For accurate result,GPS must be available on your device."
+      );
+
       navigator.geolocation.getCurrentPosition((position) => {
+        // get geo coords using geolocation api, for accurate responce device must have available GPS service.
         const { latitude, longitude } = position.coords;
 
         if (latitude && longitude) {
           const geocoder = new window.google.maps.Geocoder();
           const latLng = { lat: latitude, lng: longitude };
+          // get appropreate address using atitude and longitude using google maps api's geocoder api
           geocoder.geocode({ location: latLng }, (results, status) => {
+            // if geocoder give success response, change pick address with responded address
             if (status === "OK" && results[0]) {
-              document.querySelector("#pick-up").value =
-                results[0].formatted_address;
+              // if checkbox checked add address value to pickup input box
+              if (event.target.checked)
+                document.querySelector("#pick-up").value =
+                  results[0].formatted_address;
+              spinner.replace("block", "hidden");
             } else {
-              console.error("Geocoder failed", status);
+              // add error alert if geocoder error occur
+              setAlert(
+                "error",
+                "Geocoder error",
+                "Geocoder not responded.please try again."
+              );
+              spinner.replace("block", "hidden");
             }
           });
         }
       });
     } else {
-      alert("Geolocation unsupported.");
+      // show error alert if browser isn't support geolocation.
+      setAlert(
+        "error",
+        "Geolocation error",
+        "Your browser isn't support Geolocation."
+      );
     }
   };
 
@@ -130,15 +181,21 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
           <div className="mb-2 block">
             <Label htmlFor="pick-up" value="Pick up location" />
           </div>
-          <Autocomplete>
-            <TextInput
-              id="pick-up"
-              type="text"
-              placeholder="Pickup address"
-              name="pick-up"
-              defaultValue={loadedDetails["pick-up"] || ""}
+          <div className="relative">
+            <Autocomplete>
+              <TextInput
+                id="pick-up"
+                type="text"
+                placeholder="Pickup address"
+                name="pick-up"
+                defaultValue={loadedDetails["pick-up"] || ""}
+              />
+            </Autocomplete>
+            <ImSpinner2
+              id="current-location-spinner"
+              className="absolute end-2 top-2.5 hidden animate-spin  text-2xl text-sky-600 dark:text-sky-400"
             />
-          </Autocomplete>
+          </div>
         </div>
 
         {/* current location checkbox */}
