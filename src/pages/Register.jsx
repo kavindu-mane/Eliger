@@ -1,6 +1,7 @@
 import React, { lazy, useState } from "react";
 import { Button, Label, TextInput, Radio } from "flowbite-react";
 import { AiFillCheckCircle } from "react-icons/ai";
+import axios from "axios";
 
 const Circles = lazy(() => import("../components/common/Circles"));
 const HeaderSecondary = lazy(() =>
@@ -21,6 +22,24 @@ const Register = ({ type = "customer" }) => {
   const [isConfPassword, setIsConfPassword] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
 
+  // submit registration form
+  const handleSubmit = (e) => {
+    // remove default form submission
+    e.preventDefault();
+    // get data from form fields as FormData object
+    const formData = new FormData(e.target);
+    // send data using axios post function
+    console.log(formData);
+    axios
+      .post(process.env.REACT_APP_REGISTER_BACKEND_URL, formData)
+      .then((response) => {
+        console.log(response.status, response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <React.Fragment>
       {/* outer div */}
@@ -34,7 +53,10 @@ const Register = ({ type = "customer" }) => {
 
         {/* form */}
         <div className="my-28 flex h-auto w-full items-center justify-center px-6 sm:my-16 sm:px-10">
-          <form className="flex w-full max-w-lg flex-col gap-4">
+          <form
+            className="flex w-full max-w-lg flex-col gap-4"
+            onSubmit={(e) => handleSubmit(e)}
+          >
             {/* welcome */}
             <h1 className="text-3xl font-bold ">Welcome!</h1>
             {/* subtitle */}
