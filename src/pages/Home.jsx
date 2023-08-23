@@ -24,7 +24,7 @@ const Home = () => {
       {/* home page hero section */}
       <HomeHeader />
       {/* carousel with find form */}
-      <div className="relative flex min-h-[50rem] w-full h-screen flex-col justify-center">
+      <div className="relative flex min-h-[50rem] w-screen h-screen flex-col justify-center">
         {/* carousel */}
         <div className="absolute hidden sm:block h-screen min-h-[50rem] w-full bg-slate-950">
           <Carousel leftControl rightControl indicators={true}>
@@ -143,7 +143,7 @@ const Home = () => {
       </div>
 
       {/* bottom image area */}
-      <div className="h-fix relative w-full bg-slate-950">
+      <div className="h-fix relative w-screen bg-slate-950">
         <img
           src={images["carousel-3.jpg"]}
           alt="bottom button area"

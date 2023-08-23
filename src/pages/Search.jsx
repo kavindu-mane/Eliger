@@ -52,7 +52,7 @@ const Search = () => {
 
   return (
     <React.Fragment>
-      <div className="flex min-h-screen flex-col items-center justify-between bg-slate-200 dark:bg-slate-900">
+      <div className="flex min-h-screen flex-col w-screen items-center justify-between bg-slate-200 dark:bg-slate-900">
         {/* header */}
         <Header />
         {/* container */}
