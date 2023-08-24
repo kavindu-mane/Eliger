@@ -95,7 +95,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
       : getTomorrow()
   );
 
-  // custome allert function with sweet alert 2
+  // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
     return Alert.fire({
       icon: icon,

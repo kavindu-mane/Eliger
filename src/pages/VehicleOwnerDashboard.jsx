@@ -1,7 +1,7 @@
 import React, { lazy } from "react";
 import { Label, Radio } from "flowbite-react";
 import { Card } from "flowbite-react";
-import topics from "../components/Data/VehicleOwnerData";
+import topics from "../components/Data/VehicleOwnerSidebarData";
 const HeaderSecondary = lazy(() =>
   import("../components/common/HeaderSecondary")
 );

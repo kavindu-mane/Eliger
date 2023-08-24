@@ -1,5 +1,5 @@
 import React, { lazy, useEffect } from "react";
-import topics from "../components/Data/HelpandsupportData";
+import topics from "../components/Data/HelpNSupportSidebarData";
 import AccountOption from "../components/Data/AdminGraph/AccountOption";
 import VehicleOption from "../components/Data/AdminGraph/VehicleOption";
 

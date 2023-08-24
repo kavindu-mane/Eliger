@@ -1,5 +1,5 @@
 import React, { lazy, useEffect } from "react";
-import topics from "../components/Data/AdminsidebarData";
+import topics from "../components/Data/AdminSidebarData";
 import AccountOption from "../components/Data/AdminGraph/AccountOption";
 import VehicleOption from "../components/Data/AdminGraph/VehicleOption";
 import RevenueOption from "../components/Data/AdminGraph/RevenueOption";

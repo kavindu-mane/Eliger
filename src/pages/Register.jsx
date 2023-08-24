@@ -1,7 +1,11 @@
 import React, { lazy, useState } from "react";
 import { Button, Label, TextInput, Radio } from "flowbite-react";
 import { AiFillCheckCircle } from "react-icons/ai";
+import { MdOutlineError } from "react-icons/md";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import ErrorData from "../components/Data/ErrorData";
 
 const Circles = lazy(() => import("../components/common/Circles"));
 const HeaderSecondary = lazy(() =>
@@ -17,13 +21,28 @@ const PasswordSwitcher = lazy(() =>
   import("../components/common/PasswordSwitcher")
 );
 
+// create sweet alert object
+const Alert = withReactContent(Swal);
+
 const Register = ({ type = "customer" }) => {
   const [accType, setAccType] = useState(type);
   const [isConfPassword, setIsConfPassword] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
+  const [errorCode, setErrorCode] = useState(null);
+
+  // custom allert function with sweet alert 2
+  const setAlert = (icon, title, desc) => {
+    return Alert.fire({
+      icon: icon,
+      title: title,
+      text: desc,
+    });
+  };
 
   // submit registration form
   const handleSubmit = (e) => {
+    // clear previous errors
+    setErrorCode(null);
     // remove default form submission
     e.preventDefault();
     // get data from form fields as FormData object
@@ -33,11 +52,25 @@ const Register = ({ type = "customer" }) => {
     axios
       .post(process.env.REACT_APP_REGISTER_BACKEND_URL, formData)
       .then((response) => {
-        console.log(response.status, response.data);
+        if (response.status === 200) {
+          console.log(response.status, response.data);
+          setErrorCode(response.data);
+        } else {
+          setAlert("error", "Registration faild", ErrorData[500]);
+        }
       })
       .catch((error) => {
-        console.log(error);
+        setAlert("error", "Geocoder error", ErrorData[500]);
       });
+  };
+
+  // error messages
+  const errorContainer = (errCode) => {
+    return (
+      <p className="flex items-center gap-x-1 font-Poppins text-sm font-semibold text-red-500">
+        <MdOutlineError /> {ErrorData[errCode]}
+      </p>
+    );
   };
 
   return (
@@ -129,6 +162,8 @@ const Register = ({ type = "customer" }) => {
                   type="text"
                   className="inputs"
                 />
+                {/* error text */}
+                {errorCode === 0 && errorContainer(errorCode)}
               </div>
               {/* last name */}
               <div className="w-full sm:ms-1">
@@ -146,6 +181,8 @@ const Register = ({ type = "customer" }) => {
                   type="text"
                   className="inputs"
                 />
+                {/* error text */}
+                {errorCode === 1 && errorContainer(errorCode)}
               </div>
             </div>
 
@@ -165,6 +202,8 @@ const Register = ({ type = "customer" }) => {
                 type="text"
                 className="inputs"
               />
+              {/* error text */}
+              {[2, 6].includes(errorCode) && errorContainer(errorCode)}
             </div>
 
             {/* email */}
@@ -183,6 +222,8 @@ const Register = ({ type = "customer" }) => {
                 type="email"
                 className="inputs"
               />
+              {/* error text */}
+              {[3, 7, 10].includes(errorCode) && errorContainer(errorCode)}
             </div>
 
             {/* address */}
@@ -201,6 +242,8 @@ const Register = ({ type = "customer" }) => {
                   type="text"
                   className="inputs"
                 />
+                {/* error text */}
+                {errorCode === 11 && errorContainer(errorCode)}
               </div>
             ) : (
               <></>
@@ -226,6 +269,8 @@ const Register = ({ type = "customer" }) => {
                 isPassword={isPassword}
                 setIsPassword={setIsPassword}
               />
+              {/* error text */}
+              {[4, 8, 9].includes(errorCode) && errorContainer(errorCode)}
             </div>
 
             {/* confirm password */}
@@ -248,6 +293,8 @@ const Register = ({ type = "customer" }) => {
                 isPassword={isConfPassword}
                 setIsPassword={setIsConfPassword}
               />
+              {/* error text */}
+              {[5, 9].includes(errorCode) && errorContainer(errorCode)}
             </div>
 
             {/* actions */}
@@ -262,7 +309,7 @@ const Register = ({ type = "customer" }) => {
                 Join Free
               </Button>
 
-              {/* login */}
+              {/* redirect to login */}
               <div className="text-center text-sm font-semibold">
                 Have an account?
                 <a
