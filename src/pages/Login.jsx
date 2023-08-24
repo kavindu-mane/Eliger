@@ -40,13 +40,12 @@ const Login = () => {
 
             {/* email */}
             <div>
-              <div className="flex justify-between">
-                <Label
-                  htmlFor="email"
-                  value="Email"
-                  className="after:ml-0.5 after:text-red-500 after:content-['*']"
-                />
-              </div>
+              <Label
+                htmlFor="email"
+                value="Email"
+                className="after:ml-0.5 after:text-red-500 after:content-['*']"
+              />
+
               <TextInput
                 id="email"
                 name="email"
@@ -59,13 +58,11 @@ const Login = () => {
 
             {/* password */}
             <div className="relative">
-              <div className="flex justify-between">
-                <Label
-                  htmlFor="password"
-                  value="Password"
-                  className="after:ml-0.5 after:text-red-500 after:content-['*']"
-                />
-              </div>
+              <Label
+                htmlFor="password"
+                value="Password"
+                className="after:ml-0.5 after:text-red-500 after:content-['*']"
+              />
               <TextInput
                 id="password"
                 name="password"
@@ -83,7 +80,7 @@ const Login = () => {
             <div className="flex max-w-lg justify-between gap-4">
               <div className="flex items-center gap-2">
                 {/*checkbox*/}
-                <Checkbox defaultChecked id="accept" name="accept" />
+                <Checkbox id="accept" name="accept" />
                 <Label
                   className="flex font-normal text-slate-900 dark:text-gray-200"
                   htmlFor="accept"

@@ -60,7 +60,7 @@ const Register = ({ type = "customer" }) => {
         }
       })
       .catch((error) => {
-        setAlert("error", "Geocoder error", ErrorData[500]);
+        setAlert("error", "Registration faild", ErrorData[500]);
       });
   };
 
