@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import topics from "../components/Data/customersidebarData";
+import topics from "../components/Data/CustomersidebarData";
 
 const HeaderSecondary = lazy(() =>
   import("../components/common/HeaderSecondary")

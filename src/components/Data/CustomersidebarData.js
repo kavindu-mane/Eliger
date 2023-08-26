@@ -1,5 +1,4 @@
 import {
-  MdRateReview,
   MdCarRental,
   MdViewSidebar,
   MdCardMembership,
