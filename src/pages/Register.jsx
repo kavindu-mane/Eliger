@@ -48,12 +48,11 @@ const Register = ({ type = "customer" }) => {
     // get data from form fields as FormData object
     const formData = new FormData(e.target);
     // send data using axios post function
-    console.log(formData);
     axios
       .post(process.env.REACT_APP_REGISTER_BACKEND_URL, formData)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.status, response.data);
+          console.log(response.status, response.data); // remove this
           setErrorCode(response.data);
         } else {
           setAlert("error", "Registration faild", ErrorData[500]);
@@ -128,7 +127,7 @@ const Register = ({ type = "customer" }) => {
                   <Label className="ms-1 w-full cursor-pointer">
                     <Radio
                       name="account-type"
-                      value={"vehicle-owner"}
+                      value={"vehicle_owner"}
                       className="inputs peer sr-only"
                       defaultChecked={accType === "owner" ? true : false}
                       onClick={() => setAccType("owner")}
