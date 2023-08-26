@@ -11,6 +11,7 @@ import {
   PointElement,
   LineElement,
   ArcElement,
+  BarController,
   RadialLinearScale,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
@@ -22,6 +23,7 @@ ChartJS.register(
   LinearScale,
   RadialLinearScale,
   BarElement,
+  BarController,
   ArcElement,
   Title,
   Tooltip,
