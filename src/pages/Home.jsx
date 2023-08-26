@@ -1,12 +1,35 @@
 import React, { lazy } from "react";
 import { Carousel } from "flowbite-react";
+import { useJsApiLoader } from "@react-google-maps/api";
 import images from "../components/Data/ImageLoader";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 const VehicleCard = lazy(() => import("../components/Home/VehicleCard"));
 const HomeHeader = lazy(() => import("../components/Home/HomeHeader"));
 const Footer = lazy(() => import("../components/common/Footer"));
 const FindVehicles = lazy(() => import("../components/common/FindVehicles"));
 
+// google map libraries
+const libs = ["places"];
+
 const Home = () => {
+  // load map api
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    libraries: libs,
+  });
+
+  // return loading spinner while google map loading
+  if (!isLoaded)
+    return (
+      <div className="flex h-screen w-screen flex-col items-center justify-center">
+        <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
+        <h1 className="mt-8 font-Poppins text-2xl font-medium italic">
+          Map is loading..
+        </h1>
+      </div>
+    );
+
   // carosel images
   const carouselImages = (i) => {
     return (
@@ -24,9 +47,9 @@ const Home = () => {
       {/* home page hero section */}
       <HomeHeader />
       {/* carousel with find form */}
-      <div className="relative flex min-h-[50rem] w-screen h-screen flex-col justify-center">
+      <div className="relative flex h-screen min-h-[50rem] w-screen flex-col justify-center">
         {/* carousel */}
-        <div className="absolute hidden sm:block h-screen min-h-[50rem] w-full bg-slate-950">
+        <div className="absolute hidden h-screen min-h-[50rem] w-full bg-slate-950 sm:block">
           <Carousel leftControl rightControl indicators={true}>
             {[1, 2, 3, 4, 5].map((i) => {
               return carouselImages(i);
@@ -37,10 +60,8 @@ const Home = () => {
         {/* search */}
         <div className="absolute start-0 top-1/2 z-50 mb-10 flex w-full -translate-y-1/2 justify-center px-3">
           {/* find form */}
-          <div
-            className="flex h-full w-full justify-center xl:justify-end"
-          >
-            <FindVehicles/>
+          <div className="flex h-full w-full justify-center xl:justify-end">
+            <FindVehicles />
           </div>
           {/* find form text */}
           <div className="relative ms-20 hidden w-full items-center xl:flex">

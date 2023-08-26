@@ -67,7 +67,6 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
     loadedDetails = location.state.ref;
     window.history.replaceState({}, document.title);
   }
-  console.log(loadedDetails);
 
   // pass current values to search page
   const toSearch = (event) => {

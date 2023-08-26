@@ -1,5 +1,11 @@
 import React, { lazy, useState } from "react";
-import { GoogleMap, DirectionsRenderer, MarkerF } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  DirectionsRenderer,
+  MarkerF,
+  useJsApiLoader,
+} from "@react-google-maps/api";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 const Header = lazy(() => import("../components/common/Header"));
 const Footer = lazy(() => import("../components/common/Footer"));
 const FindVehicles = lazy(() => import("../components/common/FindVehicles"));
@@ -8,12 +14,32 @@ const FindVehicles = lazy(() => import("../components/common/FindVehicles"));
 const center = { lat: 6.927, lng: 80.001 };
 // initialize google
 const google = window.google;
+// google map libraries
+const libs = ["places"];
 
 const Search = () => {
+  // load map api
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    libraries: libs,
+  });
+
   const [directions, setDirections] = useState(null);
   const [durations, setDurations] = useState("");
   const [distance, setDistance] = useState("");
   const [routeDetails, setRouteDetails] = useState({});
+
+  // return loading spinner while google map loading
+  if (!isLoaded)
+    return (
+      <div className="flex h-screen w-screen flex-col items-center justify-center">
+        <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
+        <h1 className="mt-8 font-Poppins text-2xl font-medium italic">
+          Map is loading..
+        </h1>
+      </div>
+    );
 
   // find vehicle with form submission
   const findVehicles = (formData) => {
@@ -52,7 +78,7 @@ const Search = () => {
 
   return (
     <React.Fragment>
-      <div className="flex min-h-screen flex-col w-screen items-center justify-between bg-slate-200 dark:bg-slate-900">
+      <div className="flex min-h-screen w-screen flex-col items-center justify-between bg-slate-200 dark:bg-slate-900">
         {/* header */}
         <Header />
         {/* container */}
