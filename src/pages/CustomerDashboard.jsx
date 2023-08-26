@@ -11,7 +11,6 @@ const BackgroundEffect = lazy(() =>
   import("../components/common/BackgroundEffect")
 );
 const SideBar = lazy(() => import("../components/common/SideBar"));
-
 const FindVehicles = lazy(() => import("../components/common/FindVehicles"));
 
 const CustomerDashboard = () => {

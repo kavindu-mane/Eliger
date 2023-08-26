@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, {useRef, useState } from "react";
 import { Autocomplete } from "@react-google-maps/api";
 import {
   Button,
@@ -65,8 +65,9 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
   let loadedDetails = {};
   if (location.state !== null) {
     loadedDetails = location.state.ref;
-    location.state = null;
+    window.history.replaceState({}, document.title);
   }
+  console.log(loadedDetails);
 
   // pass current values to search page
   const toSearch = (event) => {
