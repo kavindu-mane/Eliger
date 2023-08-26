@@ -11,7 +11,7 @@ const HeaderSecondary = () => {
           <img
             src={images["eliger-white.svg"]}
             alt="logo dark"
-            className="ms-4 hidden w-28 dark:block md:w-32"
+            className="ms-4 hidden w-24 dark:block md:w-28"
           />
         </a>
         {/* light theme logo */}
@@ -19,7 +19,7 @@ const HeaderSecondary = () => {
           <img
             src={images["eliger.svg"]}
             alt="logo light"
-            className="ms-4 block w-28 dark:hidden md:w-32"
+            className="ms-4 block w-24 dark:hidden md:w-28"
           />
         </a>
       </div>

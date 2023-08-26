@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import topics from "../components/Data/driverSidebar";
+import topics from "../components/Data/DriverSidebarData";
 import { Label, Radio } from "flowbite-react";
 import { Card } from "flowbite-react";
 

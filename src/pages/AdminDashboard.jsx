@@ -1,5 +1,5 @@
 import React, { lazy, useEffect } from "react";
-import topics from "../components/Data/AdminsidebarData";
+import topics from "../components/Data/AdminSidebarData";
 import AccountOption from "../components/Data/AdminGraph/AccountOption";
 import VehicleOption from "../components/Data/AdminGraph/VehicleOption";
 import RevenueOption from "../components/Data/AdminGraph/RevenueOption";
@@ -141,7 +141,7 @@ const Admindashboard = () => {
           </div>
 
           {/* Body Area */}
-          <div className="relative flex w-full flex-col justify-between px-5 pt-4 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
+          <div className="relative flex w-full flex-col justify-between px-5 pt-4 md:px-10 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
             {/* top content area */}
             <div>
               {/*four Graphs*/}
