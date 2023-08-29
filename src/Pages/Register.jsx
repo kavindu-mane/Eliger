@@ -32,6 +32,7 @@ const Register = ({ type = "customer" }) => {
   const [errorCode, setErrorCode] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [email, setEmail] = useState("");
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -72,6 +73,31 @@ const Register = ({ type = "customer" }) => {
       });
   };
 
+  // send emails again
+  const reSendEmail = () => {
+    let formData = new FormData();
+    formData.append("email", email);
+    formData.append("type", "register");
+    axios
+      .post(process.env.REACT_APP_RESEND_BACKEND_URL, formData)
+      .then((response) => {
+        if (response.status === 200) {
+          setAlert(
+            "success",
+            "Re-send verification code",
+            "Re-send verification code to "+ email
+          );
+        } else {
+          setAlert("error", "Registration faild", ErrorData[500]);
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        setAlert("error", "Registration faild", ErrorData[500]);
+        setIsLoading(false);
+      });
+  };
+
   // error messages
   const errorContainer = (errCode) => {
     return (
@@ -100,6 +126,7 @@ const Register = ({ type = "customer" }) => {
 
         {/* form */}
         <div className="relative my-28 flex h-auto w-full items-center justify-center px-6 sm:my-16 sm:px-10">
+          {/* loading area - before user register */}
           {!isSuccess && (
             <form
               className="flex w-full max-w-lg flex-col gap-4"
@@ -236,6 +263,7 @@ const Register = ({ type = "customer" }) => {
                   required
                   type="email"
                   className="inputs"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 {/* error text */}
                 {[3, 7, 10].includes(errorCode) && errorContainer(errorCode)}
@@ -353,7 +381,7 @@ const Register = ({ type = "customer" }) => {
               </div>
             </form>
           )}
-
+          {/* loading area - after user register */}
           {isSuccess && (
             <div className="max-w-lg px-4 text-center">
               <h1 className="mb-3 text-2xl font-semibold">
@@ -364,6 +392,12 @@ const Register = ({ type = "customer" }) => {
                 the account. If the confirmation email is not in your inbox,
                 please check the Spam. Thank you.
               </h3>
+              <button
+                onClick={reSendEmail}
+                className="mt-5 text-sm italic text-sky-900 dark:text-amber-400"
+              >
+                Re-send email
+              </button>
             </div>
           )}
         </div>

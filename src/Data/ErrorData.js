@@ -11,6 +11,7 @@ const ErrorData = {
   9: "Password and confirm password is mismatched",
   10: "This email is already registered",
   11: "Address is empty",
+  12: "Verification code is invalied",
   200: "Success", // default success code in http protocol
   500: "Somthing went wrong.please try again.", // default server error code in http protocol
 };

@@ -39,7 +39,7 @@ const LinkArray = {
   "/driverdashboard": <DriverDashboard />,
   "/vehicleOwnerDashboard": <VehicleOwnerDashboard />,
   "/customerdashboard": <CustomerDashboard />,
-  "/verificatiin": <Verification />,
+  "/verification": <Verification />,
 };
 
 export default LinkArray;
