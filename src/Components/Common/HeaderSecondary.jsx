@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import images from "../Data/ImageLoader";
+import images from "../../Data/ImageLoader";
 const ThemeButton = lazy(() => import("./ThemeButton"));
 
 const HeaderSecondary = () => {

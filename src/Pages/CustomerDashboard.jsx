@@ -1,18 +1,18 @@
 import React, { lazy } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
-import topics from "../components/Data/CustomersidebarData";
+import topics from "../Data/CustomersidebarData";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
 const HeaderSecondary = lazy(() =>
-  import("../components/common/HeaderSecondary")
+  import("../Components/Common/HeaderSecondary")
 );
 const FooterSecondary = lazy(() =>
-  import("../components/common/FooterSecondary")
+  import("../Components/Common/FooterSecondary")
 );
 const BackgroundEffect = lazy(() =>
-  import("../components/common/BackgroundEffect")
+  import("../Components/Common/BackgroundEffect")
 );
-const SideBar = lazy(() => import("../components/common/SideBar"));
-const FindVehicles = lazy(() => import("../components/common/FindVehicles"));
+const SideBar = lazy(() => import("../Components/Common/SideBar"));
+const FindVehicles = lazy(() => import("../Components/Common/FindVehicles"));
 
 // google map libraries
 const libs = ["places"];

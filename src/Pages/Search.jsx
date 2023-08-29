@@ -6,9 +6,9 @@ import {
   useJsApiLoader,
 } from "@react-google-maps/api";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
-const Header = lazy(() => import("../components/common/Header"));
-const Footer = lazy(() => import("../components/common/Footer"));
-const FindVehicles = lazy(() => import("../components/common/FindVehicles"));
+const Header = lazy(() => import("../Components/Common/Header"));
+const Footer = lazy(() => import("../Components/Common/Footer"));
+const FindVehicles = lazy(() => import("../Components/Common/FindVehicles"));
 
 // colombo location
 const center = { lat: 6.927, lng: 80.001 };

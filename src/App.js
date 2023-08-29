@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
-import LinkArray from "./components/Data/RouteData";
-import ThemeSwitcher from "./components/Data/ThmeSwitecher";
+import LinkArray from "./Data/RouteData";
+import ThemeSwitcher from "./Data/ThmeSwitecher";
 
 function App() {
   ThemeSwitcher();

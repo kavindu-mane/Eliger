@@ -1,8 +1,8 @@
 import React, { lazy } from "react";
-const Header = lazy(() => import("../components/common/Header"));
-const Footer = lazy(() => import("../components/common/Footer"));
+const Header = lazy(() => import("../Components/Common/Header"));
+const Footer = lazy(() => import("../Components/Common/Footer"));
 
-const Error = () => {
+function Verification() {
   return (
     <React.Fragment>
       <div className="flex min-h-screen flex-col items-center justify-between">
@@ -19,6 +19,6 @@ const Error = () => {
       </div>
     </React.Fragment>
   );
-};
+}
 
-export default Error;
+export default Verification;

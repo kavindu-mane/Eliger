@@ -1,13 +1,13 @@
 import React, { lazy } from "react";
-import HeaderImage from "../../resources/header-bg.svg";
-import HomeImage from "../../resources/home-image.svg";
-const Header = lazy(() => import("../common/Header"));
+import HeaderImage from "../../Resources/header-bg.svg";
+import HomeImage from "../../Resources/home-image.svg";
+const Header = lazy(() => import("../Common/Header"));
 const Statistics = lazy(() => import("./Statistics"));
 
 const HomeHeader = () => {
   return (
     <React.Fragment>
-      <div className="md:shadow-[0_0_50px_50px_#0f172a] md:bg-slate-900 relative z-10 flex h-auto min-h-[50rem] w-screen flex-col items-center overflow-y-visible">
+      <div className="relative z-10 flex h-auto min-h-[50rem] w-screen flex-col items-center overflow-y-visible md:bg-slate-900 md:shadow-[0_0_50px_50px_#0f172a]">
         <img
           src={HeaderImage}
           alt="wave"

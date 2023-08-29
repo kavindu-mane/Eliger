@@ -1,12 +1,12 @@
 import React, { lazy } from "react";
 import { Carousel } from "flowbite-react";
 import { useJsApiLoader } from "@react-google-maps/api";
-import images from "../components/Data/ImageLoader";
+import images from "../Data/ImageLoader";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
-const VehicleCard = lazy(() => import("../components/Home/VehicleCard"));
-const HomeHeader = lazy(() => import("../components/Home/HomeHeader"));
-const Footer = lazy(() => import("../components/common/Footer"));
-const FindVehicles = lazy(() => import("../components/common/FindVehicles"));
+const VehicleCard = lazy(() => import("../Components/Home/VehicleCard"));
+const HomeHeader = lazy(() => import("../Components/Home/HomeHeader"));
+const Footer = lazy(() => import("../Components/Common/Footer"));
+const FindVehicles = lazy(() => import("../Components/Common/FindVehicles"));
 
 // google map libraries
 const libs = ["places"];

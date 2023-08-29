@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Logo from "../../resources/eliger-white.svg";
+import Logo from "../../Resources/eliger-white.svg";
 import { RiCloseLine, RiMenu3Fill } from "react-icons/ri";
-import HeaderData from "../Data/HeaderData";
+import HeaderData from "../../Data/HeaderData";
 
 const Header = ({ bg = "bg-slate-800" }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,7 +41,10 @@ const Header = ({ bg = "bg-slate-800" }) => {
         </a>
 
         {/* menu button */}
-        <button onClick={menuSettings} className="z-[999] me-5 sm:me-8 md:hidden">
+        <button
+          onClick={menuSettings}
+          className="z-[999] me-5 sm:me-8 md:hidden"
+        >
           {!menuOpen ? (
             <RiMenu3Fill className="h-6 w-6 text-white duration-200 hover:text-cyan-400" />
           ) : (
@@ -57,7 +60,7 @@ const Header = ({ bg = "bg-slate-800" }) => {
                 key={data.text}
                 href={data.link}
                 className={
-                  "h-fit last:me-2 w-auto rounded-sm px-5 py-1.5 text-white duration-200 ease-in last:ms-5 last:bg-green-400 last:px-5 last:py-1.5 last:shadow-md last:drop-shadow-md hover:text-cyan-400 last:hover:bg-orange-400 last:hover:text-white md:hover:bg-transparent"
+                  "h-fit w-auto rounded-sm px-5 py-1.5 text-white duration-200 ease-in last:me-2 last:ms-5 last:bg-green-400 last:px-5 last:py-1.5 last:shadow-md last:drop-shadow-md hover:text-cyan-400 last:hover:bg-orange-400 last:hover:text-white md:hover:bg-transparent"
                 }
               >
                 {data.text}

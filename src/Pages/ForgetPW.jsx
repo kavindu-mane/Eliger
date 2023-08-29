@@ -1,14 +1,14 @@
 import React, { lazy } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
-const Circles = lazy(() => import("../components/common/Circles"));
+const Circles = lazy(() => import("../Components/Common/Circles"));
 const HeaderSecondary = lazy(() =>
-  import("../components/common/HeaderSecondary")
+  import("../Components/Common/HeaderSecondary")
 );
 const FooterSecondary = lazy(() =>
-  import("../components/common/FooterSecondary")
+  import("../Components/Common/FooterSecondary")
 );
 const BackgroundEffect = lazy(() =>
-  import("../components/common/BackgroundEffect")
+  import("../Components/Common/BackgroundEffect")
 );
 
 const ForgetPW = () => {

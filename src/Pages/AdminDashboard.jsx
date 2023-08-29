@@ -1,20 +1,20 @@
 import React, { lazy, useEffect } from "react";
-import topics from "../components/Data/AdminSidebarData";
-import AccountOption from "../components/Data/AdminGraph/AccountOption";
-import VehicleOption from "../components/Data/AdminGraph/VehicleOption";
-import RevenueOption from "../components/Data/AdminGraph/RevenueOption";
-import BookingOption from "../components/Data/AdminGraph/BookingOption";
+import topics from "../Data/AdminSidebarData";
+import AccountOption from "../Data/AdminGraph/AccountOption";
+import VehicleOption from "../Data/AdminGraph/VehicleOption";
+import RevenueOption from "../Data/AdminGraph/RevenueOption";
+import BookingOption from "../Data/AdminGraph/BookingOption";
 const HeaderSecondary = lazy(() =>
-  import("../components/common/HeaderSecondary")
+  import("../Components/Common/HeaderSecondary")
 );
 const FooterSecondary = lazy(() =>
-  import("../components/common/FooterSecondary")
+  import("../Components/Common/FooterSecondary")
 );
 const BackgroundEffect = lazy(() =>
-  import("../components/common/BackgroundEffect")
+  import("../Components/Common/BackgroundEffect")
 );
-const SideBar = lazy(() => import("../components/common/SideBar"));
-const BarGraph = lazy(() => import("../components/common/Graphs"));
+const SideBar = lazy(() => import("../Components/Common/SideBar"));
+const BarGraph = lazy(() => import("../Components/Common/Graphs"));
 
 const Admindashboard = () => {
   // week days
@@ -99,7 +99,6 @@ const Admindashboard = () => {
       },
     ],
   };
-
 
   // date settings - months
   const dateSettingsMonths = [

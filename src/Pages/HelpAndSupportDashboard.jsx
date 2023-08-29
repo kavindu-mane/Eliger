@@ -1,23 +1,21 @@
 import React, { lazy, useEffect } from "react";
-import topics from "../components/Data/HelpNSupportSidebarData";
-import AccountOption from "../components/Data/AdminGraph/AccountOption";
-import VehicleOption from "../components/Data/AdminGraph/VehicleOption";
+import topics from "../Data/HelpNSupportSidebarData";
+import AccountOption from "../Data/AdminGraph/AccountOption";
+import VehicleOption from "../Data/AdminGraph/VehicleOption";
 
 const HeaderSecondary = lazy(() =>
-  import("../components/common/HeaderSecondary")
+  import("../Components/Common/HeaderSecondary")
 );
 const FooterSecondary = lazy(() =>
-  import("../components/common/FooterSecondary")
+  import("../Components/Common/FooterSecondary")
 );
 const BackgroundEffect = lazy(() =>
-  import("../components/common/BackgroundEffect")
+  import("../Components/Common/BackgroundEffect")
 );
-const SideBar = lazy(() => import("../components/common/SideBar"));
-const BarGraph = lazy(() => import("../components/common/Graphs"));
+const SideBar = lazy(() => import("../Components/Common/SideBar"));
+const BarGraph = lazy(() => import("../Components/Common/Graphs"));
 
 const HelpAndSupportDashboard = () => {
-  
- 
   // account chart
   const accountsData = {
     labels: ["Vehicle Owner", "Customer", "Driver"],

@@ -1,10 +1,10 @@
 import React, { lazy } from "react";
-import AboutImg from "../resources/aboutus-image.svg";
-const Header = lazy(() => import("../components/common/Header"));
-const Footer = lazy(() => import("../components/common/Footer"));
-const Titles = lazy(() => import("../components/common/Titles"));
+import AboutImg from "../Resources/aboutus-image.svg";
+const Header = lazy(() => import("../Components/Common/Header"));
+const Footer = lazy(() => import("../Components/Common/Footer"));
+const Titles = lazy(() => import("../Components/Common/Titles"));
 const BackgroundEffect = lazy(() =>
-  import("../components/common/BackgroundEffect")
+  import("../Components/Common/BackgroundEffect")
 );
 
 const About = () => {

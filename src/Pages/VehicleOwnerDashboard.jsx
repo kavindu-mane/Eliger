@@ -1,18 +1,18 @@
 import React, { lazy } from "react";
 import { Label, Radio } from "flowbite-react";
 import { Card } from "flowbite-react";
-import topics from "../components/Data/VehicleOwnerSidebarData";
+import topics from "../Data/VehicleOwnerSidebarData";
 const HeaderSecondary = lazy(() =>
-  import("../components/common/HeaderSecondary")
+  import("../Components/Common/HeaderSecondary")
 );
 const FooterSecondary = lazy(() =>
-  import("../components/common/FooterSecondary")
+  import("../Components/Common/FooterSecondary")
 );
 const BackgroundEffect = lazy(() =>
-  import("../components/common/BackgroundEffect")
+  import("../Components/Common/BackgroundEffect")
 );
-const SideBar = lazy(() => import("../components/common/SideBar"));
-const DriverGraph = lazy(() => import("../components/Driver/DriverGraph"));
+const SideBar = lazy(() => import("../Components/Common/SideBar"));
+const DriverGraph = lazy(() => import("../Components/Driver/DriverGraph"));
 const VehicleOwnerDashboard = () => {
   return (
     <React.Fragment>

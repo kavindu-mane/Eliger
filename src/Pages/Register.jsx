@@ -6,20 +6,20 @@ import { CgSpinnerTwoAlt } from "react-icons/cg";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import ErrorData from "../components/Data/ErrorData";
+import ErrorData from "../Data/ErrorData";
 
-const Circles = lazy(() => import("../components/common/Circles"));
+const Circles = lazy(() => import("../Components/Common/Circles"));
 const HeaderSecondary = lazy(() =>
-  import("../components/common/HeaderSecondary")
+  import("../Components/Common/HeaderSecondary")
 );
 const FooterSecondary = lazy(() =>
-  import("../components/common/FooterSecondary")
+  import("../Components/Common/FooterSecondary")
 );
 const BackgroundEffect = lazy(() =>
-  import("../components/common/BackgroundEffect")
+  import("../Components/Common/BackgroundEffect")
 );
 const PasswordSwitcher = lazy(() =>
-  import("../components/common/PasswordSwitcher")
+  import("../Components/Common/PasswordSwitcher")
 );
 
 // create sweet alert object
