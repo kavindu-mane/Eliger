@@ -20,6 +20,7 @@ const VehicleOwnerDashboard = lazy(() =>
 );
 const CustomerDashboard = lazy(() => import("../Pages/CustomerDashboard"));
 const Verification = lazy(() => import("../Pages/Verification"));
+const Dashboard = lazy(() => import("../Pages/Dashboard"));
 
 const LinkArray = {
   "/": <Home />,
@@ -40,6 +41,7 @@ const LinkArray = {
   "/vehicleOwnerDashboard": <VehicleOwnerDashboard />,
   "/customerdashboard": <CustomerDashboard />,
   "/verification": <Verification />,
+  "/dashboard": <Dashboard />,
 };
 
 export default LinkArray;

@@ -1,5 +1,12 @@
 import React, { lazy, useState } from "react";
+import axios from "axios";
 import { Button, Label, Checkbox, TextInput } from "flowbite-react";
+import { MdOutlineError } from "react-icons/md";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import ErrorData from "../Data/ErrorData";
+import { useNavigate } from "react-router-dom";
 
 const Circles = lazy(() => import("../Components/Common/Circles"));
 const HeaderSecondary = lazy(() =>
@@ -15,8 +22,62 @@ const PasswordSwitcher = lazy(() =>
   import("../Components/Common/PasswordSwitcher")
 );
 
+// create sweet alert object
+const Alert = withReactContent(Swal);
+
 const Login = () => {
   const [isPassword, setIsPassword] = useState(true);
+  const [errorCode, setErrorCode] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // custom allert function with sweet alert 2
+  const setAlert = (icon, title, desc) => {
+    return Alert.fire({
+      icon: icon,
+      title: title,
+      text: desc,
+    });
+  };
+
+  // submit registration form
+  const handleSubmit = (e) => {
+    // clear previous errors
+    setErrorCode(null);
+    // remove default form submission
+    e.preventDefault();
+    // get data from form fields as FormData object
+    const formData = new FormData(e.target);
+    // change loading state to true
+    setIsLoading(true);
+    // send data using axios post function
+    axios
+      .post(process.env.REACT_APP_LOGIN_BACKEND_URL, formData)
+      .then((response) => {
+        if (response.status === 200) {
+          if (response.data === 200) navigate("/dashboard");
+          setIsLoading(false);
+          setErrorCode(response.data);
+        } else {
+          setAlert("error", "Registration faild", ErrorData[500]);
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        setAlert("error", "Registration faild", ErrorData[500]);
+        setIsLoading(false);
+      });
+  };
+
+  // error messages
+  const errorContainer = (errCode) => {
+    return (
+      <p className="flex items-center gap-x-1 font-Poppins text-sm font-semibold text-red-500">
+        <MdOutlineError /> {ErrorData[errCode]}
+      </p>
+    );
+  };
+
   return (
     <React.Fragment>
       {/* outer div */}
@@ -27,10 +88,19 @@ const Login = () => {
         <Circles />
         {/* header */}
         <HeaderSecondary />
+        {/* loading */}
+        {isLoading && (
+          <div className="absolute z-[999] flex h-full w-screen items-center justify-center bg-slate-950/60">
+            <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
+          </div>
+        )}
 
         {/* form */}
         <div className="my-28 flex h-auto w-full items-center justify-center px-6 sm:my-16 sm:px-10">
-          <form className="flex w-full max-w-lg flex-col gap-4">
+          <form
+            className="flex w-full max-w-lg flex-col gap-4"
+            onSubmit={(e) => handleSubmit(e)}
+          >
             {/* welcome */}
             <h1 className="text-2xl font-semibold ">Welcome back!</h1>
             {/* subtitle */}
@@ -54,6 +124,8 @@ const Login = () => {
                 type="email"
                 className="inputs"
               />
+              {/* error text */}
+              {errorCode === 3 && errorContainer(errorCode)}
             </div>
 
             {/* password */}
@@ -75,6 +147,8 @@ const Login = () => {
                 isPassword={isPassword}
                 setIsPassword={setIsPassword}
               />
+              {/* error text */}
+              {[7, 13].includes(errorCode) && errorContainer(errorCode)}
             </div>
 
             <div className="flex max-w-lg justify-between gap-4">

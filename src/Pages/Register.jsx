@@ -58,7 +58,6 @@ const Register = ({ type = "customer" }) => {
       .post(process.env.REACT_APP_REGISTER_BACKEND_URL, formData)
       .then((response) => {
         if (response.status === 200) {
-          //console.log(response.status, response.data); //remove this
           if (response.data === 200) setIsSuccess(true);
           setIsLoading(false);
           setErrorCode(response.data);
