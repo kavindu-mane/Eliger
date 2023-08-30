@@ -13,6 +13,7 @@ const ErrorData = {
   11: "Address is empty",
   12: "Verification code is invalied",
   13: "Email and password mismatched",
+  14: "Session not available",
   200: "Success", // default success code in http protocol
   500: "Somthing went wrong.please try again.", // default server error code in http protocol
 };

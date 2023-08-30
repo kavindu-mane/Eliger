@@ -154,10 +154,10 @@ const Login = () => {
             <div className="flex max-w-lg justify-between gap-4">
               <div className="flex items-center gap-2">
                 {/*checkbox*/}
-                <Checkbox id="accept" name="accept" />
+                <Checkbox id="remember" name="remember" />
                 <Label
                   className="flex font-normal text-slate-900 dark:text-gray-200"
-                  htmlFor="accept"
+                  htmlFor="remember"
                 >
                   Remember me
                 </Label>
