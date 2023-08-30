@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { lazy } from "react";
+import React, { lazy, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -13,6 +13,7 @@ const Alert = withReactContent(Swal);
 const Verification = () => {
   const [searchParams] = useSearchParams();
   const code = searchParams.get("verify");
+  const [message, setMessage] = useState(0);
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -23,6 +24,7 @@ const Verification = () => {
     });
   };
 
+  // success text
   const newAccVerify = () => {
     return (
       <>
@@ -41,19 +43,20 @@ const Verification = () => {
     );
   };
 
+  // error text
   const newAccError = () => {
     return <p className="mb-5 font-Poppins text-lg">{ErrorData["12"]}</p>;
   };
 
-  const passData = () => {
+  // submit code to backend
+  const passData = useCallback(() => {
+    let formData = new FormData();
+    formData.append("code", code);
     axios
-      .post(process.env.REACT_APP_VERIFY_BACKEND_URL, {
-        code: code,
-      })
+      .post(process.env.REACT_APP_VERIFY_BACKEND_URL, formData)
       .then((response) => {
         if (response.status === 200) {
-          if (response.data === 200) return newAccVerify();
-          else return newAccError();
+          setMessage(response.data);
         } else {
           setAlert("error", "Registration faild", ErrorData[500]);
         }
@@ -61,17 +64,30 @@ const Verification = () => {
       .catch((erro) => {
         setAlert("error", "Registration faild", ErrorData[500]);
       });
-  };
+  },[code]);
+
+  // submit function run component mounting
+  useEffect(() => {
+    if (code !== "") passData();
+  },[code , passData]);
+
   return (
     <React.Fragment>
       <div className="flex min-h-screen flex-col items-center justify-between">
         <Header />
         <div className="text-center">
+          {/* check query text is null or not */}
           {code === "" || code === null ? (
             <p className="font-Poppins text-lg">Verification code is empty.</p>
           ) : (
-            passData()
+            <></>
           )}
+
+          {/* if account verified show success message */}
+          {message === 200 && newAccVerify()}
+
+          {/* if error occurd show error message */}
+          {message !== 200 && message !== 0 && newAccError()}
         </div>
         <Footer />
       </div>

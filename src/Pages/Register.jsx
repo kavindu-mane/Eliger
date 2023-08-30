@@ -78,6 +78,8 @@ const Register = ({ type = "customer" }) => {
     let formData = new FormData();
     formData.append("email", email);
     formData.append("type", "register");
+    // change loading state to true
+    setIsLoading(true);
     axios
       .post(process.env.REACT_APP_RESEND_BACKEND_URL, formData)
       .then((response) => {
@@ -85,8 +87,9 @@ const Register = ({ type = "customer" }) => {
           setAlert(
             "success",
             "Re-send verification code",
-            "Re-send verification code to "+ email
+            "Re-send verification code to " + email
           );
+          setIsLoading(false);
         } else {
           setAlert("error", "Registration faild", ErrorData[500]);
           setIsLoading(false);
