@@ -4,9 +4,9 @@ import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 
 const enable =
   "my-2 flex cursor-pointer items-center rounded-md p-2 text-start hover:bg-gray-300 dark:hover:bg-gray-900";
-const disable = "my-2 flex items-center p-2  text-start";
+const disable = "my-2 flex items-center p-2  text-start pointer-events-none";
 
-const SideBar = ({ title, dataset }) => {
+const SideBar = ({ title, dataset,setActiveComp }) => {
   const [menuOpen, setMenuOpen] = useState(false || window.innerWidth > 1024);
   return (
     <React.Fragment>
@@ -41,7 +41,10 @@ const SideBar = ({ title, dataset }) => {
               return (
                 <div key={key}>
                   {/*Create Main Menu*/}
-                  <div className={data.enable ? enable : disable}>
+                  <div
+                    className={data.enable ? enable : disable}
+                    onClick={() => setActiveComp(data.compId)}
+                  >
                     {data.icon}
                     <span className="ml-4">{data.topic}</span>
                   </div>
