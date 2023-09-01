@@ -22,33 +22,99 @@ ChartJS.register(
 );
 
 export const options = {
- responsive: true,
+  elements: {
+    bar: {
+      borderWidth: 2,
+    },
+  },
+  responsive: true,
+  //maintainAspectRatio: true,
+  scales: {
+    y: {
+      ticks: {
+        color: "rgb(253 164 175)",
+        font: {
+          weight: "bold",
+          size: 14,
+        },
+      },
+      title: {
+        text: "Amount",
+        display: true,
+        color: "shadow-md drop-shadow-lg dark:bg-slate-100",
+        font: {
+          size: 16,
+          weight: "bold",
+        },
+      },
+    },
+    x: {
+      ticks: {
+        color: "rgb(253 164 175)",
+        font: {
+          weight: "bold",
+          size: 14,
+        },
+      },
+      title: {
+        text: "Day",
+        display: true,
+        color: "shadow-md drop-shadow-lg dark:bg-slate-100",
+        font: {
+          size: 16,
+          weight: "bold",
+        },
+      },
+    },
+  },
   plugins: {
     legend: {
-      position: 'top',
+      display: true,
+      position: "right",
+
+      font: {
+        size: 16,
+        weight: "bold",
+      },
     },
     title: {
       display: true,
-     
     },
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July","Augest","September"];
+const labels = [
+  "Fri",
+  "Sat",
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+
+];
 
 export const data = {
   labels,
   datasets: [
     {
-      label: "Monthly earning",
-      data: [23000, 6700, 10200, 40670, 30100, 8900, 7000,550,100],
-      borderColor: "rgb(14 116 144)",
-      backgroundColor: "rgb(45 212 191)",
+      label: "Aug 4 - Aug 10",
+      
+      data: [2000, 3500, 7800, 2100, 1600, 2350, 5800],
+      borderWidth: 2,
+      borderColor: "rgb(244 63 94)",
+      backgroundColor: "rgb(253 164 175)",
+    },
+    {
+      label: "Aug 11-Aug 19",
+      data: [1500, 550, 2100, 1250, 3670, 4200, 7800],
+      borderWidth: 2,
+      borderColor: "rgb(22 163 74)",
+      backgroundColor: "#22A699",
     },
   ],
 };
-const DriverGraph=()=>{
-
+const DriverGraph = () => {
   return <Line options={options} data={data} />;
-}
+};
 export default DriverGraph;
