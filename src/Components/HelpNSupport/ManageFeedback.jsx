@@ -8,11 +8,11 @@ const ManageFeedback = () => {
         Manage Feedbacks
       </div>
       <div className="rounded-md bg-white px-2 py-4 shadow-md drop-shadow-lg dark:bg-slate-700">
-        <Feedback customer={"Pabasara"} feedbackdesc={"..."} />
-        <Feedback customer={"Pabasara"} feedbackdesc={"..."} />
-        <Feedback customer={"Pabasara"} feedbackdesc={"..."} />
-        <Feedback customer={"Pabasara"} feedbackdesc={"..."} />
-        <Feedback customer={"Pabasara"} feedbackdesc={"..."} />
+        <Feedback Customer_Name={"Pabasara"} Feedback_description={"aaaaaaaajjjjjjjjj jaaaaaaajjjjjjjjjjjjjjssssssssssssssssj ssssssssssssssssssssssllllldddddddddddddd hhhhhhhh"} />
+        <Feedback Customer_Name={"Pabasara"} Feedback_description={"aaaaaaaajjjjjjjjj jaaaaaaajjjjjjjjjjjjjjssssssssssssssssj ssssssssssssssssssssssllllldddddddddddddd hhhhhhhh"} />
+        <Feedback Customer_Name={"Pabasara"} Feedback_description={"aaaaaaaajjjjjjjjj jaaaaaaajjjjjjjjjjjjjjssssssssssssssssj ssssssssssssssssssssssllllldddddddddddddd hhhhhhhh"} />
+        <Feedback Customer_Name={"Pabasara"} Feedback_description={"aaaaaaaajjjjjjjjj jaaaaaaajjjjjjjjjjjjjjssssssssssssssssj ssssssssssssssssssssssllllldddddddddddddd hhhhhhhh"} />
+        <Feedback Customer_Name={"Pabasara"} Feedback_description={"aaaaaaaajjjjjjjjj jaaaaaaajjjjjjjjjjjjjjssssssssssssssssj ssssssssssssssssssssssllllldddddddddddddd hhhhhhhh"} />
       </div>
     </div>
   );

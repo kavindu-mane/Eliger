@@ -8,11 +8,36 @@ const ManageVehicle = () => {
         Manage Vehicles
       </div>
       <div className="rounded-md bg-white px-2 py-4 shadow-md drop-shadow-lg dark:bg-slate-700">
-        <Vehicle owner={"Pabasara"} vehicletype={"car"} />
-        <Vehicle owner={"Pabasara"} vehicletype={"car"} />
-        <Vehicle owner={"Pabasara"} vehicletype={"car"} />
-        <Vehicle owner={"Pabasara"} vehicletype={"car"} />
-        <Vehicle owner={"Pabasara"} vehicletype={"car"} />
+        <Vehicle
+          Owner_Name={"Pabasara"}
+          Vehicle_type={"car"}
+          Vehicle_PlateNumber={"ABC4567"}
+          Passenger_amount={"5"}
+        />
+        <Vehicle
+          Owner_Name={"Pabasara"}
+          Vehicle_type={"car"}
+          Vehicle_PlateNumber={"ABC4567"}
+          Passenger_amount={"5"}
+        />
+        <Vehicle
+          Owner_Name={"Pabasara"}
+          Vehicle_type={"car"}
+          Vehicle_PlateNumber={"ABC4567"}
+          Passenger_amount={"5"}
+        />
+        <Vehicle
+          Owner_Name={"Pabasara"}
+          Vehicle_type={"car"}
+          Vehicle_PlateNumber={"ABC4567"}
+          Passenger_amount={"5"}
+        />
+        <Vehicle
+          Owner_Name={"Pabasara"}
+          Vehicle_type={"car"}
+          Vehicle_PlateNumber={"ABC4567"}
+          Passenger_amount={"5"}
+        />
       </div>
     </div>
   );

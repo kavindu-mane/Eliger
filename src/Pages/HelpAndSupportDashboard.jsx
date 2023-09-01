@@ -20,9 +20,23 @@ const ManageVehicle = lazy(() =>
 const ManageFeedback = lazy(() =>
   import("../Components/HelpNSupport/ManageFeedback")
 );
+const ReviewReports = lazy(() =>
+  import("../Components/HelpNSupport/ReviewReports")
+);
+const ViewUserMsg = lazy(() =>
+  import("../Components/HelpNSupport/ViewUserMsg")
+);
 const HelpAndSupportDashboard = () => {
   //Component loading state hook
   const [activeComp, setActiveComp] = useState(0);
+
+  const optionComponents = {
+    0: <ManageBooking />,
+    1: <ManageVehicle />,
+    2: <ManageFeedback />,
+    3: <ViewUserMsg />,
+    4: <ReviewReports />,
+  };
 
   return (
     <React.Fragment>
@@ -45,16 +59,13 @@ const HelpAndSupportDashboard = () => {
           {/* Body Area */}
           <div className="relative flex w-full flex-col justify-between px-5 pt-4 md:px-10 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
             {/*ManageBooking*/}
-            {activeComp === 0 ? <ManageBooking /> : <ManageVehicle />}
-            {/* bottom content area */}{" "}
-          
-            <div>
+            {optionComponents[activeComp]}
+            {/* bottom content area */}
+            
               {/*Two Graphs*/}
               <HelpGraphs />
-            </div>
-            <div>
-              <ManageFeedback />
-            </div>
+  
+
             {/* footer */}
             <div className="relative">
               <FooterSecondary />

@@ -8,11 +8,11 @@ const ViewUserMsg = () => {
         View User Messages
       </div>
       <div className="rounded-md bg-white px-2 py-4 shadow-md drop-shadow-lg dark:bg-slate-700">
-        <Messages customer={"Pabasara"} msgdesc={"..."} />
-        <Messages customer={"Pabasara"} msgdesc={"..."} />
-        <Messages customer={"Pabasara"} msgdesc={"..."} />
-        <Messages customer={"Pabasara"} msgdesc={"..."} />
-        <Messages customer={"Pabasara"} msgdesc={"..."} />
+        <Messages Customer_Name={"Pabasara"} Message_description={"fcccccccccccccc igyyyyyyyyyyyyyyyyy iyghbhhhhhhhhhhhhhhhhhhhhhhhh uygggggggggggggggggggggggggggggggg fyhhhhhhhhhhhhhhhhhhhhhhhh hbbbbbbbbb"} />
+        <Messages Customer_Name={"Pabasara"} Message_description={"fcccccccccccccc igyyyyyyyyyyyyyyyyy iyghbhhhhhhhhhhhhhhhhhhhhhhhh uygggggggggggggggggggggggggggggggg fyhhhhhhhhhhhhhhhhhhhhhhhh hbbbbbbbbb"} />
+        <Messages Customer_Name={"Pabasara"} Message_description={"fcccccccccccccc igyyyyyyyyyyyyyyyyy iyghbhhhhhhhhhhhhhhhhhhhhhhhh uygggggggggggggggggggggggggggggggg fyhhhhhhhhhhhhhhhhhhhhhhhh hbbbbbbbbb"} />
+        <Messages Customer_Name={"Pabasara"} Message_description={"fcccccccccccccc igyyyyyyyyyyyyyyyyy iyghbhhhhhhhhhhhhhhhhhhhhhhhh uygggggggggggggggggggggggggggggggg fyhhhhhhhhhhhhhhhhhhhhhhhh hbbbbbbbbb"} />
+        <Messages Customer_Name={"Pabasara"} Message_description={"fcccccccccccccc igyyyyyyyyyyyyyyyyy iyghbhhhhhhhhhhhhhhhhhhhhhhhh uygggggggggggggggggggggggggggggggg fyhhhhhhhhhhhhhhhhhhhhhhhh hbbbbbbbbb"} />
       </div>
     </div>
   );

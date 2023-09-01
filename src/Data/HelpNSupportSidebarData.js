@@ -10,6 +10,21 @@ import { ImUsers } from "react-icons/im";
 
 const topics = [
   {
+    topic: "Manage Bookings",
+    enable: true,
+    icon: <MdCardMembership className="h-5 w-5" />,
+    haveSub: false,
+    compId: 0,
+  },
+
+  {
+    topic: "Manage Vehicles",
+    enable: true,
+    icon: <MdCarRental className="h-5 w-5" />,
+    haveSub: false,
+    compId: 1,
+  },
+  {
     topic: "Manage Accounts",
     enable: false,
     icon: <VscRequestChanges className="h-5 w-5" />,
@@ -32,21 +47,6 @@ const topics = [
         compId: 7,
       },
     ],
-  },
-  {
-    topic: "Manage Bookings",
-    enable: true,
-    icon: <MdCardMembership className="h-5 w-5" />,
-    haveSub: false,
-    compId: 0,
-  },
-
-  {
-    topic: "Manage Vehicles",
-    enable: true,
-    icon: <MdCarRental className="h-5 w-5" />,
-    haveSub: false,
-    compId: 1,
   },
   {
     topic: "Manage Feedback",

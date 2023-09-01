@@ -8,11 +8,11 @@ const ReviewReports = () => {
         Reports
       </div>
       <div className="rounded-md bg-white px-2 py-4 shadow-md drop-shadow-lg dark:bg-slate-700">
-        <Reports customer={"Pabasara"} reportdesc={"Report"} />
-        <Reports customer={"Pabasara"} reportdesc={"Report"} />
-        <Reports customer={"Pabasara"} reportdesc={"Report"} />
-        <Reports customer={"Pabasara"} reportdesc={"Report"} />
-        <Reports customer={"Pabasara"} reportdesc={"Report"} />
+        <Reports Customer_Name={"Pabasara"} Report_description={"Report"} />
+        <Reports Customer_Name={"Pabasara"} Report_description={"Report"} />
+        <Reports Customer_Name={"Pabasara"} Report_description={"Report"} />
+        <Reports Customer_Name={"Pabasara"} Report_description={"Report"} />
+        <Reports Customer_Name={"Pabasara"} Report_description={"Report"} />
       </div>
     </div>
   );

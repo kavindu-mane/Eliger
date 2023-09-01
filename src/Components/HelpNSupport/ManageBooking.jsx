@@ -8,11 +8,36 @@ const ManageBooking = () => {
         Manage Bookings
       </div>
       <div className="rounded-md bg-white px-2 py-4 shadow-md drop-shadow-lg dark:bg-slate-700">
-        <BookingReq customer={"Pabasara"} bookingstatus={"available"} />
-        <BookingReq customer={"Pabasara"} bookingstatus={"available"} />
-        <BookingReq customer={"Pabasara"} bookingstatus={"available"} />
-        <BookingReq customer={"Pabasara"} bookingstatus={"available"} />
-        <BookingReq customer={"Pabasara"} bookingstatus={"available"} />
+        <BookingReq
+          Origin_Place={"Colombo"}
+          Destination_Place={"Galle"}
+          Type={"BookNow"}
+          
+        />
+        <BookingReq
+          Origin_Place={"Colombo"}
+          Destination_Place={"Galle"}
+          Type={"BookNow"}
+          
+        />
+        <BookingReq
+          Origin_Place={"Colombo"}
+          Destination_Place={"Galle"}
+          Type={"BookNow"}
+          
+        />
+        <BookingReq
+          Origin_Place={"Colombo"}
+          Destination_Place={"Galle"}
+          Type={"BookNow"}
+          
+        />
+        <BookingReq
+          Origin_Place={"Colombo"}
+          Destination_Place={"Galle"}
+          Type={"BookNow"}
+          
+        />
       </div>
     </div>
   );
