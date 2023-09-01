@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-const Vehicle = lazy(() => import("./Messages"));
+const Messages = lazy(() => import("./Messages"));
 
 const ViewUserMsg = () => {
   return (
@@ -8,11 +8,11 @@ const ViewUserMsg = () => {
         View User Messages
       </div>
       <div className="rounded-md bg-white px-2 py-4 shadow-md drop-shadow-lg dark:bg-slate-700">
-        <Vehicle customer={"Pabasara"} msgdesc={"..."} />
-        <Vehicle customer={"Pabasara"} msgdesc={"..."} />
-        <Vehicle customer={"Pabasara"} msgdesc={"..."} />
-        <Vehicle customer={"Pabasara"} msgdesc={"..."} />
-        <Vehicle customer={"Pabasara"} msgdesc={"..."} />
+        <Messages customer={"Pabasara"} msgdesc={"..."} />
+        <Messages customer={"Pabasara"} msgdesc={"..."} />
+        <Messages customer={"Pabasara"} msgdesc={"..."} />
+        <Messages customer={"Pabasara"} msgdesc={"..."} />
+        <Messages customer={"Pabasara"} msgdesc={"..."} />
       </div>
     </div>
   );

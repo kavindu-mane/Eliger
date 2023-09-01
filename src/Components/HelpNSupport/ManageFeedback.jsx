@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-const Vehicle = lazy(() => import("./Feedback"));
+const Feedback = lazy(() => import("./Feedback"));
 
 const ManageFeedback = () => {
   return (
@@ -8,11 +8,11 @@ const ManageFeedback = () => {
         Manage Feedbacks
       </div>
       <div className="rounded-md bg-white px-2 py-4 shadow-md drop-shadow-lg dark:bg-slate-700">
-        <Vehicle customer={"Pabasara"} feedbackdesc={"..."} />
-        <Vehicle customer={"Pabasara"} feedbackdesc={"..."} />
-        <Vehicle customer={"Pabasara"} feedbackdesc={"..."} />
-        <Vehicle customer={"Pabasara"} feedbackdesc={"..."} />
-        <Vehicle customer={"Pabasara"} feedbackdesc={"..."} />
+        <Feedback customer={"Pabasara"} feedbackdesc={"..."} />
+        <Feedback customer={"Pabasara"} feedbackdesc={"..."} />
+        <Feedback customer={"Pabasara"} feedbackdesc={"..."} />
+        <Feedback customer={"Pabasara"} feedbackdesc={"..."} />
+        <Feedback customer={"Pabasara"} feedbackdesc={"..."} />
       </div>
     </div>
   );

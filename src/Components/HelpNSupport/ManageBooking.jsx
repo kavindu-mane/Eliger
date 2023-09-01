@@ -8,11 +8,11 @@ const ManageBooking = () => {
         Manage Bookings
       </div>
       <div className="rounded-md bg-white px-2 py-4 shadow-md drop-shadow-lg dark:bg-slate-700">
-        <BookingReq customer={"Pabasara"} BookingStatus={"available"} />
-        <BookingReq customer={"Pabasara"} BookingStatus={"available"} />
-        <BookingReq customer={"Pabasara"} BookingStatus={"available"} />
-        <BookingReq customer={"Pabasara"} BookingStatus={"available"} />
-        <BookingReq customer={"Pabasara"} BookingStatus={"available"} />
+        <BookingReq customer={"Pabasara"} bookingstatus={"available"} />
+        <BookingReq customer={"Pabasara"} bookingstatus={"available"} />
+        <BookingReq customer={"Pabasara"} bookingstatus={"available"} />
+        <BookingReq customer={"Pabasara"} bookingstatus={"available"} />
+        <BookingReq customer={"Pabasara"} bookingstatus={"available"} />
       </div>
     </div>
   );
