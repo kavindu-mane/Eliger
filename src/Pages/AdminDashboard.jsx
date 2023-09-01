@@ -42,7 +42,7 @@ const Admindashboard = () => {
           <div className="relative flex w-full flex-col justify-between px-5 pt-4 md:px-10 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
             {/*vehicle registration*/}
             {activeComp === 0 ? <NewVehicleReg /> : <CreateHelpAccount />}
-            {/* bottom content area */}{" "}
+            {/* bottom content area */}
             <div>
               {/*four Graphs*/}
               <StatGraphs />

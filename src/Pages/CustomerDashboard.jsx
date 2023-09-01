@@ -1,7 +1,9 @@
-import React, { lazy } from "react";
+import React, { lazy, useState } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 import topics from "../Data/CustomersidebarData";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
+import ViewFavouriteVehicles from "../Components/Customer/ViewFavouriteVehicles";
+
 const HeaderSecondary = lazy(() =>
   import("../Components/Common/HeaderSecondary")
 );
@@ -14,10 +16,30 @@ const BackgroundEffect = lazy(() =>
 const SideBar = lazy(() => import("../Components/Common/SideBar"));
 const FindVehicles = lazy(() => import("../Components/Common/FindVehicles"));
 
+const EditMyProfile = lazy(() =>
+  import("../Components/Customer/EditMyProfile")
+);
+
+const ViewMyBookings = lazy(() =>
+  import("../Components/Customer/ViewMyBookings")
+);
+const ViewOldPayments = lazy(() =>
+  import("../Components/Customer/ViewOldPayments")
+);
 // google map libraries
 const libs = ["places"];
 
 const CustomerDashboard = () => {
+  //Component loading state hook
+  const [activeComp, setActiveComp] = useState(0);
+
+  const optionComponents = {
+    0: <FindVehicles />,
+    1: <EditMyProfile />,
+    2: <ViewMyBookings />,
+    3: <ViewOldPayments />,
+    4: <ViewFavouriteVehicles />,
+  };
   // load map api
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -37,23 +59,33 @@ const CustomerDashboard = () => {
     );
   return (
     <React.Fragment>
-      <div className="flex min-h-screen flex-col items-center justify-between">
-        {/* middle container */}
-        <div className="relative flex h-full w-screen flex-col items-center">
-          {/* bluer effect */}
-          <BackgroundEffect />
-          <HeaderSecondary />
-          {/* Content-Area */}
-          <div className="flex min-h-screen w-screen flex-col lg:flex-row">
-            {/* Side Bar Area */}
-            <div className="w-full min-w-max lg:h-screen lg:max-w-xs">
-              <SideBar title={"Username"} dataset={topics} />
-            </div>
-            <div className=" top-0 flex h-full w-full flex-col items-center justify-center  ">
-              <FindVehicles />
+      {/* middle container */}
+      <div className="relative flex h-full w-screen flex-col items-center">
+        {/* bluer effect */}
+        <BackgroundEffect />
+        <HeaderSecondary />
+        {/* Content-Area */}
+        <div className="flex w-screen flex-col lg:h-screen lg:flex-row lg:overflow-hidden">
+          {/* Side Bar Area */}
+          <div className="w-full min-w-max lg:h-screen lg:max-w-xs">
+            <SideBar
+              title={"Username"}
+              dataset={topics}
+              setActiveComp={setActiveComp}
+            />
+          </div>
+
+          {/* Body Area */}
+          <div className="relative flex w-full flex-col items-center justify-between px-5 pt-4 md:px-10 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
+            {/* bottom content area */}
+            {optionComponents[activeComp]}
+            <div className="w-2 pb-20"></div>
+
+            {/* footer */}
+            <div className="relative w-full">
+              <FooterSecondary />
             </div>
           </div>
-          <FooterSecondary />
         </div>
       </div>
     </React.Fragment>
