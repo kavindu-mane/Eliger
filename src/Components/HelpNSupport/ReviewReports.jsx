@@ -1,10 +1,11 @@
-import React from "react";
+import React, { lazy } from "react";
+const Paginations = lazy(() => import("../Admin/Paginations"));
 
 const ReviewReports = () => {
   return (
     <React.Fragment>
       <div className="pb-5 text-center text-xl font-medium md:text-2xl">
-       Reports
+        Reports
       </div>
       <div className="hidden rounded-t-md bg-gray-400 px-4 py-2 ring-[0.5px] ring-gray-400 dark:bg-gray-700 dark:ring-gray-600 md:flex">
         <div className="w-full text-center">
@@ -41,6 +42,7 @@ const ReviewReports = () => {
           </div>
         );
       })}
+      <Paginations/>
     </React.Fragment>
   );
 };

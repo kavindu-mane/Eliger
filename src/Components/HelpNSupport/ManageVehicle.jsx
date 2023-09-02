@@ -1,4 +1,5 @@
-import React from "react";
+import React, { lazy } from "react";
+const Paginations = lazy(() => import("../Admin/Paginations"));
 
 const ManageVehicle = () => {
   return (
@@ -48,6 +49,7 @@ const ManageVehicle = () => {
           </div>
         );
       })}
+      <Paginations/>
     </React.Fragment>
   );
 };
