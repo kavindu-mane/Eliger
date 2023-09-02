@@ -2,9 +2,9 @@ import { Button, Card, Label, TextInput } from "flowbite-react";
 
 const EditAccount = () => {
   return (
-    <Card className="dark:bg-slate-700">
+    <Card className="mt-8 dark:bg-slate-900">
       <div className="text-center text-2xl font-semibold tracking-wide ">
-        Edit Account{" "}
+        Edit Account
       </div>
       <form className="flex flex-col gap-4">
         <div className="flex flex-col gap-4 lg:flex-row ">
@@ -12,14 +12,14 @@ const EditAccount = () => {
             <div className="mb-2 block">
               <Label htmlFor="fname" value="First Name" />
             </div>
-            <TextInput id="fname" required type="text" />
+            <TextInput id="fname" required type="text" placeholder="John" />
           </div>
 
           <div className="w-1/2">
             <div className="mb-2 block">
               <Label htmlFor="lname" value="Last Name" />
             </div>
-            <TextInput id="lname" required type="text" />
+            <TextInput id="lname" required type="text" placeholder="Samual" />
           </div>
         </div>
         <div className="flex flex-col gap-4 lg:flex-row ">
@@ -63,19 +63,18 @@ const EditAccount = () => {
           <div className="mb-2 block">
             <Label htmlFor="repassword" value="Confirm password" />
           </div>
-          <TextInput
-            id="repassword"
-            placeholder="abc@gmail.com"
-            required
-            type="password"
-          />
+          <TextInput id="repassword" placeholder="" required type="password" />
         </div>
 
         {/* <div className="flex items-center gap-2">
           <Checkbox id="remember" />
           <Label htmlFor="remember">Remember me</Label>
         </div> */}
-        <Button type="submit">Edit Account</Button>
+        <div className="flex w-full justify-center font-Poppins">
+          <Button type="submit" className="w-full max-w-sm">
+            Save Changes
+          </Button>
+        </div>
       </form>
     </Card>
   );
