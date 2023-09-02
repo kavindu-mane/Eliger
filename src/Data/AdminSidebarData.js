@@ -8,6 +8,7 @@ import { GiCarKey, GiCarSeat } from "react-icons/gi";
 import { ImUsers } from "react-icons/im";
 import { BiSolidMessageAdd } from "react-icons/bi";
 import { RiPassPendingLine } from "react-icons/ri";
+import { FaUserPlus } from "react-icons/fa";
 
 const topics = [
   {
@@ -20,7 +21,7 @@ const topics = [
   {
     topic: "New Driver Registrations",
     enable: true,
-    icon: <RiPassPendingLine className="h-5 w-5" />,
+    icon: <FaUserPlus className="h-5 w-5" />,
     haveSub: false,
     compId: 1,
   },
@@ -41,7 +42,7 @@ const topics = [
   {
     topic: "Pending Driver Registrations",
     enable: true,
-    icon: <MdPendingActions className="h-5 w-5" />,
+    icon: <RiPassPendingLine className="h-5 w-5" />,
     haveSub: false,
     compId: 4,
   },
