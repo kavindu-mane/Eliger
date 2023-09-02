@@ -2,7 +2,6 @@ import React, { lazy, useState } from "react";
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import { MdOutlineError } from "react-icons/md";
 import ErrorData from "../../Data/ErrorData";
-import { CgSpinnerTwoAlt } from "react-icons/cg";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -27,9 +26,9 @@ const EditMyProfile = () => {
   const [isConfPassword, setIsConfPassword] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
   const [errorCode, setErrorCode] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [email, setEmail] = useState("");
+  const [ setIsLoading] = useState(false);
+  const [setIsSuccess] = useState(false);
+  const [setEmail] = useState("");
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -40,7 +39,7 @@ const EditMyProfile = () => {
     });
   };
 
-  // submit registration form
+  // submit form
   const handleSubmit = (e) => {
     // clear previous errors
     setErrorCode(null);
@@ -75,6 +74,8 @@ const EditMyProfile = () => {
       <h1 className="text-1.5xl font-bold ">Edit Account Details</h1>
       <form className="flex flex-col gap-4">
         <div>
+           className="flex w-full max-w-lg flex-col gap-4"
+              onSubmit={(e) => handleSubmit(e)}
           <div className="mb-2 block">
             {/* name */}
             <div className="flex flex-col justify-between sm:flex-row">

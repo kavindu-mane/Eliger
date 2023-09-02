@@ -8,11 +8,17 @@ const ViewOldPayments = () => {
         View Old Payments
       </div>
       <div className="rounded-md bg-white px-2 py-4 shadow-md drop-shadow-lg dark:bg-slate-700">
+        <div className="hidden justify-between md:flex">
+          <span className="px-4">Type</span>
+          <span className="">Amount</span>
+          <span className="px-4">DateTime</span>
+          <span className="px-4">Option</span>
+        </div>
         <ViewPayments
-          Payment Type={"Online"}
+          Payment
+          Type={"Online"}
           Amount={"2000"}
           DateTime={"2023"}
-          
         />
       </div>
     </div>

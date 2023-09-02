@@ -7,6 +7,7 @@ const View = ({
     Booking_Status,
 }) => {
   return (
+    
     <div className="text-md my-1 flex flex-col justify-center space-y-2 rounded-md bg-white px-4 py-2 shadow-md ring-[0.5px] ring-gray-400 drop-shadow-xl dark:bg-slate-950 dark:ring-gray-600 md:flex-row md:items-center md:justify-between md:space-y-0">
       <p className="w-fit">{Type}</p>
       <p className="w-fit">{Origin_Place}</p>
