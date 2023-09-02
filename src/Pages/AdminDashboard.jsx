@@ -76,6 +76,7 @@ const Admindashboard = () => {
             {/*vehicle registration*/}
             {optionComponents[activeComp]}
             {/* bottom content area */}{" "}
+
             <div>
               {/*four Graphs*/}
               <StatGraphs />

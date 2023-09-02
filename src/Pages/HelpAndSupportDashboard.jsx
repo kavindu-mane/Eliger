@@ -1,8 +1,9 @@
-import React, { lazy, useEffect } from "react";
+import React, { lazy, useState } from "react";
 import topics from "../Data/HelpNSupportSidebarData";
-import AccountOption from "../Data/AdminGraph/AccountOption";
-import VehicleOption from "../Data/AdminGraph/VehicleOption";
-
+const HelpGraphs = lazy(() => import("../Components/HelpNSupport/HelpGraphs"));
+const ManageBooking = lazy(() =>
+  import("../Components/HelpNSupport/ManageBooking")
+);
 const HeaderSecondary = lazy(() =>
   import("../Components/Common/HeaderSecondary")
 );
@@ -13,59 +14,30 @@ const BackgroundEffect = lazy(() =>
   import("../Components/Common/BackgroundEffect")
 );
 const SideBar = lazy(() => import("../Components/Common/SideBar"));
-const BarGraph = lazy(() => import("../Components/Common/Graphs"));
-
+const ManageVehicle = lazy(() =>
+  import("../Components/HelpNSupport/ManageVehicle")
+);
+const ManageFeedback = lazy(() =>
+  import("../Components/HelpNSupport/ManageFeedback")
+);
+const ReviewReports = lazy(() =>
+  import("../Components/HelpNSupport/ReviewReports")
+);
+const ViewUserMsg = lazy(() =>
+  import("../Components/HelpNSupport/ViewUserMsg")
+);
 const HelpAndSupportDashboard = () => {
-  // account chart
-  const accountsData = {
-    labels: ["Vehicle Owner", "Customer", "Driver"],
-    datasets: [
-      {
-        data: [10, 23, 16],
-        borderWidth: 0,
-        borderRadius: 5,
-        backgroundColor: "#059669",
-      },
-      {
-        data: [20, 43, 12],
-        borderWidth: 0,
-        borderRadius: 5,
-        backgroundColor: "#ea580c",
-      },
-    ],
-  };
-  // vehicle chart
-  const vehicleData = {
-    labels: ["Cars", "Van", "Tuk Tuk", "Bike"],
-    datasets: [
-      {
-        data: [10, 23, 12, 12],
-        borderWidth: 0,
-        borderRadius: 5,
-        backgroundColor: "#d61c4e",
-      },
-      {
-        data: [14, 18, 27, 10],
-        borderWidth: 0,
-        borderRadius: 5,
-        backgroundColor: "#2d4059",
-      },
-    ],
+  //Component loading state hook
+  const [activeComp, setActiveComp] = useState(0);
+
+  const optionComponents = {
+    0: <ManageBooking />,
+    1: <ManageVehicle />,
+    2: <ManageFeedback />,
+    3: <ViewUserMsg />,
+    4: <ReviewReports />,
   };
 
-  // date settings - months
-  const dateSettingsMonths = [
-    {
-      start: 59,
-      end: 30,
-    },
-    {
-      start: 30,
-      end: 0,
-    },
-  ];
-
-  useEffect(() => {});
   return (
     <React.Fragment>
       {/* container */}
@@ -77,49 +49,23 @@ const HelpAndSupportDashboard = () => {
         <div className="flex w-screen flex-col lg:h-screen lg:flex-row lg:overflow-hidden">
           {/* Side Bar Area */}
           <div className="w-full min-w-max lg:h-screen lg:max-w-xs">
-            <SideBar title={"Help And Support"} dataset={topics} />
+            <SideBar
+              title={"Help And Support"}
+              dataset={topics}
+              setActiveComp={setActiveComp}
+            />
           </div>
 
           {/* Body Area */}
-          <div className="relative flex w-full flex-col justify-between px-5 pt-4 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
-            {/* top content area */}
-            <div>
-              {/*four Graphs*/}
-              <div className="flex h-auto flex-wrap">
-                {/* graph 1 */}
-                <div className="flex w-full justify-center xl:w-1/2">
-                  <BarGraph
-                    options={AccountOption}
-                    data={accountsData}
-                    title={
-                      <span>
-                        New Registrations
-                        <small className="ms-1 text-sm font-bold italic">
-                          - Account Type Vs Amount
-                        </small>
-                      </span>
-                    }
-                    dateSettings={dateSettingsMonths}
-                  />
-                </div>
-                {/* graph 2 */}
-                <div className="flex w-full justify-center xl:w-1/2">
-                  <BarGraph
-                    options={VehicleOption}
-                    data={vehicleData}
-                    title={
-                      <span>
-                        New Registrations
-                        <small className="ms-1 text-sm font-bold italic">
-                          - Vehicle Type Vs Amount
-                        </small>
-                      </span>
-                    }
-                    dateSettings={dateSettingsMonths}
-                  />
-                </div>
-              </div>
-            </div>
+          <div className="relative flex w-full flex-col justify-between px-5 pt-4 md:px-10 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
+            {/*ManageBooking*/}
+            {optionComponents[activeComp]}
+            {/* bottom content area */}
+            
+              {/*Two Graphs*/}
+              <HelpGraphs />
+  
+
             {/* footer */}
             <div className="relative">
               <FooterSecondary />
