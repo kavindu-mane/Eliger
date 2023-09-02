@@ -35,7 +35,7 @@ const Login = () => {
   // session management function
   const session = useCallback(() => {
     axios
-      .post(process.env.REACT_APP_SESSION_BACKEND_URL)
+      .post("/session")
       .then((response) => {
         console.log(response);
         if (response.data.status === 200) navigate("/dashboard");
@@ -49,7 +49,7 @@ const Login = () => {
   // session function run in component mount
   useEffect(() => {
     session();
-  },[session]);
+  }, [session]);
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -72,7 +72,7 @@ const Login = () => {
     setIsLoading(true);
     // send data using axios post function
     axios
-      .post(process.env.REACT_APP_LOGIN_BACKEND_URL, formData)
+      .post("/login", formData)
       .then((response) => {
         if (response.status === 200) {
           if (response.data.status === 200) navigate("/dashboard");

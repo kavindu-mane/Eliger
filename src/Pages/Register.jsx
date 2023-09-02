@@ -40,7 +40,7 @@ const Register = ({ type = "customer" }) => {
   // session management function
   const session = useCallback(() => {
     axios
-      .post(process.env.REACT_APP_SESSION_BACKEND_URL)
+      .post("/session")
       .then((response) => {
         console.log(response);
         if (response.data.status === 200) navigate("/dashboard");
@@ -54,7 +54,7 @@ const Register = ({ type = "customer" }) => {
   // session function run in component mount
   useEffect(() => {
     session();
-  },[session]);
+  }, [session]);
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -77,7 +77,7 @@ const Register = ({ type = "customer" }) => {
     setIsLoading(true);
     // send data using axios post function
     axios
-      .post(process.env.REACT_APP_REGISTER_BACKEND_URL, formData)
+      .post("/register", formData)
       .then((response) => {
         if (response.status === 200) {
           if (response.data === 200) setIsSuccess(true);
@@ -102,7 +102,7 @@ const Register = ({ type = "customer" }) => {
     // change loading state to true
     setIsLoading(true);
     axios
-      .post(process.env.REACT_APP_RESEND_BACKEND_URL, formData)
+      .post("/resend", formData)
       .then((response) => {
         if (response.status === 200) {
           setAlert(

@@ -14,7 +14,7 @@ const SideBar = ({ title, dataset, setActiveComp }) => {
 
   const logout = () => {
     axios
-      .post(process.env.REACT_APP_LOGOUT_BACKEND_URL)
+      .post("/logout")
       .then((response) => {
         navigate("/login");
       })
@@ -68,7 +68,11 @@ const SideBar = ({ title, dataset, setActiveComp }) => {
                     <div className="ms-5">
                       {data.subtopic.map((sbtopic, id) => {
                         return (
-                          <div key={id} className={enable} onClick={() => setActiveComp(sbtopic.compId)} >
+                          <div
+                            key={id}
+                            className={enable}
+                            onClick={() => setActiveComp(sbtopic.compId)}
+                          >
                             {sbtopic.icon}
                             <span className="ml-4">{sbtopic.topic}</span>
                           </div>

@@ -26,8 +26,7 @@ const EditMyProfile = () => {
   const [isConfPassword, setIsConfPassword] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
   const [errorCode, setErrorCode] = useState(null);
-  const [ setIsLoading] = useState(false);
-
+  const [setIsLoading] = useState(false);
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -50,7 +49,7 @@ const EditMyProfile = () => {
     setIsLoading(true);
     // send data using axios post function
     axios
-      .post(process.env.REACT_APP_REGISTER_BACKEND_URL, formData)
+      .post("/register", formData)
       .then((response) => {
         if (response.status === 200) {
           setIsLoading(false);
@@ -236,7 +235,5 @@ const EditMyProfile = () => {
       </form>
     </Card>
   );
-}; 
+};
 export default EditMyProfile;
-
-

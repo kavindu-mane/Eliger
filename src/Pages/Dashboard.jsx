@@ -23,7 +23,7 @@ const Dashboard = () => {
   // session management function
   const session = useCallback(() => {
     axios
-      .post(process.env.REACT_APP_SESSION_BACKEND_URL)
+      .post("/session")
       .then((response) => {
         console.log(response);
         if (response.data.status === 200) setRole(response.data.role);

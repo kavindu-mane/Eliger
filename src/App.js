@@ -8,6 +8,7 @@ import axios from "axios";
 function App() {
   ThemeSwitcher();
   axios.defaults.withCredentials = true;
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
   return (
     <React.Fragment>

@@ -53,7 +53,7 @@ const Verification = () => {
     let formData = new FormData();
     formData.append("code", code);
     axios
-      .post(process.env.REACT_APP_VERIFY_BACKEND_URL, formData)
+      .post("/verify", formData)
       .then((response) => {
         if (response.status === 200) {
           setMessage(response.data);
@@ -64,12 +64,12 @@ const Verification = () => {
       .catch((erro) => {
         setAlert("error", "Registration faild", ErrorData[500]);
       });
-  },[code]);
+  }, [code]);
 
   // submit function run component mounting
   useEffect(() => {
     if (code !== "") passData();
-  },[code , passData]);
+  }, [code, passData]);
 
   return (
     <React.Fragment>
