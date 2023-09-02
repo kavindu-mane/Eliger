@@ -26,6 +26,17 @@ const ReviewReports = lazy(() =>
 const ViewUserMsg = lazy(() =>
   import("../Components/HelpNSupport/ViewUserMsg")
 );
+const TableCustomer = lazy(() =>
+  import("../Components/Admin/AccountTables/TableCustomer")
+);
+
+const TableDriver = lazy(() =>
+  import("../Components/Admin/AccountTables/TableDriver")
+);
+const TableVehicleOwner = lazy(() =>
+  import("../Components/Admin/AccountTables/TableVehicleOwner")
+);
+
 const HelpAndSupportDashboard = () => {
   //Component loading state hook
   const [activeComp, setActiveComp] = useState(0);
@@ -36,6 +47,9 @@ const HelpAndSupportDashboard = () => {
     2: <ManageFeedback />,
     3: <ViewUserMsg />,
     4: <ReviewReports />,
+    5: <TableVehicleOwner />,
+    6: <TableCustomer />,
+    7: <TableDriver />,
   };
 
   return (
