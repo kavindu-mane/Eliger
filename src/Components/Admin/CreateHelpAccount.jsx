@@ -5,7 +5,7 @@ const CreateHelpAccount = () => {
     <Card>
       <form className="flex flex-col gap-4">
         <div className="text-center font-Poppins text-xl font-medium md:text-2xl">
-          <h1>New Help & Support Staff Member Registration From </h1>
+          <h1>New Help & Support Staff Member Registration Form </h1>
         </div>
         <div>
           <div className="mb-2 block font-Poppins">

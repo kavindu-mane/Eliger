@@ -1,4 +1,5 @@
-import React from "react";
+import React, { lazy } from "react";
+const Paginations = lazy(() => import("../Paginations"));
 
 const TableHelpSupport = () => {
   return (
@@ -39,6 +40,7 @@ const TableHelpSupport = () => {
           </div>
         );
       })}
+      <Paginations />
 
       <div className="relative flex justify-center py-6">
         <button className="w-fit rounded-md bg-sky-600 px-8 py-1 font-medium text-white duration-300 ease-in hover:bg-sky-700 dark:bg-cyan-600 dark:hover:bg-cyan-800">

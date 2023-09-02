@@ -1,4 +1,7 @@
-import React from "react";
+import React,{lazy} from "react";
+const Paginations = lazy(() =>
+  import("./Paginations")
+);
 
 const NewDriverRequests = () => {
   return (
@@ -23,7 +26,7 @@ const NewDriverRequests = () => {
             key={i}
             className="text-md group flex flex-col justify-center space-y-2 rounded-sm bg-white ring-[0.5px] ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:flex-row md:items-center md:justify-between md:space-y-0"
           >
-            <p className="flex w-full truncate px-4 py-2.5 bg-slate-100  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
+            <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
               <span className="block md:hidden">Driver Name :&ensp;</span>
               Kavindu
             </p>
@@ -31,7 +34,7 @@ const NewDriverRequests = () => {
               <span className="block md:hidden">Owner Name :&ensp;</span>
               Buddhika
             </p>
-            <div className="flex w-full justify-end px-4 py-2 bg-slate-100 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
+            <div className="flex w-full justify-end bg-slate-100 px-4 py-2 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
               <button className="rounded-md bg-sky-500 px-8 py-0.5 font-medium text-white duration-300 ease-in hover:bg-sky-700">
                 View
               </button>
@@ -39,6 +42,7 @@ const NewDriverRequests = () => {
           </div>
         );
       })}
+      <Paginations />
     </React.Fragment>
   );
 };
