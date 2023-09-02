@@ -1,4 +1,5 @@
-import React from "react";
+import React, { lazy } from "react";
+const Paginations = lazy(() => import("../Admin/Paginations"));
 
 const ViewOldPayments = () => {
   return (
@@ -25,7 +26,7 @@ const ViewOldPayments = () => {
           >
             <p className="flex w-full truncate bg-slate-100  px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
               <span className="block md:hidden">Payment Type :&ensp;</span>
-             Onlime
+              Onlime
             </p>
             <p className="flex w-full truncate px-4 py-2 ">
               <span className="block md:hidden">Amount :&ensp;</span>
@@ -39,6 +40,7 @@ const ViewOldPayments = () => {
           </div>
         );
       })}
+      <Paginations />
     </React.Fragment>
   );
 };
