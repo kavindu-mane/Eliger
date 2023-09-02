@@ -4,7 +4,7 @@ import { ImUsers } from "react-icons/im";
 
 const topics = [
   {
-    topic: "Create Driver Account",
+    topic: "View My Vehicles",
     enable: true,
     icon: <VscRequestChanges className="h-5 w-5" />,
     haveSub: false,
@@ -37,7 +37,7 @@ const topics = [
     ],
   },
   {
-    topic: "View My Vehicles",
+    topic: "Create Driver Account",
     enable: true,
     icon: <VscRequestChanges className="h-5 w-5" />,
     haveSub: false,

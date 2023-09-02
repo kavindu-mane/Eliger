@@ -2,64 +2,46 @@ import React from "react";
 
 const EditVehicle = () => {
   return (
-    <form>
-      <div className="  ml-10 mt-4 rounded-xl  bg-slate-800 pb-4 pt-4  text-2xl text-gray-900">
-        <p className=" ml-10 font-bold tracking-wide text-green-500">
-         Edit Vehicle
-        </p>
-
-        <div>
-          <label
-            for="Vehicle Plate.No"
-            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Vehicle Plate.No
-          </label>
-          <input
-            type="text"
-            id="plateno"
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            placeholder="ABC-5678"
-          ></input>
-        </div>
-
-        <div class="mb-6">
-          <label
-            for="Vehicle Type"
-            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Vehicle Type
-          </label>
-          <input
-            type="text"
-            id="vehicletype"
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            placeholder=""
-          ></input>
-        </div>
-        <div class="mb-6">
-          <label
-            for="password"
-            class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Passenger Amount
-          </label>
-          <input
-            type="text"
-            id="passengeramount"
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            placeholder=""
-          ></input>
-        </div>
-
-        <button
-          type="submit"
-          class="w-full rounded-lg bg-sky-800 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-sky-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
-        >
-          Save Changes
-        </button>
+    <Card className="mt-8 dark:bg-slate-900">
+      <div className="text-center text-2xl font-semibold tracking-wide  ">
+        Edit Vehicle
       </div>
-    </form>
+      <form className="flex flex-col gap-4">
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="regno" value="Vehicle Reg.No" />
+          </div>
+          <TextInput id="regno" placeholder="ABC-4567" required type="text" />
+        </div>
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="type" value="Vehicle Type" />
+          </div>
+          <TextInput
+            id="type"
+            placeholder="Car/Van/Bike/Tuk Tuk "
+            required
+            type="text"
+          />
+        </div>
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="amount" value="Pasenger Amount" />
+          </div>
+          <TextInput id="amount" placeholder="" required type="text" />
+        </div>
+
+        {/* <div className="flex items-center gap-2">
+          <Checkbox id="remember" />
+          <Label htmlFor="remember">Remember me</Label>
+        </div> */}
+        <div className="flex w-full justify-center font-Poppins">
+          <Button type="submit" className="w-full max-w-sm">
+            Save Changes
+          </Button>
+        </div>
+      </form>
+    </Card>
   );
 };
 export default EditVehicle;

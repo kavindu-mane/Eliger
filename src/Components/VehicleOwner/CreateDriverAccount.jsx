@@ -2,7 +2,7 @@ import { Button, Card, Label, TextInput } from "flowbite-react";
 
 const CreateDriverAccount = () => {
   return (
-    <Card className="dark:bg-slate-700">
+    <Card className="mt-8 dark:bg-slate-900">
       <div className="text-center text-2xl font-semibold tracking-wide  ">
         Create Driver Account{" "}
       </div>
@@ -55,7 +55,11 @@ const CreateDriverAccount = () => {
           <Checkbox id="remember" />
           <Label htmlFor="remember">Remember me</Label>
         </div> */}
-        <Button type="submit">Create Account</Button>
+        <div className="flex w-full justify-center font-Poppins">
+          <Button type="submit" className="w-full max-w-sm">
+            Create Account
+          </Button>
+        </div>
       </form>
     </Card>
   );
