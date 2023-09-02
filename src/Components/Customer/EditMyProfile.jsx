@@ -54,7 +54,6 @@ const EditMyProfile = () => {
       .post(process.env.REACT_APP_REGISTER_BACKEND_URL, formData)
       .then((response) => {
         if (response.status === 200) {
-          if (response.data === 200) setIsSuccess(true);
           setIsLoading(false);
           setErrorCode(response.data);
         } else {

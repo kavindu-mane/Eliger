@@ -1,10 +1,24 @@
 import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { lazy, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+const Admin = lazy(() => import("../Pages/AdminDashboard"));
+const Customer = lazy(() => import("../Pages/CustomerDashboard"));
+const Owner = lazy(() => import("../Pages/VehicleOwnerDashboard"));
+const HandS = lazy(() => import("../Pages/HelpAndSupportDashboard"));
+const Driver = lazy(() => import("../Pages/DriverDashboard"));
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [haveSession, setHaveSession] = useState(false);
+  const [role, setRole] = useState(null);
+
+  // dashboard array
+  const dashboards = {
+    admin: <Admin />,
+    customer: <Customer />,
+    owner: <Owner />,
+    hdnds: <HandS />,
+    driver: <Driver />,
+  };
 
   // session management function
   const session = useCallback(() => {
@@ -12,20 +26,22 @@ const Dashboard = () => {
       .post(process.env.REACT_APP_SESSION_BACKEND_URL)
       .then((response) => {
         console.log(response);
-        if (response.data === 200) setHaveSession(true);
-        else if (response.data !== 200) navigate("/login");
+        if (response.data.status === 200) setRole(response.data.role);
+        else if (response.data.status !== 200) navigate("/login");
       })
       .catch((error) => {
         navigate("/login");
       });
-  }, [setHaveSession, navigate]);
+  }, [navigate]);
 
   // session function run in component mount
   useEffect(() => {
     session();
-  });
+  }, [session]);
   return (
-    <React.Fragment>{haveSession && <div>Dashboard</div>};</React.Fragment>
+    <React.Fragment>
+      {role !== null && <div>{dashboards[role]}</div>}
+    </React.Fragment>
   );
 };
 

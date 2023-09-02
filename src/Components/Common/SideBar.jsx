@@ -1,13 +1,28 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const enable =
   "my-2 flex cursor-pointer items-center rounded-md p-2 text-start hover:bg-gray-300 dark:hover:bg-gray-900";
 const disable = "my-2 flex items-center p-2  text-start pointer-events-none";
 
-const SideBar = ({ title, dataset,setActiveComp }) => {
+const SideBar = ({ title, dataset, setActiveComp }) => {
   const [menuOpen, setMenuOpen] = useState(false || window.innerWidth > 1024);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    axios
+      .post(process.env.REACT_APP_LOGOUT_BACKEND_URL)
+      .then((response) => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        navigate("/login");
+      });
+  };
+
   return (
     <React.Fragment>
       {/* SideBar container */}
@@ -71,7 +86,10 @@ const SideBar = ({ title, dataset,setActiveComp }) => {
             <hr className="my-2 border border-transparent border-b-gray-300 dark:border-b-slate-600"></hr>
 
             {/* Signout */}
-            <div className="absolute bottom-2 start-0 flex cursor-pointer items-center rounded-md p-2 text-start hover:text-green-500 dark:hover:text-emerald-400">
+            <div
+              onClick={() => logout()}
+              className="absolute bottom-2 start-0 flex cursor-pointer items-center rounded-md p-2 text-start hover:text-green-500 dark:hover:text-emerald-400"
+            >
               <BiLogOut className="h-5 w-5" />
               <span className="ml-4">Signout</span>
             </div>
