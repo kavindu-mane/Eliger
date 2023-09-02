@@ -42,11 +42,11 @@ const NewVehicleReg = () => {
               <span className="block md:hidden">
                 Vehicle Plate_Number :&ensp;
               </span>
-              Kavindu
+              CBE - 1537
             </p>
             <p className="flex w-full truncate px-4 py-2 ">
               <span className="block md:hidden">Passenger_Amount :&ensp;</span>
-              Buddhika
+              4
             </p>
             <div className="flex w-full justify-end bg-slate-100 px-4 py-2 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
               <button className="rounded-md bg-sky-500 px-8 py-0.5 font-medium text-white duration-300 ease-in hover:bg-sky-700">
