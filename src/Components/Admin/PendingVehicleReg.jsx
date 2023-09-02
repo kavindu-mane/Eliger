@@ -1,10 +1,10 @@
 import React from "react";
 
-const NewVehicleReg = () => {
+const PendingVehicleReg = () => {
   return (
-    <React.Fragment>
+<React.Fragment>
       <div className="pb-5 text-center text-xl font-medium md:text-2xl">
-        New Vehicle Registrations
+        Pending Vehicle Registration Requests
       </div>
       <div className="hidden rounded-t-md bg-gray-400 px-4 py-2 ring-[0.5px] ring-gray-400 dark:bg-gray-700 dark:ring-gray-600 md:flex">
         <div className="w-full text-center">
@@ -58,4 +58,4 @@ const NewVehicleReg = () => {
     </React.Fragment>
   );
 };
-export default NewVehicleReg;
+export default PendingVehicleReg;

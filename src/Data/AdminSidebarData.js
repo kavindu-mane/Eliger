@@ -7,6 +7,7 @@ import { VscRequestChanges } from "react-icons/vsc";
 import { GiCarKey, GiCarSeat } from "react-icons/gi";
 import { ImUsers } from "react-icons/im";
 import { BiSolidMessageAdd } from "react-icons/bi";
+import { RiPassPendingLine } from "react-icons/ri";
 
 const topics = [
   {
@@ -17,18 +18,32 @@ const topics = [
     compId: 0,
   },
   {
-    topic: "Create Help & Support Account",
+    topic: "New Driver Registrations",
     enable: true,
-    icon: <MdOutlineManageAccounts className="h-5 w-5" />,
+    icon: <RiPassPendingLine className="h-5 w-5" />,
     haveSub: false,
     compId: 1,
   },
   {
-    topic: "Pending Registrations",
+    topic: "Create Help & Support Account",
+    enable: true,
+    icon: <MdOutlineManageAccounts className="h-5 w-5" />,
+    haveSub: false,
+    compId: 2,
+  },
+  {
+    topic: "Pending Vehicle Registrations",
     enable: true,
     icon: <MdPendingActions className="h-5 w-5" />,
     haveSub: false,
-    compId: 2,
+    compId: 3,
+  },
+  {
+    topic: "Pending Driver Registrations",
+    enable: true,
+    icon: <MdPendingActions className="h-5 w-5" />,
+    haveSub: false,
+    compId: 4,
   },
   {
     topic: "Manage Accounts",
@@ -39,23 +54,24 @@ const topics = [
     subtopic: [
       {
         topic: "Vehicle Owners",
+        enable: true,
         icon: <GiCarKey />,
-        compId: 3,
+        compId: 5,
       },
       {
         topic: "Customers",
         icon: <ImUsers />,
-        compId: 4,
+        compId: 6,
       },
       {
         topic: "Drivers",
         icon: <GiCarSeat />,
-        compId: 5,
+        compId: 7,
       },
       {
         topic: "Help & Support",
         icon: <MdSupportAgent />,
-        compId: 6,
+        compId: 8,
       },
     ],
   },
