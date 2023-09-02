@@ -27,8 +27,7 @@ const EditMyProfile = () => {
   const [isPassword, setIsPassword] = useState(true);
   const [errorCode, setErrorCode] = useState(null);
   const [ setIsLoading] = useState(false);
-  const [setIsSuccess] = useState(false);
- 
+
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
