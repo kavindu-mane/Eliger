@@ -1,4 +1,4 @@
-import { Button, Card, Label, TextInput } from "flowbite-react";
+import React from "react";
 
 const EditVehicle = () => {
   return (

@@ -3,9 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
 import LinkArray from "./Data/RouteData";
 import ThemeSwitcher from "./Data/ThmeSwitecher";
+import axios from "axios";
 
 function App() {
   ThemeSwitcher();
+  axios.defaults.withCredentials = true;
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
   return (
     <React.Fragment>

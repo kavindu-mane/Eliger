@@ -4,7 +4,6 @@ import { useState } from "react";
 const Paginations = ({totpages=5}) => {
 
   const [currentPage, setCurrentPage] = useState(1);
-  const onPageChange = (page) => setCurrentPage(page);
 
   return (
     <div className="flex w-full mb-5 mt-3 justify-center">
