@@ -88,7 +88,7 @@ const DriverDashboard = () => {
 
             {/*graph*/}
 
-            <div className="flex h-fit flex-col gap-4 p-1 pb-20 pt-4 text-center text-2xl lg:flex-row">
+            <div className="flex h-fit w-full flex-col gap-4 p-1 pb-12 pr-5 pt-4 text-center text-2xl lg:flex-row">
               <Graphs
                 options={BookingOption}
                 type="line"
@@ -104,7 +104,7 @@ const DriverDashboard = () => {
                 dateSettings={dateSettingsWeeks}
               />
 
-              <div className=" mt-3 h-fit w-full max-w-2xl rounded-xl p-2 px-2 text-2xl shadow-md drop-shadow-lg dark:bg-slate-700">
+              <div className=" mt-3 h-fit w-full max-w-2xl rounded-xl p-2  text-2xl shadow-md drop-shadow-lg dark:bg-slate-700">
                 <p className="mb-5 text-3xl font-semibold">Recent Travels</p>
 
                 <div className="secContainer grid">
@@ -113,6 +113,7 @@ const DriverDashboard = () => {
                       <Table.Head>
                         <Table.Cell>vehicle Owner</Table.Cell>
                         <Table.Cell>vehicle Plate Number</Table.Cell>
+                        <Table.Cell>Charges</Table.Cell>
                       </Table.Head>
                       <Table.Body className="divide-y">
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -123,6 +124,7 @@ const DriverDashboard = () => {
                             </div>
                           </Table.Cell>
                           <Table.Cell>GC5423 </Table.Cell>
+                          <Table.Cell>2200.00</Table.Cell>
                         </Table.Row>
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                           <Table.Cell>
@@ -134,6 +136,7 @@ const DriverDashboard = () => {
                           <Table.Cell>
                             <div className="vehiclenum">Gr6423</div>
                           </Table.Cell>
+                          <Table.Cell>4500.00</Table.Cell>
                         </Table.Row>
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                           <Table.Cell>
@@ -145,6 +148,7 @@ const DriverDashboard = () => {
                           <Table.Cell>
                             <div className="vehiclenum">AC2423</div>
                           </Table.Cell>
+                          <Table.Cell>500.00</Table.Cell>
                         </Table.Row>
                       </Table.Body>
                     </Table>
