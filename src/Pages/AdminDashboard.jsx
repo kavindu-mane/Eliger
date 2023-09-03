@@ -1,4 +1,4 @@
-import React, { lazy, useState } from "react";
+ import React, { lazy, useState } from "react";
 import topics from "../Data/AdminSidebarData";
 const StatGraphs = lazy(() => import("../Components/Admin/StatGraphs"));
 const NewVehicleReg = lazy(() => import("../Components/Admin/NewVehicleReg"));
