@@ -8,27 +8,33 @@ const EditDriver = () => {
           Edit Account
         </p>
         <form className="flex flex-col gap-4">
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="status" value="Status" />
+            </div>
+            <TextInput id="status" required type="text" />
+          </div>
           <div className="flex flex-col space-y-2 font-Poppins lg:flex-row lg:space-y-0">
             <div className="w-full">
               <div className="mb-2 block">
-                <Label htmlFor="fname" value="First Name" />
+                <Label htmlFor="firstname" value="First Name" />
               </div>
-              <TextInput id="fname" required type="text" />
+              <TextInput id="firstname" required type="text" />
             </div>
 
             <div className="w-full lg:space-x-2">
               <div className="mb-2 block lg:pl-2">
-                <Label htmlFor="lname" value="Last Name" />
+                <Label htmlFor="lastname" value="Last Name" />
               </div>
-              <TextInput id="lname" required type="text" />
+              <TextInput id="lastname" required type="text" />
             </div>
           </div>
 
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="tele" value="Contact Number " />
+              <Label htmlFor="phone" value="Contact Number " />
             </div>
-            <TextInput id="name" required type="number" />
+            <TextInput id="phone" required type="number" />
           </div>
           <div>
             <div className="mb-2 block">
