@@ -84,12 +84,12 @@ const Register = ({ type = "customer" }) => {
           setIsLoading(false);
           setErrorCode(response.data);
         } else {
-          setAlert("error", "Registration faild", ErrorData[500]);
+          setAlert("error", "Registration failed", ErrorData[500]);
           setIsLoading(false);
         }
       })
       .catch((error) => {
-        setAlert("error", "Registration faild", ErrorData[500]);
+        setAlert("error", "Registration failed", ErrorData[500]);
         setIsLoading(false);
       });
   };
