@@ -1,4 +1,6 @@
 import React from "react";
+import { Card, Label , TextInput , Button } from "flowbite-react";
+
 
 const EditVehicle = () => {
   return (
@@ -31,10 +33,6 @@ const EditVehicle = () => {
           <TextInput id="amount" placeholder="" required type="text" />
         </div>
 
-        {/* <div className="flex items-center gap-2">
-          <Checkbox id="remember" />
-          <Label htmlFor="remember">Remember me</Label>
-        </div> */}
         <div className="flex w-full justify-center font-Poppins">
           <Button type="submit" className="w-full max-w-sm">
             Save Changes
