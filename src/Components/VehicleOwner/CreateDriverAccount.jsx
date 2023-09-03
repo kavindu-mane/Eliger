@@ -12,14 +12,14 @@ const CreateDriverAccount = () => {
             <div className="mb-2 block">
               <Label htmlFor="fname" value="First Name" />
             </div>
-            <TextInput id="fname" required type="text" />
+            <TextInput id="fname" placeholder="John" required type="text" />
           </div>
 
           <div className="w-1/2">
             <div className="mb-2 block">
               <Label htmlFor="lname" value="Last Name" />
             </div>
-            <TextInput id="lname" required type="text" />
+            <TextInput id="lname" placeholder="Samual" required type="text" />
           </div>
         </div>
         <div>
@@ -42,6 +42,17 @@ const CreateDriverAccount = () => {
             placeholder="abc@gmail.com"
             required
             type="email"
+          />
+        </div>
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="password" value="Password" />
+          </div>
+          <TextInput
+            id="password"
+            placeholder="•••••••••"
+            required
+            type="password"
           />
         </div>
         <div>
