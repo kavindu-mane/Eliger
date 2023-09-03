@@ -57,13 +57,23 @@ const EditAccount = () => {
           <div className="mb-2 block">
             <Label htmlFor="password" value="Password" />
           </div>
-          <TextInput id="password" placeholder="" required type="password" />
+          <TextInput
+            id="password"
+            placeholder="•••••••••"
+            required
+            type="password"
+          />
         </div>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="repassword" value="Confirm password" />
           </div>
-          <TextInput id="repassword" placeholder="" required type="password" />
+          <TextInput
+            id="repassword"
+            placeholder="•••••••••"
+            required
+            type="password"
+          />
         </div>
 
         {/* <div className="flex items-center gap-2">
