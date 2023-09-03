@@ -1,6 +1,5 @@
 import {
   MdCarRental,
-  MdViewSidebar,
   MdCardMembership,
 } from "react-icons/md";
 import { VscFeedback } from "react-icons/vsc";
@@ -35,14 +34,6 @@ const topics = [
     icon: <VscFeedback className="h-5 w-5" />,
     haveSub: false,
     compId: 3,
-  },
-
-  {
-    topic: "View favourite vehicles",
-    enable: true,
-    icon: <MdViewSidebar className="h-5 w-5" />,
-    haveSub: false,
-    compId: 4,
   },
 ];
   
