@@ -1,4 +1,5 @@
-import React from "react";
+import React, { lazy } from "react";
+const Paginations = lazy(() => import("../Admin/Paginations"));
 
 const ViewMyDrivers = () => {
   return (
@@ -41,6 +42,7 @@ const ViewMyDrivers = () => {
           </div>
         );
       })}
+      <Paginations />
     </React.Fragment>
   );
 };

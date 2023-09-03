@@ -6,7 +6,7 @@ import {  GiCarSeat } from "react-icons/gi";
 
 const topics = [
   {
-    topic: "View account",
+    topic: "View Request",
     enable: true,
     icon: <GiCarSeat className="h-5 w-5" />,
     haveSub: false,

@@ -112,7 +112,7 @@ const DriverDashboard = () => {
                     <Table className="items-center justify-center">
                       <Table.Head>
                         <Table.Cell>vehicle Owner</Table.Cell>
-                        <Table.Cell>vehicle Plate Number</Table.Cell>
+                        <Table.Cell>vehicle Register Number</Table.Cell>
                         <Table.Cell>Charges</Table.Cell>
                       </Table.Head>
                       <Table.Body className="divide-y">

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+
+import React, { lazy, useState } from "react";
 import { Dropdown } from "flowbite-react";
+const Paginations = lazy(() => import("../Admin/Paginations"));
 
 const ViewMyVehicles = () => {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -43,7 +45,7 @@ const ViewMyVehicles = () => {
             </p>
 
             <div className="py-0.2 flex w-full justify-end bg-slate-100 px-8 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
-              <Dropdown label={selectedItem || "Dropdown"}>
+              <Dropdown label={selectedItem || "Available,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  "}>
                 <Dropdown.Item onClick={() => handleItemClick("Available")}>
                   Available
                 </Dropdown.Item>
@@ -61,6 +63,7 @@ const ViewMyVehicles = () => {
           </div>
         );
       })}
+      <Paginations/>
     </React.Fragment>
   );
 };
