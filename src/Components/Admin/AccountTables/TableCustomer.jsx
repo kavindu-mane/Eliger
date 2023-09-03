@@ -14,9 +14,11 @@ const TableCustomer = () => {
 
   // session management function
   const fetch = useCallback(() => {
+    setTableData(null);
     axios
       .post("/load_accounts", formData)
       .then((response) => {
+        console.log(response);
         if (response.data.length !== 0) {
           setTableData(response.data);
           setPagesCount(Math.ceil(response.data.length / 10));
@@ -30,7 +32,7 @@ const TableCustomer = () => {
   // session function run in component mount
   useEffect(() => {
     fetch();
-  }, [fetch,status]);
+  }, [fetch, status]);
 
   return (
     <React.Fragment>
