@@ -4,14 +4,14 @@ import { Card } from "flowbite-react";
 
 const ViewDriver = () => {
   return (
-    <div className="h-auto w-full p-4 font-Poppins">
+    <div className="pr-5 h-auto w-full p-4 font-Poppins">
       {/*change availability & request */}
-      <div className="rounded-xl p-1 px-2 py-4 pb-4 pt-4 shadow-md drop-shadow-lg dark:bg-slate-700">
+      <Card className=" dark:bg-slate-900">
         <p className=" ml-10 text-2xl font-semibold tracking-wide">
           Booking Request
         </p>
         <div className="flex justify-end ">
-          <Card className="mb-3 mt-3 w-full bg-slate-950/60">
+          <Card className="mb-3 mt-3 h-20 w-full bg-slate-950/60">
             <div className="flex justify-end gap-9">
               <Button>Accept</Button>
               <Button>Reject</Button>
@@ -21,11 +21,11 @@ const ViewDriver = () => {
           </Card>
         </div>
         <p className="ml-10 mt-4 text-2xl font-semibold tracking-wide">
-          Change the Availability
+          My Availability
         </p>
-        <div className="flex justify-end">
-          <Card className="mb-3 mt-3 w-full bg-slate-950/60">
-            <div className="flex justify-end">
+        <div className="flex justify-start ">
+          <Card className="mb-3 mt-3 w-fit bg-slate-950/60 ">
+            <div className="flex">
               <Radio
                 defaultChecked
                 id="Available"
@@ -34,7 +34,7 @@ const ViewDriver = () => {
               />
               <Label className="ml-4">Available</Label>
               <Radio
-                className="ml-40"
+                className="ml-20"
                 defaultChecked
                 id="Unavailable"
                 name="availability"
@@ -46,7 +46,7 @@ const ViewDriver = () => {
             <p className="font-normal text-gray-700 dark:text-gray-400"></p>
           </Card>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };
