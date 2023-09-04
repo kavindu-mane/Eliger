@@ -33,7 +33,7 @@ const libs = ["places"];
 const CustomerDashboard = () => {
   //Component loading state hook
   const [activeComp, setActiveComp] = useState(0);
-  const [loadedData, setLoadedData] = useState(null);
+  // const [loadedData, setLoadedData] = useState(null);
   const navigate = useNavigate();
 
   const loadData = useCallback(() => {
