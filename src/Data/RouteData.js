@@ -10,15 +10,6 @@ const Register = lazy(() => import("../Pages/Register"));
 const ForgetPW = lazy(() => import("../Pages/ForgetPW"));
 const Search = lazy(() => import("../Pages/Search"));
 const Error = lazy(() => import("../Pages/Error"));
-const AdminDashboard = lazy(() => import("../Pages/AdminDashboard"));
-const HelpAndSupportDashboard = lazy(() =>
-  import("../Pages/HelpAndSupportDashboard")
-);
-const DriverDashboard = lazy(() => import("../Pages/DriverDashboard"));
-const VehicleOwnerDashboard = lazy(() =>
-  import("../Pages/VehicleOwnerDashboard")
-);
-const CustomerDashboard = lazy(() => import("../Pages/CustomerDashboard"));
 const Verification = lazy(() => import("../Pages/Verification"));
 const Dashboard = lazy(() => import("../Pages/Dashboard"));
 
@@ -35,11 +26,6 @@ const LinkArray = {
   "/terms": <Terms />,
   "/*": <Error />,
   "/search": <Search />,
-  "/admindashboard": <AdminDashboard />,
-  "/helpandsupportdashboard": <HelpAndSupportDashboard />,
-  "/driverdashboard": <DriverDashboard />,
-  "/vehicleOwnerDashboard": <VehicleOwnerDashboard />,
-  "/customerdashboard": <CustomerDashboard />,
   "/verification": <Verification />,
   "/dashboard": <Dashboard />,
 };

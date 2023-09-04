@@ -49,7 +49,7 @@ const VehicleOwnerGraph = () => {
       data={revenueData}
       title={
         <span>
-          <div class="font-semibold">
+          <div className="font-semibold">
             Weekly Earning
             <small className="ms-1 text-sm font-bold italic">
               - Day Vs Earning
