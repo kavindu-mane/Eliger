@@ -69,14 +69,18 @@ const VehicleOwnerDashboard = () => {
           {/* Body Area */}
           <div className="relative flex w-full flex-col justify-between px-10 pt-4 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
             {/*change availability & request */}
-            <div className=" mt-2 rounded-xl p-1 py-4 text-2xl dark:bg-slate-700">
-              <p className="text-center font-semibold tracking-wide ">
+            <div className=" mt-2 rounded-xl p-1 py-4 text-2xl">
+              <p className="text-center font-semibold tracking-wide">
                 Manage RentOut Booking
               </p>
-              <div className="flex justify-center">
+              <p className="mt-4 text-center text-sm font-medium italic text-gray-600 dark:text-gray-300">
+                No booking requests.
+              </p>
+              {/*booking notifications */}
+              {/* <div className="flex justify-center">
                 <Card className="mb-3 mr-10 mt-3 w-9/12 text-gray-900">
                   <div className="mt-1/2 mb-1/2 h-2 text-xl tracking-tight text-gray-900 dark:text-white">
-                    <h className="text-start ">Booking Request</h>
+                    <h1 className="text-start ">Booking Request</h1>
                   </div>
                   <div className="flex justify-end gap-10 py-3">
                     <Button>Accept</Button>
@@ -84,38 +88,36 @@ const VehicleOwnerDashboard = () => {
                     <Button>Reject</Button>
                   </div>
                   <div className="text-sm text-white">
-                    <p className="font-normal text-gray-700 dark:text-gray-400">
-                      <form className="flex max-w-md flex-col gap-4">
-                        <div>
-                          <div className="mb-2 block">
-                            <Label htmlFor="name" value="Customer Name" />
-                          </div>
+                    <form className="flex max-w-md flex-col gap-4">
+                      <div>
+                        <div className="mb-2 block">
+                          <Label htmlFor="name" value="Customer Name" />
                         </div>
-                        <div>
-                          <div className="mb-2 block">
-                            <Label
-                              htmlFor="password1"
-                              value="No.Of Rentout Days"
-                            />
-                          </div>
+                      </div>
+                      <div>
+                        <div className="mb-2 block">
+                          <Label
+                            htmlFor="password1"
+                            value="No.Of Rentout Days"
+                          />
                         </div>
-                        <div>
-                          <div className="mb-2 block">
-                            <Label htmlFor="password1" value="Rentout Date" />
-                          </div>
-                          <label></label>
+                      </div>
+                      <div>
+                        <div className="mb-2 block">
+                          <Label htmlFor="password1" value="Rentout Date" />
                         </div>
-                        <div></div>
-                      </form>
-                    </p>
+                        <label></label>
+                      </div>
+                      <div></div>
+                    </form>
                   </div>
                 </Card>
-              </div>
+              </div> */}
             </div>
+
             {optionComponents[activeComp]}
 
             {/*graph*/}
-
             <div className="mt-10 flex w-full justify-center ">
               <VehicleOwnerGraph />
             </div>

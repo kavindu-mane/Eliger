@@ -15,8 +15,8 @@ const Dashboard = () => {
   const dashboards = {
     admin: <Admin />,
     customer: <Customer />,
-    owner: <Owner />,
-    hdnds: <HandS />,
+    vehicle_owner: <Owner />,
+    hands: <HandS />,
     driver: <Driver />,
   };
 
