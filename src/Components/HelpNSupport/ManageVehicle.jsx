@@ -64,7 +64,7 @@ const ManageVehicle = () => {
             >
               <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
                 <span className="block md:hidden">Vehicle Type :&ensp;</span>
-                {data.Owner_firstname}
+                {data.Vehicle_type}
               </p>
               <p className="flex w-full truncate px-4 py-2 ">
                 <span className="block md:hidden">
