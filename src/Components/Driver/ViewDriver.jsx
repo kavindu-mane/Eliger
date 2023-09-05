@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Label, Radio } from "flowbite-react";
+import { Button, Checkbox, Label } from "flowbite-react";
 import { Card } from "flowbite-react";
 
 const ViewDriver = () => {
@@ -76,14 +76,14 @@ const ViewDriver = () => {
         <div className="flex justify-start ">
           <Card className=" bg-white dark:border-gray-700 dark:bg-gray-700">
             <div className="flex">
-              <Radio
+              <Checkbox
                 defaultChecked
                 id="Available"
                 name="availability"
                 value="Available"
               />
               <Label className="ml-4">Available</Label>
-              <Radio
+              <Checkbox
                 className="ml-20"
                 defaultChecked
                 id="Unavailable"
