@@ -105,7 +105,7 @@ const DriverDashboard = () => {
               />
 
               <div className=" mt-3 h-fit w-full max-w-2xl rounded-xl p-2  text-2xl shadow-md drop-shadow-lg dark:bg-slate-700">
-                <p className="mb-5 text-3xl font-semibold">Recent Travels</p>
+                <p className="mb-5 text-2xl font-semibold font-Poppins">Recent Travels</p>
 
                 <div className="secContainer grid">
                   <div className="singleCustomer w-full">

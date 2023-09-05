@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Checkbox, Label } from "flowbite-react";
+import { Button, Label, Checkbox } from "flowbite-react";
 import { Card } from "flowbite-react";
 
 const ViewDriver = () => {
@@ -20,7 +20,7 @@ const ViewDriver = () => {
                 <span className="">Contact No:</span>
               </div>
               <div className="w-full text-start ">
-                <span className="">Pick up destination</span>
+                <span className="">Pick up location</span>
               </div>
               <div className="mr-7 w-full text-start">
                 <span className="">Destination</span>
@@ -66,7 +66,6 @@ const ViewDriver = () => {
               </div>
             </div>
           </div>
-         
 
           <p className="font-normal text-gray-700 dark:text-gray-400"></p>
         </div>
