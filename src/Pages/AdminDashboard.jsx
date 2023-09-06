@@ -68,6 +68,7 @@ const Admindashboard = () => {
               title={"Administrator"}
               dataset={topics}
               setActiveComp={setActiveComp}
+              active={activeComp}
             />
           </div>
 
@@ -75,8 +76,7 @@ const Admindashboard = () => {
           <div className="relative flex w-full flex-col justify-between px-5 pt-4 md:px-10 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
             {/*vehicle registration*/}
             {optionComponents[activeComp]}
-            {/* bottom content area */}{" "}
-
+            {/* bottom content area */}
             <div>
               {/*four Graphs*/}
               <StatGraphs />

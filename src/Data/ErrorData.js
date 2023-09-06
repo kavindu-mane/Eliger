@@ -15,6 +15,9 @@ const ErrorData = {
   13: "Email and password mismatched",
   14: "Session not available",
   15: "All fields are required",
+  16: "Account not verified",
+  17: "New password is empty",
+  18: "Password is incorrect",
   200: "Success", // default success code in http protocol
   500: "Somthing went wrong.please try again.", // default server error code in http protocol
 };

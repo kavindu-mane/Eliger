@@ -1,7 +1,4 @@
 import React, { lazy, useState } from "react";
-
-import { Label, Button } from "flowbite-react";
-import { Card } from "flowbite-react";
 import topics from "../Data/VehicleOwnerSidebarData";
 
 const HeaderSecondary = lazy(() =>
@@ -64,6 +61,7 @@ const VehicleOwnerDashboard = () => {
               title={"Vehicle Owner"}
               dataset={topics}
               setActiveComp={setActiveComp}
+              active={activeComp}
             />
           </div>
           {/* Body Area */}
@@ -76,43 +74,6 @@ const VehicleOwnerDashboard = () => {
               <p className="mt-4 text-center text-sm font-medium italic text-gray-600 dark:text-gray-300">
                 No booking requests.
               </p>
-              {/*booking notifications */}
-              {/* <div className="flex justify-center">
-                <Card className="mb-3 mr-10 mt-3 w-9/12 text-gray-900">
-                  <div className="mt-1/2 mb-1/2 h-2 text-xl tracking-tight text-gray-900 dark:text-white">
-                    <h1 className="text-start ">Booking Request</h1>
-                  </div>
-                  <div className="flex justify-end gap-10 py-3">
-                    <Button>Accept</Button>
-
-                    <Button>Reject</Button>
-                  </div>
-                  <div className="text-sm text-white">
-                    <form className="flex max-w-md flex-col gap-4">
-                      <div>
-                        <div className="mb-2 block">
-                          <Label htmlFor="name" value="Customer Name" />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="mb-2 block">
-                          <Label
-                            htmlFor="password1"
-                            value="No.Of Rentout Days"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="mb-2 block">
-                          <Label htmlFor="password1" value="Rentout Date" />
-                        </div>
-                        <label></label>
-                      </div>
-                      <div></div>
-                    </form>
-                  </div>
-                </Card>
-              </div> */}
             </div>
 
             {optionComponents[activeComp]}

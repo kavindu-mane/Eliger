@@ -1,8 +1,9 @@
 import React, { lazy, useState } from "react";
-import { Button, Card, Label, TextInput } from "flowbite-react";
+import { Label, TextInput } from "flowbite-react";
 import { MdOutlineError } from "react-icons/md";
 import ErrorData from "../../Data/ErrorData";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -13,20 +14,14 @@ const PasswordSwitcher = lazy(() =>
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-// error messages
-const errorContainer = (errCode) => {
-  return (
-    <p className="flex items-center gap-x-1 font-Poppins text-sm font-semibold text-red-500">
-      <MdOutlineError /> {ErrorData[errCode]}
-    </p>
-  );
-};
-
-const EditMyProfile = () => {
+const EditMyProfile = ({ currentData }) => {
   const [isConfPassword, setIsConfPassword] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
   const [errorCode, setErrorCode] = useState(null);
-  const [setIsLoading] = useState(false);
+  const [isBasicBtnDisabled, setIsBasicBtnDisabled] = useState(true);
+  const [isEmailBtnDisabled, setIsEmailBtnDisabled] = useState(true);
+  const [isPasswordBtnDisabled, setIsPasswordBtnDisabled] = useState(true);
+  const navigate = useNavigate();
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -37,40 +32,99 @@ const EditMyProfile = () => {
     });
   };
 
-  // submit form
-  const handleSubmit = (e) => {
+  // error messages
+  const errorContainer = (errCode) => {
+    return (
+      <p className="flex items-center gap-x-1 font-Poppins text-sm font-semibold text-red-500">
+        <MdOutlineError /> {ErrorData[errCode]}
+      </p>
+    );
+  };
+
+  // actions of the responses
+  const responseAction = (response) => {
+    if (response.status === 200) {
+      if (response.data === 200)
+        setAlert(
+          "success",
+          "Update success",
+          "Customer details update successfully"
+        );
+      else if (response.data === 500)
+        setAlert("error", "Update failed", ErrorData[500]);
+      else if (response.data === 14) navigate("/login");
+      setErrorCode(response.data);
+    } else {
+      setAlert("error", "Update failed", ErrorData[500]);
+    }
+  };
+
+  // submit basic info form
+  const handleSubmitBasicInfo = async (e) => {
     // clear previous errors
     setErrorCode(null);
     // remove default form submission
     e.preventDefault();
     // get data from form fields as FormData object
     const formData = new FormData(e.target);
-    // change loading state to true
-    setIsLoading(true);
     // send data using axios post function
-    axios
-      .post("/register", formData)
+    await axios
+      .post("/update_customer", formData)
       .then((response) => {
-        if (response.status === 200) {
-          setIsLoading(false);
-          setErrorCode(response.data);
-        } else {
-          setAlert("error", "Registration faild", ErrorData[500]);
-          setIsLoading(false);
-        }
+        responseAction(response);
       })
       .catch((error) => {
-        setAlert("error", "Registration faild", ErrorData[500]);
-        setIsLoading(false);
+        setAlert("error", "Update failed", ErrorData[500]);
       });
   };
 
+  // submit login info to change
+  const handleSubmitLoginInfo = (e, val) => {
+    // clear previous errors
+    setErrorCode(null);
+    // remove default form submission
+    e.preventDefault();
+    // get data from form fields as FormData object
+    const formData = new FormData(e.target);
+    formData.append(val, val);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, change it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axios
+          .post("/update", formData)
+          .then((response) => {
+            responseAction(response);
+          })
+          .catch((error) => {
+            setAlert("error", "Update failed", ErrorData[500]);
+          });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        setAlert("error", "Cancelled", "Your imaginary file is safe :)");
+      }
+    });
+  };
+
   return (
-    <Card className="w-full max-w-2xl border-none bg-transparent dark:bg-transparent">
+    <div className="flex h-full w-full max-w-2xl flex-col justify-center">
       {/*Topic */}
-      <h1 className="text-1.5xl font-bold ">Edit Account Details</h1>
-      <form className="flex flex-col gap-4">
-        {(e) => handleSubmit(e)}
+      <h1 className="mb-5 text-2xl font-medium">Edit Account Details</h1>
+
+      {/* basic info */}
+      <h2 className="mb-1 mt-4 font-Poppins text-lg font-medium">
+        Change basic info
+      </h2>
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={(e) => handleSubmitBasicInfo(e)}
+        onChange={() => setIsBasicBtnDisabled(false)}
+      >
         {/* name */}
         <div className="flex flex-col justify-between sm:flex-row">
           {/* first name */}
@@ -88,6 +142,7 @@ const EditMyProfile = () => {
               required
               type="text"
               className="inputs"
+              defaultValue={currentData.Customer_firstname}
             />
             {/* error text */}
             {errorCode === 0 && errorContainer(errorCode)}
@@ -107,6 +162,7 @@ const EditMyProfile = () => {
               required
               type="text"
               className="inputs"
+              defaultValue={currentData.Customer_lastname}
             />
             {/* error text */}
             {errorCode === 1 && errorContainer(errorCode)}
@@ -127,10 +183,32 @@ const EditMyProfile = () => {
             required
             type="text"
             className="inputs"
+            defaultValue={currentData.Customer_Tel}
           />
           {/* error text */}
           {[2, 6].includes(errorCode) && errorContainer(errorCode)}
         </div>
+        {/* submit */}
+        <button
+          type="submit"
+          name="submit"
+          value="submit"
+          disabled={isBasicBtnDisabled}
+          className="mt-2 w-fit place-self-end rounded-md bg-green-400 px-3 py-2 font-Poppins text-xs font-semibold text-white duration-300 ease-in hover:bg-sky-600 disabled:cursor-not-allowed disabled:bg-gray-400 dark:bg-emerald-500 dark:hover:bg-sky-600 dark:disabled:bg-gray-500 "
+        >
+          Update
+        </button>
+      </form>
+
+      {/* change email */}
+      <h2 className="mb-1 mt-10 font-Poppins text-lg font-medium">
+        Change Email
+      </h2>
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={(e) => handleSubmitLoginInfo(e, "update_email")}
+        onChange={() => setIsEmailBtnDisabled(false)}
+      >
         {/* email */}
         <div>
           <Label
@@ -146,12 +224,33 @@ const EditMyProfile = () => {
             required
             type="email"
             className="inputs"
-            // onChange={(e) => setEmail(e.target.value)}
+            defaultValue={currentData.Email}
           />
           {/* error text */}
           {[3, 7, 10].includes(errorCode) && errorContainer(errorCode)}
         </div>
-        {/* exsistingpassword */}
+        {/* submit */}
+        <button
+          type="submit"
+          name="submit"
+          value="submit"
+          disabled={isEmailBtnDisabled}
+          className="mt-2 w-fit place-self-end rounded-md bg-green-400 px-3 py-2 font-Poppins text-xs font-semibold text-white duration-300 ease-in hover:bg-sky-600 disabled:cursor-not-allowed disabled:bg-gray-400 dark:bg-emerald-500 dark:hover:bg-sky-600 dark:disabled:bg-gray-500 "
+        >
+          Change Email
+        </button>
+      </form>
+
+      {/* change password */}
+      <h2 className="mb-1 mt-10 font-Poppins text-lg font-medium">
+        Change Password
+      </h2>
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={(e) => handleSubmitLoginInfo(e, "update_password")}
+        onChange={() => setIsPasswordBtnDisabled(false)}
+      >
+        {/* exsisting password */}
         <div className="relative">
           <Label
             htmlFor="password"
@@ -172,19 +271,19 @@ const EditMyProfile = () => {
             setIsPassword={setIsPassword}
           />
           {/* error text */}
-          {[4, 8, 9].includes(errorCode) && errorContainer(errorCode)}
+          {[4 , 18].includes(errorCode) && errorContainer(errorCode)}
         </div>
         {/* New password */}
         <div className="relative">
           <Label
-            htmlFor="password"
+            htmlFor="newPassword"
             value="New Password"
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
 
           <TextInput
-            id="password"
-            name="password"
+            id="newPassword"
+            name="newPassword"
             required
             type={isPassword ? "password" : "text"}
             placeholder="********"
@@ -195,19 +294,19 @@ const EditMyProfile = () => {
             setIsPassword={setIsPassword}
           />
           {/* error text */}
-          {[4, 8, 9].includes(errorCode) && errorContainer(errorCode)}
+          {[17, 8, 9].includes(errorCode) && errorContainer(errorCode)}
         </div>
         {/* confirm new password */}
         <div className="relative">
           <Label
-            htmlFor="confirmPassword"
+            htmlFor="confirmNewPassword"
             value="Confirm new Password"
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
 
           <TextInput
-            id="confirmPassword"
-            name="confirmPassword"
+            id="confirmNewPassword"
+            name="confirmNewPassword"
             required
             type={isConfPassword ? "password" : "text"}
             placeholder="********"
@@ -220,20 +319,18 @@ const EditMyProfile = () => {
           {/* error text */}
           {[5, 9].includes(errorCode) && errorContainer(errorCode)}
         </div>
-        {/* actions */}
-        <div className="flex w-full flex-col space-y-4">
-          {/* submit */}
-          <Button
-            type="submit"
-            name="join"
-            value="Submit"
-            className="mt-5 w-2/3 place-self-center rounded-md bg-green-400 duration-300 ease-in dark:bg-emerald-500"
-          >
-            Update
-          </Button>
-        </div>
+        {/* submit */}
+        <button
+          type="submit"
+          name="submit"
+          value="submit"
+          disabled={isPasswordBtnDisabled}
+          className="mt-2 w-fit place-self-end rounded-md bg-green-400 px-3 py-2 font-Poppins text-xs font-semibold text-white duration-300 ease-in hover:bg-sky-600 disabled:cursor-not-allowed disabled:bg-gray-400 dark:bg-emerald-500 dark:hover:bg-sky-600 dark:disabled:bg-gray-500 "
+        >
+          Change Password
+        </button>
       </form>
-    </Card>
+    </div>
   );
 };
 export default EditMyProfile;

@@ -1,48 +1,22 @@
-import React, { lazy, useCallback, useEffect, useState } from "react";
-import axios from "axios";
+import React, { lazy, useEffect, useState } from "react";
 const Paginations = lazy(() => import("../Admin/Paginations"));
 
 const formData = new FormData();
 formData.append("account_type", "customer");
 
 const ViewMyBookings = () => {
-  const [tableData, setTableData] = useState(null);
-  const [pagesCount, setPagesCount] = useState(0);
-  const [status] = useState("verified");
+  const [tableData] = useState(null);
+  const [pagesCount] = useState(0);
 
-  formData.append("status", status);
-
-  // session management function
-  const fetch = useCallback(() => {
-    axios
-      .post("/load_accounts", formData)
-      .then((response) => {
-        if (response.data.length !== 0) {
-          setTableData(response.data);
-          setPagesCount(Math.ceil(response.data.length / 10));
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  // session function run in component mount
-  useEffect(() => {
-    fetch();
-  }, [fetch, status]);
+  useEffect(() => {}, []);
 
   return (
-    <React.Fragment>
+    <div className="h-full w-full flex flex-col">
       <h1 className="w-full py-4 text-center font-Poppins text-xl font-medium md:text-2xl">
         My Bookings
       </h1>
-      
-      <div className="relative flex justify-end py-6">
-        
-      </div>
-      
-      <div className="hidden w-full rounded-t-md bg-gray-400 px-4 py-2 ring-[0.5px] ring-gray-400 dark:bg-gray-700 dark:ring-gray-600 md:flex">
+
+      <div className="mt-5 hidden w-full rounded-t-md bg-gray-400 px-4 py-2 ring-[0.5px] ring-gray-400 dark:bg-gray-700 dark:ring-gray-600 md:flex">
         <div className="w-full text-center">
           <span className="">Booking Type</span>
         </div>
@@ -98,7 +72,7 @@ const ViewMyBookings = () => {
           );
         })}
       <Paginations totpages={pagesCount} />
-    </React.Fragment>
+    </div>
   );
 };
 export default ViewMyBookings;

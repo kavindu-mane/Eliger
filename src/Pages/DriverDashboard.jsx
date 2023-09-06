@@ -78,6 +78,7 @@ const DriverDashboard = () => {
               title={"Driver"}
               dataset={topics}
               setActiveComp={setActiveComp}
+              active={activeComp}
             />
           </div>
 
@@ -87,7 +88,6 @@ const DriverDashboard = () => {
             {activeComp === 0 ? <ViewDriver /> : <EditDriver />}
 
             {/*graph*/}
-
             <div className="flex h-fit w-full flex-col gap-4 p-1 pb-12 pr-5 pt-4 text-center text-2xl lg:flex-row">
               <Graphs
                 options={BookingOption}
@@ -105,7 +105,9 @@ const DriverDashboard = () => {
               />
 
               <div className=" mt-3 h-fit w-full max-w-2xl rounded-xl p-2  text-2xl shadow-md drop-shadow-lg dark:bg-slate-700">
-                <p className="mb-5 text-2xl font-semibold font-Poppins">Recent Travels</p>
+                <p className="mb-5 font-Poppins text-2xl font-semibold">
+                  Recent Travels
+                </p>
 
                 <div className="secContainer grid">
                   <div className="singleCustomer w-full">

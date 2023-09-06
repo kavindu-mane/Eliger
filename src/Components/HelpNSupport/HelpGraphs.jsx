@@ -5,8 +5,6 @@ import VehicleOption from "../../Data/AdminGraph/VehicleOption";
 const Graphs = lazy(() => import("../Common/Graphs"));
 
 const HelpGraphs = () => {
-  
-
   // account chart
   const accountsData = {
     labels: ["Vehicle Owner", "Customer", "Driver"],

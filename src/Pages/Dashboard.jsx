@@ -25,7 +25,6 @@ const Dashboard = () => {
     axios
       .post("/session")
       .then((response) => {
-        console.log(response);
         if (response.data.status === 200) setRole(response.data.role);
         else if (response.data.status !== 200) navigate("/login");
       })

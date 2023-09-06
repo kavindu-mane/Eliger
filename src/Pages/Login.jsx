@@ -30,6 +30,7 @@ const Login = () => {
   const [errorCode, setErrorCode] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [haveSession, setHaveSession] = useState(false);
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   // session management function
@@ -89,6 +90,34 @@ const Login = () => {
       });
   };
 
+  // send emails again
+  const reSendEmail = () => {
+    let formData = new FormData();
+    formData.append("email", email);
+    formData.append("type", "register");
+    // change loading state to true
+    setIsLoading(true);
+    axios
+      .post("/resend", formData)
+      .then((response) => {
+        if (response.status === 200) {
+          setAlert(
+            "success",
+            "Re-send verification code",
+            "Re-send verification code to " + email
+          );
+          setIsLoading(false);
+        } else {
+          setAlert("error", "Registration faild", ErrorData[500]);
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        setAlert("error", "Registration faild", ErrorData[500]);
+        setIsLoading(false);
+      });
+  };
+
   // error messages
   const errorContainer = (errCode) => {
     return (
@@ -113,6 +142,26 @@ const Login = () => {
           {isLoading && (
             <div className="absolute z-[999] flex h-full w-screen items-center justify-center bg-slate-950/60">
               <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
+            </div>
+          )}
+
+          {errorCode === 16 && (
+            <div className="absolute z-50 h-full w-screen bg-slate-800/80 flex items-center justify-center backdrop-blur-sm">
+              <div className="max-w-lg px-4 text-center">
+                <h1 className="mb-3 text-2xl font-semibold">
+                  {ErrorData["16"]}
+                </h1>
+                <h3>
+                  Check your inbox to activate the account. If the confirmation
+                  email is not in your inbox, please check the Spam. Thank you.
+                </h3>
+                <button
+                  onClick={reSendEmail}
+                  className="mt-5 text-sm italic text-sky-900 dark:text-amber-400"
+                >
+                  Re-send email
+                </button>
+              </div>
             </div>
           )}
 
@@ -144,6 +193,7 @@ const Login = () => {
                   required
                   type="email"
                   className="inputs"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 {/* error text */}
                 {errorCode === 3 && errorContainer(errorCode)}

@@ -1,4 +1,4 @@
-import React, {useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Autocomplete } from "@react-google-maps/api";
 import {
   Button,
@@ -340,10 +340,9 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
     <React.Fragment>
       <div
         className={`w-full max-w-xl rounded-md ${
-          !isEmbed && "border border-slate-600"
-        } bg-gray-200 p-8 ${
-          !isEmbed && "shadow-lg drop-shadow-lg"
-        } dark:bg-slate-900`}
+          !isEmbed &&
+          "border border-slate-600 bg-gray-200 shadow-lg drop-shadow-lg dark:bg-slate-900"
+        } p-8`}
       >
         <h1 className="mx-1 mb-10 ps-2 text-center font-noto text-2xl text-slate-900 dark:text-white md:ps-5 md:text-3xl">
           Find Vehicles

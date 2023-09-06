@@ -5,10 +5,10 @@ import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 const enable =
-  "my-2 flex cursor-pointer items-center rounded-md p-2 text-start hover:bg-gray-300 dark:hover:bg-gray-900";
-const disable = "my-2 flex items-center p-2  text-start pointer-events-none";
+  "my-2 flex cursor-pointer items-center rounded-md p-2 text-start hover:bg-gray-300 hover:dark:bg-gray-900";
+const disable = "my-2 flex items-center p-2 text-start pointer-events-none";
 
-const SideBar = ({ title, dataset, setActiveComp }) => {
+const SideBar = ({ title, dataset, setActiveComp, active }) => {
   const [menuOpen, setMenuOpen] = useState(false || window.innerWidth > 1024);
   const navigate = useNavigate();
 
@@ -31,7 +31,9 @@ const SideBar = ({ title, dataset, setActiveComp }) => {
           {/* SideBar Heading */}
 
           <div className="flex items-center justify-between px-4">
-            <h1 className="text-start text-xl">{title}</h1>
+            <h1 className="max-w-[16rem] truncate text-start text-xl">
+              {title}
+            </h1>
             {menuOpen ? (
               <RiCloseFill
                 className="cursor-pointer text-2xl font-bold lg:hidden"
@@ -57,7 +59,14 @@ const SideBar = ({ title, dataset, setActiveComp }) => {
                 <div key={key}>
                   {/*Create Main Menu*/}
                   <div
-                    className={data.enable ? enable : disable}
+                    className={
+                      data.enable
+                        ? enable +
+                          (data.compId === active
+                            ? " bg-gray-300 dark:bg-gray-900"
+                            : " bg-transparent")
+                        : disable
+                    }
                     onClick={() => setActiveComp(data.compId)}
                   >
                     {data.icon}
@@ -70,7 +79,11 @@ const SideBar = ({ title, dataset, setActiveComp }) => {
                         return (
                           <div
                             key={id}
-                            className={enable}
+                            className={
+                              enable +
+                              (sbtopic.compId === active &&
+                                " bg-gray-300 dark:bg-gray-900")
+                            }
                             onClick={() => setActiveComp(sbtopic.compId)}
                           >
                             {sbtopic.icon}
@@ -95,7 +108,7 @@ const SideBar = ({ title, dataset, setActiveComp }) => {
               className="absolute bottom-2 start-0 flex cursor-pointer items-center rounded-md p-2 text-start hover:text-green-500 dark:hover:text-emerald-400"
             >
               <BiLogOut className="h-5 w-5" />
-              <span className="ml-4">Signout</span>
+              <span className="ml-4">Sign out</span>
             </div>
           </div>
         </div>

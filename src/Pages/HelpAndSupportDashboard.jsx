@@ -29,7 +29,6 @@ const ViewUserMsg = lazy(() =>
 const TableCustomer = lazy(() =>
   import("../Components/Admin/AccountTables/TableCustomer")
 );
-
 const TableDriver = lazy(() =>
   import("../Components/Admin/AccountTables/TableDriver")
 );
@@ -67,6 +66,7 @@ const HelpAndSupportDashboard = () => {
               title={"Help And Support"}
               dataset={topics}
               setActiveComp={setActiveComp}
+              active={activeComp}
             />
           </div>
 
@@ -75,10 +75,9 @@ const HelpAndSupportDashboard = () => {
             {/*ManageBooking*/}
             {optionComponents[activeComp]}
             {/* bottom content area */}
-            
-              {/*Two Graphs*/}
-              <HelpGraphs />
-  
+
+            {/*Two Graphs*/}
+            <HelpGraphs />
 
             {/* footer */}
             <div className="relative">
