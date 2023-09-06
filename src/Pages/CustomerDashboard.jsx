@@ -1,8 +1,9 @@
-import React, { lazy, useState } from "react";
+import React, { lazy, useState, useCallback } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 import topics from "../Data/CustomersidebarData";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
-import ViewFavouriteVehicles from "../Components/Customer/ViewFavouriteVehicles";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const HeaderSecondary = lazy(() =>
   import("../Components/Common/HeaderSecondary")
@@ -32,13 +33,28 @@ const libs = ["places"];
 const CustomerDashboard = () => {
   //Component loading state hook
   const [activeComp, setActiveComp] = useState(0);
+  // const [loadedData, setLoadedData] = useState(null);
+  const navigate = useNavigate();
+
+  const loadData = useCallback(() => {
+    axios
+      .post("/get_customer")
+      .then((response) => {
+        if (response.status === 200) {
+        } else {
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        navigate("/login");
+      });
+  }, [navigate]);
 
   const optionComponents = {
     0: <FindVehicles />,
     1: <EditMyProfile />,
     2: <ViewMyBookings />,
     3: <ViewOldPayments />,
-    4: <ViewFavouriteVehicles />,
   };
   // load map api
   const { isLoaded } = useJsApiLoader({

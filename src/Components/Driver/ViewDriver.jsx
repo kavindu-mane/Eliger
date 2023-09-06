@@ -20,7 +20,7 @@ const ViewDriver = () => {
                 <span className="">Contact No:</span>
               </div>
               <div className="w-full text-start ">
-                <span className="">Pick up location</span>
+                <span className="">Pick up location</span>n
               </div>
               <div className="mr-7 w-full text-start">
                 <span className="">Destination</span>

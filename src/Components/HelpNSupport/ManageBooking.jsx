@@ -1,7 +1,35 @@
-import React,{lazy} from "react";
+import React, { lazy, useCallback, useEffect, useState } from "react";
+import axios from "axios";
 const Paginations = lazy(() => import("../Admin/Paginations"));
 
+const formData = new FormData();
+formData.append("booking_status", "pending");
+
 const ManageBookings = () => {
+  const [tableData, setTableData] = useState(null);
+  const [pagesCount, setPagesCount] = useState(0);
+
+  // session management function
+  const fetch = useCallback(() => {
+    setTableData(null);
+    axios
+      .post("/load_bookings", formData)
+      .then((response) => {
+        if (response.data.length !== 0) {
+          setTableData(response.data);
+          setPagesCount(Math.ceil(response.data.length / 10));
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  // session function run in component mount
+  useEffect(() => {
+    fetch();
+  }, [fetch]);
+
   return (
     <React.Fragment>
       <div className="pb-5 text-center text-xl font-medium md:text-2xl">
@@ -22,33 +50,41 @@ const ManageBookings = () => {
           <span className="">Option</span>
         </div>
       </div>
-      {Array.from(Array(10).keys()).map((i) => {
-        return (
-          <div
-            key={i}
-            className="text-md group flex flex-col justify-center space-y-2 rounded-sm bg-white ring-[0.5px] ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:flex-row md:items-center md:justify-between md:space-y-0"
-          >
-            <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
-              <span className="block md:hidden">Origin Place :&ensp;</span>
-              Colombo
-            </p>
-            <p className="flex w-full truncate px-4 py-2 ">
-              <span className="block md:hidden">Destination place :&ensp;</span>
-              Galle
-            </p>
-            <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
-              <span className="block md:hidden">Type :&ensp;</span>
-              Booknow
-            </p>
-            <div className="flex w-full justify-end px-4 py-2 md:justify-center">
-              <button className="rounded-md bg-sky-500 px-8 py-0.5 font-medium text-white duration-300 ease-in hover:bg-sky-700">
-                View
-              </button>
+      {tableData === null && (
+        <p className="mt-4 w-full text-center text-sm font-medium italic">
+          No Data Found
+        </p>
+      )}
+      {tableData !== null &&
+        tableData.map((data, i) => {
+          return (
+            <div
+              key={i}
+              className="text-md group flex flex-col justify-center space-y-2 rounded-sm bg-white ring-[0.5px] ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:flex-row md:items-center md:justify-between md:space-y-0"
+            >
+              <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
+                <span className="block md:hidden">Origin Place :&ensp;</span>
+                {data.Origin_Place}
+              </p>
+              <p className="flex w-full truncate px-4 py-2 ">
+                <span className="block md:hidden">
+                  Destination place :&ensp;
+                </span>
+                {data.Destination_Place}
+              </p>
+              <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
+                <span className="block md:hidden">Type :&ensp;</span>
+                {data.Booking_Status}
+              </p>
+              <div className="flex w-full justify-end px-4 py-2 md:justify-center">
+                <button className="rounded-md bg-sky-500 px-8 py-0.5 font-medium text-white duration-300 ease-in hover:bg-sky-700">
+                  View
+                </button>
+              </div>
             </div>
-          </div>
-        );
-      })}
-      <Paginations/>
+          );
+        })}
+      <Paginations totpages={pagesCount} />
     </React.Fragment>
   );
 };
