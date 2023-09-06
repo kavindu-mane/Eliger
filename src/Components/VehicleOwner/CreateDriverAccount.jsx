@@ -40,7 +40,6 @@ const CreateDriverAccount = () => {
     axios
       .post("/create_driver", formData)
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           if (response.data === 200)
             setAlert(

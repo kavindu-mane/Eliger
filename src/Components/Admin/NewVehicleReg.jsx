@@ -43,10 +43,10 @@ const NewVehicleReg = () => {
           <span className="">Vehicle Type</span>
         </div>
         <div className="w-full text-center">
-          <span className="">Vehicle Plate_Number</span>
+          <span className="">Vehicle Plate Number</span>
         </div>
         <div className="w-full text-center">
-          <span className="">Passenger_Amount</span>
+          <span className="">Passenger Amount</span>
         </div>
         <div className="w-full text-center">
           <span className="">Option</span>
@@ -66,23 +66,23 @@ const NewVehicleReg = () => {
             >
               <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
                 <span className="block md:hidden">Owner Name :&ensp;</span>
-                {data.Owner_firstname}
+                {data?.Owner_firstname}
               </p>
               <p className="flex w-full truncate px-4 py-2 ">
                 <span className="block md:hidden">Vehicle Type :&ensp;</span>
-                {data.Vehicle_type}
+                {data?.Vehicle_type}
               </p>
               <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
                 <span className="block md:hidden">
                   Vehicle Plate_Number :&ensp;
                 </span>
-                {data.Vehicle_PlateNumber}
+                {data?.Vehicle_PlateNumber}
               </p>
               <p className="flex w-full truncate px-4 py-2 ">
                 <span className="block md:hidden">
                   Passenger_Amount :&ensp;
                 </span>
-                {data.Passenger_amount}
+                {data?.Passenger_amount}
               </p>
               <div className="flex w-full justify-end bg-slate-100 px-4 py-2 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
                 <button className="rounded-md bg-sky-500 px-8 py-0.5 font-medium text-white duration-300 ease-in hover:bg-sky-700">

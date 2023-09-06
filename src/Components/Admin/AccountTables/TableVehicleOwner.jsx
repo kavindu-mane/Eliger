@@ -18,7 +18,6 @@ const TableVehicleOwner = () => {
     axios
       .post("/load_accounts", formData)
       .then((response) => {
-        console.log(response);
         if (response.data.length !== 0) {
           setTableData(response.data);
           setPagesCount(Math.ceil(response.data.length / 10));

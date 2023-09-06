@@ -34,8 +34,8 @@ const CustomerDashboard = () => {
   const [loadedData, setLoadedData] = useState(null);
   const navigate = useNavigate();
 
-  const loadData = useCallback(() => {
-    axios
+  const loadData = useCallback(async () => {
+    await axios
       .post("/get_customer")
       .then((response) => {
         if (response.status === 200 && response.data !== 14) {
@@ -55,7 +55,7 @@ const CustomerDashboard = () => {
 
   const optionComponents = {
     0: <FindVehicles isEmbed={true} />,
-    1: <EditMyProfile currentData = {loadedData}/>,
+    1: <EditMyProfile currentData={loadedData} />,
     2: <ViewMyBookings />,
     3: <ViewOldPayments />,
   };
@@ -94,15 +94,13 @@ const CustomerDashboard = () => {
               title={`${loadedData?.Customer_firstname} ${loadedData?.Customer_lastname}`}
               dataset={topics}
               setActiveComp={setActiveComp}
-              active = {activeComp}
+              active={activeComp}
             />
           </div>
 
           {/* Body Area */}
           <div className="relative flex w-full flex-col items-center justify-between px-5 pt-4 md:px-10 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
-            {/* bottom content area */}
             {optionComponents[activeComp]}
-
             {/* footer */}
             <div className="relative mt-28 w-full">
               <FooterSecondary />

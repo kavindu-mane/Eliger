@@ -1,4 +1,6 @@
-import React, { lazy, useState } from "react";
+import React, { lazy, useState, useCallback, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import topics from "../Data/VehicleOwnerSidebarData";
 
 const HeaderSecondary = lazy(() =>
@@ -34,22 +36,41 @@ const AddVehicle = lazy(() => import("../Components/VehicleOwner/AddVehicle"));
 const VehicleOwnerDashboard = () => {
   //Component loading state hook
   const [activeComp, setActiveComp] = useState(0);
+    const [loadedData, setLoadedData] = useState(null);
+    const navigate = useNavigate();
+
+    const loadData = useCallback(async () => {
+      await axios
+        .post("/get_owner")
+        .then((response) => {
+          if (response.status === 200 && response.data !== 14) {
+            setLoadedData(response.data);
+          } else {
+            navigate("/login");
+          }
+        })
+        .catch((error) => {
+          navigate("/login");
+        });
+    }, [navigate]);
+
+    useEffect(() => {
+      // loadData();
+    }, [loadData]);
+
   const optionComponents = {
     0: <ViewMyVehicles />,
     1: <ViewMyDrivers />,
     2: <AddVehicle />,
     3: <EditVehicle />,
     4: <CreateDriverAccount />,
-    5: <EditAccount />,
+    5: <EditAccount currentData={loadedData} />,
   };
 
   return (
     <React.Fragment>
       {/* container */}
       <div className="relative flex h-full w-screen flex-col items-center">
-        {/* <div className="flex min-h-screen flex-col items-center justify-between"> */}
-        {/* middle container */}
-        {/* <div className="relative flex h-full w-screen flex-col items-center"> */}
         {/* bluer effect */}
         <BackgroundEffect />
         <HeaderSecondary />
@@ -64,29 +85,15 @@ const VehicleOwnerDashboard = () => {
               active={activeComp}
             />
           </div>
+
           {/* Body Area */}
-          <div className="relative flex w-full flex-col justify-between px-10 pt-4 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
-            {/*change availability & request */}
-            <div className=" mt-2 rounded-xl p-1 py-4 text-2xl">
-              <p className="text-center font-semibold tracking-wide">
-                Manage RentOut Booking
-              </p>
-              <p className="mt-4 text-center text-sm font-medium italic text-gray-600 dark:text-gray-300">
-                No booking requests.
-              </p>
-            </div>
-
+          <div className="relative flex w-full flex-col items-center justify-between px-5 pt-4 md:px-10 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
             {optionComponents[activeComp]}
-
             {/*graph*/}
             <div className="mt-10 flex w-full justify-center ">
               <VehicleOwnerGraph />
             </div>
-            {/* Availability*/}
-
-            <br />
-            <div className="relative ">
-              <br />
+            <div className="relative mt-10 w-full">
               <FooterSecondary />
             </div>
           </div>

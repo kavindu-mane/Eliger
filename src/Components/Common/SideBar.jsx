@@ -81,8 +81,9 @@ const SideBar = ({ title, dataset, setActiveComp, active }) => {
                             key={id}
                             className={
                               enable +
-                              (sbtopic.compId === active &&
-                                " bg-gray-300 dark:bg-gray-900")
+                              (sbtopic.compId === active
+                                ? " bg-gray-300 dark:bg-gray-900"
+                                : " bg-transparent")
                             }
                             onClick={() => setActiveComp(sbtopic.compId)}
                           >

@@ -15,6 +15,7 @@ const PasswordSwitcher = lazy(() =>
 const Alert = withReactContent(Swal);
 
 const EditMyProfile = ({ currentData }) => {
+  const [isCurrentPassword, setIsCurrentPassword] = useState(true);
   const [isConfPassword, setIsConfPassword] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
   const [errorCode, setErrorCode] = useState(null);
@@ -142,7 +143,7 @@ const EditMyProfile = ({ currentData }) => {
               required
               type="text"
               className="inputs"
-              defaultValue={currentData.Customer_firstname}
+              defaultValue={currentData?.Customer_firstname}
             />
             {/* error text */}
             {errorCode === 0 && errorContainer(errorCode)}
@@ -162,7 +163,7 @@ const EditMyProfile = ({ currentData }) => {
               required
               type="text"
               className="inputs"
-              defaultValue={currentData.Customer_lastname}
+              defaultValue={currentData?.Customer_lastname}
             />
             {/* error text */}
             {errorCode === 1 && errorContainer(errorCode)}
@@ -183,7 +184,7 @@ const EditMyProfile = ({ currentData }) => {
             required
             type="text"
             className="inputs"
-            defaultValue={currentData.Customer_Tel}
+            defaultValue={currentData?.Customer_Tel}
           />
           {/* error text */}
           {[2, 6].includes(errorCode) && errorContainer(errorCode)}
@@ -224,7 +225,7 @@ const EditMyProfile = ({ currentData }) => {
             required
             type="email"
             className="inputs"
-            defaultValue={currentData.Email}
+            defaultValue={currentData?.Email}
           />
           {/* error text */}
           {[3, 7, 10].includes(errorCode) && errorContainer(errorCode)}
@@ -262,16 +263,16 @@ const EditMyProfile = ({ currentData }) => {
             id="password"
             name="password"
             required
-            type={isPassword ? "password" : "text"}
+            type={isCurrentPassword ? "password" : "text"}
             placeholder="********"
             className="inputs"
           />
           <PasswordSwitcher
-            isPassword={isPassword}
-            setIsPassword={setIsPassword}
+            isPassword={isCurrentPassword}
+            setIsPassword={setIsCurrentPassword}
           />
           {/* error text */}
-          {[4 , 18].includes(errorCode) && errorContainer(errorCode)}
+          {[4, 18].includes(errorCode) && errorContainer(errorCode)}
         </div>
         {/* New password */}
         <div className="relative">

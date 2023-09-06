@@ -26,7 +26,7 @@ const CreateHelpAccount = () => {
   };
 
   // submit registration form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // clear previous errors
     setErrorCode(null);
     // remove default form submission
@@ -36,16 +36,15 @@ const CreateHelpAccount = () => {
     // change loading state to true
     setIsLoading(true);
     // send data using axios post function
-    axios
+    await axios
       .post("/create_hns", formData)
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           if (response.data === 200)
             setAlert(
               "success",
               "Registration success",
-              "Successfully sent the email verification message to your email."
+              "Successfully sent the email verification message to given email."
             );
           else if (response.data === 15)
             setAlert("error", "Registration failed", ErrorData[15]);
@@ -74,7 +73,7 @@ const CreateHelpAccount = () => {
     <Card>
       {/* loading */}
       {isLoading && (
-        <div className="absolute start-0 z-[999] flex h-full w-screen items-center justify-center bg-slate-950/60">
+        <div className="absolute end-0 top-0 z-[999] flex h-full w-full items-center justify-center bg-slate-950/60">
           <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
         </div>
       )}

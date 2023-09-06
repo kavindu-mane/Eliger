@@ -1,4 +1,4 @@
- import React, { lazy, useState } from "react";
+import React, { lazy, useState } from "react";
 import topics from "../Data/AdminSidebarData";
 const StatGraphs = lazy(() => import("../Components/Admin/StatGraphs"));
 const NewVehicleReg = lazy(() => import("../Components/Admin/NewVehicleReg"));
@@ -11,7 +11,9 @@ const PendingDriverReg = lazy(() =>
 const NewDriverRequests = lazy(() =>
   import("../Components/Admin/NewDriverRequests")
 );
-const TableCustomer = lazy(() => import("../Components/Admin/AccountTables/TableCustomer"));
+const TableCustomer = lazy(() =>
+  import("../Components/Admin/AccountTables/TableCustomer")
+);
 const TableHelpSupport = lazy(() =>
   import("../Components/Admin/AccountTables/TableHelpSupport")
 );
@@ -21,7 +23,9 @@ const TableDriver = lazy(() =>
 const TableVehicleOwner = lazy(() =>
   import("../Components/Admin/AccountTables/TableVehicleOwner")
 );
-
+const CreateHelpAccount = lazy(() =>
+  import("../Components/Admin/CreateHelpAccount")
+);
 
 const HeaderSecondary = lazy(() =>
   import("../Components/Common/HeaderSecondary")
@@ -33,9 +37,6 @@ const BackgroundEffect = lazy(() =>
   import("../Components/Common/BackgroundEffect")
 );
 const SideBar = lazy(() => import("../Components/Common/SideBar"));
-const CreateHelpAccount = lazy(() =>
-  import("../Components/Admin/CreateHelpAccount")
-);
 
 const Admindashboard = () => {
   //Component loading state hook

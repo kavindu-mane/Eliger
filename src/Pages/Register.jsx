@@ -42,7 +42,6 @@ const Register = ({ type = "customer" }) => {
     axios
       .post("/session")
       .then((response) => {
-        console.log(response);
         if (response.data.status === 200) navigate("/dashboard");
         else setHaveSession(true);
       })
