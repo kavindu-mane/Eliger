@@ -1,4 +1,11 @@
-import { Button, Card, Label, TextInput, Select } from "flowbite-react";
+import {
+  Button,
+  Card,
+  Label,
+  TextInput,
+  Select,
+  FileInput,
+} from "flowbite-react";
 import { useState } from "react";
 import { MdOutlineError } from "react-icons/md";
 import ErrorData from "../../Data/ErrorData";
@@ -132,6 +139,34 @@ const AddVehicle = () => {
           {/* error text */}
           {errorCode === 11 && errorContainer(errorCode)}
         </div>
+        {/* price */}
+        <div>
+          {isBookNow ? (
+            <Label
+              htmlFor="price"
+              value="Price per Km(LKR)"
+              className="after:ml-0.5 after:text-red-500 after:content-['*']"
+            />
+          ) : (
+            <Label
+              htmlFor="price"
+              value="Price per day(LKR)"
+              className="after:ml-0.5 after:text-red-500 after:content-['*']"
+            />
+          )}
+
+          <TextInput
+            id="price"
+            name="price"
+            defaultValue={"0.00"}
+            required
+            type="number"
+            min={0}
+            step={0.01}
+          />
+          {/* error text */}
+          {errorCode === 11 && errorContainer(errorCode)}
+        </div>
         {/* nearest city */}
         {!isBookNow && (
           <div>
@@ -179,16 +214,12 @@ const AddVehicle = () => {
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
 
-          <input
-            className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-xs text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
+          <FileInput
             id="insurance"
             name="insurance"
-            type="file"
             accept=".png,.jpeg,.jpg"
+            helperText="Accept png , jpg , jpeg only.File size should be less than 2MB."
           />
-          <p className="text-end font-Poppins text-xs font-medium">
-            Accept png , jpg , jpeg only.File size should be less than 2MB.
-          </p>
         </div>
         {/* ownership doc */}
         <div>
@@ -198,16 +229,12 @@ const AddVehicle = () => {
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
 
-          <input
-            className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-xs text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
+          <FileInput
             id="ownership"
             name="ownership"
-            type="file"
             accept=".png,.jpeg,.jpg"
+            helperText="Accept png , jpg , jpeg only.File size should be less than 2MB."
           />
-          <p className="text-end font-Poppins text-xs font-medium">
-            Accept png , jpg , jpeg only.File size should be less than 2MB.
-          </p>
         </div>
 
         <div className="mt-5 flex w-full justify-center font-Poppins">

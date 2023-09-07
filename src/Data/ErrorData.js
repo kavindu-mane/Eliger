@@ -18,6 +18,12 @@ const ErrorData = {
   16: "Account not verified",
   17: "New password is empty",
   18: "Password is incorrect",
+  19: "Income percentage is empty",
+  20: "Percentage must be a number",
+  21: "Licence file is not selected",
+  22: "Licence file size grater than 2MB",
+  23: "Licence file type not accepted",
+  24: "Licence file upload error",
   200: "Success", // default success code in http protocol
   500: "Somthing went wrong.please try again.", // default server error code in http protocol
 };

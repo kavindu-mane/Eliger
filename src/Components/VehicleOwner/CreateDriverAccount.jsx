@@ -1,11 +1,12 @@
 import { lazy, useState } from "react";
-import { Button, Card, Label, TextInput } from "flowbite-react";
+import { Button, Card, FileInput, Label, TextInput } from "flowbite-react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ErrorData from "../../Data/ErrorData";
 import { MdOutlineError } from "react-icons/md";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 const PasswordSwitcher = lazy(() => import("../Common/PasswordSwitcher"));
 
 // create sweet alert object
@@ -16,6 +17,7 @@ const CreateDriverAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isConfPassword, setIsConfPassword] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
+  const navigate = useNavigate();
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -45,10 +47,9 @@ const CreateDriverAccount = () => {
             setAlert(
               "success",
               "Registration success",
-              "Successfully sent the email verification message to your email."
+              "Successfully sent the email verification message to given email."
             );
-          else if (response.data === 15)
-            setAlert("error", "Registration failed", ErrorData[15]);
+          else if (response.data === 14) navigate("/login");
           setIsLoading(false);
           setErrorCode(response.data);
         } else {
@@ -74,14 +75,18 @@ const CreateDriverAccount = () => {
     <Card className="w-full max-w-4xl dark:bg-slate-900">
       {/* loading */}
       {isLoading && (
-        <div className="absolute start-0 top-0 z-[999] flex h-screen w-full items-center justify-center bg-slate-950/60">
+        <div className="absolute start-0 top-0 z-[999] flex h-full w-full items-center justify-center bg-slate-950/60">
           <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
         </div>
       )}
       <div className="mb-3 text-center font-Poppins text-2xl font-medium tracking-wide">
         Create Driver Account
       </div>
-      <form className="flex flex-col gap-4" onSubmit={(e) => handleSubmit(e)}>
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={(e) => handleSubmit(e)}
+        encType="multipart/form-data"
+      >
         {/* name */}
         <div className="flex flex-col gap-4 lg:flex-row ">
           {/* first name */}
@@ -99,7 +104,7 @@ const CreateDriverAccount = () => {
               name="fname"
             />
             {/* error text */}
-            {errorCode === 11 && errorContainer(errorCode)}
+            {errorCode === 0 && errorContainer(errorCode)}
           </div>
           {/* last name */}
           <div className="w-full lg:w-1/2">
@@ -116,7 +121,7 @@ const CreateDriverAccount = () => {
               name="lname"
             />
             {/* error text */}
-            {errorCode === 11 && errorContainer(errorCode)}
+            {errorCode === 1 && errorContainer(errorCode)}
           </div>
         </div>
         {/* email */}
@@ -134,7 +139,7 @@ const CreateDriverAccount = () => {
             name="email"
           />
           {/* error text */}
-          {[7, 10].includes(errorCode) && errorContainer(errorCode)}
+          {[7, 10, 3].includes(errorCode) && errorContainer(errorCode)}
         </div>
         {/* phone number */}
         <div>
@@ -149,6 +154,43 @@ const CreateDriverAccount = () => {
             required
             type="text"
             name="phone"
+          />
+          {/* error text */}
+          {[2, 6].includes(errorCode) && errorContainer(errorCode)}
+        </div>
+        {/* percentage */}
+        <div>
+          <Label
+            htmlFor="price"
+            value="Income percentage"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
+
+          <TextInput
+            id="percentage"
+            name="percentage"
+            defaultValue={"10.00"}
+            required
+            type="number"
+            min={0}
+            step={0.01}
+          />
+          {/* error text */}
+          {[20, 19].includes(errorCode) && errorContainer(errorCode)}
+        </div>
+        {/* address */}
+        <div>
+          <Label
+            htmlFor="address"
+            value="Address"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
+          <TextInput
+            id="address"
+            required
+            type="text"
+            name="address"
+            placeholder=""
           />
           {/* error text */}
           {errorCode === 11 && errorContainer(errorCode)}
@@ -175,7 +217,7 @@ const CreateDriverAccount = () => {
                 setIsPassword={setIsPassword}
               />
               {/* error text */}
-              {errorCode === 11 && errorContainer(errorCode)}
+              {[4, 8, 9].includes(errorCode) && errorContainer(errorCode)}
             </div>
           </div>
           {/* confirm password */}
@@ -198,26 +240,9 @@ const CreateDriverAccount = () => {
                 setIsPassword={setIsConfPassword}
               />
               {/* error text */}
-              {errorCode === 11 && errorContainer(errorCode)}
+              {[5, 9].includes(errorCode) && errorContainer(errorCode)}
             </div>
           </div>
-        </div>
-        {/* address */}
-        <div>
-          <Label
-            htmlFor="address"
-            value="Address"
-            className="after:ml-0.5 after:text-red-500 after:content-['*']"
-          />
-          <TextInput
-            id="address"
-            required
-            type="text"
-            name="address"
-            placeholder=""
-          />
-          {/* error text */}
-          {errorCode === 11 && errorContainer(errorCode)}
         </div>
         {/* licence doc */}
         <div>
@@ -227,16 +252,15 @@ const CreateDriverAccount = () => {
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
 
-          <input
-            className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-xs text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
+          <FileInput
             id="licence"
             name="licence"
-            type="file"
+            required
             accept=".png,.jpeg,.jpg"
+            helperText="Accept png , jpg , jpeg only.File size should be less than 2MB."
           />
-          <p className="text-end font-Poppins text-xs font-medium">
-            Accept png , jpg , jpeg only.File size should be less than 2MB.
-          </p>
+          {/* error text */}
+          {[21, 22, 23, 24].includes(errorCode) && errorContainer(errorCode)}
         </div>
         <div className="mt-5 flex w-full justify-center font-Poppins">
           <Button type="submit" className="w-full max-w-sm">
