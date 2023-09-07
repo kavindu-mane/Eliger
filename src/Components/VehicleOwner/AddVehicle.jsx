@@ -22,19 +22,17 @@ const AddVehicle = () => {
   };
   return (
     <Card className="w-full max-w-4xl shadow-xl dark:bg-slate-900">
-      <div className="text-center font-Poppins text-2xl font-semibold tracking-wide">
+      <div className="mb-3 text-center font-Poppins text-2xl font-medium tracking-wide">
         Add Vehicle
       </div>
       <form className="flex flex-col gap-4">
         {/* rent type */}
         <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="rent-type"
-              value="Rent Type"
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            />
-          </div>
+          <Label
+            htmlFor="rent-type"
+            value="Rent Type"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
           <Select
             id="rent-type"
             name="rent-type"
@@ -54,13 +52,12 @@ const AddVehicle = () => {
         </div>
         {/* vehicle type */}
         <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="vehicle-type"
-              value="Vehicle Type"
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            />
-          </div>
+          <Label
+            htmlFor="vehicle-type"
+            value="Vehicle Type"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
+
           <Select
             id="vehicle-type"
             name="vehicle-type"
@@ -78,9 +75,7 @@ const AddVehicle = () => {
         {/* driver */}
         {!isBookNow && (
           <div>
-            <div className="mb-2 block">
-              <Label htmlFor="driver" value="Driver" />
-            </div>
+            <Label htmlFor="driver" value="Driver" />
             <Select
               id="driver"
               name="driver"
@@ -103,13 +98,11 @@ const AddVehicle = () => {
         )}
         {/* register number */}
         <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="regno"
-              value="Vehicle Reg.No"
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            />
-          </div>
+          <Label
+            htmlFor="regno"
+            value="Vehicle Reg.No"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
           <TextInput
             id="regno"
             placeholder="ABC-4567"
@@ -122,13 +115,12 @@ const AddVehicle = () => {
         </div>
         {/* passenger amount */}
         <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="amount"
-              value="Pasenger Amount"
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            />
-          </div>
+          <Label
+            htmlFor="amount"
+            value="Passenger Amount"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
+
           <TextInput
             id="amount"
             name="amount"
@@ -143,13 +135,12 @@ const AddVehicle = () => {
         {/* nearest city */}
         {!isBookNow && (
           <div>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="nearest-city"
-                value="Nearest City"
-                className="after:ml-0.5 after:text-red-500 after:content-['*']"
-              />
-            </div>
+            <Label
+              htmlFor="nearest-city"
+              value="Nearest City"
+              className="after:ml-0.5 after:text-red-500 after:content-['*']"
+            />
+
             <TextInput
               id="nearest-city"
               name="nearest-city"
@@ -164,13 +155,12 @@ const AddVehicle = () => {
         {/* assign driver */}
         {isWithDriver && (
           <div>
-            <div className="mb-2 block">
-              <Label
-                htmlFor="assign-driver"
-                value="Assign Driver"
-                className="after:ml-0.5 after:text-red-500 after:content-['*']"
-              />
-            </div>
+            <Label
+              htmlFor="assign-driver"
+              value="Assign Driver"
+              className="after:ml-0.5 after:text-red-500 after:content-['*']"
+            />
+
             <Select id="assign-driver" name="assign-driver" required>
               <option value="car">Car</option>
               <option value="bike">Bike</option>
@@ -183,13 +173,12 @@ const AddVehicle = () => {
         )}
         {/* insurance */}
         <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="insurance"
-              value="Insurance Document"
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            />
-          </div>
+          <Label
+            htmlFor="insurance"
+            value="Insurance Document"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
+
           <input
             className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-xs text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
             id="insurance"
@@ -203,13 +192,12 @@ const AddVehicle = () => {
         </div>
         {/* ownership doc */}
         <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="ownership"
-              value="Ownership Document"
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            />
-          </div>
+          <Label
+            htmlFor="ownership"
+            value="Ownership Document"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
+
           <input
             className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-xs text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400"
             id="ownership"
