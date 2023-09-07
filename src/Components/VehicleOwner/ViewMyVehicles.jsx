@@ -1,5 +1,4 @@
 import React, { lazy, useState, useEffect, useCallback } from "react";
-import { Dropdown } from "flowbite-react";
 import axios from "axios";
 const Paginations = lazy(() => import("../Admin/Paginations"));
 
@@ -29,7 +28,7 @@ const ViewMyVehicles = () => {
   }, [fetch]);
 
   return (
-    <div className="h-full w-full flex flex-col">
+    <div className="flex h-full w-full flex-col">
       <div className="pb-5 text-center text-xl font-medium md:text-2xl">
         View My Vehicles
       </div>
@@ -38,10 +37,13 @@ const ViewMyVehicles = () => {
           <span className="">Vehicle Plate Number</span>
         </div>
         <div className="w-full text-center">
-          <span className="">Vehicle Type</span>
+          <span className="">Booking Type</span>
         </div>
         <div className="w-full text-center">
           <span className="">Availability</span>
+        </div>
+        <div className="w-full text-center">
+          <span className="">Driver</span>
         </div>
         <div className="w-full text-center">
           <span className="">Option</span>
@@ -69,12 +71,13 @@ const ViewMyVehicles = () => {
                 <span className="block md:hidden">Vehicle Type :&ensp;</span>
                 {data?.Vehicle_type}
               </p>
-              <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
-                <span className="block md:hidden">Availability :&ensp;</span>
-                <Dropdown>
-                  <Dropdown.Item>Available</Dropdown.Item>
-                  <Dropdown.Item>Non-Available</Dropdown.Item>
-                </Dropdown>
+              <p className="flex w-full truncate px-4 py-2 ">
+                <span className="block md:hidden">Vehicle Type :&ensp;</span>
+                {data?.Vehicle_type}
+              </p>
+              <p className="flex w-full truncate px-4 py-2 ">
+                <span className="block md:hidden">Vehicle Type :&ensp;</span>
+                {data?.Vehicle_type}
               </p>
               <div className="flex w-full justify-end bg-slate-100 px-4 py-2 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
                 <button className="rounded-md bg-sky-500 px-8 py-0.5 font-medium text-white duration-300 ease-in hover:bg-sky-700">

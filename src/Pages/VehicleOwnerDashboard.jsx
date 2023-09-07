@@ -25,9 +25,6 @@ const ViewMyDrivers = lazy(() =>
 const EditAccount = lazy(() =>
   import("../Components/VehicleOwner/EditAccount")
 );
-const EditVehicle = lazy(() =>
-  import("../Components/VehicleOwner/EditVehicle")
-);
 const ViewMyVehicles = lazy(() =>
   import("../Components/VehicleOwner/ViewMyVehicles")
 );
@@ -62,9 +59,8 @@ const VehicleOwnerDashboard = () => {
     0: <ViewMyVehicles />,
     1: <ViewMyDrivers />,
     2: <AddVehicle />,
-    3: <EditVehicle />,
-    4: <CreateDriverAccount />,
-    5: <EditAccount currentData={loadedData} />,
+    3: <CreateDriverAccount />,
+    4: <EditAccount currentData={loadedData} />,
   };
 
   return (

@@ -113,7 +113,7 @@ const EditMyProfile = ({ currentData }) => {
   };
 
   return (
-    <div className="flex h-full w-full max-w-2xl flex-col justify-center">
+    <div className="flex w-full max-w-2xl flex-col justify-center">
       {/*Topic */}
       <h1 className="mb-5 text-2xl font-medium">Edit Account Details</h1>
 

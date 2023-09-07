@@ -49,10 +49,10 @@ const Verification = () => {
   };
 
   // submit code to backend
-  const passData = useCallback(() => {
+  const passData = useCallback(async() => {
     let formData = new FormData();
     formData.append("code", code);
-    axios
+    await axios
       .post("/verify", formData)
       .then((response) => {
         if (response.status === 200) {

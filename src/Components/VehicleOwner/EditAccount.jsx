@@ -112,7 +112,7 @@ const EditAccount = ({currentData}) => {
     });
   };
   return (
-    <div className="flex h-full w-full max-w-2xl flex-col justify-center">
+    <div className="flex w-full max-w-2xl flex-col justify-center">
       {/*Topic */}
       <h1 className="mb-5 text-2xl font-medium">Edit Account Details</h1>
 
@@ -187,6 +187,25 @@ const EditAccount = ({currentData}) => {
           />
           {/* error text */}
           {[2, 6].includes(errorCode) && errorContainer(errorCode)}
+        </div>
+        {/* address */}
+        <div>
+          <Label
+            htmlFor="address"
+            value="Address"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
+
+          <TextInput
+            id="address"
+            name="address"
+            required
+            type="text"
+            className="inputs"
+            defaultValue={currentData?.Customer_Tel}
+          />
+          {/* error text */}
+          {errorCode === 11 && errorContainer(errorCode)}
         </div>
         {/* submit */}
         <button
