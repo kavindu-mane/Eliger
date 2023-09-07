@@ -33,27 +33,27 @@ const AddVehicle = lazy(() => import("../Components/VehicleOwner/AddVehicle"));
 const VehicleOwnerDashboard = () => {
   //Component loading state hook
   const [activeComp, setActiveComp] = useState(0);
-    const [loadedData, setLoadedData] = useState(null);
-    const navigate = useNavigate();
+  const [loadedData, setLoadedData] = useState(null);
+  const navigate = useNavigate();
 
-    const loadData = useCallback(async () => {
-      await axios
-        .post("/get_owner")
-        .then((response) => {
-          if (response.status === 200 && response.data !== 14) {
-            setLoadedData(response.data);
-          } else {
-            navigate("/login");
-          }
-        })
-        .catch((error) => {
+  const loadData = useCallback(async () => {
+    await axios
+      .post("/get_owner")
+      .then((response) => {
+        if (response.status === 200 && response.data !== 14) {
+          setLoadedData(response.data);
+        } else {
           navigate("/login");
-        });
-    }, [navigate]);
+        }
+      })
+      .catch((error) => {
+        navigate("/login");
+      });
+  }, [navigate]);
 
-    useEffect(() => {
-      // loadData();
-    }, [loadData]);
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   const optionComponents = {
     0: <ViewMyVehicles />,
@@ -61,6 +61,7 @@ const VehicleOwnerDashboard = () => {
     2: <AddVehicle />,
     3: <CreateDriverAccount />,
     4: <EditAccount currentData={loadedData} />,
+    5: <VehicleOwnerGraph />,
   };
 
   return (
@@ -75,7 +76,7 @@ const VehicleOwnerDashboard = () => {
           {/* Side Bar Area */}
           <div className="w-full min-w-max lg:h-screen lg:max-w-xs">
             <SideBar
-              title={"Vehicle Owner"}
+              title={`${loadedData?.Owner_firstname} ${loadedData?.Owner_lastname}`}
               dataset={topics}
               setActiveComp={setActiveComp}
               active={activeComp}
@@ -85,10 +86,6 @@ const VehicleOwnerDashboard = () => {
           {/* Body Area */}
           <div className="relative flex w-full flex-col items-center justify-between px-5 pt-4 md:px-10 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
             {optionComponents[activeComp]}
-            {/*graph*/}
-            <div className="mt-10 flex w-full justify-center ">
-              <VehicleOwnerGraph />
-            </div>
             <div className="relative mt-10 w-full">
               <FooterSecondary />
             </div>

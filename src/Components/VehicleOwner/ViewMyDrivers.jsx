@@ -14,7 +14,7 @@ const ViewMyDrivers = () => {
       .then((response) => {
         if (response.data.length !== 0) {
           setTableData(response.data);
-          setPagesCount(Math.ceil(response.data.length / 10));
+          setPagesCount(Math.ceil(response.data.length / 15));
         }
       })
       .catch((error) => {

@@ -1,6 +1,7 @@
 import React, { lazy, useState } from "react";
 import { Label, TextInput } from "flowbite-react";
 import { MdOutlineError } from "react-icons/md";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 import ErrorData from "../../Data/ErrorData";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +15,7 @@ const PasswordSwitcher = lazy(() =>
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-const EditAccount = ({currentData}) => {
+const EditAccount = ({ currentData }) => {
   const [isCurrentPassword, setIsCurrentPassword] = useState(true);
   const [isConfPassword, setIsConfPassword] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
@@ -22,6 +23,7 @@ const EditAccount = ({currentData}) => {
   const [isBasicBtnDisabled, setIsBasicBtnDisabled] = useState(true);
   const [isEmailBtnDisabled, setIsEmailBtnDisabled] = useState(true);
   const [isPasswordBtnDisabled, setIsPasswordBtnDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // custom allert function with sweet alert 2
@@ -45,13 +47,14 @@ const EditAccount = ({currentData}) => {
   // actions of the responses
   const responseAction = (response) => {
     if (response.status === 200) {
-      if (response.data === 200)
+      if (response.data === 200) {
         setAlert(
           "success",
           "Update success",
-          "Customer details update successfully"
+          "Owner details update successfully"
         );
-      else if (response.data === 500)
+        navigate("/login");
+      } else if (response.data === 500)
         setAlert("error", "Update failed", ErrorData[500]);
       else if (response.data === 14) navigate("/login");
       setErrorCode(response.data);
@@ -70,7 +73,7 @@ const EditAccount = ({currentData}) => {
     const formData = new FormData(e.target);
     // send data using axios post function
     await axios
-      .post("/update_customer", formData)
+      .post("/update_owner", formData)
       .then((response) => {
         responseAction(response);
       })
@@ -98,21 +101,30 @@ const EditAccount = ({currentData}) => {
       reverseButtons: true,
     }).then(async (result) => {
       if (result.isConfirmed) {
+        setIsLoading(true);
         await axios
           .post("/update", formData)
           .then((response) => {
             responseAction(response);
+            setIsLoading(false);
           })
           .catch((error) => {
+            setIsLoading(false);
             setAlert("error", "Update failed", ErrorData[500]);
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        setAlert("error", "Cancelled", "Your imaginary file is safe :)");
+        setAlert("error", "Cancelled", "Your imaginary file is safe.");
       }
     });
   };
   return (
     <div className="flex w-full max-w-2xl flex-col justify-center">
+      {/* loading */}
+      {isLoading && (
+        <div className="absolute start-0 top-0 z-[999] flex min-h-full w-full items-center justify-center bg-slate-950/60 backdrop-blur-sm">
+          <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
+        </div>
+      )}
       {/*Topic */}
       <h1 className="mb-5 text-2xl font-medium">Edit Account Details</h1>
 
@@ -142,7 +154,7 @@ const EditAccount = ({currentData}) => {
               required
               type="text"
               className="inputs"
-              defaultValue={currentData?.Customer_firstname}
+              defaultValue={currentData?.Owner_firstname}
             />
             {/* error text */}
             {errorCode === 0 && errorContainer(errorCode)}
@@ -162,7 +174,7 @@ const EditAccount = ({currentData}) => {
               required
               type="text"
               className="inputs"
-              defaultValue={currentData?.Customer_lastname}
+              defaultValue={currentData?.Owner_lastname}
             />
             {/* error text */}
             {errorCode === 1 && errorContainer(errorCode)}
@@ -183,7 +195,7 @@ const EditAccount = ({currentData}) => {
             required
             type="text"
             className="inputs"
-            defaultValue={currentData?.Customer_Tel}
+            defaultValue={currentData?.Owner_Tel}
           />
           {/* error text */}
           {[2, 6].includes(errorCode) && errorContainer(errorCode)}
@@ -202,7 +214,7 @@ const EditAccount = ({currentData}) => {
             required
             type="text"
             className="inputs"
-            defaultValue={currentData?.Customer_Tel}
+            defaultValue={currentData?.Owner_address}
           />
           {/* error text */}
           {errorCode === 11 && errorContainer(errorCode)}

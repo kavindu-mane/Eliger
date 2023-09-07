@@ -1,6 +1,7 @@
 import React, { lazy, useState } from "react";
 import { Label, TextInput } from "flowbite-react";
 import { MdOutlineError } from "react-icons/md";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 import ErrorData from "../../Data/ErrorData";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +23,7 @@ const EditMyProfile = ({ currentData }) => {
   const [isBasicBtnDisabled, setIsBasicBtnDisabled] = useState(true);
   const [isEmailBtnDisabled, setIsEmailBtnDisabled] = useState(true);
   const [isPasswordBtnDisabled, setIsPasswordBtnDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // custom allert function with sweet alert 2
@@ -98,22 +100,31 @@ const EditMyProfile = ({ currentData }) => {
       reverseButtons: true,
     }).then(async (result) => {
       if (result.isConfirmed) {
+        setIsLoading(true);
         await axios
           .post("/update", formData)
           .then((response) => {
+            setIsLoading(false);
             responseAction(response);
           })
           .catch((error) => {
+            setIsLoading(false);
             setAlert("error", "Update failed", ErrorData[500]);
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        setAlert("error", "Cancelled", "Your imaginary file is safe :)");
+        setAlert("error", "Cancelled", "Your imaginary file is safe.");
       }
     });
   };
 
   return (
     <div className="flex w-full max-w-2xl flex-col justify-center">
+      {/* loading */}
+      {isLoading && (
+        <div className="absolute start-0 top-0 z-[999] flex min-h-full w-full items-center justify-center bg-slate-950/60 backdrop-blur-sm">
+          <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
+        </div>
+      )}
       {/*Topic */}
       <h1 className="mb-5 text-2xl font-medium">Edit Account Details</h1>
 

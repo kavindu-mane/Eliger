@@ -3,6 +3,7 @@ import { GiCarKey } from "react-icons/gi";
 import { AiFillCar } from "react-icons/ai";
 import { PiSteeringWheelFill } from "react-icons/pi";
 import { MdCreate } from "react-icons/md";
+import { IoStatsChart } from "react-icons/io5";
 
 const topics = [
   {
@@ -39,6 +40,13 @@ const topics = [
     icon: <VscRequestChanges className="h-5 w-5" />,
     haveSub: false,
     compId: 4,
+  },
+  {
+    topic: "Statistics",
+    enable: true,
+    icon: <IoStatsChart className="h-5 w-5" />,
+    haveSub: false,
+    compId: 5,
   },
 ];
 
