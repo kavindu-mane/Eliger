@@ -1,7 +1,7 @@
 import React, { lazy, useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import topics from "../Data/VehicleOwnerSidebarData";
+import topics from "../Data/SideBars/VehicleOwnerSidebarData";
 
 const HeaderSecondary = lazy(() =>
   import("../Components/Common/HeaderSecondary")

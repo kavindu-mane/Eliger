@@ -3,7 +3,7 @@ import { useJsApiLoader } from "@react-google-maps/api";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import topics from "../Data/CustomersidebarData";
+import topics from "../Data/SideBars/CustomersidebarData";
 const HeaderSecondary = lazy(() =>
   import("../Components/Common/HeaderSecondary")
 );

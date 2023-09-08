@@ -1,7 +1,7 @@
 import React, { lazy, useState } from "react";
-import topics from "../Data/DriverSidebarData";
+import topics from "../Data/SideBars/DriverSidebarData";
 import { Table } from "flowbite-react";
-import BookingOption from "../Data/DriverGraphData";
+import BookingOption from "../Data/DriverGraph/DriverGraphData";
 
 const ViewDriver = lazy(() => import("../Components/Driver/ViewDriver"));
 

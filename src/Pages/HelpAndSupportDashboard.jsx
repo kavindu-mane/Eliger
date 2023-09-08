@@ -1,5 +1,5 @@
 import React, { lazy, useState } from "react";
-import topics from "../Data/HelpNSupportSidebarData";
+import topics from "../Data/SideBars/HelpNSupportSidebarData";
 const HelpGraphs = lazy(() => import("../Components/HelpNSupport/HelpGraphs"));
 const ManageBooking = lazy(() =>
   import("../Components/HelpNSupport/ManageBooking")

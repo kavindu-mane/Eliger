@@ -1,5 +1,5 @@
 import React, { lazy, useState } from "react";
-import topics from "../Data/AdminSidebarData";
+import topics from "../Data/SideBars/AdminSidebarData";
 const StatGraphs = lazy(() => import("../Components/Admin/StatGraphs"));
 const NewVehicleReg = lazy(() => import("../Components/Admin/NewVehicleReg"));
 const PendingVehicleReg = lazy(() =>
@@ -45,9 +45,9 @@ const Admindashboard = () => {
   const optionComponents = {
     0: <NewVehicleReg />,
     1: <NewDriverRequests />,
-    2: <CreateHelpAccount />,
-    3: <PendingVehicleReg />,
-    4: <PendingDriverReg />,
+    2: <PendingVehicleReg />,
+    3: <PendingDriverReg />,
+    4: <CreateHelpAccount />,
     5: <TableVehicleOwner />,
     6: <TableCustomer />,
     7: <TableDriver />,

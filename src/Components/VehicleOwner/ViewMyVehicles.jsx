@@ -1,13 +1,13 @@
 import React, { lazy, useState, useEffect, useCallback } from "react";
 import axios from "axios";
-const Paginations = lazy(() => import("../Admin/Paginations"));
+const Paginations = lazy(() => import("../Common/Paginations"));
 
 const ViewMyVehicles = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
 
   // session management function
-  const fetch = useCallback(async() => {
+  const fetch = useCallback(async () => {
     setTableData(null);
     await axios
       .post("/load_new_reg")

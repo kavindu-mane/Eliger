@@ -1,5 +1,5 @@
 import React, { lazy, useEffect, useState } from "react";
-const Paginations = lazy(() => import("../Admin/Paginations"));
+const Paginations = lazy(() => import("../Common/Paginations"));
 
 const formData = new FormData();
 formData.append("account_type", "customer");
@@ -11,7 +11,7 @@ const ViewMyBookings = () => {
   useEffect(() => {}, []);
 
   return (
-    <div className="h-full w-full flex flex-col">
+    <div className="flex h-full w-full flex-col">
       <h1 className="w-full py-4 text-center font-Poppins text-xl font-medium md:text-2xl">
         My Bookings
       </h1>

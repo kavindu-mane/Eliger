@@ -1,6 +1,6 @@
 import React, { lazy, useCallback, useEffect, useState } from "react";
 import axios from "axios";
-const Paginations = lazy(() => import("../Admin/Paginations"));
+const Paginations = lazy(() => import("../Common/Paginations"));
 
 const formData = new FormData();
 formData.append("vehicle_status", "new");
@@ -9,7 +9,7 @@ const NewVehicleReg = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
 
-  // session management function
+  // load data function
   const fetch = useCallback(() => {
     setTableData(null);
     axios
@@ -25,7 +25,7 @@ const NewVehicleReg = () => {
       });
   }, []);
 
-  // session function run in component mount
+  // load data function run in component mount
   useEffect(() => {
     fetch();
   }, [fetch]);

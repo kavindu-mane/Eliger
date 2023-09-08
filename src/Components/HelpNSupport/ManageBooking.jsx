@@ -1,6 +1,6 @@
 import React, { lazy, useCallback, useEffect, useState } from "react";
 import axios from "axios";
-const Paginations = lazy(() => import("../Admin/Paginations"));
+const Paginations = lazy(() => import("../Common/Paginations"));
 
 const formData = new FormData();
 formData.append("booking_status", "pending");

@@ -1,6 +1,6 @@
 import React, { lazy, useState, useEffect, useCallback } from "react";
 import axios from "axios";
-const Paginations = lazy(() => import("../Admin/Paginations"));
+const Paginations = lazy(() => import("../Common/Paginations"));
 
 const ViewMyDrivers = () => {
   const [tableData, setTableData] = useState(null);
@@ -27,7 +27,7 @@ const ViewMyDrivers = () => {
     fetch();
   }, [fetch]);
   return (
-    <div className="h-full w-full flex flex-col">
+    <div className="flex h-full w-full flex-col">
       <div className="pb-5 text-center text-xl font-medium md:text-2xl">
         View My Drivers
       </div>

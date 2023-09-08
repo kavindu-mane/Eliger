@@ -1,38 +1,48 @@
 import React, { lazy, useCallback, useEffect, useState } from "react";
 import axios from "axios";
-const Paginations = lazy(() => import("../Admin/Paginations"));
+import { Button } from "flowbite-react";
+const PendingDriver = lazy(() => import("./Modals/PendingDriver"));
+const Paginations = lazy(() => import("../Common/Paginations"));
 
 const formData = new FormData();
 formData.append("driver_status", "pending");
 
 const PendingDriverReg = () => {
+  const [tableData, setTableData] = useState(null);
+  const [pagesCount, setPagesCount] = useState(0);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [driverDetails, setDriverDetails] = useState(null);
 
-const [tableData, setTableData] = useState(null);
-const [pagesCount, setPagesCount] = useState(0);
+  // load data function
+  const fetch = useCallback(() => {
+    setTableData(null);
+    axios
+      .post("/load_new_reg", formData)
+      .then((response) => {
+        if (response.data.length !== 0) {
+          setTableData(response.data);
+          setPagesCount(Math.ceil(response.data.length / 10));
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-// session management function
-const fetch = useCallback(() => {
-  setTableData(null);
-  axios
-    .post("/load_new_reg", formData)
-    .then((response) => {
-      if (response.data.length !== 0) {
-        setTableData(response.data);
-        setPagesCount(Math.ceil(response.data.length / 10));
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}, []);
-
-// session function run in component mount
-useEffect(() => {
-  fetch();
-}, [fetch]);
+  // load data function run in component mount
+  useEffect(() => {
+    if (!isOpenModal) fetch();
+  }, [fetch, isOpenModal]);
 
   return (
     <React.Fragment>
+      {isOpenModal && (
+        <PendingDriver
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          details={driverDetails}
+        />
+      )}
       <div className="pb-5 text-center text-xl font-medium md:text-2xl">
         Pending Driver Registration Requests
       </div>
@@ -61,16 +71,22 @@ useEffect(() => {
             >
               <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
                 <span className="block md:hidden">Driver Name :&ensp;</span>
-                {data.Driver_firstname}
+                {`${data?.Driver_firstname} ${data?.Driver_lastname}`}
               </p>
               <p className="flex w-full truncate px-4 py-2 ">
                 <span className="block md:hidden">Owner Name :&ensp;</span>
-                {data.Owner_firstname}
+                {`${data?.Owner_firstname} ${data?.Owner_lastname}`}
               </p>
               <div className="flex w-full justify-end bg-slate-100 px-4 py-2 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
-                <button className="rounded-md bg-sky-500 px-8 py-0.5 font-medium text-white duration-300 ease-in hover:bg-sky-700">
+                <Button
+                  className="h-7 rounded-md px-4"
+                  onClick={() => {
+                    setDriverDetails(data);
+                    setIsOpenModal(true);
+                  }}
+                >
                   View
-                </button>
+                </Button>
               </div>
             </div>
           );

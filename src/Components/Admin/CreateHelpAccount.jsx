@@ -70,7 +70,7 @@ const CreateHelpAccount = () => {
   };
 
   return (
-    <Card>
+    <Card className="w-full max-w-4xl place-self-center">
       {/* loading */}
       {isLoading && (
         <div className="absolute end-0 top-0 z-[999] flex h-full w-full items-center justify-center bg-slate-950/60">
@@ -81,7 +81,7 @@ const CreateHelpAccount = () => {
         className="flex flex-col gap-4 font-Poppins"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className="text-center text-xl font-medium md:text-2xl">
+        <div className="text-center text-xl font-medium md:text-2xl mb-3">
           <h1>New Help & Support Staff Member Registration Form </h1>
         </div>
         <div>
@@ -134,7 +134,7 @@ const CreateHelpAccount = () => {
             {errorCode === 9 && errorContainer(errorCode)}
           </div>
         </div>
-        <div className="flex w-full justify-center font-Poppins">
+        <div className="flex w-full justify-center font-Poppins mt-5">
           <Button type="submit" className="w-full max-w-sm" name="register">
             Register
           </Button>

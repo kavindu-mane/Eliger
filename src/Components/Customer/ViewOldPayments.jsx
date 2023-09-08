@@ -1,5 +1,5 @@
 import React, { lazy, useEffect, useState } from "react";
-const Paginations = lazy(() => import("../Admin/Paginations"));
+const Paginations = lazy(() => import("../Common/Paginations"));
 
 const ViewOldPayments = () => {
   const [tableData] = useState(null);

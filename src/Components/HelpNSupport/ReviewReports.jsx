@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-const Paginations = lazy(() => import("../Admin/Paginations"));
+const Paginations = lazy(() => import("../Common/Paginations"));
 
 const ReviewReports = () => {
   return (
@@ -42,7 +42,7 @@ const ReviewReports = () => {
           </div>
         );
       })}
-      <Paginations/>
+      <Paginations />
     </React.Fragment>
   );
 };

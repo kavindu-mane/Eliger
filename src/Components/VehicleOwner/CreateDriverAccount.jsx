@@ -172,7 +172,7 @@ const CreateDriverAccount = () => {
             defaultValue={"10.00"}
             required
             type="number"
-            min={0}
+            min={10}
             step={0.01}
           />
           {/* error text */}

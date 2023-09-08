@@ -1,6 +1,8 @@
 import React, { lazy, useCallback, useEffect, useState } from "react";
 import axios from "axios";
-const Paginations = lazy(() => import("../Paginations"));
+import { Dropdown, Button } from "flowbite-react";
+const ManageDriverAccount = lazy(() => import("../Modals/Tables/ManageDriverAccount"));
+const Paginations = lazy(() => import("../../Common/Paginations"));
 
 const formData = new FormData();
 formData.append("account_type", "driver");
@@ -9,10 +11,12 @@ const TableDriver = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
   const [status, setStatus] = useState("verified");
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [driverDetails, setDriverDetails] = useState(null);
 
   formData.append("status", status);
 
-  // session management function
+  // load data function
   const fetch = useCallback(() => {
     setTableData(null);
     axios
@@ -28,42 +32,49 @@ const TableDriver = () => {
       });
   }, []);
 
-  // session function run in component mount
+  // load data function run in component mount
   useEffect(() => {
-    fetch();
-  }, [fetch, status]);
+    if (!isOpenModal) fetch();
+  }, [fetch, status, isOpenModal]);
 
   return (
     <React.Fragment>
+      {isOpenModal && (
+        <ManageDriverAccount
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          details={driverDetails}
+        />
+      )}
       <h1 className="w-full py-4 text-center font-Poppins text-xl font-medium md:text-2xl">
         Driver Accounts
       </h1>
 
-      <div className="relative flex justify-end py-6">
-        <button
-          onClick={() => {
-            setStatus(status === "verified" ? "deactivated" : "verified");
-          }}
-          className="w-fit rounded-sm bg-sky-600 px-4 py-1 text-sm font-medium text-white duration-300 ease-in hover:bg-sky-700 dark:bg-cyan-600 dark:hover:bg-cyan-800"
+      {/* account status dropdown */}
+      <div className="relative flex items-center justify-end py-6">
+        <p className="me-2">Account Status : </p>
+        <Dropdown
+          label={<p className="font-Poppins capitalize">{status}</p>}
+          size={"xs"}
         >
-          {status === "verified" ? (
-            <span>Deactivated</span>
-          ) : (
-            <span>Active</span>
-          )}
-          &ensp;Accounts
-        </button>
+          <Dropdown.Item onClick={() => setStatus("verified")}>
+            Verified
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => setStatus("unverified")}>
+            Unverified
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => setStatus("disabled")}>
+            Disabled
+          </Dropdown.Item>
+        </Dropdown>
       </div>
 
       <div className="hidden rounded-t-md bg-gray-400 px-4 py-2 ring-[0.5px] ring-gray-400 dark:bg-gray-700 dark:ring-gray-600 md:flex">
         <div className="w-full text-center">
-          <span className="">First Name</span>
+          <span className="">Full Name</span>
         </div>
         <div className="w-full text-center">
-          <span className="">Last Name </span>
-        </div>
-        <div className="w-full text-center">
-          <span className="">Tel</span>
+          <span className="">Phone</span>
         </div>
         <div className="w-full text-center">
           <span className="">Email</span>
@@ -84,26 +95,28 @@ const TableDriver = () => {
               key={i}
               className="text-md group flex flex-col justify-center space-y-2 rounded-sm bg-white ring-[0.5px] ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:flex-row md:items-center md:justify-between md:space-y-0"
             >
-              <p className="flex w-full truncate bg-slate-100 px-4 py-2 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
-                <span className="block md:hidden">First Name :&ensp;</span>
-                {data.Driver_firstname}
-              </p>
               <p className="flex w-full truncate px-4 py-2">
-                <span className="block md:hidden">Last Name :&ensp;</span>
-                {data.Driver_lastname}
+                <span className="block md:hidden">Full Name :&ensp;</span>
+                {data.Driver_firstname} {data.Driver_lastname}
               </p>
               <p className="flex w-full truncate bg-slate-100 px-4 py-2 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
-                <span className="block md:hidden">Tel :&ensp;</span>
+                <span className="block md:hidden">Phone :&ensp;</span>
                 {data.Driver_Tel}
               </p>
               <p className="flex w-full truncate px-4 py-2">
                 <span className="block md:hidden">Email :&ensp;</span>
                 {data.Email}
-                </p>
+              </p>
               <div className="flex w-full justify-end truncate bg-slate-100 px-4 py-2 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
-                <button className=" px-8 font-medium text-sky-500 duration-300 ease-in hover:text-sky-700">
+                <Button
+                  className="h-7 rounded-md !bg-transparent px-4 text-sky-500 duration-300 ease-in hover:!bg-transparent hover:text-sky-700"
+                  onClick={() => {
+                    setDriverDetails(data);
+                    setIsOpenModal(true);
+                  }}
+                >
                   View
-                </button>
+                </Button>
               </div>
             </div>
           );
