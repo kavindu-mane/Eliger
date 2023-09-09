@@ -1,11 +1,14 @@
 import React, { lazy, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Button } from "flowbite-react";
+const ManageVehicle = lazy(() => import("./Modals/ManageVehicle"));
 const Paginations = lazy(() => import("../Common/Paginations"));
 
 const ViewMyVehicles = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [vehicleDetails, setVehicleDetails] = useState(null);
 
   // load data function
   const fetch = useCallback(async () => {
@@ -27,11 +30,18 @@ const ViewMyVehicles = () => {
 
   // load data function run in component mount
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+   if (!isOpenModal) fetch();
+  }, [fetch, isOpenModal]);
 
   return (
     <div className="flex h-full w-full flex-col">
+      {isOpenModal && (
+        <ManageVehicle
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          details={vehicleDetails}
+        />
+      )}
       <div className="pb-5 text-center text-xl font-medium md:text-2xl">
         View My Vehicles
       </div>
@@ -99,7 +109,7 @@ const ViewMyVehicles = () => {
               <p className="flex w-full truncate bg-slate-100 px-4 py-3 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
                 <span className="block md:hidden">Driver :&ensp;</span>
                 {data?.Driver_Id ? (
-                  data?.Driver_Id
+                  data?.Driver_firstname + " " + data?.Driver_lastname
                 ) : (
                   <span>Without Driver</span>
                 )}
@@ -107,10 +117,10 @@ const ViewMyVehicles = () => {
               <div className="flex w-full justify-end px-4 py-2.5 md:justify-center">
                 <Button
                   className="h-7 rounded-md px-4"
-                  // onClick={() => {
-                  //   setDriverDetails(data);
-                  //   setIsOpenModal(true);
-                  // }}
+                  onClick={() => {
+                    setVehicleDetails(data);
+                    setIsOpenModal(true);
+                  }}
                 >
                   View
                 </Button>
