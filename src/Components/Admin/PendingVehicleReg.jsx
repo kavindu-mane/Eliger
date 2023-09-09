@@ -1,5 +1,7 @@
 import React, { lazy, useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import { Button } from "flowbite-react";
+const PendingDriver = lazy(() => import("./Modals/PendingVehicle"));
 const Paginations = lazy(() => import("../Common/Paginations"));
 
 const formData = new FormData();
@@ -8,6 +10,8 @@ formData.append("vehicle_status", "pending");
 const PendingVehicleReg = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [vehicleDetails, setVehicleDetails] = useState(null);
 
   // session management function
   const fetch = useCallback(() => {
@@ -27,10 +31,18 @@ const PendingVehicleReg = () => {
 
   // session function run in component mount
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+    if (!isOpenModal) fetch();
+  }, [fetch, isOpenModal]);
+
   return (
     <React.Fragment>
+      {isOpenModal && (
+        <PendingDriver
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          details={vehicleDetails}
+        />
+      )}
       <div className="pb-5 text-center text-xl font-medium md:text-2xl">
         Pending Vehicle Registration Requests
       </div>
@@ -65,7 +77,7 @@ const PendingVehicleReg = () => {
             >
               <p className="flex w-full truncate bg-slate-100 px-4 py-3  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
                 <span className="block md:hidden">Owner Name :&ensp;</span>
-                {data.Owner_firstname}
+                {`${data?.Owner_firstname} ${data?.Owner_lastname}`}
               </p>
               <p className="flex w-full truncate px-4 py-2 ">
                 <span className="block md:hidden">Vehicle Type :&ensp;</span>
@@ -84,9 +96,15 @@ const PendingVehicleReg = () => {
                 {data.Passenger_amount}
               </p>
               <div className="flex w-full justify-end bg-slate-100 px-4 py-2.5 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
-                <button className="rounded-md bg-sky-500 px-8 py-0.5 font-medium text-white duration-300 ease-in hover:bg-sky-700">
+                <Button
+                  className="h-7 rounded-md px-4"
+                  onClick={() => {
+                    setVehicleDetails(data);
+                    setIsOpenModal(true);
+                  }}
+                >
                   View
-                </button>
+                </Button>
               </div>
             </div>
           );
