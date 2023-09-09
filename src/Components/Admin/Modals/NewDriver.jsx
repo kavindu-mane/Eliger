@@ -22,8 +22,9 @@ const NewDriver = ({ isOpenModal, setIsOpenModal, details }) => {
     const formData = new FormData();
     formData.append("status", status);
     formData.append("id", details.Driver_Id);
+    formData.append("type", "driver");
     await axios
-      .post("/driver_validate", formData)
+      .post("/document_validate", formData)
       .then((response) => {
         if (response.status === 200 && response.data === 200)
           setAlert(
@@ -35,7 +36,7 @@ const NewDriver = ({ isOpenModal, setIsOpenModal, details }) => {
           setAlert(
             "error",
             "Changes failed",
-            "Driver status change failed.try again."
+            "Change in Driver Status Failed.Try Again."
           );
         }
       })
@@ -43,7 +44,7 @@ const NewDriver = ({ isOpenModal, setIsOpenModal, details }) => {
         setAlert(
           "error",
           "Changes failed",
-          "Driver status change failed.try again."
+          "Change in Driver Status Failed.Try Again."
         );
       });
   };
@@ -56,7 +57,7 @@ const NewDriver = ({ isOpenModal, setIsOpenModal, details }) => {
       size={"4xl"}
     >
       <Modal.Header>New Driver Registration</Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="no-scrollbar">
         <div className="space-y-3">
           <p className="font-Poppins">
             Driver Name :{" "}
@@ -82,7 +83,7 @@ const NewDriver = ({ isOpenModal, setIsOpenModal, details }) => {
               />
             </div>
             {/* zoom div */}
-            <div className="absolute bottom-2 end-2 flex h-fit w-fit flex-col space-y-1 rounded-md bg-slate-900 ring-1 ring-gray-400 text-white">
+            <div className="absolute bottom-2 end-2 flex h-fit w-fit flex-col space-y-1 rounded-md bg-slate-900 text-white ring-1 ring-gray-400">
               <button
                 className="h-fit px-3 font-Poppins text-lg font-bold"
                 onClick={() => setLicenceZoom((prev) => prev + 0.1)}

@@ -22,8 +22,9 @@ const PendingDriver = ({ isOpenModal, setIsOpenModal, details }) => {
     const formData = new FormData();
     formData.append("status", status);
     formData.append("id", details.Driver_Id);
+    formData.append("type", "driver");
     await axios
-      .post("/driver_validate", formData)
+      .post("/document_validate", formData)
       .then((response) => {
         if (response.status === 200 && response.data === 200)
           setAlert(
@@ -56,7 +57,7 @@ const PendingDriver = ({ isOpenModal, setIsOpenModal, details }) => {
       size={"4xl"}
     >
       <Modal.Header>Pending Driver Registration</Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="no-scrollbar">
         <div className="space-y-3">
           <p className="font-Poppins">
             Driver Name :{" "}

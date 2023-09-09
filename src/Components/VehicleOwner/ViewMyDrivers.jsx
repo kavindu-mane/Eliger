@@ -1,11 +1,14 @@
 import React, { lazy, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Button } from "flowbite-react";
+const ManageDriver = lazy(() => import("./Modals/ManageDriver"));
 const Paginations = lazy(() => import("../Common/Paginations"));
 
 const ViewMyDrivers = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [driverDetails, setDriverDetails] = useState(null);
 
   // load data function
   const fetch = useCallback(async () => {
@@ -27,11 +30,18 @@ const ViewMyDrivers = () => {
 
   // load data function run in component mount
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+    if (!isOpenModal) fetch();
+  }, [fetch, isOpenModal]);
 
   return (
     <div className="flex h-full w-full flex-col">
+      {isOpenModal && (
+        <ManageDriver
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          details={driverDetails}
+        />
+      )}
       <div className="pb-5 text-center text-xl font-medium md:text-2xl">
         View My Drivers
       </div>
@@ -86,10 +96,10 @@ const ViewMyDrivers = () => {
               <div className="flex w-full justify-end bg-slate-100 px-4 py-2.5 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
                 <Button
                   className="h-7 rounded-md px-4"
-                  // onClick={() => {
-                  //   setDriverDetails(data);
-                  //   setIsOpenModal(true);
-                  // }}
+                  onClick={() => {
+                    setDriverDetails(data);
+                    setIsOpenModal(true);
+                  }}
                 >
                   View
                 </Button>
