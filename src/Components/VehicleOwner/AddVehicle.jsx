@@ -119,13 +119,10 @@ const AddVehicle = ({ owner }) => {
               required
               defaultValue="book-now"
               className="inputs"
+              onChange={() => setIsBookNow(!isBookNow)}
             >
-              <option value="rent-out" onClick={() => setIsBookNow(false)}>
-                Rent-out
-              </option>
-              <option value="book-now" onClick={() => setIsBookNow(true)}>
-                Book-now
-              </option>
+              <option value="rent-out">Rent-out</option>
+              <option value="book-now">Book-now</option>
             </Select>
             {/* error text */}
             {[25, 31].includes(errorCode) && errorContainer(errorCode)}
