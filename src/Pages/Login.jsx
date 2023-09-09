@@ -145,7 +145,7 @@ const Login = () => {
           )}
 
           {errorCode === 16 && (
-            <div className="absolute z-50 h-full w-screen bg-slate-800/80 flex items-center justify-center backdrop-blur-sm">
+            <div className="absolute z-50 flex h-full w-screen items-center justify-center bg-slate-800/80 backdrop-blur-sm">
               <div className="max-w-lg px-4 text-center">
                 <h1 className="mb-3 text-2xl font-semibold">
                   {ErrorData["16"]}
@@ -224,7 +224,7 @@ const Login = () => {
               <div className="flex max-w-lg justify-between gap-4">
                 <div className="flex items-center gap-2">
                   {/*checkbox*/}
-                  <Checkbox id="remember" name="remember" />
+                  <Checkbox id="remember" name="remember" className="ring-1 ring-gray-400 dark:ring-gray-700" />
                   <Label
                     className="flex font-normal text-slate-900 dark:text-gray-200"
                     htmlFor="remember"

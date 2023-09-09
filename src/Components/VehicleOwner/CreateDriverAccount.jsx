@@ -1,13 +1,13 @@
 import { lazy, useState } from "react";
-import { Button, Card, FileInput, Label, TextInput } from "flowbite-react";
+import { Button, FileInput, Label, TextInput } from "flowbite-react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ErrorData from "../../Data/ErrorData";
 import { MdOutlineError } from "react-icons/md";
-import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 const PasswordSwitcher = lazy(() => import("../Common/PasswordSwitcher"));
+const LoadingSpinner = lazy(() => import("../Common/LoadingSpinner"));
 
 // create sweet alert object
 const Alert = withReactContent(Swal);
@@ -29,7 +29,7 @@ const CreateDriverAccount = () => {
   };
 
   // submit registration form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // clear previous errors
     setErrorCode(null);
     // remove default form submission
@@ -39,7 +39,7 @@ const CreateDriverAccount = () => {
     // change loading state to true
     setIsLoading(true);
     // send data using axios post function
-    axios
+    await axios
       .post("/create_driver", formData)
       .then((response) => {
         if (response.status === 200) {
@@ -72,14 +72,11 @@ const CreateDriverAccount = () => {
   };
 
   return (
-    <Card className="w-full max-w-4xl dark:bg-slate-900">
+    <div className="w-full max-w-4xl">
       {/* loading */}
-      {isLoading && (
-        <div className="absolute start-0 top-0 z-[999] flex h-full w-full items-center justify-center bg-slate-950/60">
-          <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
-        </div>
-      )}
-      <div className="mb-3 text-center font-Poppins text-2xl font-medium tracking-wide">
+      {isLoading && <LoadingSpinner />}
+
+      <div className="mb-9 font-Poppins text-2xl font-medium">
         Create Driver Account
       </div>
       <form
@@ -102,6 +99,7 @@ const CreateDriverAccount = () => {
               required
               type="text"
               name="fname"
+              className="inputs"
             />
             {/* error text */}
             {errorCode === 0 && errorContainer(errorCode)}
@@ -115,10 +113,11 @@ const CreateDriverAccount = () => {
             />
             <TextInput
               id="lname"
-              placeholder="Samual"
+              placeholder="Perera"
               required
               type="text"
               name="lname"
+              className="inputs"
             />
             {/* error text */}
             {errorCode === 1 && errorContainer(errorCode)}
@@ -137,6 +136,7 @@ const CreateDriverAccount = () => {
             required
             type="email"
             name="email"
+            className="inputs"
           />
           {/* error text */}
           {[7, 10, 3].includes(errorCode) && errorContainer(errorCode)}
@@ -154,6 +154,7 @@ const CreateDriverAccount = () => {
             required
             type="text"
             name="phone"
+            className="inputs"
           />
           {/* error text */}
           {[2, 6].includes(errorCode) && errorContainer(errorCode)}
@@ -174,6 +175,7 @@ const CreateDriverAccount = () => {
             type="number"
             min={10}
             step={0.01}
+            className="inputs"
           />
           {/* error text */}
           {[20, 19].includes(errorCode) && errorContainer(errorCode)}
@@ -191,6 +193,7 @@ const CreateDriverAccount = () => {
             type="text"
             name="address"
             placeholder=""
+            className="inputs"
           />
           {/* error text */}
           {errorCode === 11 && errorContainer(errorCode)}
@@ -211,6 +214,7 @@ const CreateDriverAccount = () => {
                 required
                 type={isPassword ? "password" : "text"}
                 name="password"
+                className="inputs"
               />
               <PasswordSwitcher
                 isPassword={isPassword}
@@ -234,6 +238,7 @@ const CreateDriverAccount = () => {
                 required
                 type={isConfPassword ? "password" : "text"}
                 name="confPassword"
+                className="inputs"
               />
               <PasswordSwitcher
                 isPassword={isConfPassword}
@@ -258,6 +263,7 @@ const CreateDriverAccount = () => {
             required
             accept=".png,.jpeg,.jpg"
             helperText="Accept png , jpg , jpeg only.File size should be less than 2MB."
+            className="inputs"
           />
           {/* error text */}
           {[21, 22, 23, 24].includes(errorCode) && errorContainer(errorCode)}
@@ -268,7 +274,7 @@ const CreateDriverAccount = () => {
           </Button>
         </div>
       </form>
-    </Card>
+    </div>
   );
 };
 export default CreateDriverAccount;

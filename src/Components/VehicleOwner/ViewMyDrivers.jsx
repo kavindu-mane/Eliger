@@ -1,16 +1,19 @@
 import React, { lazy, useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { Button } from "flowbite-react";
 const Paginations = lazy(() => import("../Common/Paginations"));
 
 const ViewMyDrivers = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
 
-  // session management function
-  const fetch = useCallback(() => {
+  // load data function
+  const fetch = useCallback(async () => {
     setTableData(null);
-    axios
-      .post("/load_new_reg")
+    const formData = new FormData();
+    formData.append("type", "driver");
+    await axios
+      .post("/load_owner_property", formData)
       .then((response) => {
         if (response.data.length !== 0) {
           setTableData(response.data);
@@ -22,10 +25,11 @@ const ViewMyDrivers = () => {
       });
   }, []);
 
-  // session function run in component mount
+  // load data function run in component mount
   useEffect(() => {
     fetch();
   }, [fetch]);
+
   return (
     <div className="flex h-full w-full flex-col">
       <div className="pb-5 text-center text-xl font-medium md:text-2xl">
@@ -37,6 +41,9 @@ const ViewMyDrivers = () => {
         </div>
         <div className="w-full text-center">
           <span className="">Email</span>
+        </div>
+        <div className="w-full text-center">
+          <span className="">Document Status</span>
         </div>
         <div className="w-full text-center">
           <span className="">Option</span>
@@ -54,20 +61,38 @@ const ViewMyDrivers = () => {
               key={i}
               className="text-md group flex flex-col justify-center space-y-2 rounded-sm bg-white ring-[0.5px] ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:flex-row md:items-center md:justify-between md:space-y-0"
             >
-              <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
-                <span className="block md:hidden">
-                  Vehicle Plate Number :&ensp;
-                </span>
-                {data?.Owner_firstname}
+              <p className="flex w-full truncate px-4 py-2">
+                <span className="block md:hidden">Driver Name :&ensp;</span>
+                {data.Driver_firstname} {data.Driver_lastname}
               </p>
-              <p className="flex w-full truncate px-4 py-2 ">
-                <span className="block md:hidden">Vehicle Type :&ensp;</span>
-                {data?.Vehicle_type}
+              <p className="flex w-full truncate bg-slate-100 px-4 py-2.5  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
+                <span className="block md:hidden">Email :&ensp;</span>
+                {data?.Email}
+              </p>
+              <p className="flex w-full truncate px-4 py-2">
+                <span className="block md:hidden">Documeny Status :&ensp;</span>
+                <span
+                  className={
+                    data?.Status === "rejected"
+                      ? "text-red-500"
+                      : data?.Status === "verified"
+                      ? "text-green-500"
+                      : "text-orange-400"
+                  }
+                >
+                  {data?.Status}
+                </span>
               </p>
               <div className="flex w-full justify-end bg-slate-100 px-4 py-2 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
-                <button className="rounded-md bg-sky-500 px-8 py-0.5 font-medium text-white duration-300 ease-in hover:bg-sky-700">
+                <Button
+                  className="h-7 rounded-md px-4"
+                  // onClick={() => {
+                  //   setDriverDetails(data);
+                  //   setIsOpenModal(true);
+                  // }}
+                >
                   View
-                </button>
+                </Button>
               </div>
             </div>
           );

@@ -118,7 +118,7 @@ const EditAccount = ({ currentData }) => {
     });
   };
   return (
-    <div className="flex w-full max-w-2xl flex-col justify-center">
+    <div className="flex w-full max-w-4xl flex-col justify-center">
       {/* loading */}
       {isLoading && (
         <div className="absolute start-0 top-0 z-[999] flex min-h-full w-full items-center justify-center bg-slate-950/60 backdrop-blur-sm">
@@ -126,7 +126,9 @@ const EditAccount = ({ currentData }) => {
         </div>
       )}
       {/*Topic */}
-      <h1 className="mb-5 text-2xl font-medium">Edit Account Details</h1>
+      <h1 className="mb-5 font-Poppins text-2xl font-medium">
+        Edit Account Details
+      </h1>
 
       {/* basic info */}
       <h2 className="mb-1 mt-4 font-Poppins text-lg font-medium">
