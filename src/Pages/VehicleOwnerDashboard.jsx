@@ -58,8 +58,8 @@ const VehicleOwnerDashboard = () => {
   const optionComponents = {
     0: <ViewMyVehicles />,
     1: <ViewMyDrivers />,
-    2: <AddVehicle />,
-    3: <CreateDriverAccount />,
+    2: <AddVehicle owner={loadedData?.Owner_Id} />,
+    3: <CreateDriverAccount owner={loadedData?.Owner_Id} />,
     4: <EditAccount currentData={loadedData} />,
     5: <VehicleOwnerGraph />,
   };

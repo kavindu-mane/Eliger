@@ -12,7 +12,7 @@ const LoadingSpinner = lazy(() => import("../Common/LoadingSpinner"));
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-const CreateDriverAccount = () => {
+const CreateDriverAccount = ({owner}) => {
   const [errorCode, setErrorCode] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isConfPassword, setIsConfPassword] = useState(true);
@@ -36,6 +36,7 @@ const CreateDriverAccount = () => {
     e.preventDefault();
     // get data from form fields as FormData object
     const formData = new FormData(e.target);
+    formData.append("owner", owner);
     // change loading state to true
     setIsLoading(true);
     // send data using axios post function

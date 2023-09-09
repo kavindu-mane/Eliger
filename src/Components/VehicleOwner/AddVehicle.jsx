@@ -11,10 +11,9 @@ const LoadingSpinner = lazy(() => import("../Common/LoadingSpinner"));
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-const AddVehicle = () => {
+const AddVehicle = ({ owner }) => {
   const [errorCode, setErrorCode] = useState(null);
   const [isBookNow, setIsBookNow] = useState(true);
-  const [isWithDriver, setIsWithDriver] = useState(true);
   const [drivers, setDrivers] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -36,6 +35,7 @@ const AddVehicle = () => {
     e.preventDefault();
     // get data from form fields as FormData object
     const formData = new FormData(e.target);
+    formData.append("owner", owner);
     // change loading state to true
     setIsLoading(true);
     // send data using axios post function
@@ -47,7 +47,7 @@ const AddVehicle = () => {
             setAlert(
               "success",
               "Registration success",
-              "Successfully sent the email verification message to given email."
+              "Your vehicle successfully registered."
             );
           else if (response.data === 14) navigate("/login");
           setIsLoading(false);
@@ -100,80 +100,60 @@ const AddVehicle = () => {
       {/* loading */}
       {isLoading && <LoadingSpinner />}
       <div className="mb-9 font-Poppins text-2xl font-medium">Add Vehicle</div>
-      <form className="flex flex-col gap-4" onSubmit={(e) => handleSubmit(e)}>
-        {/* rent type */}
-        <div>
-          <Label
-            htmlFor="rent-type"
-            value="Rent Type"
-            className="after:ml-0.5 after:text-red-500 after:content-['*']"
-          />
-          <Select
-            id="rent-type"
-            name="rent-type"
-            required
-            defaultValue="book-now"
-            className="inputs"
-            onChange={() => setIsWithDriver(true)}
-          >
-            <option value="rent-out" onClick={() => setIsBookNow(false)}>
-              Rent-out
-            </option>
-            <option value="book-now" onClick={() => setIsBookNow(true)}>
-              Book-now
-            </option>
-          </Select>
-          {/* error text */}
-          {errorCode === 11 && errorContainer(errorCode)}
-        </div>
-        {/* vehicle type */}
-        <div>
-          <Label
-            htmlFor="vehicle-type"
-            value="Vehicle Type"
-            className="after:ml-0.5 after:text-red-500 after:content-['*']"
-          />
-
-          <Select
-            id="vehicle-type"
-            name="vehicle-type"
-            required
-            defaultValue={"car"}
-            className="inputs"
-          >
-            <option value="car">Car</option>
-            <option value="bike">Bike</option>
-            <option value="tuk-tuk">Tuk-Tuk</option>
-            <option value="van">Van</option>
-          </Select>
-          {/* error text */}
-          {errorCode === 11 && errorContainer(errorCode)}
-        </div>
-        {/* driver */}
-        {!isBookNow && (
-          <div>
-            <Label htmlFor="driver" value="Driver" />
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={(e) => handleSubmit(e)}
+        encType="multipart/form-data"
+      >
+        <div className="flex flex-col gap-4 md:flex-row">
+          {/* rent type */}
+          <div className="w-full">
+            <Label
+              htmlFor="rent-type"
+              value="Rent Type"
+              className="after:ml-0.5 after:text-red-500 after:content-['*']"
+            />
             <Select
-              id="driver"
-              name="driver"
+              id="rent-type"
+              name="rent-type"
               required
-              defaultValue={"with-driver"}
+              defaultValue="book-now"
               className="inputs"
             >
-              <option value="with-driver" onClick={() => setIsWithDriver(true)}>
-                With Driver
+              <option value="rent-out" onClick={() => setIsBookNow(false)}>
+                Rent-out
               </option>
-              <option
-                value="without-driver"
-                onClick={() => setIsWithDriver(false)}
-              >
-                Without Driver
+              <option value="book-now" onClick={() => setIsBookNow(true)}>
+                Book-now
               </option>
             </Select>
             {/* error text */}
-            {errorCode === 11 && errorContainer(errorCode)}
+            {[25, 31].includes(errorCode) && errorContainer(errorCode)}
           </div>
-        )}
+          {/* vehicle type */}
+          <div className="w-full">
+            <Label
+              htmlFor="vehicle-type"
+              value="Vehicle Type"
+              className="after:ml-0.5 after:text-red-500 after:content-['*']"
+            />
+
+            <Select
+              id="vehicle-type"
+              name="vehicle-type"
+              required
+              defaultValue={"car"}
+              className="inputs"
+            >
+              <option value="car">Car</option>
+              <option value="bike">Bike</option>
+              <option value="tuk-tuk">Tuk-Tuk</option>
+              <option value="van">Van</option>
+            </Select>
+            {/* error text */}
+            {[26, 32].includes(errorCode) && errorContainer(errorCode)}
+          </div>
+        </div>
         {/* register number */}
         <div>
           <Label
@@ -190,56 +170,88 @@ const AddVehicle = () => {
             className="inputs"
           />
           {/* error text */}
-          {errorCode === 11 && errorContainer(errorCode)}
+          {[27, 33].includes(errorCode) && errorContainer(errorCode)}
         </div>
-        {/* passenger amount */}
+        <div className="flex flex-col gap-4 md:flex-row">
+          {/* passenger amount */}
+          <div className="w-full">
+            <Label
+              htmlFor="amount"
+              value="Passenger Amount"
+              className="after:ml-0.5 after:text-red-500 after:content-['*']"
+            />
+
+            <TextInput
+              id="amount"
+              name="amount"
+              defaultValue={1}
+              required
+              type="number"
+              min={1}
+              className="inputs"
+            />
+            {/* error text */}
+            {[28, 34].includes(errorCode) && errorContainer(errorCode)}
+          </div>
+          {/* price */}
+          <div className="w-full">
+            {isBookNow ? (
+              <Label
+                htmlFor="price"
+                value="Price per Km(LKR)"
+                className="after:ml-0.5 after:text-red-500 after:content-['*']"
+              />
+            ) : (
+              <Label
+                htmlFor="price"
+                value="Price per day(LKR)"
+                className="after:ml-0.5 after:text-red-500 after:content-['*']"
+              />
+            )}
+
+            <TextInput
+              id="price"
+              name="price"
+              defaultValue={99.99}
+              required
+              type="number"
+              min={0}
+              step={0.01}
+              className="inputs"
+            />
+            {/* error text */}
+            {[29, 35].includes(errorCode) && errorContainer(errorCode)}
+          </div>
+        </div>
+        {/* assign driver */}
         <div>
           <Label
-            htmlFor="amount"
-            value="Passenger Amount"
+            htmlFor="assign-driver"
+            value="Assign Driver"
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
 
-          <TextInput
-            id="amount"
-            name="amount"
-            defaultValue={1}
+          <Select
+            id="assign-driver"
+            name="assign-driver"
             required
-            type="number"
-            min={1}
             className="inputs"
-          />
+            disabled={drivers === null && isBookNow}
+          >
+            {drivers?.map((data, i) => {
+              return (
+                <option value={data?.Driver_Id} key={i}>
+                  {data?.Driver_firstname} {data?.Driver_lastname}
+                </option>
+              );
+            })}
+            {!isBookNow && <option value={-99}>Without driver</option>}
+            {isBookNow && drivers === null && (
+              <option value={-100}>No any drivers found.</option>
+            )}
+          </Select>
           {/* error text */}
-          {errorCode === 11 && errorContainer(errorCode)}
-        </div>
-        {/* price */}
-        <div>
-          {isBookNow ? (
-            <Label
-              htmlFor="price"
-              value="Price per Km(LKR)"
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            />
-          ) : (
-            <Label
-              htmlFor="price"
-              value="Price per day(LKR)"
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            />
-          )}
-
-          <TextInput
-            id="price"
-            name="price"
-            defaultValue={"0.00"}
-            required
-            type="number"
-            min={0}
-            step={0.01}
-            className="inputs"
-          />
-          {/* error text */}
-          {errorCode === 11 && errorContainer(errorCode)}
+          {errorCode === 30 && errorContainer(errorCode)}
         </div>
         {/* nearest city */}
         {!isBookNow && (
@@ -259,35 +271,7 @@ const AddVehicle = () => {
               className="inputs"
             />
             {/* error text */}
-            {errorCode === 11 && errorContainer(errorCode)}
-          </div>
-        )}
-        {/* assign driver */}
-        {isWithDriver && (
-          <div>
-            <Label
-              htmlFor="assign-driver"
-              value="Assign Driver"
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            />
-
-            <Select
-              id="assign-driver"
-              name="assign-driver"
-              required
-              className="inputs"
-              disabled={drivers === null}
-            >
-              {drivers?.map((data, i) => {
-                return (
-                  <option value={data?.Driver_Id} key={i}>
-                    {data?.Driver_firstname} {data?.Driver_lastname}
-                  </option>
-                );
-              })}
-            </Select>
-            {/* error text */}
-            {errorCode === 11 && errorContainer(errorCode)}
+            {errorCode === 36 && errorContainer(errorCode)}
           </div>
         )}
         {/* insurance */}
@@ -303,8 +287,11 @@ const AddVehicle = () => {
             name="insurance"
             accept=".png,.jpeg,.jpg"
             className="inputs"
+            required
             helperText="Accept png , jpg , jpeg only.File size should be less than 2MB."
           />
+          {/* error text */}
+          {[37, 38, 39, 40].includes(errorCode) && errorContainer(errorCode)}
         </div>
         {/* ownership doc */}
         <div>
@@ -319,12 +306,18 @@ const AddVehicle = () => {
             name="ownership"
             className="inputs"
             accept=".png,.jpeg,.jpg"
+            required
             helperText="Accept png , jpg , jpeg only.File size should be less than 2MB."
           />
+          {/* error text */}
+          {[41, 42, 43, 44].includes(errorCode) && errorContainer(errorCode)}
         </div>
-
         <div className="mt-5 flex w-full justify-center font-Poppins">
-          <Button type="submit" className="w-full max-w-sm">
+          <Button
+            type="submit"
+            className="w-full max-w-sm"
+            disabled={drivers === null && isBookNow}
+          >
             Add Vehicle
           </Button>
         </div>

@@ -243,7 +243,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
               name="pick-time"
               required
               timeIntervals={10}
-              className="mt-3 w-full rounded-md border-none py-2.5 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
+              className="mt-3 w-full rounded-md border-none py-3 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
             />
           </div>
         </div>
@@ -312,7 +312,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
                 dateFormat="yyyy / MMMM / dd"
                 name="from-date"
                 required
-                className="w-full rounded-md border-none py-2.5 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
+                className="w-full rounded-md border-none py-3 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
               />
             </div>
             {/* end date */}
@@ -327,7 +327,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
                 dateFormat="yyyy / MMMM / dd"
                 name="to-date"
                 required
-                className="w-full rounded-md border-none py-2.5 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
+                className="w-full rounded-md border-none py-3 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
               />
             </div>
           </div>
