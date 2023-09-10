@@ -22,7 +22,7 @@
     -webkit-text-stroke: 2px #019267;
   }
 
-  .inputs input {
+  .inputs input , .inputs select{
     @apply dark:border dark:border-slate-500 dark:bg-slate-700/90 border-gray-400/80;
   }
 }
