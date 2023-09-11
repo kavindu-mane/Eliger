@@ -73,7 +73,7 @@ const NewDriverRequests = () => {
                 <span className="block md:hidden">Driver Name :&ensp;</span>
                 {`${data?.Driver_firstname} ${data?.Driver_lastname}`}
               </p>
-              <p className="flex w-full truncate px-4 py-2 ">
+              <p className="flex w-full truncate px-4 py-3 ">
                 <span className="block md:hidden">Owner Name :&ensp;</span>
                 {`${data?.Owner_firstname} ${data?.Owner_lastname}`}
               </p>

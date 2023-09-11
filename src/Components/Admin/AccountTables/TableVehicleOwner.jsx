@@ -95,15 +95,15 @@ const TableVehicleOwner = () => {
               key={i}
               className="text-md group flex flex-col justify-center space-y-2 rounded-sm bg-white ring-1 ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:flex-row md:items-center md:justify-between md:space-y-0"
             >
-              <p className="flex w-full truncate px-4 py-2">
+              <p className="flex w-full truncate px-4 py-3">
                 <span className="block md:hidden">Full Name :&ensp;</span>
                 {data.Owner_firstname} {data.Owner_lastname}
               </p>
-              <p className="flex w-full truncate bg-slate-100 px-4 py-2 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
+              <p className="flex w-full truncate bg-slate-100 px-4 py-3 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
                 <span className="block md:hidden">Phone :&ensp;</span>
                 {data.Owner_Tel}
               </p>
-              <p className="flex w-full truncate px-4 py-2">
+              <p className="flex w-full truncate px-4 py-3">
                 <span className="block md:hidden">Email :&ensp;</span>
                 {data.Email}
               </p>
