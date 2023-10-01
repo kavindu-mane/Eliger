@@ -1,7 +1,6 @@
 import React, { lazy, useState } from "react";
 import { Label, TextInput } from "flowbite-react";
 import { MdOutlineError } from "react-icons/md";
-import { CgSpinnerTwoAlt } from "react-icons/cg";
 import ErrorData from "../../Data/ErrorData";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 const PasswordSwitcher = lazy(() =>
   import("../../Components/Common/PasswordSwitcher")
 );
+const LoadingSpinner = lazy(() => import("../Common/LoadingSpinner"));
 
 // create sweet alert object
 const Alert = withReactContent(Swal);
@@ -120,11 +120,7 @@ const EditAccount = ({ currentData, urlPath }) => {
   return (
     <div className="flex w-full max-w-4xl flex-col justify-center">
       {/* loading */}
-      {isLoading && (
-        <div className="absolute start-0 top-0 z-[999] flex min-h-full w-full items-center justify-center bg-slate-950/60 backdrop-blur-sm">
-          <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
-        </div>
-      )}
+      {isLoading && <LoadingSpinner />}
       {/*Topic */}
       <h1 className="mb-5 font-Poppins text-2xl font-medium">
         Edit Account Details
@@ -220,7 +216,9 @@ const EditAccount = ({ currentData, urlPath }) => {
             required
             type="text"
             className="inputs"
-            defaultValue={currentData?.Owner_address || currentData?.Driver_address}
+            defaultValue={
+              currentData?.Owner_address || currentData?.Driver_address
+            }
           />
           {/* error text */}
           {errorCode === 11 && errorContainer(errorCode)}
