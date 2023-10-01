@@ -1,12 +1,12 @@
-import React, { lazy, useState } from "react";
+import React, { lazy, useState, useCallback, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import topics from "../Data/SideBars/DriverSidebarData";
-import { Table } from "flowbite-react";
-import BookingOption from "../Data/DriverGraph/DriverGraphData";
 
-const ViewDriver = lazy(() => import("../Components/Driver/ViewDriver"));
-
-const Graphs = lazy(() => import("../Components/Common/Graphs"));
-
+const BookiengRequest = lazy(() =>
+  import("../Components/Driver/BookiengRequest")
+);
+const DriverGraph = lazy(() => import("../Components/Driver/DriverGraph"));
 const HeaderSecondary = lazy(() =>
   import("../Components/Common/HeaderSecondary")
 );
@@ -17,51 +17,39 @@ const BackgroundEffect = lazy(() =>
   import("../Components/Common/BackgroundEffect")
 );
 const SideBar = lazy(() => import("../Components/Common/SideBar"));
-const EditDriver = lazy(() =>
-  import("../Components/Driver/EditDriver")
+const EditAccount = lazy(() =>
+  import("../Components/VehicleOwner/EditAccount")
 );
 
 const DriverDashboard = () => {
-  
-  // week days
-  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  // day labels
-  const dayLable = Array.from({ length: 7 }, (_, i) => {
-    let today = new Date();
-    today.setDate(today.getDate() + i - 6);
-    return weekDays[today.getDay()];
-  });
+  const [activeComp, setActiveComp] = useState(0);
+  const [loadedData, setLoadedData] = useState(null);
+  const navigate = useNavigate();
 
-  const [activeComp,setActiveComp] = useState(0);
-  const revenueData = {
-    labels: dayLable,
-    datasets: [
-      {
-        data: [2000, 3500, 7800, 2100, 1600, 2350, 5800],
-        borderWidth: 2,
-        borderColor: "#C70039",
-        backgroundColor: "#C70039",
-      },
-      {
-        data: [1500, 550, 2100, 1250, 3670, 4200, 7800],
-        borderWidth: 2,
-        borderColor: "#22A699",
-        backgroundColor: "#22A699",
-      },
-    ],
+  const loadData = useCallback(async () => {
+    await axios
+      .post("/get_driver")
+      .then((response) => {
+        if (response.status === 200 && response.data !== 14) {
+          setLoadedData(response.data);
+        } else {
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        navigate("/login");
+      });
+  }, [navigate]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  const optionComponents = {
+    0: <BookiengRequest loadedData={loadedData} />,
+    1: <EditAccount currentData={loadedData} urlPath={"/update_driver"} />,
+    2: <DriverGraph />,
   };
-
-  // date settings - week
-  const dateSettingsWeeks = [
-    {
-      start: 13,
-      end: 7,
-    },
-    {
-      start: 7,
-      end: 0,
-    },
-  ];
 
   return (
     <React.Fragment>
@@ -75,7 +63,7 @@ const DriverDashboard = () => {
           {/* Side Bar Area */}
           <div className="w-full min-w-max lg:h-screen lg:max-w-xs">
             <SideBar
-              title={"Driver"}
+              title={`${loadedData?.Driver_firstname} ${loadedData?.Driver_lastname}`}
               dataset={topics}
               setActiveComp={setActiveComp}
               active={activeComp}
@@ -83,82 +71,9 @@ const DriverDashboard = () => {
           </div>
 
           {/* Manage Area */}
-          <div className="relative flex w-full flex-col justify-between px-5 pt-4 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
-            {/*vehicle registration*/}
-            {activeComp === 0 ? <ViewDriver /> : <EditDriver />}
-
-            {/*graph*/}
-            <div className="flex h-fit w-full flex-col gap-4 p-1 pb-12 pr-5 pt-4 text-center text-2xl lg:flex-row">
-              <Graphs
-                options={BookingOption}
-                type="line"
-                data={revenueData}
-                title={
-                  <span className="text-2xl">
-                    Week Earning
-                    <small className="text-l ms-1 font-bold italic">
-                      - Day Vs Earning
-                    </small>
-                  </span>
-                }
-                dateSettings={dateSettingsWeeks}
-              />
-
-              <div className=" mt-3 h-fit w-full max-w-2xl rounded-xl p-2  text-2xl shadow-md drop-shadow-lg dark:bg-slate-700">
-                <p className="mb-5 font-Poppins text-2xl font-semibold">
-                  Recent Travels
-                </p>
-
-                <div className="secContainer grid">
-                  <div className="singleCustomer w-full">
-                    <Table className="items-center justify-center">
-                      <Table.Head>
-                        <Table.Cell>vehicle Owner</Table.Cell>
-                        <Table.Cell>vehicle Register Number</Table.Cell>
-                        <Table.Cell>Charges</Table.Cell>
-                      </Table.Head>
-                      <Table.Body className="divide-y">
-                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                          <Table.Cell>
-                            <div>
-                              <span className=" block">Peter Stark</span>
-                              <small>2 days ago</small>
-                            </div>
-                          </Table.Cell>
-                          <Table.Cell>GC5423 </Table.Cell>
-                          <Table.Cell>2200.00</Table.Cell>
-                        </Table.Row>
-                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                          <Table.Cell>
-                            <div className="CustomerDetails">
-                              <span className="name block">Peter Pan</span>
-                              <small className="days">5 days ago</small>
-                            </div>
-                          </Table.Cell>
-                          <Table.Cell>
-                            <div className="vehiclenum">Gr6423</div>
-                          </Table.Cell>
-                          <Table.Cell>4500.00</Table.Cell>
-                        </Table.Row>
-                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                          <Table.Cell>
-                            <div className="CustomerDetails">
-                              <span className="name block">Olive Hutzen</span>
-                              <small className="days">Two weeks ago</small>
-                            </div>
-                          </Table.Cell>
-                          <Table.Cell>
-                            <div className="vehiclenum">AC2423</div>
-                          </Table.Cell>
-                          <Table.Cell>500.00</Table.Cell>
-                        </Table.Row>
-                      </Table.Body>
-                    </Table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
+          <div className="relative flex w-full flex-col items-center justify-between px-5 pt-4 lg:min-h-screen lg:overflow-y-auto lg:pt-20">
+            {optionComponents[activeComp]}
+            <div className="relative mt-10 w-full">
               <FooterSecondary />
             </div>
           </div>

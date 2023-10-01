@@ -15,7 +15,7 @@ const PasswordSwitcher = lazy(() =>
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-const EditAccount = ({ currentData }) => {
+const EditAccount = ({ currentData, urlPath }) => {
   const [isCurrentPassword, setIsCurrentPassword] = useState(true);
   const [isConfPassword, setIsConfPassword] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
@@ -73,7 +73,7 @@ const EditAccount = ({ currentData }) => {
     const formData = new FormData(e.target);
     // send data using axios post function
     await axios
-      .post("/update_owner", formData)
+      .post(urlPath, formData)
       .then((response) => {
         responseAction(response);
       })
@@ -156,7 +156,9 @@ const EditAccount = ({ currentData }) => {
               required
               type="text"
               className="inputs"
-              defaultValue={currentData?.Owner_firstname}
+              defaultValue={
+                currentData?.Driver_firstname || currentData?.Owner_firstname
+              }
             />
             {/* error text */}
             {errorCode === 0 && errorContainer(errorCode)}
@@ -176,7 +178,9 @@ const EditAccount = ({ currentData }) => {
               required
               type="text"
               className="inputs"
-              defaultValue={currentData?.Owner_lastname}
+              defaultValue={
+                currentData?.Owner_lastname || currentData?.Driver_lastname
+              }
             />
             {/* error text */}
             {errorCode === 1 && errorContainer(errorCode)}
@@ -197,7 +201,7 @@ const EditAccount = ({ currentData }) => {
             required
             type="text"
             className="inputs"
-            defaultValue={currentData?.Owner_Tel}
+            defaultValue={currentData?.Owner_Tel || currentData?.Driver_Tel}
           />
           {/* error text */}
           {[2, 6].includes(errorCode) && errorContainer(errorCode)}
@@ -216,7 +220,7 @@ const EditAccount = ({ currentData }) => {
             required
             type="text"
             className="inputs"
-            defaultValue={currentData?.Owner_address}
+            defaultValue={currentData?.Owner_address || currentData?.Driver_address}
           />
           {/* error text */}
           {errorCode === 11 && errorContainer(errorCode)}

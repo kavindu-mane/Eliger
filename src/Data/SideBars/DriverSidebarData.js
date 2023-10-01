@@ -1,8 +1,6 @@
-import {
-  MdOutlineManageAccounts,
- 
-} from "react-icons/md";
-import {  GiCarSeat } from "react-icons/gi";
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { GiCarSeat } from "react-icons/gi";
+import { IoStatsChart } from "react-icons/io5";
 
 const topics = [
   {
@@ -19,7 +17,13 @@ const topics = [
     haveSub: false,
     compId: 1,
   },
-
+  {
+    topic: "Statistics",
+    enable: true,
+    icon: <IoStatsChart className="h-5 w-5" />,
+    haveSub: false,
+    compId: 2,
+  },
 ];
 
 export default topics;

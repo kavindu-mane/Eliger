@@ -60,7 +60,7 @@ const VehicleOwnerDashboard = () => {
     1: <ViewMyDrivers />,
     2: <AddVehicle owner={loadedData?.Owner_Id} />,
     3: <CreateDriverAccount owner={loadedData?.Owner_Id} />,
-    4: <EditAccount currentData={loadedData} />,
+    4: <EditAccount currentData={loadedData} urlPath={"/update_owner"} />,
     5: <VehicleOwnerGraph />,
   };
 

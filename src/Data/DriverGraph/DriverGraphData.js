@@ -1,4 +1,4 @@
-const BookingOption = {
+const DriverGraphData = {
   elements: {
     bar: {
       borderWidth: 2,
@@ -50,4 +50,4 @@ const BookingOption = {
     },
   },
 };
-export default BookingOption;
+export default DriverGraphData;
