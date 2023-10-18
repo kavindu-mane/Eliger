@@ -1,21 +1,37 @@
 import { Button, Label, TextInput, Select, FileInput } from "flowbite-react";
 import { useCallback, useState, useEffect, lazy } from "react";
 import { MdOutlineError } from "react-icons/md";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 import ErrorData from "../../Data/ErrorData";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useNavigate } from "react-router-dom";
+import districtArray from "../../Data/DistrictArray";
+import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 const LoadingSpinner = lazy(() => import("../Common/LoadingSpinner"));
 
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
+// colombo location
+const center = { lat: 6.927, lng: 80.001 };
+// google map libraries
+const libs = ["places"];
+
 const AddVehicle = ({ owner }) => {
+  // load map api
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    libraries: libs,
+  });
+
   const [errorCode, setErrorCode] = useState(null);
   const [isBookNow, setIsBookNow] = useState(true);
   const [drivers, setDrivers] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [rentLocation, setRentLocation] = useState(null);
   const navigate = useNavigate();
 
   // custom allert function with sweet alert 2
@@ -36,6 +52,14 @@ const AddVehicle = ({ owner }) => {
     // get data from form fields as FormData object
     const formData = new FormData(e.target);
     formData.append("owner", owner);
+    // check map location added or not
+    if (rentLocation === null && !isBookNow) {
+      setErrorCode(46);
+      return;
+    } else if (!isBookNow) {
+      formData.append("lat", rentLocation.split(",")[0]);
+      formData.append("long", rentLocation.split(",")[1]);
+    }
     // change loading state to true
     setIsLoading(true);
     // send data using axios post function
@@ -94,6 +118,17 @@ const AddVehicle = ({ owner }) => {
   useEffect(() => {
     fetch();
   }, [fetch]);
+
+  // return loading spinner while google map loading
+  if (!isLoaded)
+    return (
+      <div className="flex h-screen w-screen flex-col items-center justify-center">
+        <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
+        <h1 className="mt-8 font-Poppins text-2xl font-medium italic">
+          Map is loading..
+        </h1>
+      </div>
+    );
 
   return (
     <div className="w-full max-w-4xl">
@@ -250,25 +285,63 @@ const AddVehicle = ({ owner }) => {
           {/* error text */}
           {errorCode === 30 && errorContainer(errorCode)}
         </div>
-        {/* nearest city */}
+        {/* district */}
         {!isBookNow && (
           <div>
-            <Label
-              htmlFor="nearest-city"
-              value="Nearest City"
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            />
-
-            <TextInput
-              id="nearest-city"
-              name="nearest-city"
-              placeholder="Badulla"
+            <div className="mb-2 block">
+              <Label
+                htmlFor="district"
+                value="District"
+                className="after:ml-0.5 after:text-red-500 after:content-['*']"
+              />
+            </div>
+            <Select
+              id="district"
+              name="district"
               required
-              type="text"
-              className="inputs"
-            />
+              defaultValue={"Colombo"}
+            >
+              {districtArray.map((district, i) => {
+                return (
+                  <option key={i} value={district}>
+                    {district}
+                  </option>
+                );
+              })}
+            </Select>
             {/* error text */}
             {errorCode === 36 && errorContainer(errorCode)}
+          </div>
+        )}
+        {/* map */}
+        {!isBookNow && (
+          <div className="mb-8 h-[50vh] w-full">
+            <Label
+              htmlFor="map"
+              className="after:ml-0.5 after:text-red-500 after:content-['*']"
+              value=" Select rent out location"
+            />
+            <GoogleMap
+              id="map"
+              center={center}
+              zoom={11}
+              mapContainerClassName="w-full h-full rounded-md"
+              options={{
+                fullscreenControl: false,
+                mapTypeControl: false,
+                streetViewControl: false,
+              }}
+            >
+              <MarkerF
+                position={center}
+                draggable={true}
+                onDragEnd={(event) =>
+                  setRentLocation(event.latLng.toUrlValue())
+                }
+              />
+            </GoogleMap>
+            {/* error text */}
+            {errorCode === 46 && errorContainer(errorCode)}
           </div>
         )}
         {/* insurance */}

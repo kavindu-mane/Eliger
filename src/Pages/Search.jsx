@@ -167,13 +167,17 @@ const Search = () => {
                           </p>
                           <p className="mb-2">
                             <span className="font-bold">Distance : </span>
-                            {locations.mapDetails.distance.text}
+                            <span className="text-emerald-600 dark:text-emerald-400">
+                              {locations.mapDetails.distance.text}
+                            </span>
                           </p>
                           <p className="mb-2">
                             <span className="font-bold">
-                              Approximate time :
+                              Approximate time :{" "}
                             </span>
-                            {locations.mapDetails.duration.text}
+                            <span className="text-emerald-600 dark:text-emerald-400">
+                              {locations.mapDetails.duration.text}
+                            </span>
                           </p>
                         </div>
                         <Button className="w-fit self-end bg-cyan-500 px-3 sm:self-center">
@@ -188,7 +192,7 @@ const Search = () => {
               )}
             </div>
           </div>
-          <div className="h-[50vh] w-full px-5 xl:h-auto xl:max-h-[85vh] xl:w-1/2">
+          <div className="h-[50vh] w-full px-5 xl:h-auto xl:w-1/2">
             {/* map */}
             <GoogleMap
               center={center}

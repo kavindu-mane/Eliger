@@ -15,38 +15,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import districtArray from "../../Data/DistrictArray";
 
 // create sweet alert object
 const Alert = withReactContent(Swal);
-
-// district list
-const districtArray = [
-  "Ampara",
-  "Anuradhapura",
-  "Badulla",
-  "Batticaloa",
-  "Colombo",
-  "Galle",
-  "Gampaha",
-  "Hambanthota",
-  "Jaffna",
-  "Kalutara",
-  "Kandy",
-  "Kegalle",
-  "Kilinochchi",
-  "Kurunegala",
-  "Mannar",
-  "Matale",
-  "Matara",
-  "Moneragala",
-  "Mulaitivu",
-  "Nuwara Eliya",
-  "Polonnamruwa",
-  "Puttalam",
-  "Rathnapura",
-  "Trincomalee",
-  "Vauniya",
-];
 
 // get tommorow
 const getTomorrow = () => {
