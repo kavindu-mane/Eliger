@@ -79,11 +79,6 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
   const [bookingMethod, setBookingMethod] = useState(
     loadedDetails["booking-type"] || "Book Now"
   );
-  const [startDateTime, setStartDateTime] = useState(
-    loadedDetails["pick-time"] !== undefined
-      ? new Date(loadedDetails["pick-time"])
-      : new Date()
-  );
   const [startDate, setStartDate] = useState(
     loadedDetails["from-date"] !== undefined
       ? new Date(loadedDetails["from-date"])
@@ -102,14 +97,6 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
       title: title,
       text: desc,
     });
-  };
-
-  // filter times with comparing current time
-  const filterPassedTime = (time) => {
-    const currentDate = new Date();
-    const selectedDate = new Date(time);
-    const isPassed = currentDate.getTime() < selectedDate.getTime();
-    return isPassed;
   };
 
   // get current location
@@ -224,28 +211,6 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
               defaultValue={loadedDetails["destination"] || ""}
             />
           </Autocomplete>
-        </div>
-
-        {/* pick up time */}
-        <div>
-          <div className="flex flex-col">
-            <Label htmlFor="pick-time" value="Pick-up time" />
-            <DatePicker
-              id="pick-time"
-              selected={startDateTime}
-              onChange={(date) =>
-                setStartDateTime(date > new Date() ? date : new Date())
-              }
-              showTimeSelect
-              filterTime={filterPassedTime}
-              minDate={new Date()}
-              dateFormat="yyyy/MMMM/d , hh:mm aa"
-              name="pick-time"
-              required
-              timeIntervals={10}
-              className="mt-3 w-full rounded-md border-none py-3 font-Poppins text-sm text-slate-800 ring-1 ring-gray-300 focus:ring-2 focus:ring-sky-400 dark:bg-gray-700 dark:text-white dark:ring-gray-600"
-            />
-          </div>
         </div>
       </>
     );
