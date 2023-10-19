@@ -1,4 +1,4 @@
-import React, { lazy, useState } from "react";
+import React, { lazy, useCallback, useState } from "react";
 import {
   GoogleMap,
   DirectionsRenderer,
@@ -9,14 +9,17 @@ import { CgSpinnerTwoAlt } from "react-icons/cg";
 import axios from "axios";
 import { Button, Card } from "flowbite-react";
 import ErrorData from "../Data/ErrorData";
+import {
+  MarkerClusterer,
+  SuperClusterAlgorithm,
+} from "@googlemaps/markerclusterer";
 const Header = lazy(() => import("../Components/Common/Header"));
 const Footer = lazy(() => import("../Components/Common/Footer"));
 const FindVehicles = lazy(() => import("../Components/Common/FindVehicles"));
 
-// colombo location
-const center = { lat: 6.927, lng: 80.001 };
 // google map libraries
 const libs = ["places"];
+let currentCluster = null;
 
 const Search = () => {
   // load map api
@@ -31,6 +34,16 @@ const Search = () => {
   const [distance, setDistance] = useState("");
   const [routeDetails, setRouteDetails] = useState({});
   const [vehicleLocations, setVehicleLocations] = useState([]);
+  const [map, setMap] = useState(null);
+  const [errorCode, setErrorCode] = useState(null);
+  // colombo location
+  const [center, setCenter] = useState({ lat: 6.927, lng: 80.001 });
+
+  // markers adding function with callback
+  const showLocations = useCallback(
+    (map, vehicles) => addMarkers(map, vehicles),
+    []
+  );
 
   // return loading spinner while google map loading
   if (!isLoaded)
@@ -48,12 +61,28 @@ const Search = () => {
 
   // find vehicle with form submission
   const findVehicles = (formData) => {
-    if (formData["booking-type"] === "Book Now")
+    // clear current clustered markers
+    if (currentCluster) currentCluster.clearMarkers();
+    // clear book now details
+    setVehicleLocations((prevArr) => []);
+    setDurations("");
+    setDirections(null);
+    // check booking method and after call appropriate method
+    if (formData["booking-type"] === "Book Now") {
       calculateRoute(
         formData["pick-up"],
         formData["destination"],
         formData["vehicle-category"]
       );
+    } else if (formData["booking-type"] === "Rentout") {
+      getVehiclesByDistrict(
+        formData["from-date"],
+        formData["to-date"],
+        formData["vehicle-category"],
+        formData["district"],
+        formData["driver"]
+      );
+    }
   };
 
   /*
@@ -92,6 +121,7 @@ const Search = () => {
 
   // get nearest 10 vehicles from backend
   const getNearestVehicles = async (lat, long, type) => {
+    setErrorCode(null);
     const formData = new FormData();
     formData.append("lat", lat);
     formData.append("long", long);
@@ -100,9 +130,10 @@ const Search = () => {
       .post("/get_nearest", formData)
       .then((response) => {
         if (response.status === 200) {
-          setVehicleLocations((prevArr) => []);
-          if (response.data !== "45") {
+          if (response.data !== 45) {
             getNearestVehiclesDistance(lat, long, response.data);
+          } else {
+            setErrorCode(response.data);
           }
         } else {
           console.log(response.data, response.status);
@@ -133,6 +164,46 @@ const Search = () => {
 
   /*
    *  book now feature functions area : end
+   */
+
+  /*
+   *  brent out feature functions area : start
+   */
+
+  // get nearest 10 vehicles from backend
+  const getVehiclesByDistrict = async (start, end, type, district, driver) => {
+    setErrorCode(null);
+    const formData = new FormData();
+    formData.append("start", start);
+    formData.append("end", end);
+    formData.append("type", type);
+    formData.append("district", district);
+    formData.append("driver", driver);
+    await axios
+      .post("/get_vehicle_by_district", formData)
+      .then((response) => {
+        if (response.status === 200) {
+          if (response.data !== 45 && response.data !== 47) {
+            console.log(response.data);
+            showLocations(map, response.data);
+            setCenter({
+              lat: parseFloat(response.data[0].Current_Lat),
+              lng: parseFloat(response.data[0].Current_Long),
+            });
+          } else {
+            setErrorCode(response.data);
+          }
+        } else {
+          console.log(response.data, response.status);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  /*
+   *  brent out feature functions area : end
    */
 
   return (
@@ -187,16 +258,18 @@ const Search = () => {
                     </Card>
                   );
                 })}
-              {vehicleLocations.length === 0 && directions && (
-                <p className="mt-2 text-center">{ErrorData["45"]}</p>
+              {(errorCode === 45 || errorCode === 47) && (
+                <p className="text-center">{ErrorData[errorCode]}</p>
               )}
             </div>
           </div>
           <div className="h-[50vh] w-full px-5 xl:h-auto xl:w-1/2">
             {/* map */}
             <GoogleMap
+              id="map"
+              onLoad={(event) => setMap(event)}
               center={center}
-              zoom={11}
+              zoom={9}
               mapContainerClassName="w-full h-full"
               options={{
                 fullscreenControl: false,
@@ -241,5 +314,53 @@ const Search = () => {
     </React.Fragment>
   );
 };
+
+// add rent out location markers and clustering it
+function addMarkers(map, vehicles) {
+  const infoWindow = new window.google.maps.InfoWindow();
+  const markers = vehicles.map((vehicle) => {
+    const lat = parseFloat(vehicle.Current_Lat);
+    const lng = parseFloat(vehicle.Current_Long);
+    const marker = new window.google.maps.Marker({ position: { lat, lng } });
+    marker.addListener("click", () => {
+      infoWindow.setPosition({ lat, lng });
+      infoWindow.setContent(`
+          <div class="flex w-full flex-col text-slate-800 font-medium min-w-[20rem] text-sm">
+            <p class="mb-2 capitalize">
+              <span class="font-bold">Vehicle type : </span>
+              ${vehicle.Vehicle_type}
+            </p>
+            <p class="mb-2">
+              <span class="font-bold">Vehicle number : </span>
+              ${vehicle.Vehicle_PlateNumber}
+            </p>
+            <p class="mb-2">
+              <span class="font-bold">Price : </span>
+              <span class="text-emerald-600">
+                Rs. ${vehicle.Price} (per day)
+              </span>
+            </p>
+            <p class="mb-4">
+              <span class="font-bold">Passengers : </span>
+              <span class="text-emerald-600">
+                ${vehicle.Passenger_amount}
+              </span>
+            </p>
+            <button class="w-full bg-cyan-700 px-3 rounded-sm py-2 text-white">
+              Book vehicle
+            </button>
+          </div>
+      `);
+      infoWindow.open(map);
+    });
+    return marker;
+  });
+
+  currentCluster = new MarkerClusterer({
+    map,
+    markers,
+    algorithm: new SuperClusterAlgorithm({ radius: 300 }),
+  });
+}
 
 export default Search;

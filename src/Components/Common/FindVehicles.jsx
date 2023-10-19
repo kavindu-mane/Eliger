@@ -20,14 +20,6 @@ import districtArray from "../../Data/DistrictArray";
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-// get tommorow
-const getTomorrow = () => {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  return tomorrow;
-};
-
 const FindVehicles = ({ isEmbed = false, findVehicles }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -59,7 +51,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
   const [endDate, setEndDate] = useState(
     loadedDetails["to-date"] !== undefined
       ? new Date(loadedDetails["to-date"])
-      : getTomorrow()
+      : new Date()
   );
 
   // custom allert function with sweet alert 2
@@ -203,8 +195,8 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
             required
             defaultValue={loadedDetails["driver"] || "with-driver"}
           >
-            <option value="with-driver">With Driver</option>
-            <option value="without-driver">Without Driver</option>
+            <option value="Not Null">With Driver</option>
+            <option value="Null">Without Driver</option>
           </Select>
         </div>
         {/* district */}
@@ -260,7 +252,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
               <DatePicker
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
-                minDate={getTomorrow()}
+                minDate={new Date()}
                 dateFormat="yyyy / MMMM / dd"
                 name="to-date"
                 required
