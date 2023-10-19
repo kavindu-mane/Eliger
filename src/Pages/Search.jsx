@@ -250,6 +250,20 @@ const Search = () => {
                               {locations.mapDetails.duration.text}
                             </span>
                           </p>
+                          <p className="mb-2">
+                            <span className="font-bold">Feedback score : </span>
+                            <span className="text-emerald-600 dark:text-emerald-400">
+                              {locations.Feedback_count !== 0
+                                ? (
+                                    locations.Feedback_score /
+                                    locations.Feedback_count
+                                  ).toFixed(1) +
+                                  " (" +
+                                  locations.Feedback_count +
+                                  " feedbacks)"
+                                : "No feedback"}
+                            </span>
+                          </p>
                         </div>
                         <Button className="w-fit self-end bg-cyan-500 px-3 sm:self-center">
                           Book vehicle
@@ -340,10 +354,25 @@ function addMarkers(map, vehicles) {
                 Rs. ${vehicle.Price} (per day)
               </span>
             </p>
-            <p class="mb-4">
+            <p class="mb-2">
               <span class="font-bold">Passengers : </span>
               <span class="text-emerald-600">
                 ${vehicle.Passenger_amount}
+              </span>
+            </p>
+            <p class="mb-4">
+              <span class="font-bold">Feedback score : </span>
+              <span class="text-emerald-600">
+                ${
+                  vehicle.Feedback_count !== 0
+                    ? (vehicle.Feedback_score / vehicle.Feedback_count).toFixed(
+                        1
+                      ) +
+                      " (" +
+                      vehicle.Feedback_count +
+                      " feedbacks)"
+                    : "No feedback"
+                }
               </span>
             </p>
             <button class="w-full bg-cyan-700 px-3 rounded-sm py-2 text-white">
