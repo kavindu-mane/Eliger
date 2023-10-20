@@ -13,9 +13,14 @@ import {
   MarkerClusterer,
   SuperClusterAlgorithm,
 } from "@googlemaps/markerclusterer";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 const Header = lazy(() => import("../Components/Common/Header"));
 const Footer = lazy(() => import("../Components/Common/Footer"));
 const FindVehicles = lazy(() => import("../Components/Common/FindVehicles"));
+
+// create sweet alert object
+const Alert = withReactContent(Swal);
 
 // google map libraries
 const libs = ["places"];
@@ -55,6 +60,15 @@ const Search = () => {
         </h1>
       </div>
     );
+
+  // custom allert function with sweet alert 2
+  const setAlert = (icon, title, desc) => {
+    return Alert.fire({
+      icon: icon,
+      title: title,
+      text: desc,
+    });
+  };
 
   // create direction service object
   const directionService = new window.google.maps.DirectionsService();
@@ -136,11 +150,11 @@ const Search = () => {
             setErrorCode(response.data);
           }
         } else {
-          console.log(response.data, response.status);
+          setAlert("error", "Search error", ErrorData["500"]);
         }
       })
       .catch((error) => {
-        console.log(error);
+        setAlert("error", "Search error", ErrorData["500"]);
       });
   };
 
@@ -184,7 +198,6 @@ const Search = () => {
       .then((response) => {
         if (response.status === 200) {
           if (response.data !== 45 && response.data !== 47) {
-            console.log(response.data);
             showLocations(map, response.data);
             setCenter({
               lat: parseFloat(response.data[0].Current_Lat),
@@ -194,11 +207,11 @@ const Search = () => {
             setErrorCode(response.data);
           }
         } else {
-          console.log(response.data, response.status);
+          setAlert("error", "Search error", ErrorData["500"]);
         }
       })
       .catch((error) => {
-        console.log(error);
+        setAlert("error", "Search error", ErrorData["500"]);
       });
   };
 
@@ -262,6 +275,15 @@ const Search = () => {
                                   locations.Feedback_count +
                                   " feedbacks)"
                                 : "No feedback"}
+                            </span>
+                          </p>
+                          <p className="mb-2">
+                            <span className="font-bold">Approx. cost : </span>
+                            <span className="text-emerald-600 dark:text-emerald-400">
+                              Rs.{" "}
+                              {(locations.Price * parseFloat(distance)).toFixed(
+                                2
+                              )}
                             </span>
                           </p>
                         </div>
@@ -332,6 +354,12 @@ const Search = () => {
 // add rent out location markers and clustering it
 function addMarkers(map, vehicles) {
   const infoWindow = new window.google.maps.InfoWindow();
+  // calculate date difference
+  const date1 = new Date(vehicles[0].Journey_Starting_Date);
+  const date2 = new Date(vehicles[0].Journey_Ending_Date);
+  const timwDiff = date2.getTime() - date1.getTime();
+  const dateDiff = timwDiff / (1000 * 3600 * 24);
+
   const markers = vehicles.map((vehicle) => {
     const lat = parseFloat(vehicle.Current_Lat);
     const lng = parseFloat(vehicle.Current_Long);
@@ -373,6 +401,12 @@ function addMarkers(map, vehicles) {
                       " feedbacks)"
                     : "No feedback"
                 }
+              </span>
+            </p>
+            <p class="mb-2">
+              <span class="font-bold">Approx. cost : </span>
+              <span class="text-emerald-600">
+                Rs. ${(vehicle.Price * (dateDiff + 1)).toFixed(2)}
               </span>
             </p>
             <button class="w-full bg-cyan-700 px-3 rounded-sm py-2 text-white">
