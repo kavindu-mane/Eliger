@@ -47,6 +47,7 @@ const ErrorData = {
   45: "No vehicle available this time",
   46: "Rent out location not added",
   47: "Incorrect start and end dates",
+  48: "Please login with customer account.",
   200: "Success", // default success code in http protocol
   500: "Somthing went wrong.please try again.", // default server error code in http protocol
 };

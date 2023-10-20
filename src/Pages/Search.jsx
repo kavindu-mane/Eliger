@@ -22,6 +22,15 @@ const FindVehicles = lazy(() => import("../Components/Common/FindVehicles"));
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
+// custom allert function with sweet alert 2
+const setAlert = (icon, title, desc) => {
+  return Alert.fire({
+    icon: icon,
+    title: title,
+    text: desc,
+  });
+};
+
 // google map libraries
 const libs = ["places"];
 let currentCluster = null;
@@ -60,15 +69,6 @@ const Search = () => {
         </h1>
       </div>
     );
-
-  // custom allert function with sweet alert 2
-  const setAlert = (icon, title, desc) => {
-    return Alert.fire({
-      icon: icon,
-      title: title,
-      text: desc,
-    });
-  };
 
   // create direction service object
   const directionService = new window.google.maps.DirectionsService();
@@ -158,6 +158,7 @@ const Search = () => {
       });
   };
 
+  // get vehicle to user distance with map api
   const getNearestVehiclesDistance = (lat, long, data) => {
     data.forEach(async (element, key) => {
       const result = await directionService.route({
@@ -174,6 +175,44 @@ const Search = () => {
       element.mapDetails = result?.routes[0]?.legs[0];
       setVehicleLocations((prevArr) => [...prevArr, element]);
     });
+  };
+
+  // add new book now booking
+  const placeBookNowBooking = async (vehicle) => {
+    const formData = new FormData();
+    formData.append("owner", vehicle.Owner_Id);
+    formData.append("driver", vehicle.Driver_Id);
+    formData.append("vehicle", vehicle.Vehicle_Id);
+    formData.append(
+      "start",
+      routeDetails.start.lat + "," + routeDetails.start.lng
+    );
+    formData.append("end", routeDetails.end.lat + "," + routeDetails.end.lng);
+    formData.append("type", "book-now");
+    await axios
+      .post("/add_booking", formData)
+      .then((response) => {
+        if (response.status === 200) {
+          // for not logged users
+          if (response.data === 14) {
+            window.location.replace("/login");
+            // for another role account users
+          } else if (response.data === 48) {
+            setAlert("error", "Booking restricted", ErrorData["48"]);
+            // for successfully bookings
+          } else if (response.data === 200) {
+            setAlert("success", "Success", "Booking successfully placed.");
+          } else {
+            setAlert("error", "Search error", ErrorData["500"]);
+            console.log(response.data);
+          }
+        } else {
+          setAlert("error", "Search error", ErrorData["500"]);
+        }
+      })
+      .catch((error) => {
+        setAlert("error", "Search error", ErrorData["500"]);
+      });
   };
 
   /*
@@ -212,6 +251,7 @@ const Search = () => {
       })
       .catch((error) => {
         setAlert("error", "Search error", ErrorData["500"]);
+        console.log(error);
       });
   };
 
@@ -287,7 +327,10 @@ const Search = () => {
                             </span>
                           </p>
                         </div>
-                        <Button className="w-fit self-end bg-cyan-500 px-3 sm:self-center">
+                        <Button
+                          className="w-fit self-end bg-cyan-500 px-3 sm:self-center"
+                          onClick={() => placeBookNowBooking(locations)}
+                        >
                           Book vehicle
                         </Button>
                       </div>
@@ -365,6 +408,7 @@ function addMarkers(map, vehicles) {
     const lng = parseFloat(vehicle.Current_Long);
     const marker = new window.google.maps.Marker({ position: { lat, lng } });
     marker.addListener("click", () => {
+      infoWindow.close();
       infoWindow.setPosition({ lat, lng });
       infoWindow.setContent(`
           <div class="flex w-full flex-col text-slate-800 font-medium min-w-[20rem] text-sm">
@@ -409,12 +453,25 @@ function addMarkers(map, vehicles) {
                 Rs. ${(vehicle.Price * (dateDiff + 1)).toFixed(2)}
               </span>
             </p>
-            <button class="w-full bg-cyan-700 px-3 rounded-sm py-2 text-white">
+            <button class="w-full bg-cyan-700 px-3 rounded-sm py-2 text-white" id='infoWindow'">
               Book vehicle
             </button>
           </div>
       `);
       infoWindow.open(map);
+      // pass vehicle object to placeRentOutBooking function
+      const btnEvent = new window.google.maps.event.addListener(
+        infoWindow,
+        "domready",
+        () => {
+          document
+            .getElementById("infoWindow")
+            .addEventListener("click", () => {
+              placeRentOutBooking(vehicle);
+              window.google.maps.event.removeListener(btnEvent);
+            });
+        }
+      );
     });
     return marker;
   });
@@ -424,6 +481,42 @@ function addMarkers(map, vehicles) {
     markers,
     algorithm: new SuperClusterAlgorithm({ radius: 300 }),
   });
+}
+
+// add new rent out booking
+async function placeRentOutBooking(vehicle) {
+  const formData = new FormData();
+  formData.append("owner", vehicle.Owner_Id);
+  formData.append("driver", vehicle.Driver_Id);
+  formData.append("vehicle", vehicle.Vehicle_Id);
+  formData.append("start", vehicle.Journey_Starting_Date);
+  formData.append("end", vehicle.Journey_Ending_Date);
+  formData.append("type", "rent-out");
+  await axios
+    .post("/add_booking", formData)
+    .then((response) => {
+      if (response.status === 200) {
+        // for not logged users
+        if (response.data === 14) {
+          window.location.replace("/login");
+          // for another role account users
+        } else if (response.data === 48) {
+          setAlert("error", "Booking restricted", ErrorData["48"]);
+          // for successfully bookings
+        } else if (response.data === 200) {
+          setAlert("success", "Success", "Booking successfully placed.");
+          // clear current clustered markers
+          if (currentCluster) currentCluster.clearMarkers();
+        } else {
+          setAlert("error", "Search error", ErrorData["500"]);
+        }
+      } else {
+        setAlert("error", "Search error", ErrorData["500"]);
+      }
+    })
+    .catch((error) => {
+      setAlert("error", "Search error", ErrorData["500"]);
+    });
 }
 
 export default Search;
