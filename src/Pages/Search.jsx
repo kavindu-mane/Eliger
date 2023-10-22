@@ -193,6 +193,7 @@ const Search = () => {
       .post("/add_booking", formData)
       .then((response) => {
         if (response.status === 200) {
+          console.log(response.data);
           // for not logged users
           if (response.data === 14) {
             window.location.replace("/login");
@@ -203,15 +204,14 @@ const Search = () => {
           } else if (response.data === 200) {
             setAlert("success", "Success", "Booking successfully placed.");
           } else {
-            setAlert("error", "Search error", ErrorData["500"]);
-            console.log(response.data);
+            setAlert("error", "Booking error", ErrorData["500"]);
           }
         } else {
-          setAlert("error", "Search error", ErrorData["500"]);
+          setAlert("error", "Booking error", ErrorData["500"]);
         }
       })
       .catch((error) => {
-        setAlert("error", "Search error", ErrorData["500"]);
+        setAlert("error", "Booking error", ErrorData["500"]);
       });
   };
 
@@ -467,7 +467,7 @@ function addMarkers(map, vehicles) {
           document
             .getElementById("infoWindow")
             .addEventListener("click", () => {
-              placeRentOutBooking(vehicle);
+              placeRentOutBooking(vehicle, infoWindow);
               window.google.maps.event.removeListener(btnEvent);
             });
         }
@@ -484,7 +484,7 @@ function addMarkers(map, vehicles) {
 }
 
 // add new rent out booking
-async function placeRentOutBooking(vehicle) {
+async function placeRentOutBooking(vehicle, infoWindow) {
   const formData = new FormData();
   formData.append("owner", vehicle.Owner_Id);
   formData.append("driver", vehicle.Driver_Id);
@@ -508,14 +508,17 @@ async function placeRentOutBooking(vehicle) {
           // clear current clustered markers
           if (currentCluster) currentCluster.clearMarkers();
         } else {
-          setAlert("error", "Search error", ErrorData["500"]);
+          setAlert("error", "Booking error", ErrorData["500"]);
         }
       } else {
-        setAlert("error", "Search error", ErrorData["500"]);
+        setAlert("error", "Booking error", ErrorData["500"]);
       }
     })
     .catch((error) => {
-      setAlert("error", "Search error", ErrorData["500"]);
+      setAlert("error", "Booking error", ErrorData["500"]);
+    })
+    .then((response) => {
+      infoWindow.close();
     });
 }
 
