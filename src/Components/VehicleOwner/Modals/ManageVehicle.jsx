@@ -1,10 +1,13 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import { Modal, Button, TextInput, Select } from "flowbite-react";
+import { Button, TextInput, Select, Modal } from "flowbite-react";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { MdOutlineError } from "react-icons/md";
 import ErrorData from "../../../Data/ErrorData";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import districtArray from "../../../Data/DistrictArray";
+import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 
 // create sweet alert object
 const Alert = withReactContent(Swal);
@@ -18,10 +21,22 @@ const setAlert = (icon, title, desc) => {
   });
 };
 
+// google map libraries
+const libs = ["places"];
+
 const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
   const [errorCode, setErrorCode] = useState(null);
   const [drivers, setDrivers] = useState(null);
+  const [rentLocation, setRentLocation] = useState(null);
+  const [driver, setDriver] = useState(details?.Driver_Id);
   const editRef = useRef();
+
+  // load map api
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    libraries: libs,
+  });
 
   // error messages
   const errorContainer = (errCode) => {
@@ -83,6 +98,16 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
   const onHandleSubmitEdits = (e) => {
     const formData = new FormData(e);
     formData.append("vehicle-id", details?.Vehicle_Id);
+    if (details?.Booking_Type === "rent-out") {
+      formData.append(
+        "lat",
+        rentLocation?.split(",")[0] ?? details?.Current_Lat
+      );
+      formData.append(
+        "long",
+        rentLocation?.split(",")[1] ?? details?.Current_Long
+      );
+    }
     Swal.fire({
       title: "Are you sure?",
       text: "Vehicle data update affect to all next bookings.",
@@ -97,6 +122,7 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
           .post("/update_vehicle", formData)
           .then((response) => {
             if (response.status === 200) {
+              console.log(response.data);
               if (response.data === 200) {
                 setAlert(
                   "success",
@@ -140,10 +166,11 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
     const formData = new FormData();
     formData.append("type", "driver");
     formData.append("status", "verified");
+    formData.append("offset", 0);
     await axios
       .post("/load_owner_property", formData)
       .then((response) => {
-        if (response.data.length !== 0) {
+        if (response?.data?.length !== 0 && response?.data !== 500) {
           setDrivers(response.data);
         }
       })
@@ -156,6 +183,17 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
   useEffect(() => {
     fetch();
   }, [fetch]);
+
+  // return loading spinner while google map loading
+  if (!isLoaded)
+    return (
+      <div className="flex h-screen w-screen flex-col items-center justify-center">
+        <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
+        <h1 className="mt-8 font-Poppins text-2xl font-medium italic">
+          Map is loading..
+        </h1>
+      </div>
+    );
 
   return (
     <Modal
@@ -235,15 +273,17 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
                 name="assign-driver"
                 required
                 className="inputs ms-2"
-                defaultValue={details.Driver_Id}
+                value={driver ?? -99}
+                onChange={(e) => setDriver(e.target.value)}
               >
-                {drivers?.map((data, i) => {
-                  return (
-                    <option value={data?.Driver_Id} key={i}>
-                      {data?.Driver_firstname} {data?.Driver_lastname}
-                    </option>
-                  );
-                })}
+                {drivers &&
+                  drivers?.map((data, i) => {
+                    return (
+                      <option value={data?.Driver_Id} key={i}>
+                        {data?.Driver_firstname} {data?.Driver_lastname}
+                      </option>
+                    );
+                  })}
                 {details?.Booking_Type === "rent-out" && (
                   <option value={-99}>Without driver</option>
                 )}
@@ -270,20 +310,61 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
                 {[29, 35].includes(errorCode) && errorContainer(errorCode)}
               </div>
             </div>
-            {/* rent-out location */}
+            {/* district */}
             {details?.Booking_Type === "rent-out" && (
               <div className="flex items-center font-Poppins capitalize">
-                Rent-Out Location :
-                <TextInput
-                  id="nearest-city"
-                  name="nearest-city"
-                  defaultValue={details?.Current_Location}
+                District :
+                <Select
+                  id="district"
+                  name="district"
                   required
-                  type="text"
                   className="inputs ms-2"
-                />
+                  defaultValue={details?.District}
+                >
+                  {districtArray.map((district, i) => {
+                    return (
+                      <option key={i} value={district}>
+                        {district}
+                      </option>
+                    );
+                  })}
+                </Select>
                 {/* error text */}
                 {errorCode === 36 && errorContainer(errorCode)}
+              </div>
+            )}
+            {/* map - rent-out location */}
+            {details?.Booking_Type === "rent-out" && (
+              <div className="mb-8 h-[50vh] w-full">
+                <p className="flex items-center font-Poppins capitalize">
+                  Rent-Out Location
+                </p>
+                <GoogleMap
+                  center={{
+                    lat: parseFloat(details?.Current_Lat),
+                    lng: parseFloat(details?.Current_Long),
+                  }}
+                  zoom={12}
+                  mapContainerClassName="w-full h-full rounded-md"
+                  options={{
+                    fullscreenControl: false,
+                    mapTypeControl: false,
+                    streetViewControl: false,
+                  }}
+                >
+                  <MarkerF
+                    position={{
+                      lat: parseFloat(details?.Current_Lat),
+                      lng: parseFloat(details?.Current_Long),
+                    }}
+                    draggable={true}
+                    onDragEnd={(event) =>
+                      setRentLocation(event?.latLng?.toUrlValue())
+                    }
+                  />
+                </GoogleMap>
+                {/* error text */}
+                {errorCode === 46 && errorContainer(errorCode)}
               </div>
             )}
           </form>

@@ -1,34 +1,52 @@
 import React, { useState, lazy, useCallback, useEffect } from "react";
 import { Button } from "flowbite-react";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import ErrorData from "../../Data/ErrorData";
 const Paginations = lazy(() => import("../Common/Paginations"));
+
+// create sweet alert object
+const Alert = withReactContent(Swal);
 
 const BookiengRequest = ({ loadedData }) => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  // custom allert function with sweet alert 2
+  const setAlert = (icon, title, desc) => {
+    return Alert.fire({
+      icon: icon,
+      title: title,
+      text: desc,
+    });
+  };
 
   // load data function
   const fetch = useCallback(async () => {
     setTableData(null);
     const formData = new FormData();
     formData.append("type", "driver");
+    formData.append("offset", 15 * (currentPage - 1));
     await axios
       .post("/load_owner_property", formData)
       .then((response) => {
         if (response.data.length !== 0) {
-          setTableData(response.data);
-          setPagesCount(Math.ceil(response.data.length / 15));
+          // setTableData(response.data);
+          setPagesCount(Math.ceil(response?.data[0]?.total_rows / 15));
         }
       })
       .catch((error) => {
-        console.log(error);
+        setAlert("error", "Error occured", ErrorData["500"]);
       });
-  }, []);
+  }, [currentPage]);
 
   // load data function run in component mount
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+    if (!isOpenModal) fetch();
+  }, [fetch, isOpenModal, currentPage]);
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -93,7 +111,7 @@ const BookiengRequest = ({ loadedData }) => {
         </p>
       )}
       {tableData !== null &&
-        tableData.map((data, i) => {
+        tableData?.map((data, i) => {
           return (
             <div
               key={i}
@@ -112,17 +130,23 @@ const BookiengRequest = ({ loadedData }) => {
                 {data?.Email}
               </p>
               <div className="flex w-full justify-end bg-slate-100 px-4 py-2.5 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
-                <Button className="h-7 rounded-md bg-green-500 px-4">
-                  Accept
-                </Button>
-                <Button className="h-7 rounded-md bg-red-500 px-4">
-                  Reject
+                <Button
+                  className="h-7 rounded-md bg-green-500 px-4"
+                  onClick={() => {
+                    setIsOpenModal(true);
+                  }}
+                >
+                  View
                 </Button>
               </div>
             </div>
           );
         })}
-      <Paginations totpages={pagesCount} />
+      <Paginations
+        totpages={pagesCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };

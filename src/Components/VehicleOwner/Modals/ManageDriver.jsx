@@ -108,10 +108,6 @@ const ManageDriver = ({ isOpenModal, setIsOpenModal, details }) => {
             </span>
           </p>
           <p className="font-Poppins">Address : {details?.Driver_address}</p>
-          <p className="font-Poppins">
-            Owner Name :{" "}
-            {`${details?.Owner_firstname} ${details?.Owner_lastname}`}
-          </p>
         </div>
       </Modal.Body>
       <Modal.Footer className="flex justify-end">

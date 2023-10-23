@@ -34,7 +34,7 @@ const ViewMyBookings = () => {
     await axios
       .post("/get_customer_booking", formData)
       .then((response) => {
-        if (response.data.length !== 0) {
+        if (response?.data?.length !== 0 && response?.data !== 500) {
           setTableData(response.data);
           setPagesCount(Math.ceil(response?.data[0]?.total_rows / 15));
         }

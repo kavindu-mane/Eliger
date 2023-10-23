@@ -28,6 +28,9 @@ const EditAccount = lazy(() =>
 const ViewMyVehicles = lazy(() =>
   import("../Components/VehicleOwner/ViewMyVehicles")
 );
+const ViewRentOutBooking = lazy(() =>
+  import("../Components/VehicleOwner/ViewRentOutBooking")
+);
 const AddVehicle = lazy(() => import("../Components/VehicleOwner/AddVehicle"));
 
 const VehicleOwnerDashboard = () => {
@@ -56,12 +59,13 @@ const VehicleOwnerDashboard = () => {
   }, [loadData]);
 
   const optionComponents = {
-    0: <ViewMyVehicles />,
-    1: <ViewMyDrivers />,
-    2: <AddVehicle owner={loadedData?.Owner_Id} />,
-    3: <CreateDriverAccount owner={loadedData?.Owner_Id} />,
-    4: <EditAccount currentData={loadedData} urlPath={"/update_owner"} />,
-    5: <VehicleOwnerGraph />,
+    0: <ViewRentOutBooking />,
+    1: <ViewMyVehicles />,
+    2: <ViewMyDrivers />,
+    3: <AddVehicle owner={loadedData?.Owner_Id} />,
+    4: <CreateDriverAccount owner={loadedData?.Owner_Id} />,
+    5: <EditAccount currentData={loadedData} urlPath={"/update_owner"} />,
+    6: <VehicleOwnerGraph />,
   };
 
   return (

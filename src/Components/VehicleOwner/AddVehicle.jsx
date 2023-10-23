@@ -102,10 +102,11 @@ const AddVehicle = ({ owner }) => {
     const formData = new FormData();
     formData.append("type", "driver");
     formData.append("status", "verified");
+    formData.append("offset", 0);
     await axios
       .post("/load_owner_property", formData)
       .then((response) => {
-        if (response.data.length !== 0) {
+        if (response?.data?.length !== 0 && response?.data !== 500) {
           setDrivers(response.data);
         }
       })

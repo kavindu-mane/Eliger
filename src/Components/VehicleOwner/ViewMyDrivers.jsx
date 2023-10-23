@@ -1,37 +1,54 @@
 import React, { lazy, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Button } from "flowbite-react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import ErrorData from "../../Data/ErrorData";
 const ManageDriver = lazy(() => import("./Modals/ManageDriver"));
 const Paginations = lazy(() => import("../Common/Paginations"));
+
+// create sweet alert object
+const Alert = withReactContent(Swal);
 
 const ViewMyDrivers = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [driverDetails, setDriverDetails] = useState(null);
+
+  // custom allert function with sweet alert 2
+  const setAlert = (icon, title, desc) => {
+    return Alert.fire({
+      icon: icon,
+      title: title,
+      text: desc,
+    });
+  };
 
   // load data function
   const fetch = useCallback(async () => {
     setTableData(null);
     const formData = new FormData();
     formData.append("type", "driver");
+    formData.append("offset", 15 * (currentPage - 1));
     await axios
       .post("/load_owner_property", formData)
       .then((response) => {
-        if (response.data.length !== 0) {
+        if (response?.data?.length !== 0 && response?.data !== 500) {
           setTableData(response.data);
-          setPagesCount(Math.ceil(response.data.length / 15));
+          setPagesCount(Math.ceil(response?.data[0]?.total_rows / 15));
         }
       })
       .catch((error) => {
-        console.log(error);
+        setAlert("error", "Error occured", ErrorData["500"]);
       });
-  }, []);
+  }, [currentPage]);
 
   // load data function run in component mount
   useEffect(() => {
     if (!isOpenModal) fetch();
-  }, [fetch, isOpenModal]);
+  }, [fetch, isOpenModal, currentPage]);
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -107,7 +124,11 @@ const ViewMyDrivers = () => {
             </div>
           );
         })}
-      <Paginations totpages={pagesCount} />
+      <Paginations
+        totpages={pagesCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
