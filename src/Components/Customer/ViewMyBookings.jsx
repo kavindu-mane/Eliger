@@ -13,6 +13,7 @@ const Alert = withReactContent(Swal);
 const ViewMyBookings = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [bookingDetails, setBookingDetails] = useState(null);
 
@@ -28,23 +29,25 @@ const ViewMyBookings = () => {
   // load data function
   const fetch = useCallback(async () => {
     setTableData(null);
+    const formData = new FormData();
+    formData.append("offset", 15 * (currentPage - 1));
     await axios
-      .post("/get_customer_booking")
+      .post("/get_customer_booking", formData)
       .then((response) => {
         if (response.data.length !== 0) {
           setTableData(response.data);
-          setPagesCount(Math.ceil(response.data.length / 15));
+          setPagesCount(Math.ceil(response?.data[0]?.total_rows / 15));
         }
       })
       .catch((error) => {
         setAlert("error", "Error occured", ErrorData["500"]);
       });
-  }, []);
+  }, [currentPage]);
 
   // load data function run in component mount
   useEffect(() => {
     if (!isOpenModal) fetch();
-  }, [fetch, isOpenModal]);
+  }, [fetch, isOpenModal, currentPage]);
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -128,7 +131,11 @@ const ViewMyBookings = () => {
             </div>
           );
         })}
-      <Paginations totpages={pagesCount} />
+      <Paginations
+        totpages={pagesCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };

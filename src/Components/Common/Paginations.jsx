@@ -1,12 +1,8 @@
 import { Pagination } from "flowbite-react";
-import { useState } from "react";
 
-const Paginations = ({totpages=5}) => {
-
-  const [currentPage, setCurrentPage] = useState(1);
-
+const Paginations = ({ totpages = 5, currentPage, setCurrentPage }) => {
   return (
-    <div className="flex w-full mb-5 mt-3 justify-center">
+    <div className="mb-5 mt-3 flex w-full justify-center">
       <Pagination
         currentPage={currentPage}
         onPageChange={(page) => {
