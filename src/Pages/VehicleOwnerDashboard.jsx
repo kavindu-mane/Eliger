@@ -28,10 +28,11 @@ const EditAccount = lazy(() =>
 const ViewMyVehicles = lazy(() =>
   import("../Components/VehicleOwner/ViewMyVehicles")
 );
-const ViewRentOutBooking = lazy(() =>
-  import("../Components/VehicleOwner/ViewRentOutBooking")
-);
+// const ViewRentOutBooking = lazy(() =>
+//   import("../Components/VehicleOwner/ViewRentOutBooking")
+// );
 const AddVehicle = lazy(() => import("../Components/VehicleOwner/AddVehicle"));
+const OwnerHome = lazy(() => import("../Components/VehicleOwner/OwnerHome"));
 
 const VehicleOwnerDashboard = () => {
   //Component loading state hook
@@ -59,7 +60,7 @@ const VehicleOwnerDashboard = () => {
   }, [loadData]);
 
   const optionComponents = {
-    0: <ViewRentOutBooking />,
+    0: <OwnerHome />, // <ViewRentOutBooking />
     1: <ViewMyVehicles />,
     2: <ViewMyDrivers />,
     3: <AddVehicle owner={loadedData?.Owner_Id} />,

@@ -160,27 +160,6 @@ const CreateDriverAccount = ({owner}) => {
           {/* error text */}
           {[2, 6].includes(errorCode) && errorContainer(errorCode)}
         </div>
-        {/* percentage */}
-        <div>
-          <Label
-            htmlFor="price"
-            value="Income percentage"
-            className="after:ml-0.5 after:text-red-500 after:content-['*']"
-          />
-
-          <TextInput
-            id="percentage"
-            name="percentage"
-            defaultValue={"10.00"}
-            required
-            type="number"
-            min={10}
-            step={0.01}
-            className="inputs"
-          />
-          {/* error text */}
-          {[20, 19].includes(errorCode) && errorContainer(errorCode)}
-        </div>
         {/* address */}
         <div>
           <Label
