@@ -102,6 +102,7 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
   const cancelBooking = () => {
     const formData = new FormData();
     formData.append("booking", details.Booking_Id);
+    formData.append("status", "canceled");
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -241,7 +242,7 @@ const detailsBody = (details, addresses) => {
           Booking Status : {details?.Booking_Status}
         </p>
         <p className="font-Poppins">
-          Amount : {details?.Amount ?? "No payment"}
+          Amount (Rs): {details?.Amount ?? "No payment"}
         </p>
         <p className="font-Poppins capitalize">
           Vehicle Type: {details.Vehicle_type}

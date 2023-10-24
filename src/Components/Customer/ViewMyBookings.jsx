@@ -107,9 +107,9 @@ const ViewMyBookings = () => {
                 <span className="block md:hidden">Booking Status :&ensp;</span>
                 <span
                   className={
-                    data?.Booking_Status === "rejected"
+                    ["rejected", "canceled"].includes(data?.Booking_Status)
                       ? "text-red-500"
-                      : ["approved", "finished"].includes(data?.Booking_Status)
+                      : ["approved", "finished","driving"].includes(data?.Booking_Status)
                       ? "text-green-500"
                       : "text-orange-400"
                   }
