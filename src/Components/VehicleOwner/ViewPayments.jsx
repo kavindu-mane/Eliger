@@ -8,7 +8,7 @@ const Paginations = lazy(() => import("../Common/Paginations"));
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-const ViewOldPayments = () => {
+const ViewPayments = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,7 +28,7 @@ const ViewOldPayments = () => {
     const formData = new FormData();
     formData.append("offset", 15 * (currentPage - 1));
     await axios
-      .post("/load_customer_payments", formData)
+      .post("/load_owner_payments", formData)
       .then((response) => {
         if (response?.data?.length !== 0 && response?.data !== 500) {
           setTableData(response.data);
@@ -51,18 +51,24 @@ const ViewOldPayments = () => {
         My Payments
       </h1>
 
-      <div className="mt-5 hidden w-full rounded-t-md bg-gray-400 px-4 py-2 ring-1 ring-gray-400 dark:bg-gray-700 dark:ring-gray-600 md:flex">
+      <div className="mt-5 hidden w-full rounded-t-md bg-gray-400 px-4 py-2 ring-[0.5px] ring-gray-400 dark:bg-gray-700 dark:ring-gray-600 md:flex">
         <div className="w-full text-center">
-          <span className="">Payment Date & Time</span>
+          <span className="">Date & Time</span>
         </div>
         <div className="w-full text-center">
-          <span className="">Payment Method</span>
+          <span className="">Method</span>
         </div>
         <div className="w-full text-center">
-          <span className="">Booking Type</span>
+          <span className="">Total Amount</span>
         </div>
         <div className="w-full text-center">
-          <span className="">Amount</span>
+          <span className="">Driver Share</span>
+        </div>
+        <div className="w-full text-center">
+          <span className="">Owner Share</span>
+        </div>
+        <div className="w-full text-center">
+          <span className="">Description</span>
         </div>
       </div>
       {tableData === null && (
@@ -75,25 +81,31 @@ const ViewOldPayments = () => {
           return (
             <div
               key={i}
-              className="text-md group flex flex-col justify-center space-y-2 rounded-sm bg-white ring-[0.5px] ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:flex-row md:items-center md:justify-between md:space-y-0"
+              className="text-md group my-2 md:my-0 flex flex-col justify-center space-y-2 rounded-sm bg-white ring-1 ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:flex-row md:items-center md:justify-between md:space-y-0"
             >
               <p className="flex w-full truncate bg-slate-100 px-4 py-3 capitalize group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
-                <span className="block md:hidden">
-                  Payment Date & Time :&ensp;
-                </span>
+                <span className="block md:hidden">Date & Time :&ensp;</span>
                 {new Date(data?.Datetime).toLocaleString()}
               </p>
               <p className="flex w-full truncate px-4 py-3 capitalize">
-                <span className="block md:hidden">Payment Method :&ensp;</span>
+                <span className="block md:hidden">Method :&ensp;</span>
                 {data?.Payment_type}
               </p>
               <p className="flex w-full truncate bg-slate-100 px-4 py-3 capitalize group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
-                <span className="block md:hidden">Booking Type :&ensp;</span>
-                {data?.Booking_Type}
+                <span className="block md:hidden">Total Amount :&ensp;</span>
+                {data?.Amount}
               </p>
               <p className="flex w-full truncate px-4 py-3 capitalize">
-                <span className="block md:hidden">Amount :&ensp;</span>
-                {data?.Amount}
+                <span className="block md:hidden">Driver Share :&ensp;</span>
+                {data?.driver_share}
+              </p>
+              <p className="flex w-full truncate bg-slate-100 px-4 py-3 capitalize group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
+                <span className="block md:hidden">Owner Share :&ensp;</span>
+                {data?.owner_share}
+              </p>
+              <p className="flex w-full truncate px-4 py-3 capitalize">
+                <span className="block md:hidden">Description :&ensp;</span>
+                {data?.Description}
               </p>
             </div>
           );
@@ -106,4 +118,4 @@ const ViewOldPayments = () => {
     </div>
   );
 };
-export default ViewOldPayments;
+export default ViewPayments;

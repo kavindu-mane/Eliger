@@ -29,7 +29,7 @@ const topics = [
     compId: 2,
   },
   {
-    topic: "View old payments",
+    topic: "View my payments",
     enable: true,
     icon: <VscFeedback className="h-5 w-5" />,
     haveSub: false,

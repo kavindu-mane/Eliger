@@ -22,8 +22,9 @@
     -webkit-text-stroke: 2px #019267;
   }
 
-  .inputs input , .inputs select{
-    @apply dark:border dark:border-slate-500 dark:bg-slate-700/90 border-gray-400/80;
+  .inputs input,
+  .inputs select {
+    @apply border-gray-400/80 dark:border dark:border-slate-500 dark:bg-slate-700/90;
   }
 }
 
@@ -42,4 +43,31 @@
 .no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+.react-calendar__tile--active {
+  background: #fff !important;
+  color: #4b5563 !important;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #e6e6e6 !important;
+}
+
+.react-calendar__tile--now {
+  border: 5px white solid !important;
+  border-radius: 99999px;
+}
+
+.react-calendar__tile--hasActive {
+  background: #006edc !important;
+  color: white !important;
+  border: 5px white solid !important;
+  border-radius: 99999px;
+}
+
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:focus {
+  background: #1087ff !important;
 }
