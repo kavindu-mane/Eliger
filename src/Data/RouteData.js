@@ -1,5 +1,4 @@
 import React, { lazy } from "react";
-import Test from "../Pages/Test";
 const Home = lazy(() => import("../Pages/Home"));
 const About = lazy(() => import("../Pages/About"));
 const Contact = lazy(() => import("../Pages/Contact"));
@@ -29,7 +28,6 @@ const LinkArray = {
   "/search": <Search />,
   "/verification": <Verification />,
   "/dashboard": <Dashboard />,
-  "/test":<Test/>
 };
 
 export default LinkArray;
