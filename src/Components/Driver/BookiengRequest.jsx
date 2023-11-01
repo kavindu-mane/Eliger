@@ -1,19 +1,28 @@
-import React, { useState, lazy, useCallback, useEffect } from "react";
-import { Button } from "flowbite-react";
+import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
+import { useJsApiLoader } from "@react-google-maps/api";
 import ErrorData from "../../Data/ErrorData";
-const Paginations = lazy(() => import("../Common/Paginations"));
 
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
+// google map libraries
+const libs = ["places"];
+
 const BookiengRequest = ({ loadedData }) => {
-  const [tableData, setTableData] = useState(null);
-  const [pagesCount, setPagesCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [bookNowtableData, setBookNowTableData] = useState(null);
+  const [rentOuttableData, setRentOutTableData] = useState(null);
+  const [addresses, setAddresses] = useState({});
+
+  // load map api
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    libraries: libs,
+  });
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -24,29 +33,76 @@ const BookiengRequest = ({ loadedData }) => {
     });
   };
 
-  // load data function
-  const fetch = useCallback(async () => {
-    setTableData(null);
-    const formData = new FormData();
-    formData.append("type", "driver");
-    formData.append("offset", 15 * (currentPage - 1));
+  // convert address from lat and long
+  const getAddresFromLatLng = useCallback((latlng) => {
+    const geocoder = new window.google.maps.Geocoder();
+    if (latlng) {
+      const latLng = {
+        lat: parseFloat(latlng?.split(",")[0]),
+        lng: parseFloat(latlng?.split(",")[1]),
+      };
+
+      // get appropreate address using atitude and longitude using google maps api's geocoder api
+      geocoder.geocode({ location: latLng }, (results, status) => {
+        // if geocoder give success response, change pick address with responded address
+        if (status === "OK" && results[0]) {
+          setAddresses((addresses) => {
+            return { ...addresses, [latlng]: results[0].formatted_address };
+          });
+        }
+      });
+    }
+  }, []);
+
+  // load book now function
+  const loadBookNowBookings = useCallback(async () => {
+    setBookNowTableData(null);
     await axios
-      .post("/load_owner_property", formData)
+      .post("/load_driver_booknow_bookings")
       .then((response) => {
         if (response.data.length !== 0) {
-          // setTableData(response.data);
-          setPagesCount(Math.ceil(response?.data[0]?.total_rows / 15));
+          setBookNowTableData(response.data);
         }
       })
       .catch((error) => {
         setAlert("error", "Error occured", ErrorData["500"]);
       });
-  }, [currentPage]);
+  }, []);
+
+  // load rent out function
+  const loadRentOutBookings = useCallback(async () => {
+    setRentOutTableData(null);
+    await axios
+      .post("/load_driver_rentout_bookings")
+      .then((response) => {
+        if (response.data.length !== 0) {
+          setRentOutTableData(response.data);
+        }
+      })
+      .catch((error) => {
+        setAlert("error", "Error occured", ErrorData["500"]);
+      });
+  }, []);
 
   // load data function run in component mount
   useEffect(() => {
-    if (!isOpenModal) fetch();
-  }, [fetch, isOpenModal, currentPage]);
+    if (loadedData?.Booking_Type === "book-now") loadBookNowBookings();
+  }, [loadBookNowBookings, loadedData?.Booking_Type]);
+
+  useEffect(() => {
+    if (loadedData?.Booking_Type === "rent-out") loadRentOutBookings();
+  }, [loadRentOutBookings, loadedData?.Booking_Type]);
+
+  // return loading spinner while google map loading
+  if (!isLoaded)
+    return (
+      <div className="flex h-screen w-screen flex-col items-center justify-center">
+        <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
+        <h1 className="mt-8 font-Poppins text-2xl font-medium italic">
+          Map is loading..
+        </h1>
+      </div>
+    );
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -58,23 +114,13 @@ const BookiengRequest = ({ loadedData }) => {
             {loadedData?.Vehicle_type})
           </p>
           {/* driver availabilty */}
-          {loadedData?.Status === "verified" && (
-            <label className="relative inline-flex cursor-pointer items-center">
-              <input
-                type="checkbox"
-                value="available"
-                className="peer sr-only"
-                defaultChecked={loadedData?.Availability === "available"}
-              />
-              <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
-              <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Vehicle Availabilty
-              </span>
-            </label>
-          )}
+          <p className="flex items-center text-center capitalize italic">
+            Vehicle Availabilty : {loadedData?.Availability}
+          </p>
         </div>
       )}
 
+      {/* announcement */}
       <div className="flex flex-col">
         {loadedData?.Vehicle_PlateNumber === null && (
           <p className="mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
@@ -86,67 +132,94 @@ const BookiengRequest = ({ loadedData }) => {
             Licence not verified.
           </p>
         )}
+        {loadedData?.Booking_Type === "book-now" && (
+          <p className="mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
+            Use Android app to manage orders.
+          </p>
+        )}
       </div>
 
-      <div className="pb-5 text-center text-xl font-medium md:text-2xl">
-        Booking Request
-      </div>
-      <div className="hidden rounded-t-md bg-gray-400 px-4 py-2 ring-[0.5px] ring-gray-400 dark:bg-gray-700 dark:ring-gray-600 md:flex">
-        <div className="w-full text-center">
-          <span className="">Name</span>
-        </div>
-        <div className="w-full text-center">
-          <span className="">Pick up</span>
-        </div>
-        <div className="w-full text-center">
-          <span className="">Destination</span>
-        </div>
-        <div className="w-full text-center">
-          <span className="">Option</span>
-        </div>
-      </div>
-      {tableData === null && (
-        <p className="mt-4 w-full text-center text-sm font-medium italic">
-          No Data Found
-        </p>
-      )}
-      {tableData !== null &&
-        tableData?.map((data, i) => {
-          return (
-            <div
-              key={i}
-              className="text-md group my-2 flex flex-col justify-center space-y-2 rounded-sm bg-white ring-1 ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:my-0 md:flex-row md:items-center md:justify-between md:space-y-0"
-            >
-              <p className="flex w-full truncate px-4 py-2">
-                <span className="block md:hidden">Name :&ensp;</span>
-                {data.Driver_firstname} {data.Driver_lastname}
-              </p>
-              <p className="flex w-full truncate bg-slate-100 px-4 py-3 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
-                <span className="block md:hidden">Pick up :&ensp;</span>
-                {data?.Email}
-              </p>
-              <p className="flex w-full truncate px-4 py-2 capitalize">
-                <span className="block md:hidden">Destination :&ensp;</span>
-                {data?.Email}
-              </p>
-              <div className="flex w-full justify-end bg-slate-100 px-4 py-2.5 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800 md:justify-center">
-                <Button
-                  className="h-7 rounded-md bg-green-500 px-4"
-                  onClick={() => {
-                    setIsOpenModal(true);
-                  }}
-                >
-                  View
-                </Button>
-              </div>
+      {/* book now bookings */}
+      {loadedData?.Booking_Type === "book-now" && (
+        <div className="w-full px-3 py-5">
+          <div className="pb-5 text-center text-xl font-medium md:text-2xl">
+            Book Now Booking Request
+          </div>
+          <div className="hidden rounded-t-md bg-gray-400 px-4 py-2 ring-[0.5px] ring-gray-400 dark:bg-gray-700 dark:ring-gray-600 md:flex">
+            <div className="w-full text-center">
+              <span className="">Pick up</span>
             </div>
-          );
-        })}
-      <Paginations
-        totpages={pagesCount}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+            <div className="w-full text-center">
+              <span className="">Destination</span>
+            </div>
+          </div>
+          {bookNowtableData === null && (
+            <p className="mt-4 w-full text-center text-sm font-medium italic">
+              No Data Found
+            </p>
+          )}
+          {bookNowtableData !== null &&
+            bookNowtableData?.map((data, i) => {
+              getAddresFromLatLng(data?.Origin_Place);
+              getAddresFromLatLng(data?.Destination_Place);
+              return (
+                <div
+                  key={i}
+                  className="text-md group my-2 flex flex-col justify-center space-y-2 rounded-sm bg-white ring-1 ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:my-0 md:flex-row md:items-center md:justify-between md:space-y-0"
+                >
+                  <p className="flex w-full truncate bg-slate-100 px-4 py-3 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
+                    <span className="block md:hidden">Pick up :&ensp;</span>
+                    {addresses[data?.Origin_Place]}
+                  </p>
+                  <p className="flex w-full truncate px-4 py-2 capitalize">
+                    <span className="block md:hidden">Destination :&ensp;</span>
+                    {addresses[data?.Destination_Place]}
+                  </p>
+                </div>
+              );
+            })}
+        </div>
+      )}
+
+      {/* rent out bookings */}
+      {loadedData?.Booking_Type === "rent-out" && (
+        <div className="w-full px-3 py-5">
+          <div className="pb-5 text-center text-xl font-medium md:text-2xl">
+            Assigned Rent Out Bookings
+          </div>
+          <div className="hidden rounded-t-md bg-gray-400 px-4 py-2 ring-[0.5px] ring-gray-400 dark:bg-gray-700 dark:ring-gray-600 md:flex">
+            <div className="w-full text-center">
+              <span className="">Start Date</span>
+            </div>
+            <div className="w-full text-center">
+              <span className="">End Date</span>
+            </div>
+          </div>
+          {rentOuttableData === null && (
+            <p className="mt-4 w-full text-center text-sm font-medium italic">
+              No Data Found
+            </p>
+          )}
+          {rentOuttableData !== null &&
+            rentOuttableData?.map((data, i) => {
+              return (
+                <div
+                  key={i}
+                  className="text-md group my-2 flex flex-col justify-center space-y-2 rounded-sm bg-white ring-1 ring-gray-400 hover:bg-gray-200 dark:bg-slate-950 dark:ring-gray-600 dark:hover:bg-gray-800 md:my-0 md:flex-row md:items-center md:justify-between md:space-y-0"
+                >
+                  <p className="flex w-full truncate bg-slate-100 px-4 py-3 group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
+                    <span className="block md:hidden">Start Date :&ensp;</span>
+                    {data?.Journey_Starting_Date}
+                  </p>
+                  <p className="flex w-full truncate px-4 py-2 capitalize">
+                    <span className="block md:hidden">End Date :&ensp;</span>
+                    {data?.Journey_Ending_Date}
+                  </p>
+                </div>
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 };
