@@ -27,7 +27,7 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
   const timwDiff = date2.getTime() - date1.getTime();
   const dateDiff = timwDiff / (1000 * 3600 * 24);
 
-  //reject , approve , start , cancel  and end booking
+  //reject , approve , start , cancel booking
   const changeBookingStatus = (status) => {
     const formData = new FormData();
     formData.append("booking", details.Booking_Id);
@@ -43,7 +43,7 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         axios
-          .post("/manage_rentout_booking_status", formData)
+          .post("/manage_booking_status", formData)
           .then((response) => {
             if (response.data === 200 && response.status === 200) {
               setAlert(
