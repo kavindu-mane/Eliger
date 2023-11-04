@@ -256,25 +256,25 @@ const OwnerHome = () => {
                     <li className="">
                       Offline : Rs. {row?.daily_online_total}
                     </li>
-                    <p className="">Total : {row?.today_total_income}</p>
+                    <li className="">Total : {row?.today_total_income}</li>
                   </ul>
-                  <p className="flex items-center font-ABeeZee font-semibold">
+                  <div className="flex items-center font-ABeeZee font-semibold">
                     Driver need to pay
                     <Tooltip content="Book now offline payments owner share">
                       <BiInfoCircle className="ms-2 cursor-pointer text-blue-700 dark:text-blue-400" />
                     </Tooltip>
-                  </p>
+                  </div>
                   <ul className="-mt-2 ms-6 list-disc">
                     <li className="">
                       To owner : Rs. {row?.book_now_owner_income}
                     </li>
                   </ul>
-                  <p className="flex items-center font-ABeeZee font-semibold">
+                  <div className="flex items-center font-ABeeZee font-semibold">
                     Owner need to pay
                     <Tooltip content="Rent out offline payments driver share">
                       <BiInfoCircle className="ms-2 cursor-pointer text-blue-700 dark:text-blue-400" />
                     </Tooltip>
-                  </p>
+                  </div>
                   <ul className="-mt-2 ms-6 list-disc">
                     <li className="">
                       To driver : Rs. {row?.rent_out_driver_income}

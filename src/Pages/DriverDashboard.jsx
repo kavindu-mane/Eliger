@@ -2,7 +2,9 @@ import React, { lazy, useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import topics from "../Data/SideBars/DriverSidebarData";
-
+const PaymentDetails = lazy(() =>
+  import("../Components/Driver/PaymentDetails")
+);
 const BookiengRequest = lazy(() =>
   import("../Components/Driver/BookiengRequest")
 );
@@ -48,7 +50,8 @@ const DriverDashboard = () => {
   const optionComponents = {
     0: <BookiengRequest loadedData={loadedData} />,
     1: <EditAccount currentData={loadedData} urlPath={"/update_driver"} />,
-    2: <DriverGraph />,
+    2: <PaymentDetails />,
+    3: <DriverGraph />,
   };
 
   return (
