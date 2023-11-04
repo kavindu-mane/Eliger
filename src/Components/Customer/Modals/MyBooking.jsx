@@ -27,13 +27,12 @@ const libs = ["places"];
 
 const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
   const [addresses, setAddresses] = useState({});
-  const [active, setActive] = useState(0); // 0 - details | 1 - feedback | 2 - payment | 3 - track
+  const [active, setActive] = useState(0); // 0 - details | 1 - feedback | 3 - track
   const [ratings, setRatings] = useState(1);
   const [directions, setDirections] = useState(null);
   const [distance, setDistance] = useState("");
   const [routeDetails, setRouteDetails] = useState({});
   const [driverRoute, setDriverRoute] = useState(null);
-  const [driverCurrent, setDriverCurrent] = useState(null);
   const [center, setCenter] = useState();
   const feedbackRef = useRef();
 
@@ -138,13 +137,6 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
             });
 
             setDriverRoute(result);
-            const start_ = result.routes[0].legs[0].start_location
-              .toUrlValue()
-              .split(",");
-            setDriverCurrent({
-              lat: parseFloat(start_[0]),
-              lng: parseFloat(start_[1]),
-            });
           }
         })
         .catch((error) => {
@@ -181,8 +173,7 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
 
   // calculate route details
   useEffect(() => {
-    console.log(details);
-    if (active === 3)
+    if (active === 3 || active === 0)
       calculateRoute(
         stringToLatLng(details.Origin_Place),
         stringToLatLng(details.Destination_Place)
@@ -258,6 +249,89 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
     });
   };
 
+  // pay online
+  const makePayment = async () => {
+    const formData = new FormData();
+    formData.append(
+      "amount",
+      parseFloat(distance.split(" ")[0] * details.Price)
+    );
+    await axios
+      .post("/online_payment", formData)
+      .then((response) => {
+        if (
+          response?.data?.length !== 0 &&
+          ![14, 500].includes(response?.data)
+        ) {
+          const result = response?.data;
+          const payment_object = {
+            sandbox: true,
+            preapprove: true,
+            merchant_id: result?.merchant_id,
+            return_url: "http:localhost:3000/dashboard",
+            cancel_url: "http:localhost:3000/dashboard",
+            notify_url: "http:localhost:3000/dashboard",
+            order_id: result?.order_id,
+            items: "Book Now Booking",
+            amount: result?.amount,
+            currency: result?.currency,
+            hash: result?.hash,
+            first_name: "Saman",
+            last_name: "Perera",
+            email: "samanp@gmail.com",
+            phone: "0771234567",
+            address: "No.1, Galle Road",
+            city: "Colombo",
+            country: "Sri Lanka",
+            delivery_address: "No. 46, Galle road, Kalutara South",
+            delivery_city: "Kalutara",
+            delivery_country: "Sri Lanka",
+            custom_1: "",
+            custom_2: "",
+          };
+
+          window.payhere.startPayment(payment_object);
+
+          window.payhere.onCompleted = function onCompleted(orderId) {
+            const formData = new FormData();
+            formData.append("booking", details.Booking_Id);
+            formData.append("amount", result.amount);
+            formData.append("isOnline", true);
+            axios
+              .post("/finish_booking", formData)
+              .then((response) => {
+                if (response.data === 200 && response.status === 200) {
+                  setAlert(
+                    "success",
+                    "Success",
+                    "Booking finished successfully"
+                  );
+                } else {
+                  setAlert("error", "Error occured", ErrorData["500"]);
+                }
+                setIsOpenModal(false);
+              })
+              .catch((error) => {
+                setAlert("error", "Error occured", ErrorData["500"]);
+              });
+          };
+
+          window.payhere.onDismissed = function onDismissed() {
+            setAlert("info", "Payment canceled", "Payment dismissed");
+          };
+
+          window.payhere.onError = function onError(error) {
+            setAlert("error", "Error occured", ErrorData["500"]);
+          };
+        } else if (response?.data === 14) {
+          setAlert("error", "Payment error", "Please login again.");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   // return loading spinner while google map loading
   if (!isLoaded)
     return (
@@ -294,9 +368,9 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
                   position={routeDetails.end}
                   label={{ text: "D", color: "white" }}
                 />
-                {driverCurrent && (
+                {center && (
                   <MarkerF
-                    position={driverCurrent}
+                    position={center}
                     label={{ text: "V", color: "white" }}
                   />
                 )}
@@ -375,7 +449,9 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
               </Button>
               <Button
                 className="h-10 w-full rounded-md bg-green-500 dark:bg-emerald-600"
-                //   onClick={() => {}}
+                onClick={() => {
+                  makePayment();
+                }}
               >
                 Pay online
               </Button>
