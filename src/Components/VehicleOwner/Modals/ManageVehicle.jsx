@@ -163,12 +163,8 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
   // load driver data function
   const fetch = useCallback(async () => {
     setDrivers(null);
-    const formData = new FormData();
-    formData.append("type", "driver");
-    formData.append("status", "verified");
-    formData.append("offset", 0);
     await axios
-      .post("/load_owner_property", formData)
+      .post("/load_available_drivers")
       .then((response) => {
         if (response?.data?.length !== 0 && response?.data !== 500) {
           setDrivers(response.data);

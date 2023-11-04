@@ -109,6 +109,7 @@ const Search = () => {
     const result = await directionService.route({
       origin: origin,
       destination: destination,
+      avoidHighways:true,
       travelMode: window.google.maps.TravelMode.DRIVING,
     });
 

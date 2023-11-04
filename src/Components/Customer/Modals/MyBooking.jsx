@@ -7,7 +7,12 @@ import React, {
 } from "react";
 import { Modal, Button, Rating, Textarea, Label } from "flowbite-react";
 import { MdWhatsapp } from "react-icons/md";
-import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  MarkerF,
+  useJsApiLoader,
+  DirectionsRenderer,
+} from "@react-google-maps/api";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -24,6 +29,12 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
   const [addresses, setAddresses] = useState({});
   const [active, setActive] = useState(0); // 0 - details | 1 - feedback | 2 - payment | 3 - track
   const [ratings, setRatings] = useState(1);
+  const [directions, setDirections] = useState(null);
+  const [distance, setDistance] = useState("");
+  const [routeDetails, setRouteDetails] = useState({});
+  const [driverRoute, setDriverRoute] = useState(null);
+  const [driverCurrent, setDriverCurrent] = useState(null);
+  const [center, setCenter] = useState();
   const feedbackRef = useRef();
 
   // load map api
@@ -44,6 +55,11 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
 
   // create geocoder object
   const geocoder = useMemo(() => new window.google.maps.Geocoder(), []);
+  // create direction service object
+  const directionService = useMemo(
+    () => new window.google.maps.DirectionsService(),
+    []
+  );
 
   // convert address from lat and long
   const getAddresFromLatLng = useCallback(
@@ -68,11 +84,121 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
     [geocoder]
   );
 
+  // canclutate customer to destination route
+  const calculateRoute = useCallback(
+    async (origin, destination) => {
+      const result = await directionService.route({
+        origin: origin,
+        destination: destination,
+        avoidHighways: true,
+        travelMode: window.google.maps.TravelMode.DRIVING,
+      });
+
+      setDirections(result);
+      setDistance(result.routes[0].legs[0].distance.text);
+      const start_ = result.routes[0].legs[0].start_location
+        .toUrlValue()
+        .split(",");
+      const end_ = result.routes[0].legs[0].end_location
+        .toUrlValue()
+        .split(",");
+      setRouteDetails({
+        start: {
+          lat: parseFloat(start_[0]),
+          lng: parseFloat(start_[1]),
+        },
+        end: {
+          lat: parseFloat(end_[0]),
+          lng: parseFloat(end_[1]),
+        },
+      });
+    },
+    [directionService]
+  );
+
+  // canclutate driver to customer route
+  const driverPathChanger = useCallback(
+    async (destination) => {
+      const formData = new FormData();
+      formData.append("vehicle", details.Vehicle_Id);
+      await axios
+        .post("/get_vehicle_current_location", formData)
+        .then(async (response) => {
+          if (response?.data?.length !== 0 && response?.data !== 500) {
+            const origin = {
+              lat: parseFloat(response.data.Current_Lat),
+              lng: parseFloat(response.data.Current_Long),
+            };
+            setCenter(origin);
+            const result = await directionService.route({
+              origin: origin,
+              destination: destination,
+              avoidHighways: true,
+              travelMode: window.google.maps.TravelMode.DRIVING,
+            });
+
+            setDriverRoute(result);
+            const start_ = result.routes[0].legs[0].start_location
+              .toUrlValue()
+              .split(",");
+            setDriverCurrent({
+              lat: parseFloat(start_[0]),
+              lng: parseFloat(start_[1]),
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    [directionService, details.Vehicle_Id]
+  );
+
+  // convert string to alt and long object
+  const stringToLatLng = (text) => {
+    return {
+      lat: parseFloat(text?.split(",")[0]),
+      lng: parseFloat(text?.split(",")[1]),
+    };
+  };
+
   useEffect(() => {
     // origin and destination address set
+    setCenter({
+      lat: parseFloat(details.Current_Lat),
+      lng: parseFloat(details.Current_Long),
+    });
     getAddresFromLatLng(details.Origin_Place);
     getAddresFromLatLng(details.Destination_Place);
-  }, [details.Origin_Place, details.Destination_Place, getAddresFromLatLng]);
+  }, [
+    details.Origin_Place,
+    details.Destination_Place,
+    getAddresFromLatLng,
+    setCenter,
+    details.Current_Lat,
+    details.Current_Long,
+  ]);
+
+  // calculate route details
+  useEffect(() => {
+    console.log(details);
+    if (active === 3)
+      calculateRoute(
+        stringToLatLng(details.Origin_Place),
+        stringToLatLng(details.Destination_Place)
+      );
+  }, [calculateRoute, addresses, active, details]);
+
+  // get driver and vehicle current location in book now
+  useEffect(() => {
+    let interval;
+    if (active === 3) {
+      interval = setInterval(() => {
+        driverPathChanger(stringToLatLng(details.Origin_Place));
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [active, driverPathChanger, details.Origin_Place]);
 
   // send feedback to database
   const addFeedback = () => {
@@ -143,6 +269,76 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
       </div>
     );
 
+  // map
+  const mapBody = () => {
+    return (
+      <Modal.Body>
+        <div className="h-[50vh] w-full">
+          <GoogleMap
+            center={center}
+            zoom={15}
+            mapContainerClassName="w-full h-full"
+            options={{
+              fullscreenControl: false,
+              mapTypeControl: false,
+              streetViewControl: false,
+            }}
+          >
+            {directions && (
+              <>
+                <MarkerF
+                  position={routeDetails.start}
+                  label={{ text: "O", color: "white" }}
+                />
+                <MarkerF
+                  position={routeDetails.end}
+                  label={{ text: "D", color: "white" }}
+                />
+                {driverCurrent && (
+                  <MarkerF
+                    position={driverCurrent}
+                    label={{ text: "V", color: "white" }}
+                  />
+                )}
+              </>
+            )}
+            {directions && (
+              <DirectionsRenderer
+                directions={directions}
+                options={{
+                  preserveViewport: true,
+                  markerOptions: {
+                    visible: false,
+                  },
+                }}
+              />
+            )}
+
+            {driverRoute && (
+              <DirectionsRenderer
+                directions={driverRoute}
+                options={{
+                  preserveViewport: true,
+                  markerOptions: {
+                    visible: false,
+                  },
+                }}
+              />
+            )}
+          </GoogleMap>
+        </div>
+        {directions && (
+          <div className="mt-2 flex flex-col justify-center gap-10 text-lg sm:flex-row">
+            <p className="font-Poppins font-medium">Distance : {distance}</p>
+            <p className="font-Poppins font-medium">
+              Cost : Rs. {distance.split(" ")[0] * details?.Price}
+            </p>
+          </div>
+        )}
+      </Modal.Body>
+    );
+  };
+
   return (
     <Modal
       show={isOpenModal}
@@ -162,14 +358,18 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
       {active === 0 && detailsBody(details, addresses)}
       {/* feedback body */}
       {active === 1 && feedbackBody(ratings, setRatings, feedbackRef)}
+      {/* map body */}
+      {active === 3 && mapBody()}
       <Modal.Footer className="flex justify-end">
         {/* track and pay buttons */}
-        {details?.Booking_Status === "approved" &&
+        {details?.Booking_Status === "driving" &&
           details?.Booking_Type === "book-now" && (
             <>
               <Button
                 className="h-10 w-full rounded-md bg-green-500 dark:bg-emerald-600"
-                //   onClick={() => {}}
+                onClick={() => {
+                  setActive(3);
+                }}
               >
                 Track Driver
               </Button>
@@ -177,7 +377,7 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
                 className="h-10 w-full rounded-md bg-green-500 dark:bg-emerald-600"
                 //   onClick={() => {}}
               >
-                Pay
+                Pay online
               </Button>
             </>
           )}
