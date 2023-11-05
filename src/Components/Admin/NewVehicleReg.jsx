@@ -1,38 +1,54 @@
 import React, { lazy, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "flowbite-react";
+import Swal from "sweetalert2";
+import ErrorData from "../../Data/ErrorData";
+import withReactContent from "sweetalert2-react-content";
 const NewVehicle = lazy(() => import("./Modals/NewVehicle"));
 const Paginations = lazy(() => import("../Common/Paginations"));
 
-const formData = new FormData();
-formData.append("vehicle_status", "new");
+// create sweet alert object
+const Alert = withReactContent(Swal);
 
 const NewVehicleReg = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [vehicleDetails, setVehicleDetails] = useState(null);
+
+  // custom allert function with sweet alert 2
+  const setAlert = (icon, title, desc) => {
+    return Alert.fire({
+      icon: icon,
+      title: title,
+      text: desc,
+    });
+  };
 
   // load data function
   const fetch = useCallback(() => {
     setTableData(null);
+    const formData = new FormData();
+    formData.append("vehicle_status", "new");
+    formData.append("offset", 15 * (currentPage - 1));
     axios
       .post("/load_new_reg", formData)
       .then((response) => {
-        if (response.data.length !== 0) {
+        if (response?.data?.length !== 0 && response?.data !== 500) {
           setTableData(response.data);
-          setPagesCount(Math.ceil(response.data.length / 10));
+          setPagesCount(Math.ceil(response?.data[0]?.total_rows / 15));
         }
       })
       .catch((error) => {
-        console.log(error);
+        setAlert("error", "Error occured", ErrorData["500"]);
       });
-  }, []);
+  }, [currentPage]);
 
   // load data function run in component mount
   useEffect(() => {
     if (!isOpenModal) fetch();
-  }, [fetch, isOpenModal]);
+  }, [fetch, isOpenModal, currentPage]);
 
   return (
     <React.Fragment>
@@ -109,7 +125,11 @@ const NewVehicleReg = () => {
             </div>
           );
         })}
-      <Paginations totpages={pagesCount} />
+      <Paginations
+        totpages={pagesCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </React.Fragment>
   );
 };

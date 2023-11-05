@@ -47,53 +47,6 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
     );
   };
 
-  // change account status
-  const changeAccountStatus = (status) => {
-    const formData = new FormData();
-    formData.append("status", status);
-    formData.append("email", details.Email);
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Account status change affect to all user actions of this user",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, change it!",
-      cancelButtonText: "No, cancel!",
-      reverseButtons: true,
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await axios
-          .post("/disable_user", formData)
-          .then((response) => {
-            if (response.status === 200 && response.data === 200)
-              setAlert(
-                "success",
-                "Successfully changed",
-                "Successfully change the account status."
-              );
-            else {
-              setAlert(
-                "error",
-                "Changes failed",
-                "Account status change failed.try again."
-              );
-            }
-            setIsOpenModal(false);
-          })
-          .catch((error) => {
-            setAlert(
-              "error",
-              "Changes failed",
-              "Account status change failed.try again."
-            );
-            setIsOpenModal(false);
-          });
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        setAlert("error", "Cancelled", "Account status didn't change.");
-      }
-    });
-  };
-
   // submit edits
   const onHandleSubmitEdits = (e) => {
     const formData = new FormData(e);
@@ -122,7 +75,6 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
           .post("/update_vehicle", formData)
           .then((response) => {
             if (response.status === 200) {
-              console.log(response.data);
               if (response.data === 200) {
                 setAlert(
                   "success",
@@ -280,6 +232,12 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
                       </option>
                     );
                   })}
+
+                {details?.Driver_Id && (
+                  <option value={details?.Driver_Id}>
+                    {details?.Driver_firstname} {details?.Driver_lastname}
+                  </option>
+                )}
                 {details?.Booking_Type === "rent-out" && (
                   <option value={-99}>Without driver</option>
                 )}
@@ -368,12 +326,12 @@ const ManageVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
       </Modal.Body>
       <Modal.Footer className="flex justify-end">
         <Button
-          className={"h-9 rounded-md bg-red-500 dark:bg-red-500"}
+          className={"h-9 rounded-md bg-gray-500 dark:bg-gray-500"}
           onClick={() => {
-            changeAccountStatus("delete");
+            setIsOpenModal(false);
           }}
         >
-          Delete Vehicle
+          Close
         </Button>
         <Button
           className={"h-9 rounded-md bg-green-500 dark:bg-emerald-600"}

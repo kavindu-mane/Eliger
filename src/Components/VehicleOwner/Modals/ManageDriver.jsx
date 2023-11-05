@@ -1,69 +1,7 @@
 import React from "react";
 import { Modal, Button } from "flowbite-react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-
-// create sweet alert object
-const Alert = withReactContent(Swal);
 
 const ManageDriver = ({ isOpenModal, setIsOpenModal, details }) => {
-  // custom alert function with sweet alert 2
-  const setAlert = (icon, title, desc) => {
-    return Alert.fire({
-      icon: icon,
-      title: title,
-      text: desc,
-    });
-  };
-
-  // change account status
-  const changeAccountStatus = (status) => {
-    const formData = new FormData();
-    formData.append("status", status);
-    formData.append("email", details.Email);
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Account status change affect to all user actions of this user",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, change it!",
-      cancelButtonText: "No, cancel!",
-      reverseButtons: true,
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await axios
-          .post("/disable_user", formData)
-          .then((response) => {
-            if (response.status === 200 && response.data === 200)
-              setAlert(
-                "success",
-                "Successfully Removed",
-                "Successfully change the Account Status."
-              );
-            else {
-              setAlert(
-                "error",
-                "Changes Failed",
-                "Account Status change Failed.Try Again."
-              );
-            }
-            setIsOpenModal(false);
-          })
-          .catch((error) => {
-            setAlert(
-              "error",
-              "Changes Failed",
-              "Account Status change Failed.Try Again."
-            );
-            setIsOpenModal(false);
-          });
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        setAlert("error", "Cancelled", "Account status didn't change.");
-      }
-    });
-  };
-
   return (
     <Modal
       show={isOpenModal}
@@ -112,18 +50,12 @@ const ManageDriver = ({ isOpenModal, setIsOpenModal, details }) => {
       </Modal.Body>
       <Modal.Footer className="flex justify-end">
         <Button
-          className={`h-9 rounded-md ${
-            details?.Account_Status !== "disabled"
-              ? "bg-red-500 dark:bg-red-400"
-              : "bg-green-500 dark:bg-emerald-600"
-          }`}
+          className={"h-9 rounded-md bg-gray-500 dark:bg-gray-400"}
           onClick={() => {
-            changeAccountStatus(
-              details?.Account_Status === "disabled" ? "verified" : "disabled"
-            );
+            setIsOpenModal(false);
           }}
         >
-          {details?.Account_Status === "disabled" ? "Activate" : "Disabled"}
+          Close
         </Button>
       </Modal.Footer>
     </Modal>
