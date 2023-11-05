@@ -1,11 +1,11 @@
 const ErrorData = {
   0: "First name is empty",
   1: "Last name is empty",
-  2: "Phone number is empty",
+  2: "WhatsApp number is empty",
   3: "Email is empty",
   4: "Password is empty",
   5: "Confirm password is empty",
-  6: "Phone numbers is invalid",
+  6: "WhatsApp numbers is invalid",
   7: "Email is invalid",
   8: "Password must contain between 8-32 characters",
   9: "Password and confirm password is mismatched",

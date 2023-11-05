@@ -146,7 +146,7 @@ const CreateDriverAccount = ({owner}) => {
         <div>
           <Label
             htmlFor="phone"
-            value="Contact No"
+            value="WhatsApp No"
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
           <TextInput

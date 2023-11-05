@@ -67,9 +67,6 @@ const PaymentDetails = () => {
         <div className="w-full text-center">
           <span className="">Owner Share</span>
         </div>
-        <div className="w-full text-center">
-          <span className="">Description</span>
-        </div>
       </div>
       {tableData === null && (
         <p className="mt-4 w-full text-center text-sm font-medium italic">
@@ -102,10 +99,6 @@ const PaymentDetails = () => {
               <p className="flex w-full truncate bg-slate-100 px-4 py-3 capitalize group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
                 <span className="block md:hidden">Owner Share :&ensp;</span>
                 {data?.owner_share}
-              </p>
-              <p className="flex w-full truncate px-4 py-3 capitalize">
-                <span className="block md:hidden">Description :&ensp;</span>
-                {data?.Description}
               </p>
             </div>
           );

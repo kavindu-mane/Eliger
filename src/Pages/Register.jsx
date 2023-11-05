@@ -256,7 +256,7 @@ const Register = ({ type = "customer" }) => {
                 <div>
                   <Label
                     htmlFor="phone"
-                    value="Phone No"
+                    value="WhatsApp No"
                     className="after:ml-0.5 after:text-red-500 after:content-['*']"
                   />
 

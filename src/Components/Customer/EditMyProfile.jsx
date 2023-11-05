@@ -19,6 +19,8 @@ const EditMyProfile = ({ currentData }) => {
   const [isCurrentPassword, setIsCurrentPassword] = useState(true);
   const [isConfPassword, setIsConfPassword] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
+  const [isEmailPassword, setIsEmailPassword] = useState(true);
+  const [currentExec, setCurrentExec] = useState(null);
   const [errorCode, setErrorCode] = useState(null);
   const [isBasicBtnDisabled, setIsBasicBtnDisabled] = useState(true);
   const [isEmailBtnDisabled, setIsEmailBtnDisabled] = useState(true);
@@ -90,6 +92,7 @@ const EditMyProfile = ({ currentData }) => {
     // get data from form fields as FormData object
     const formData = new FormData(e.target);
     formData.append(val, val);
+    setCurrentExec(val);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -106,6 +109,7 @@ const EditMyProfile = ({ currentData }) => {
           .then((response) => {
             setIsLoading(false);
             responseAction(response);
+            if (response.data === 200) navigate("/login");
           })
           .catch((error) => {
             setIsLoading(false);
@@ -184,7 +188,7 @@ const EditMyProfile = ({ currentData }) => {
         <div>
           <Label
             htmlFor="phone"
-            value="Phone No"
+            value="WhatsApp No"
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
 
@@ -241,6 +245,31 @@ const EditMyProfile = ({ currentData }) => {
           {/* error text */}
           {[3, 7, 10].includes(errorCode) && errorContainer(errorCode)}
         </div>
+        {/* password */}
+        <div className="relative">
+          <Label
+            htmlFor="passwordForEmail"
+            value="Password"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
+
+          <TextInput
+            id="passwordForEmail"
+            name="password"
+            required
+            type={isEmailPassword ? "password" : "text"}
+            placeholder="********"
+            className="inputs"
+          />
+          <PasswordSwitcher
+            isPassword={isEmailPassword}
+            setIsPassword={setIsEmailPassword}
+          />
+          {/* error text */}
+          {[4, 18].includes(errorCode) &&
+            currentExec === "update_email" &&
+            errorContainer(errorCode)}
+        </div>
         {/* submit */}
         <button
           type="submit"
@@ -283,7 +312,9 @@ const EditMyProfile = ({ currentData }) => {
             setIsPassword={setIsCurrentPassword}
           />
           {/* error text */}
-          {[4, 18].includes(errorCode) && errorContainer(errorCode)}
+          {[4, 18].includes(errorCode) &&
+            currentExec === "update_password" &&
+            errorContainer(errorCode)}
         </div>
         {/* New password */}
         <div className="relative">
