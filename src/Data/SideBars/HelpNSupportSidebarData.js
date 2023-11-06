@@ -1,5 +1,4 @@
 import {
-  MdRateReview,
   MdCarRental,
   MdViewSidebar,
   MdCardMembership,
@@ -34,26 +33,26 @@ const topics = [
       {
         topic: "Vehicle Owners",
         icon: <GiCarKey />,
-        compId: 5,
+        compId: 2,
       },
       {
         topic: "Customers",
         icon: <ImUsers />,
-        compId: 6,
+        compId: 3,
       },
       {
         topic: "Drivers",
         icon: <GiCarSeat />,
-        compId: 7,
+        compId: 4,
       },
     ],
   },
   {
-    topic: "Manage Feedback",
+    topic: "View Feedback",
     enable: true,
     icon: <VscFeedback className="h-5 w-5" />,
     haveSub: false,
-    compId: 2,
+    compId: 5,
   },
 
   {
@@ -61,14 +60,7 @@ const topics = [
     enable: true,
     icon: <MdViewSidebar className="h-5 w-5" />,
     haveSub: false,
-    compId: 3,
-  },
-  {
-    topic: "Review Reports",
-    enable: true,
-    icon: <MdRateReview className="h-5 w-5" />,
-    haveSub: false,
-    compId: 4,
+    compId: 6,
   },
 ];
 

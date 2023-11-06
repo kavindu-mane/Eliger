@@ -1,38 +1,54 @@
 import React, { lazy, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "flowbite-react";
+import Swal from "sweetalert2";
+import ErrorData from "../../Data/ErrorData";
+import withReactContent from "sweetalert2-react-content";
 const PendingDriver = lazy(() => import("./Modals/PendingVehicle"));
 const Paginations = lazy(() => import("../Common/Paginations"));
 
-const formData = new FormData();
-formData.append("vehicle_status", "pending");
+// create sweet alert object
+const Alert = withReactContent(Swal);
 
 const PendingVehicleReg = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [vehicleDetails, setVehicleDetails] = useState(null);
+
+  // custom allert function with sweet alert 2
+  const setAlert = (icon, title, desc) => {
+    return Alert.fire({
+      icon: icon,
+      title: title,
+      text: desc,
+    });
+  };
 
   // session management function
   const fetch = useCallback(() => {
     setTableData(null);
+    const formData = new FormData();
+    formData.append("vehicle_status", "pending");
+    formData.append("offset", 15 * (currentPage - 1));
     axios
       .post("/load_new_reg", formData)
       .then((response) => {
-        if (response.data.length !== 0) {
+        if (response?.data?.length !== 0 && response?.data !== 500) {
           setTableData(response.data);
-          setPagesCount(Math.ceil(response.data.length / 10));
+          setPagesCount(Math.ceil(response?.data[0]?.total_rows / 15));
         }
       })
       .catch((error) => {
-        console.log(error);
+        setAlert("error", "Error occured", ErrorData["500"]);
       });
-  }, []);
+  }, [currentPage]);
 
   // session function run in component mount
   useEffect(() => {
     if (!isOpenModal) fetch();
-  }, [fetch, isOpenModal]);
+  }, [fetch, isOpenModal, currentPage]);
 
   return (
     <React.Fragment>
@@ -54,10 +70,10 @@ const PendingVehicleReg = () => {
           <span className="">Vehicle Type</span>
         </div>
         <div className="w-full text-center">
-          <span className="">Vehicle Plate_Number</span>
+          <span className="">Vehicle Plate Number</span>
         </div>
         <div className="w-full text-center">
-          <span className="">Passenger_Amount</span>
+          <span className="">Passenger Amount</span>
         </div>
         <div className="w-full text-center">
           <span className="">Option</span>
@@ -85,13 +101,13 @@ const PendingVehicleReg = () => {
               </p>
               <p className="flex w-full truncate bg-slate-100 px-4 py-3  group-hover:bg-gray-200 dark:bg-slate-900 group-hover:dark:bg-gray-800">
                 <span className="block md:hidden">
-                  Vehicle Plate_Number :&ensp;
+                  Vehicle Plate Number :&ensp;
                 </span>
                 {data.Vehicle_PlateNumber}
               </p>
               <p className="flex w-full truncate px-4 py-2 ">
                 <span className="block md:hidden">
-                  Passenger_Amount :&ensp;
+                  Passenger Amount :&ensp;
                 </span>
                 {data.Passenger_amount}
               </p>
@@ -109,7 +125,11 @@ const PendingVehicleReg = () => {
             </div>
           );
         })}
-      <Paginations totpages={pagesCount} />
+      <Paginations
+        totpages={pagesCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </React.Fragment>
   );
 };

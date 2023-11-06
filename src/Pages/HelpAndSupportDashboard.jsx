@@ -20,9 +20,6 @@ const ManageVehicle = lazy(() =>
 const ManageFeedback = lazy(() =>
   import("../Components/HelpNSupport/ManageFeedback")
 );
-const ReviewReports = lazy(() =>
-  import("../Components/HelpNSupport/ReviewReports")
-);
 const ViewUserMsg = lazy(() =>
   import("../Components/HelpNSupport/ViewUserMsg")
 );
@@ -43,12 +40,11 @@ const HelpAndSupportDashboard = () => {
   const optionComponents = {
     0: <ManageBooking />,
     1: <ManageVehicle />,
-    2: <ManageFeedback />,
-    3: <ViewUserMsg />,
-    4: <ReviewReports />,
-    5: <TableVehicleOwner />,
-    6: <TableCustomer />,
-    7: <TableDriver />,
+    2: <TableVehicleOwner />,
+    3: <TableCustomer />,
+    4: <TableDriver />,
+    5: <ManageFeedback />,
+    6: <ViewUserMsg />,
   };
 
   return (

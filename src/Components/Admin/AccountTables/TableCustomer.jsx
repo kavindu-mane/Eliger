@@ -1,43 +1,58 @@
 import React, { lazy, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Dropdown, Button } from "flowbite-react";
+import Swal from "sweetalert2";
+import ErrorData from "../../../Data/ErrorData";
+import withReactContent from "sweetalert2-react-content";
 const ManageCustomerAccount = lazy(() =>
   import("../Modals/Tables/ManageCustomerAccount")
 );
 const Paginations = lazy(() => import("../../Common/Paginations"));
 
-const formData = new FormData();
-formData.append("account_type", "customer");
+// create sweet alert object
+const Alert = withReactContent(Swal);
 
 const TableCustomer = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
   const [status, setStatus] = useState("verified");
+  const [currentPage, setCurrentPage] = useState(1);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [customerDetails, setCustomerDetails] = useState(null);
 
-  formData.append("status", status);
+  // custom allert function with sweet alert 2
+  const setAlert = (icon, title, desc) => {
+    return Alert.fire({
+      icon: icon,
+      title: title,
+      text: desc,
+    });
+  };
 
   // load data function
   const fetch = useCallback(async () => {
     setTableData(null);
+    const formData = new FormData();
+    formData.append("account_type", "customer");
+    formData.append("status", status);
+    formData.append("offset", 15 * (currentPage - 1));
     await axios
       .post("/load_accounts", formData)
       .then((response) => {
-        if (response.data.length !== 0) {
+        if (response?.data?.length !== 0 && response?.data !== 500) {
           setTableData(response.data);
-          setPagesCount(Math.ceil(response.data.length / 10));
+          setPagesCount(Math.ceil(response?.data[0]?.total_rows / 15));
         }
       })
       .catch((error) => {
-        console.log(error);
+        setAlert("error", "Error occured", ErrorData["500"]);
       });
-  }, []);
+  }, [currentPage,status]);
 
   // load data function run in component mount
   useEffect(() => {
     if (!isOpenModal) fetch();
-  }, [fetch, status, isOpenModal]);
+  }, [fetch, status, isOpenModal, currentPage]);
 
   return (
     <React.Fragment>
@@ -121,7 +136,11 @@ const TableCustomer = () => {
             </div>
           );
         })}
-      <Paginations totpages={pagesCount} />
+      <Paginations
+        totpages={pagesCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </React.Fragment>
   );
 };
