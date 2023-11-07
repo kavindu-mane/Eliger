@@ -98,7 +98,7 @@ const CreateHelpAccount = () => {
         </div>
         <div className="flex flex-col space-y-3 font-Poppins lg:flex-row lg:space-x-2 lg:space-y-0">
           <div className="relative w-full">
-            <Label htmlFor="password" value="Initial password" />
+            <Label htmlFor="password" value="Password" />
             <TextInput
               id="password"
               name="initial_password"
@@ -114,7 +114,7 @@ const CreateHelpAccount = () => {
             {errorCode === 8 && errorContainer(errorCode)}
           </div>
           <div className="relative w-full">
-            <Label htmlFor="Repassword" value="Confirm Initial password" />
+            <Label htmlFor="Repassword" value="Confirm Password" />
             <TextInput
               id="Repassword"
               name="confirm_initial_password"

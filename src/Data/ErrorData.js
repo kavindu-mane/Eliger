@@ -18,7 +18,7 @@ const ErrorData = {
   16: "Account not verified",
   17: "New password is empty",
   18: "Password is incorrect",
-  19: "",
+  19: "We can't find account for this email",
   20: "",
   21: "Licence file is not selected",
   22: "Licence file size grater than 2MB",
