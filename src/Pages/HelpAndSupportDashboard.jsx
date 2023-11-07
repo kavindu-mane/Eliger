@@ -20,9 +20,6 @@ const ManageVehicle = lazy(() =>
 const ManageFeedback = lazy(() =>
   import("../Components/HelpNSupport/ManageFeedback")
 );
-const ViewUserMsg = lazy(() =>
-  import("../Components/HelpNSupport/ViewUserMsg")
-);
 const TableCustomer = lazy(() =>
   import("../Components/Admin/AccountTables/TableCustomer")
 );
@@ -44,7 +41,6 @@ const HelpAndSupportDashboard = () => {
     3: <TableCustomer />,
     4: <TableDriver />,
     5: <ManageFeedback />,
-    6: <ViewUserMsg />,
   };
 
   return (
