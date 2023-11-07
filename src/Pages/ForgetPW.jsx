@@ -47,7 +47,7 @@ const ForgetPW = () => {
     setIsLoading(true);
     // send data using axios post function
     await axios
-      .post("/reset_password", formData)
+      .post("/send_reset_email", formData)
       .then((response) => {
         if (response.status === 200) {
           if (response?.data === 200)

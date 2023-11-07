@@ -12,6 +12,7 @@ const Search = lazy(() => import("../Pages/Search"));
 const Error = lazy(() => import("../Pages/Error"));
 const Verification = lazy(() => import("../Pages/Verification"));
 const Dashboard = lazy(() => import("../Pages/Dashboard"));
+const ResetPassword = lazy(() => import("../Pages/ResetPassword"));
 
 const LinkArray = {
   "/": <Home />,
@@ -28,6 +29,7 @@ const LinkArray = {
   "/search": <Search />,
   "/verification": <Verification />,
   "/dashboard": <Dashboard />,
+  "/reset_password": <ResetPassword />,
 };
 
 export default LinkArray;
