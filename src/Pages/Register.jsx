@@ -1,4 +1,4 @@
-import React, { lazy, useState, useEffect, useCallback } from "react";
+import React, { lazy, useState, useEffect, useCallback, useRef } from "react";
 import { Button, Label, TextInput, Radio } from "flowbite-react";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { MdOutlineError } from "react-icons/md";
@@ -7,6 +7,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ErrorData from "../Data/ErrorData";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from "react-router-dom";
 
 const Circles = lazy(() => import("../Components/Common/Circles"));
@@ -36,6 +37,7 @@ const Register = ({ type = "customer" }) => {
   const [email, setEmail] = useState("");
   const [haveSession, setHaveSession] = useState(false);
   const navigate = useNavigate();
+  const recaptchaRef = useRef();
 
   // session management function
   const session = useCallback(() => {
@@ -65,13 +67,16 @@ const Register = ({ type = "customer" }) => {
   };
 
   // submit registration form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // clear previous errors
     setErrorCode(null);
     // remove default form submission
     e.preventDefault();
     // get data from form fields as FormData object
     const formData = new FormData(e.target);
+    const token = await recaptchaRef.current.executeAsync();
+    recaptchaRef.current.reset();
+    formData.append("captcha", token);
     // change loading state to true
     setIsLoading(true);
     // send data using axios post function
@@ -263,7 +268,7 @@ const Register = ({ type = "customer" }) => {
                   <TextInput
                     id="phone"
                     name="phone"
-                    placeholder="+94xxxxxxxxx"
+                    placeholder="94xxxxxxxxx"
                     required
                     type="text"
                     className="inputs"
@@ -387,6 +392,13 @@ const Register = ({ type = "customer" }) => {
                     </a>
                   </div>
                 </div>
+
+                {/* recaptcha */}
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+                  size="invisible"
+                />
 
                 {/* agreement */}
                 <div className="mt-5 w-2/3 place-self-center text-center font-ABeeZee text-[0.65rem] font-semibold">

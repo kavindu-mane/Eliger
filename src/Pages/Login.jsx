@@ -1,4 +1,4 @@
-import React, { lazy, useState, useCallback, useEffect } from "react";
+import React, { lazy, useState, useCallback, useEffect, useRef } from "react";
 import axios from "axios";
 import { Button, Label, Checkbox, TextInput } from "flowbite-react";
 import { MdOutlineError } from "react-icons/md";
@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ErrorData from "../Data/ErrorData";
 import { useNavigate } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Circles = lazy(() => import("../Components/Common/Circles"));
 const HeaderSecondary = lazy(() =>
@@ -32,6 +33,7 @@ const Login = () => {
   const [haveSession, setHaveSession] = useState(false);
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const recaptchaRef = useRef();
 
   // session management function
   const session = useCallback(() => {
@@ -61,17 +63,20 @@ const Login = () => {
   };
 
   // submit registration form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // clear previous errors
     setErrorCode(null);
     // remove default form submission
     e.preventDefault();
     // get data from form fields as FormData object
     const formData = new FormData(e.target);
+    const token = await recaptchaRef.current.executeAsync();
+    recaptchaRef.current.reset();
+    formData.append("captcha", token);
     // change loading state to true
     setIsLoading(true);
     // send data using axios post function
-    axios
+    await axios
       .post("/login", formData)
       .then((response) => {
         if (response.status === 200) {
@@ -224,7 +229,11 @@ const Login = () => {
               <div className="flex max-w-lg justify-between gap-4">
                 <div className="flex items-center gap-2">
                   {/*checkbox*/}
-                  <Checkbox id="remember" name="remember" className="ring-1 ring-gray-400 dark:ring-gray-700" />
+                  <Checkbox
+                    id="remember"
+                    name="remember"
+                    className="ring-1 ring-gray-400 dark:ring-gray-700"
+                  />
                   <Label
                     className="flex font-normal text-slate-900 dark:text-gray-200"
                     htmlFor="remember"
@@ -249,6 +258,13 @@ const Login = () => {
               >
                 Login
               </Button>
+
+              {/* recaptcha */}
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+                size="invisible"
+              />
 
               {/* sign up */}
               <div className="text-center text-sm font-semibold">

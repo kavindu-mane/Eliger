@@ -152,7 +152,7 @@ const CreateDriverAccount = ({owner}) => {
           <TextInput
             id="phone"
             required
-            defaultValue={"94xxxxxxxxx"}
+            placeholder="94xxxxxxxxx"
             type="text"
             name="phone"
             className="inputs"

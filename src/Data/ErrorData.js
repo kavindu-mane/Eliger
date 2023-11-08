@@ -19,7 +19,7 @@ const ErrorData = {
   17: "New password is empty",
   18: "Password is incorrect",
   19: "We can't find account for this email",
-  20: "",
+  20: "OTP is incorrect",
   21: "Licence file is not selected",
   22: "Licence file size grater than 2MB",
   23: "Licence file type not accepted",
@@ -48,6 +48,7 @@ const ErrorData = {
   46: "Rent out location not added",
   47: "Incorrect start and end dates",
   48: "Please login with customer account.",
+  49: "Robot verification failed, please try again.",
   200: "Success", // default success code in http protocol
   500: "Somthing went wrong.please try again.", // default server error code in http protocol
 };

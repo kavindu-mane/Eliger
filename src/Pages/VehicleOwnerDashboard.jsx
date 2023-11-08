@@ -67,10 +67,10 @@ const VehicleOwnerDashboard = () => {
     1: <ViewRentOutBooking />,
     2: <ViewMyVehicles />,
     3: <ViewMyDrivers />,
-    4: <AddVehicle owner={loadedData?.Owner_Id} />,
-    5: <CreateDriverAccount owner={loadedData?.Owner_Id} />,
-    6: <EditAccount currentData={loadedData} urlPath={"/update_owner"} />,
-    7: <ViewPayments />,
+    4: <ViewPayments />,
+    5: <AddVehicle owner={loadedData?.Owner_Id} />,
+    6: <CreateDriverAccount owner={loadedData?.Owner_Id} />,
+    7: <EditAccount currentData={loadedData} urlPath={"/update_owner"} />,
     8: <VehicleOwnerGraph />,
   };
 

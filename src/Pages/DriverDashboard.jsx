@@ -49,8 +49,8 @@ const DriverDashboard = () => {
 
   const optionComponents = {
     0: <BookiengRequest loadedData={loadedData} />,
-    1: <EditAccount currentData={loadedData} urlPath={"/update_driver"} />,
-    2: <PaymentDetails />,
+    1: <PaymentDetails />,
+    2: <EditAccount currentData={loadedData} urlPath={"/update_driver"} />,
     3: <DriverGraph />,
   };
 

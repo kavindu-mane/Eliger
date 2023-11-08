@@ -25,6 +25,9 @@ const ViewMyBookings = lazy(() =>
 const ViewOldPayments = lazy(() =>
   import("../Components/Customer/ViewOldPayments")
 );
+const DeleteMyProfile = lazy(() =>
+  import("../Components/Customer/DeleteMyProfile")
+);
 // google map libraries
 const libs = ["places"];
 
@@ -55,9 +58,10 @@ const CustomerDashboard = () => {
 
   const optionComponents = {
     0: <FindVehicles isEmbed={true} />,
-    1: <EditMyProfile currentData={loadedData} />,
-    2: <ViewMyBookings />,
-    3: <ViewOldPayments />,
+    1: <ViewMyBookings />,
+    2: <ViewOldPayments />,
+    3: <EditMyProfile currentData={loadedData} />,
+    4: <DeleteMyProfile currentData={loadedData} />,
   };
 
   // load map api

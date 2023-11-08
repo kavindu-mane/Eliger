@@ -137,13 +137,13 @@ const OwnerHome = () => {
                 <Card className="mx-2 w-1/2 border-0 bg-red-500 shadow-lg drop-shadow-xl dark:bg-red-500">
                   <p className="font-medium">Current Charges</p>
                   <p className="text-lg font-semibold sm:text-xl md:text-2xl">
-                    Rs. {homeDetails?.Charges}
+                    Rs. {homeDetails?.Charges ?? 0}
                   </p>
                 </Card>
                 <Card className="mx-2 w-1/2 border-0 bg-emerald-500 shadow-lg drop-shadow-xl dark:bg-emerald-500">
                   <p className="font-medium">Current Balance</p>
                   <p className="text-lg font-semibold sm:text-xl md:text-2xl">
-                    Rs. {homeDetails?.Income}
+                    Rs. {homeDetails?.Income ?? 0}
                   </p>
                 </Card>
               </div>
@@ -175,8 +175,8 @@ const OwnerHome = () => {
                   Total Income :{" "}
                   <span className="text-2xl md:text-3xl">
                     Rs.{" "}
-                    {parseFloat(homeDetails?.daily_offline_total) +
-                      parseFloat(homeDetails?.daily_online_total)}
+                    {parseFloat(homeDetails?.daily_offline_total ?? 0) +
+                      parseFloat(homeDetails?.daily_online_total ?? 0)}
                   </span>
                 </p>
               </Card>
@@ -185,13 +185,13 @@ const OwnerHome = () => {
               <Card className="mx-2 border-0 bg-emerald-500 shadow-lg drop-shadow-xl dark:bg-emerald-500">
                 <p className="font-medium">Online Payments</p>
                 <p className="text-lg font-semibold sm:text-xl md:text-2xl">
-                  Rs. {homeDetails?.daily_online_total}
+                  Rs. {homeDetails?.daily_online_total??0}
                 </p>
               </Card>
               <Card className="mx-2 border-0 bg-emerald-500 shadow-lg drop-shadow-xl dark:bg-emerald-500">
                 <p className="font-medium">Offline Payments</p>
                 <p className="text-lg font-semibold sm:text-xl md:text-2xl">
-                  Rs. {homeDetails?.daily_offline_total}
+                  Rs. {homeDetails?.daily_offline_total??0}
                 </p>
               </Card>
             </div>
@@ -203,8 +203,8 @@ const OwnerHome = () => {
                   Total Income :{" "}
                   <span className="text-2xl md:text-3xl">
                     Rs.{" "}
-                    {parseFloat(homeDetails?.monthly_offline_total) +
-                      parseFloat(homeDetails?.monthly_online_total)}
+                    {parseFloat(homeDetails?.monthly_offline_total??0) +
+                      parseFloat(homeDetails?.monthly_online_total??0)}
                   </span>
                 </p>
               </Card>
@@ -213,13 +213,13 @@ const OwnerHome = () => {
               <Card className="mx-2 border-0 bg-emerald-500 shadow-lg drop-shadow-xl dark:bg-emerald-500">
                 <p className="font-medium">Online Payments</p>
                 <p className="text-lg font-semibold sm:text-xl md:text-2xl">
-                  Rs. {homeDetails?.monthly_online_total}
+                  Rs. {homeDetails?.monthly_online_total??0}
                 </p>
               </Card>
               <Card className="mx-2 border-0 bg-emerald-500 shadow-lg drop-shadow-xl dark:bg-emerald-500">
                 <p className="font-medium">Offline Payments</p>
                 <p className="text-lg font-semibold sm:text-xl md:text-2xl">
-                  Rs. {homeDetails?.monthly_offline_total}
+                  Rs. {homeDetails?.monthly_offline_total??0}
                 </p>
               </Card>
             </div>
