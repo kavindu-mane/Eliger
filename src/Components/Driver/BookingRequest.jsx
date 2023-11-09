@@ -84,6 +84,13 @@ const BookiengRequest = ({ loadedData }) => {
       });
   }, []);
 
+  useEffect(() => {
+    bookNowtableData?.forEach((data) => {
+      getAddresFromLatLng(data?.Origin_Place);
+      getAddresFromLatLng(data?.Destination_Place);
+    });
+  }, [bookNowtableData, getAddresFromLatLng]);
+
   // load data function run in component mount
   useEffect(() => {
     if (loadedData?.Booking_Type === "book-now") loadBookNowBookings();
@@ -123,20 +130,24 @@ const BookiengRequest = ({ loadedData }) => {
       {/* announcement */}
       <div className="flex flex-col">
         {loadedData?.Vehicle_PlateNumber === null && (
-          <p className="mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
+          <p className="mx-3 mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
             No vehicle assign.
           </p>
         )}
         {loadedData?.Status !== "verified" && (
-          <p className="mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
+          <p className="mx-3 mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
             Licence not verified.
           </p>
         )}
         {loadedData?.Booking_Type === "book-now" && (
-          <p className="mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
+          <p className="mx-3 mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
             Use Android app to manage orders.
           </p>
         )}
+        {/* changers required */}
+        <p className="mx-3 mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
+          Bank details not submited.
+        </p>
       </div>
 
       {/* book now bookings */}
@@ -160,8 +171,6 @@ const BookiengRequest = ({ loadedData }) => {
           )}
           {bookNowtableData !== null &&
             bookNowtableData?.map((data, i) => {
-              getAddresFromLatLng(data?.Origin_Place);
-              getAddresFromLatLng(data?.Destination_Place);
               return (
                 <div
                   key={i}

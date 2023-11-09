@@ -1,4 +1,4 @@
-import React, { lazy, useState } from "react";
+import React, { lazy, useState, useRef } from "react";
 import { Label, TextInput } from "flowbite-react";
 import { MdOutlineError } from "react-icons/md";
 import ErrorData from "../../Data/ErrorData";
@@ -27,6 +27,8 @@ const EditMyProfile = ({ currentData }) => {
   const [isPasswordBtnDisabled, setIsPasswordBtnDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const phoneRef = useRef();
+  const otpRef = useRef();
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -121,6 +123,51 @@ const EditMyProfile = ({ currentData }) => {
     });
   };
 
+  // request OTP
+  const requestOTP = async () => {
+    // clear previous errors
+    setErrorCode(null);
+    // get data from form fields as FormData object
+    const formData = new FormData();
+    formData.append("phone", phoneRef.current.value);
+    // send data using axios post function
+    await axios
+      .post("request_phone_change", formData)
+      .then((response) => {
+        if (response.status === 200) {
+          if (response.data === 200) {
+            setAlert("success", "Send OTP", "Send OTP to your number");
+          } else if (response.data === 500)
+            setAlert("error", "Update failed", ErrorData[500]);
+          else if (response.data === 14) navigate("/login");
+          setErrorCode(response.data);
+        } else {
+          setAlert("error", "Update failed", ErrorData[500]);
+        }
+      })
+      .catch((error) => {
+        setAlert("error", "Update failed", ErrorData[500]);
+      });
+  };
+
+  // verify OTP
+  const verifyOTP = async () => {
+    // clear previous errors
+    setErrorCode(null);
+    // get data from form fields as FormData object
+    const formData = new FormData();
+    formData.append("otp", otpRef.current.value);
+    // send data using axios post function
+    await axios
+      .post("verify_phone_change", formData)
+      .then((response) => {
+        responseAction(response);
+      })
+      .catch((error) => {
+        setAlert("error", "Update failed", ErrorData[500]);
+      });
+  };
+
   return (
     <div className="flex w-full max-w-2xl flex-col justify-center">
       {/* loading */}
@@ -180,26 +227,6 @@ const EditMyProfile = ({ currentData }) => {
             {errorCode === 1 && errorContainer(errorCode)}
           </div>
         </div>
-        {/* phone */}
-        <div>
-          <Label
-            htmlFor="phone"
-            value="WhatsApp No"
-            className="after:ml-0.5 after:text-red-500 after:content-['*']"
-          />
-
-          <TextInput
-            id="phone"
-            name="phone"
-            placeholder="+94xxxxxxxxx"
-            required
-            type="text"
-            className="inputs"
-            defaultValue={currentData?.Customer_Tel}
-          />
-          {/* error text */}
-          {[2, 6].includes(errorCode) && errorContainer(errorCode)}
-        </div>
         {/* submit */}
         <button
           type="submit"
@@ -211,6 +238,75 @@ const EditMyProfile = ({ currentData }) => {
           Update
         </button>
       </form>
+
+      {/* whatsapp number */}
+      <h2 className="mb-1 mt-4 font-Poppins text-lg font-medium">
+        Change WhatsApp Number
+      </h2>
+      {/* WA number */}
+      <div className="mb-2 flex flex-col justify-between sm:flex-row">
+        {/* phone */}
+        <div className="mb-4 w-full sm:mb-0 sm:me-3">
+          <Label
+            htmlFor="phone"
+            value="WhatsApp No"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
+
+          <TextInput
+            id="phone"
+            name="phone"
+            placeholder="94xxxxxxxxx"
+            required
+            type="text"
+            className="inputs"
+            ref={phoneRef}
+            defaultValue={currentData?.Owner_Tel || currentData?.Driver_Tel}
+          />
+          {/* error text */}
+          {[2, 6].includes(errorCode) && errorContainer(errorCode)}
+        </div>
+        <button
+          onClick={() => {
+            requestOTP();
+          }}
+          className="mt-2 h-10 w-48 place-self-end rounded-md bg-green-400 px-3 py-2 font-Poppins text-xs font-semibold text-white duration-300 ease-in hover:bg-sky-600 dark:bg-emerald-500 dark:hover:bg-sky-600"
+        >
+          Request OTP
+        </button>
+      </div>
+      {/* OTP */}
+      <div className="flex flex-col justify-between sm:flex-row">
+        {/* otp input */}
+        <div className="mb-4 w-full sm:mb-0 sm:me-3">
+          <Label
+            htmlFor="otp"
+            value="OTP"
+            className="after:ml-0.5 after:text-red-500 after:content-['*']"
+          />
+
+          <TextInput
+            id="otp"
+            name="otp"
+            placeholder="123456"
+            required
+            type="text"
+            className="inputs"
+            ref={otpRef}
+            style={{ letterSpacing: 30, textAlign: "center" }}
+          />
+          {/* error text */}
+          {errorCode === 20 && errorContainer(errorCode)}
+        </div>
+        <button
+          onClick={() => {
+            verifyOTP();
+          }}
+          className="mt-2 h-10 w-48 place-self-end rounded-md bg-green-400 px-3 py-2 font-Poppins text-xs font-semibold text-white duration-300 ease-in hover:bg-sky-600 dark:bg-emerald-500 dark:hover:bg-sky-600"
+        >
+          Change Number
+        </button>
+      </div>
 
       {/* change email */}
       <h2 className="mb-1 mt-10 font-Poppins text-lg font-medium">

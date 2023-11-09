@@ -1,11 +1,11 @@
-import { MdCarRental, MdCardMembership, MdDeleteForever } from "react-icons/md";
-import { VscFeedback } from "react-icons/vsc";
+import { MdCarRental, MdDeleteForever, MdPayment } from "react-icons/md";
+import { BiEdit, BiSolidFileFind } from "react-icons/bi";
 
 const topics = [
   {
     topic: "Find Vehicles",
     enable: true,
-    icon: <MdCarRental className="h-5 w-5" />,
+    icon: <BiSolidFileFind className="h-5 w-5" />,
     haveSub: false,
     compId: 0,
   },
@@ -19,14 +19,14 @@ const topics = [
   {
     topic: "View my payments",
     enable: true,
-    icon: <VscFeedback className="h-5 w-5" />,
+    icon: <MdPayment className="h-5 w-5" />,
     haveSub: false,
     compId: 2,
   },
   {
     topic: "Edit my profile",
     enable: true,
-    icon: <MdCardMembership className="h-5 w-5" />,
+    icon: <BiEdit className="h-5 w-5" />,
     haveSub: false,
     compId: 3,
   },

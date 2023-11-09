@@ -48,7 +48,15 @@ const ErrorData = {
   46: "Rent out location not added",
   47: "Incorrect start and end dates",
   48: "Please login with customer account.",
-  49: "Robot verification failed, please try again.",
+  49: "Robot verification failed, please try again",
+  50: "Beneficiary name is empty",
+  51: "Bank is invalied",
+  52: "Branch is invalied",
+  53: "Account number is empty",
+  54: "Statement file is not selected",
+  55: "Statement file size grater than 2MB",
+  56: "Statement file type not accepted",
+  57: "Statement file upload error",
   200: "Success", // default success code in http protocol
   500: "Somthing went wrong.please try again.", // default server error code in http protocol
 };

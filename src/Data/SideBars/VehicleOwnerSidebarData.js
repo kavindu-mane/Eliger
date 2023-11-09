@@ -2,13 +2,13 @@ import { VscRequestChanges } from "react-icons/vsc";
 import { GiCarKey } from "react-icons/gi";
 import { AiFillCar } from "react-icons/ai";
 import { PiSteeringWheelFill } from "react-icons/pi";
+import { BiSolidBank } from "react-icons/bi";
 import {
   MdCreate,
   MdOutlinePendingActions,
   MdDashboard,
   MdPayments,
 } from "react-icons/md";
-import { IoStatsChart } from "react-icons/io5";
 
 const topics = [
   {
@@ -68,9 +68,9 @@ const topics = [
     compId: 7,
   },
   {
-    topic: "Statistics",
+    topic: "Bank Details",
     enable: true,
-    icon: <IoStatsChart className="h-5 w-5" />,
+    icon: <BiSolidBank className="h-5 w-5" />,
     haveSub: false,
     compId: 8,
   },

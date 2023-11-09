@@ -5,10 +5,12 @@ import topics from "../Data/SideBars/DriverSidebarData";
 const PaymentDetails = lazy(() =>
   import("../Components/Driver/PaymentDetails")
 );
-const BookiengRequest = lazy(() =>
-  import("../Components/Driver/BookiengRequest")
+const BookingRequest = lazy(() =>
+  import("../Components/Driver/BookingRequest")
 );
-const DriverGraph = lazy(() => import("../Components/Driver/DriverGraph"));
+const BankDetails = lazy(() =>
+  import("../Components/VehicleOwner/BankDetails")
+);
 const HeaderSecondary = lazy(() =>
   import("../Components/Common/HeaderSecondary")
 );
@@ -48,10 +50,10 @@ const DriverDashboard = () => {
   }, [loadData]);
 
   const optionComponents = {
-    0: <BookiengRequest loadedData={loadedData} />,
+    0: <BookingRequest loadedData={loadedData} />,
     1: <PaymentDetails />,
     2: <EditAccount currentData={loadedData} urlPath={"/update_driver"} />,
-    3: <DriverGraph />,
+    3: <BankDetails status={false} />,
   };
 
   return (

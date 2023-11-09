@@ -2,7 +2,9 @@ import React, { lazy, useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import topics from "../Data/SideBars/VehicleOwnerSidebarData";
-
+const BankDetails = lazy(() =>
+  import("../Components/VehicleOwner/BankDetails")
+);
 const HeaderSecondary = lazy(() =>
   import("../Components/Common/HeaderSecondary")
 );
@@ -13,9 +15,6 @@ const BackgroundEffect = lazy(() =>
   import("../Components/Common/BackgroundEffect")
 );
 const SideBar = lazy(() => import("../Components/Common/SideBar"));
-const VehicleOwnerGraph = lazy(() =>
-  import("../Components/VehicleOwner/VehicleOwnerGraph")
-);
 const CreateDriverAccount = lazy(() =>
   import("../Components/VehicleOwner/CreateDriverAccount")
 );
@@ -71,7 +70,7 @@ const VehicleOwnerDashboard = () => {
     5: <AddVehicle owner={loadedData?.Owner_Id} />,
     6: <CreateDriverAccount owner={loadedData?.Owner_Id} />,
     7: <EditAccount currentData={loadedData} urlPath={"/update_owner"} />,
-    8: <VehicleOwnerGraph />,
+    8: <BankDetails status={false} />,
   };
 
   return (

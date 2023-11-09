@@ -173,7 +173,7 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
 
   // calculate route details
   useEffect(() => {
-    if (active === 3 || active === 0)
+    if (active === 3 || (active === 0 && details?.Booking_Type === "book-now"))
       calculateRoute(
         stringToLatLng(details.Origin_Place),
         stringToLatLng(details.Destination_Place)

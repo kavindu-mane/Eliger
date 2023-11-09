@@ -1,6 +1,6 @@
 import { MdOutlineManageAccounts, MdPayments } from "react-icons/md";
 import { GiCarSeat } from "react-icons/gi";
-import { IoStatsChart } from "react-icons/io5";
+import { BiSolidBank } from "react-icons/bi";
 
 const topics = [
   {
@@ -25,9 +25,9 @@ const topics = [
     compId: 2,
   },
   {
-    topic: "Statistics",
+    topic: "Bank Details",
     enable: true,
-    icon: <IoStatsChart className="h-5 w-5" />,
+    icon: <BiSolidBank className="h-5 w-5" />,
     haveSub: false,
     compId: 3,
   },
