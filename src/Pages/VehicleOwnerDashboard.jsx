@@ -62,7 +62,7 @@ const VehicleOwnerDashboard = () => {
   }, [loadData]);
 
   const optionComponents = {
-    0: <OwnerHome />,
+    0: <OwnerHome bankStatus={loadedData?.Bank_Status} />,
     1: <ViewRentOutBooking />,
     2: <ViewMyVehicles />,
     3: <ViewMyDrivers />,
@@ -70,7 +70,7 @@ const VehicleOwnerDashboard = () => {
     5: <AddVehicle owner={loadedData?.Owner_Id} />,
     6: <CreateDriverAccount owner={loadedData?.Owner_Id} />,
     7: <EditAccount currentData={loadedData} urlPath={"/update_owner"} />,
-    8: <BankDetails status={false} />,
+    8: <BankDetails status={loadedData?.Bank_Status} />,
   };
 
   return (

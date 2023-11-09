@@ -11,7 +11,7 @@ import { BiInfoCircle } from "react-icons/bi";
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-const OwnerHome = () => {
+const OwnerHome = ({ bankStatus }) => {
   const [events, setEvents] = useState({});
   const [homeDetails, setHomeDetails] = useState(null);
   const [driverIncomes, setDriverIncomes] = useState(null);
@@ -98,15 +98,27 @@ const OwnerHome = () => {
   return (
     <React.Fragment>
       {/* announcement */}
-      <div className="flex flex-col w-full">
-        {/* changers required */}
-        <p className="mb-4 rounded-md bg-yellow-300 p-2 italic text-black">
-          Bank details not submited.
-        </p>
-        {/* changers required */}
-        <p className="mb-4 rounded-md bg-red-600 p-2 italic text-white">
-          Bank details rejected. please re-submit.
-        </p>
+      <div className="flex w-full flex-col">
+        {/* bank details - not submitted */}
+        {bankStatus === "not submitted" && (
+          <p className="mb-4 rounded-md bg-yellow-300 p-2 italic text-black">
+            Bank details not submitted.
+          </p>
+        )}
+
+        {/* bank details - pending */}
+        {bankStatus === "pending" && (
+          <p className="mb-4 rounded-md bg-yellow-300 p-2 italic text-black">
+            Bank details waiting for approval.
+          </p>
+        )}
+
+        {/* bank details - not submitted */}
+        {bankStatus === "rejected" && (
+          <p className="mb-4 rounded-md bg-red-600 p-2 italic text-white">
+            Bank details rejected. please re-submit.
+          </p>
+        )}
       </div>
       <Card className="w-full bg-gradient-to-br from-[#DA4453] to-[#89216B] font-Poppins text-white lg:px-5">
         <p className="mb-5 text-2xl font-semibold tracking-wider md:text-3xl xl:text-4xl">

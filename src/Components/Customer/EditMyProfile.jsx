@@ -292,6 +292,8 @@ const EditMyProfile = ({ currentData }) => {
             required
             type="text"
             className="inputs"
+            minLength={6}
+            maxLength={6}
             ref={otpRef}
             style={{ letterSpacing: 30, textAlign: "center" }}
           />

@@ -50,10 +50,15 @@ const DriverDashboard = () => {
   }, [loadData]);
 
   const optionComponents = {
-    0: <BookingRequest loadedData={loadedData} />,
+    0: (
+      <BookingRequest
+        loadedData={loadedData}
+        bankStatus={loadedData?.Bank_Status}
+      />
+    ),
     1: <PaymentDetails />,
     2: <EditAccount currentData={loadedData} urlPath={"/update_driver"} />,
-    3: <BankDetails status={false} />,
+    3: <BankDetails status={loadedData?.Bank_Status} />,
   };
 
   return (

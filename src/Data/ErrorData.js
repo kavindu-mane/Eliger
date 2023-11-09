@@ -52,7 +52,7 @@ const ErrorData = {
   50: "Beneficiary name is empty",
   51: "Bank is invalied",
   52: "Branch is invalied",
-  53: "Account number is empty",
+  53: "Account number is invalied",
   54: "Statement file is not selected",
   55: "Statement file size grater than 2MB",
   56: "Statement file type not accepted",

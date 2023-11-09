@@ -5,12 +5,13 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ErrorData from "../../Data/ErrorData";
 import { MdOutlineError } from "react-icons/md";
+import { PiClockCountdownDuotone } from "react-icons/pi";
 const LoadingSpinner = lazy(() => import("../Common/LoadingSpinner"));
 
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-const BankDetails = ({ status = false }) => {
+const BankDetails = ({ status }) => {
   const [errorCode, setErrorCode] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,7 +46,7 @@ const BankDetails = ({ status = false }) => {
     setIsLoading(true);
     // send data using axios post function
     await axios
-      .post("/create_driver", formData)
+      .post("/submit_bank_details", formData)
       .then((response) => {
         if (response.status === 200) {
           if (response.data === 200)
@@ -130,8 +131,9 @@ const BankDetails = ({ status = false }) => {
           />
           <TextInput
             id="branch"
+            placeholder="001"
             required
-            type="branch"
+            type="number"
             name="branch"
             className="inputs"
           />
@@ -141,15 +143,15 @@ const BankDetails = ({ status = false }) => {
         {/* account number */}
         <div>
           <Label
-            htmlFor="address"
-            value="Address"
+            htmlFor="acc_number"
+            value="Account Number"
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
           <TextInput
-            id="address"
+            id="acc_number"
             required
-            type="text"
-            name="address"
+            type="number"
+            name="acc_number"
             placeholder=""
             className="inputs"
           />
@@ -176,11 +178,27 @@ const BankDetails = ({ status = false }) => {
           {[54, 55, 56, 57].includes(errorCode) && errorContainer(errorCode)}
         </div>
         <div className="mt-5 flex w-full justify-center font-Poppins">
-          <Button type="submit" className="w-full max-w-sm">
+          <Button
+            type="submit"
+            className="w-full max-w-sm disabled:bg-gray-500 dark:disabled:bg-gray-500"
+            disabled={status === "pending"}
+          >
             Submit for Approval
           </Button>
         </div>
       </form>
+    );
+  };
+
+  // pending status
+  const waitingForApproval = () => {
+    return (
+      <div className="absolute inset-0 top-0 z-[999] flex h-full w-full flex-col items-center justify-center bg-slate-950/60">
+        <PiClockCountdownDuotone className="mb-5 h-20 w-20" />
+        <p className="font-Poppins  text-xl font-medium text-white">
+          Bank details approval in progress.
+        </p>
+      </div>
     );
   };
 
@@ -194,7 +212,10 @@ const BankDetails = ({ status = false }) => {
       </div>
 
       {/* bank details form for new accounts */}
-      {!status && bankDetailsForm()}
+      {bankDetailsForm()}
+
+      {/* waiting for approval */}
+      {status === "pending" && waitingForApproval()}
     </div>
   );
 };

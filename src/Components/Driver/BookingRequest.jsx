@@ -12,7 +12,7 @@ const Alert = withReactContent(Swal);
 // google map libraries
 const libs = ["places"];
 
-const BookiengRequest = ({ loadedData }) => {
+const BookiengRequest = ({ loadedData, bankStatus }) => {
   const [bookNowtableData, setBookNowTableData] = useState(null);
   const [rentOuttableData, setRentOutTableData] = useState(null);
   const [addresses, setAddresses] = useState({});
@@ -146,14 +146,26 @@ const BookiengRequest = ({ loadedData }) => {
             Use Android app to manage bookings.
           </p>
         )}
-        {/* changers required */}
-        <p className="mx-3 mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
-          Bank details not submited.
-        </p>
-        {/* changers required */}
-        <p className="mx-3 mb-2 rounded-md bg-red-600 p-2 italic text-white">
-          Bank details rejected. please re-submit.
-        </p>
+        {/* bank details - not submitted */}
+        {bankStatus === "not submitted" && (
+          <p className="mx-3 mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
+            Bank details not submitted.
+          </p>
+        )}
+
+        {/* bank details - pending */}
+        {bankStatus === "pending" && (
+          <p className="mx-3 mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
+            Bank details waiting for approval.
+          </p>
+        )}
+
+        {/* bank details - not submitted */}
+        {bankStatus === "rejected" && (
+          <p className="mx-3 mb-2 rounded-md bg-red-600 p-2 italic text-white">
+            Bank details rejected. please re-submit.
+          </p>
+        )}
       </div>
 
       {/* book now bookings */}

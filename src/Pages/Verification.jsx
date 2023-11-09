@@ -73,6 +73,8 @@ const Verification = () => {
           style={{ letterSpacing: 30, textAlign: "center" }}
           maxLength={6}
           minLength={6}
+          type="number"
+          autoComplete="off"
         />
         <button
           type="submit"
@@ -160,6 +162,7 @@ const Verification = () => {
             <></>
           )}
 
+          {/* otp verification component */}
           {(message.length === 11 || message === 20) && newAccOTPVerify()}
 
           {/* if account verified show success message */}
@@ -168,18 +171,20 @@ const Verification = () => {
           {/* if error occurd show error message */}
           {![0, 200, 20].includes(message) &&
             message.length !== 11 &&
+            code !== null &&
             newAccError("12")}
 
+          {/* wrong otp message */}
           {message === 20 && newAccError("20")}
         </div>
-        {/* recaptcha */}
-        <ReCAPTCHA
-          ref={recaptchaRef}
-          sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
-          size="invisible"
-        />
         <Footer />
       </div>
+      {/* recaptcha */}
+      <ReCAPTCHA
+        ref={recaptchaRef}
+        sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+        size="invisible"
+      />
     </React.Fragment>
   );
 };
