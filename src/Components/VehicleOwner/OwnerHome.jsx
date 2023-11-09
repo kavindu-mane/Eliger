@@ -97,6 +97,17 @@ const OwnerHome = () => {
 
   return (
     <React.Fragment>
+      {/* announcement */}
+      <div className="flex flex-col w-full">
+        {/* changers required */}
+        <p className="mb-4 rounded-md bg-yellow-300 p-2 italic text-black">
+          Bank details not submited.
+        </p>
+        {/* changers required */}
+        <p className="mb-4 rounded-md bg-red-600 p-2 italic text-white">
+          Bank details rejected. please re-submit.
+        </p>
+      </div>
       <Card className="w-full bg-gradient-to-br from-[#DA4453] to-[#89216B] font-Poppins text-white lg:px-5">
         <p className="mb-5 text-2xl font-semibold tracking-wider md:text-3xl xl:text-4xl">
           Welcome !
@@ -185,13 +196,13 @@ const OwnerHome = () => {
               <Card className="mx-2 border-0 bg-emerald-500 shadow-lg drop-shadow-xl dark:bg-emerald-500">
                 <p className="font-medium">Online Payments</p>
                 <p className="text-lg font-semibold sm:text-xl md:text-2xl">
-                  Rs. {homeDetails?.daily_online_total??0}
+                  Rs. {homeDetails?.daily_online_total ?? 0}
                 </p>
               </Card>
               <Card className="mx-2 border-0 bg-emerald-500 shadow-lg drop-shadow-xl dark:bg-emerald-500">
                 <p className="font-medium">Offline Payments</p>
                 <p className="text-lg font-semibold sm:text-xl md:text-2xl">
-                  Rs. {homeDetails?.daily_offline_total??0}
+                  Rs. {homeDetails?.daily_offline_total ?? 0}
                 </p>
               </Card>
             </div>
@@ -203,8 +214,8 @@ const OwnerHome = () => {
                   Total Income :{" "}
                   <span className="text-2xl md:text-3xl">
                     Rs.{" "}
-                    {parseFloat(homeDetails?.monthly_offline_total??0) +
-                      parseFloat(homeDetails?.monthly_online_total??0)}
+                    {parseFloat(homeDetails?.monthly_offline_total ?? 0) +
+                      parseFloat(homeDetails?.monthly_online_total ?? 0)}
                   </span>
                 </p>
               </Card>
@@ -213,13 +224,13 @@ const OwnerHome = () => {
               <Card className="mx-2 border-0 bg-emerald-500 shadow-lg drop-shadow-xl dark:bg-emerald-500">
                 <p className="font-medium">Online Payments</p>
                 <p className="text-lg font-semibold sm:text-xl md:text-2xl">
-                  Rs. {homeDetails?.monthly_online_total??0}
+                  Rs. {homeDetails?.monthly_online_total ?? 0}
                 </p>
               </Card>
               <Card className="mx-2 border-0 bg-emerald-500 shadow-lg drop-shadow-xl dark:bg-emerald-500">
                 <p className="font-medium">Offline Payments</p>
                 <p className="text-lg font-semibold sm:text-xl md:text-2xl">
-                  Rs. {homeDetails?.monthly_offline_total??0}
+                  Rs. {homeDetails?.monthly_offline_total ?? 0}
                 </p>
               </Card>
             </div>

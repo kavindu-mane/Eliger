@@ -35,22 +35,24 @@ const BookiengRequest = ({ loadedData }) => {
 
   // convert address from lat and long
   const getAddresFromLatLng = useCallback((latlng) => {
-    const geocoder = new window.google.maps.Geocoder();
     if (latlng) {
       const latLng = {
         lat: parseFloat(latlng?.split(",")[0]),
         lng: parseFloat(latlng?.split(",")[1]),
       };
 
-      // get appropreate address using atitude and longitude using google maps api's geocoder api
-      geocoder.geocode({ location: latLng }, (results, status) => {
-        // if geocoder give success response, change pick address with responded address
-        if (status === "OK" && results[0]) {
-          setAddresses((addresses) => {
-            return { ...addresses, [latlng]: results[0].formatted_address };
-          });
-        }
-      });
+      if (window.google) {
+        const geocoder = new window.google.maps.Geocoder();
+        // get appropreate address using atitude and longitude using google maps api's geocoder api
+        geocoder.geocode({ location: latLng }, (results, status) => {
+          // if geocoder give success response, change pick address with responded address
+          if (status === "OK" && results[0]) {
+            setAddresses((addresses) => {
+              return { ...addresses, [latlng]: results[0].formatted_address };
+            });
+          }
+        });
+      }
     }
   }, []);
 
@@ -114,7 +116,7 @@ const BookiengRequest = ({ loadedData }) => {
   return (
     <div className="flex h-full w-full flex-col">
       {loadedData?.Vehicle_PlateNumber !== null && (
-        <div className="mb-10 flex flex-col justify-between gap-y-5 sm:mb-5 sm:flex-row">
+        <div className="mx-3 mb-10 flex flex-col justify-between gap-y-5 sm:mb-5 sm:flex-row">
           {/* current vehicle */}
           <p className="flex items-center text-center capitalize italic">
             My Vehicle : {loadedData?.Vehicle_PlateNumber} (
@@ -141,12 +143,16 @@ const BookiengRequest = ({ loadedData }) => {
         )}
         {loadedData?.Booking_Type === "book-now" && (
           <p className="mx-3 mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
-            Use Android app to manage orders.
+            Use Android app to manage bookings.
           </p>
         )}
         {/* changers required */}
         <p className="mx-3 mb-2 rounded-md bg-yellow-300 p-2 italic text-black">
           Bank details not submited.
+        </p>
+        {/* changers required */}
+        <p className="mx-3 mb-2 rounded-md bg-red-600 p-2 italic text-white">
+          Bank details rejected. please re-submit.
         </p>
       </div>
 
