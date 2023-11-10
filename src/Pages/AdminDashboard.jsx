@@ -8,10 +8,12 @@ const PendingVehicleReg = lazy(() =>
 const PendingDriverReg = lazy(() =>
   import("../Components/Admin/PendingDriverReg")
 );
-const NewDriverRequests = lazy(() =>
-  import("../Components/Admin/NewDriverRequests")
+const NewDriverReg = lazy(() =>
+  import("../Components/Admin/NewDriverReg")
 );
-const NewBankDetails = lazy(() => import("../Components/Admin/NewBankDetails"));
+const NewBankDetailsApproval = lazy(() =>
+  import("../Components/Admin/NewBankDetailsApproval")
+);
 const TableCustomer = lazy(() =>
   import("../Components/Admin/AccountTables/TableCustomer")
 );
@@ -45,8 +47,8 @@ const Admindashboard = () => {
 
   const optionComponents = {
     0: <NewVehicleReg />,
-    1: <NewDriverRequests />,
-    2: <NewBankDetails />,
+    1: <NewDriverReg />,
+    2: <NewBankDetailsApproval />,
     3: <PendingVehicleReg />,
     4: <PendingDriverReg />,
     5: <CreateHelpAccount />,

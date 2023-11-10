@@ -7,7 +7,9 @@ import withReactContent from "sweetalert2-react-content";
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-const PendingDriver = ({ isOpenModal, setIsOpenModal, details }) => {
+const NewBankDetails = ({ isOpenModal, setIsOpenModal, details }) => {
+  const [licenceZoom, setLicenceZoom] = useState(1);
+
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
     return Alert.fire({
@@ -17,8 +19,8 @@ const PendingDriver = ({ isOpenModal, setIsOpenModal, details }) => {
     });
   };
 
-  // change driver status
-  const changeDriverStatus = async (status) => {
+  // change bank details status
+  const changeBankDetailsStatus = async (status) => {
     const formData = new FormData();
     formData.append("status", status);
     formData.append("id", details.Driver_Id);
@@ -36,7 +38,7 @@ const PendingDriver = ({ isOpenModal, setIsOpenModal, details }) => {
           setAlert(
             "error",
             "Changes failed",
-            "Driver status change failed.try again."
+            "Change in Driver Status Failed.Try Again."
           );
         }
       })
@@ -44,41 +46,35 @@ const PendingDriver = ({ isOpenModal, setIsOpenModal, details }) => {
         setAlert(
           "error",
           "Changes failed",
-          "Driver status change failed.try again."
+          "Change in Driver Status Failed.Try Again."
         );
       });
   };
 
-  const [licenceZoom, setLicenceZoom] = useState(1);
   return (
     <Modal
       show={isOpenModal}
       onClose={() => setIsOpenModal(false)}
       size={"4xl"}
     >
-      <Modal.Header>Pending Driver Registration</Modal.Header>
+      <Modal.Header>New Driver Registration</Modal.Header>
       <Modal.Body className="no-scrollbar">
         <div className="space-y-3">
           <p className="font-Poppins">
-            Driver Name :{" "}
-            {`${details?.Driver_firstname} ${details?.Driver_lastname}`}
+            Beneficiary Name : {details?.Beneficiary_Name}
           </p>
-          <p className="font-Poppins">Phone : {details?.Driver_Tel}</p>
-          <p className="font-Poppins">Email : {details?.Email}</p>
-          <p className="font-Poppins">Address : {details?.Driver_address}</p>
-          <p className="font-Poppins">
-            Owner Name :{" "}
-            {`${details?.Owner_firstname} ${details?.Owner_lastname}`}
-          </p>
-          {/* licence */}
-          <p className="font-Poppins">Licence :</p>
+          <p className="font-Poppins">Bank : {details?.Bank}</p>
+          <p className="font-Poppins">Branch Code : {details?.Branch}</p>
+          <p className="font-Poppins">Account Number : {details?.Acc_Number}</p>
+          {/* statement */}
+          <p className="font-Poppins">Statement :</p>
           <div className="relative">
             {/* image div */}
             <div className="overflow-auto">
               <img
                 className={"pointer-events-none h-fit w-full origin-top-left"}
-                src={`${process.env.REACT_APP_BASE_URL}/uploads/${details?.Licence_File}`}
-                alt="licence file"
+                src={`${process.env.REACT_APP_BASE_URL}/uploads/${details?.Statement_File}`}
+                alt="statement file"
                 style={{ transform: `scale(${licenceZoom})` }}
               />
             </div>
@@ -105,16 +101,16 @@ const PendingDriver = ({ isOpenModal, setIsOpenModal, details }) => {
         <Button
           className="h-9 rounded-md bg-green-500 dark:bg-emerald-600"
           onClick={() => {
-            changeDriverStatus("verified");
+            changeBankDetailsStatus("verified");
             setIsOpenModal(false);
           }}
         >
           Approve
         </Button>
         <Button
-          className="h-9 rounded-md bg-red-400 dark:bg-red-400"
+          className="h-9 rounded-md bg-red-500 dark:bg-red-500"
           onClick={() => {
-            changeDriverStatus("rejected");
+            changeBankDetailsStatus("rejected");
             setIsOpenModal(false);
           }}
         >
@@ -125,4 +121,4 @@ const PendingDriver = ({ isOpenModal, setIsOpenModal, details }) => {
   );
 };
 
-export default PendingDriver;
+export default NewBankDetails;

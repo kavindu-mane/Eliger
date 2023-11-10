@@ -80,7 +80,7 @@ const PendingVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
             {/* image div */}
             <div className="overflow-auto">
               <img
-                className={"pointer-events-none h-fit w-fit"}
+                className={"pointer-events-none h-fit w-full origin-top-left"}
                 src={`${process.env.REACT_APP_BASE_URL}/uploads/${details?.Ownership_Doc}`}
                 alt="Ownership-Doc"
                 style={{ transform: `scale(${ownershipZoom})` }}
@@ -110,7 +110,7 @@ const PendingVehicle = ({ isOpenModal, setIsOpenModal, details }) => {
             {/* image div */}
             <div className="overflow-auto">
               <img
-                className={"pointer-events-none h-fit w-fit"}
+                className={"pointer-events-none h-fit w-full origin-top-left"}
                 src={`${process.env.REACT_APP_BASE_URL}/uploads/${details?.Insurance}`}
                 alt="Insurance-Doc"
                 style={{ transform: `scale(${insuranceZoom})` }}

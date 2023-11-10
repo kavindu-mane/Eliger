@@ -10,7 +10,7 @@ const Paginations = lazy(() => import("../Common/Paginations"));
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-const NewDriverRequests = () => {
+const NewDriverReg = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -115,4 +115,4 @@ const NewDriverRequests = () => {
     </React.Fragment>
   );
 };
-export default NewDriverRequests;
+export default NewDriverReg;

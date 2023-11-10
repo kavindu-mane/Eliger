@@ -76,7 +76,7 @@ const NewDriver = ({ isOpenModal, setIsOpenModal, details }) => {
             {/* image div */}
             <div className="overflow-auto">
               <img
-                className={"pointer-events-none h-fit w-fit"}
+                className={"pointer-events-none h-fit w-full origin-top-left"}
                 src={`${process.env.REACT_APP_BASE_URL}/uploads/${details?.Licence_File}`}
                 alt="licence file"
                 style={{ transform: `scale(${licenceZoom})` }}

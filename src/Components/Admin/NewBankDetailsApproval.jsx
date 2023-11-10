@@ -4,13 +4,13 @@ import { Button } from "flowbite-react";
 import Swal from "sweetalert2";
 import ErrorData from "../../Data/ErrorData";
 import withReactContent from "sweetalert2-react-content";
-const NewVehicle = lazy(() => import("./Modals/NewVehicle"));
+const NewBankDetails = lazy(() => import("./Modals/NewBankDetails"));
 const Paginations = lazy(() => import("../Common/Paginations"));
 
 // create sweet alert object
 const Alert = withReactContent(Swal);
 
-const NewBankDetails = () => {
+const NewBankDetailsApproval = () => {
   const [tableData, setTableData] = useState(null);
   const [pagesCount, setPagesCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +30,7 @@ const NewBankDetails = () => {
   const fetch = useCallback(() => {
     setTableData(null);
     const formData = new FormData();
-    formData.append("vehicle_status", "new");
+    formData.append("bank_status", "pending");
     formData.append("offset", 15 * (currentPage - 1));
     axios
       .post("/load_new_reg", formData)
@@ -53,7 +53,7 @@ const NewBankDetails = () => {
   return (
     <React.Fragment>
       {isOpenModal && (
-        <NewVehicle
+        <NewBankDetails
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
           details={vehicleDetails}
@@ -131,4 +131,4 @@ const NewBankDetails = () => {
     </React.Fragment>
   );
 };
-export default NewBankDetails;
+export default NewBankDetailsApproval;
