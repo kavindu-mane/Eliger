@@ -23,8 +23,8 @@ const NewBankDetails = ({ isOpenModal, setIsOpenModal, details }) => {
   const changeBankDetailsStatus = async (status) => {
     const formData = new FormData();
     formData.append("status", status);
-    formData.append("id", details.Driver_Id);
-    formData.append("type", "driver");
+    formData.append("id", details.Email);
+    formData.append("type", "bank");
     await axios
       .post("/document_validate", formData)
       .then((response) => {

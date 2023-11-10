@@ -2,6 +2,7 @@ import {
   MdOutlineManageAccounts,
   MdSupportAgent,
   MdPendingActions,
+  MdPayments,
 } from "react-icons/md";
 import { VscRequestChanges } from "react-icons/vsc";
 import { GiCarKey, GiCarSeat } from "react-icons/gi";
@@ -83,6 +84,13 @@ const topics = [
         compId: 9,
       },
     ],
+  },
+  {
+    topic: "Payment Eligible Users",
+    enable: true,
+    icon: <MdPayments className="h-5 w-5" />,
+    haveSub: false,
+    compId: 10,
   },
 ];
 

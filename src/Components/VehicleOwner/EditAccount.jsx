@@ -411,13 +411,13 @@ const EditAccount = ({ currentData, urlPath }) => {
         {/* exsisting password */}
         <div className="relative">
           <Label
-            htmlFor="password"
+            htmlFor="password2"
             value="Current Password"
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
 
           <TextInput
-            id="password"
+            id="password2"
             name="password"
             required
             type={isCurrentPassword ? "password" : "text"}

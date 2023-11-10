@@ -1,4 +1,4 @@
-import { lazy, useState } from "react";
+import { lazy, useState, useCallback, useEffect } from "react";
 import { Button, FileInput, Label, TextInput, Select } from "flowbite-react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -6,6 +6,8 @@ import withReactContent from "sweetalert2-react-content";
 import ErrorData from "../../Data/ErrorData";
 import { MdOutlineError } from "react-icons/md";
 import { PiClockCountdownDuotone } from "react-icons/pi";
+import { AiFillCheckCircle } from "react-icons/ai";
+import { RxCrossCircled } from "react-icons/rx";
 const LoadingSpinner = lazy(() => import("../Common/LoadingSpinner"));
 
 // create sweet alert object
@@ -13,6 +15,7 @@ const Alert = withReactContent(Swal);
 
 const BankDetails = ({ status }) => {
   const [errorCode, setErrorCode] = useState(null);
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const bankList = [
@@ -33,6 +36,18 @@ const BankDetails = ({ status }) => {
       text: desc,
     });
   };
+
+  // load data function
+  const fetch = useCallback(async () => {
+    await axios
+      .post("/load_bank_details")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        setAlert("error", "Error occured", ErrorData["500"]);
+      });
+  }, []);
 
   // submit registration form
   const handleSubmit = async (e) => {
@@ -67,6 +82,7 @@ const BankDetails = ({ status }) => {
         setIsLoading(false);
       });
   };
+
   // error messages
   const errorContainer = (errCode) => {
     return (
@@ -75,6 +91,10 @@ const BankDetails = ({ status }) => {
       </p>
     );
   };
+
+  useEffect(() => {
+    if (status !== "not submitted") fetch();
+  }, [fetch, status]);
 
   // bank details form
   const bankDetailsForm = () => {
@@ -97,6 +117,7 @@ const BankDetails = ({ status }) => {
             required
             type="text"
             name="beneficiary"
+            defaultValue={data?.Beneficiary_Name}
             className="inputs"
           />
           {/* error text */}
@@ -110,15 +131,24 @@ const BankDetails = ({ status }) => {
             className="after:ml-0.5 after:text-red-500 after:content-['*']"
           />
 
-          <Select id="bank" name="bank" required className="inputs">
-            {bankList.map((bank, key) => {
-              return (
-                <option value={bank} key={key}>
-                  {bank}
-                </option>
-              );
-            })}
-          </Select>
+          {((data && status !== "not submitted") ||
+            status === "not submitted") && (
+            <Select
+              id="bank"
+              name="bank"
+              required
+              className="inputs"
+              defaultValue={data?.Bank}
+            >
+              {bankList.map((bank, key) => {
+                return (
+                  <option value={bank} key={key}>
+                    {bank}
+                  </option>
+                );
+              })}
+            </Select>
+          )}
           {/* error text */}
           {errorCode === 51 && errorContainer(errorCode)}
         </div>
@@ -135,6 +165,7 @@ const BankDetails = ({ status }) => {
             required
             type="number"
             name="branch"
+            defaultValue={data?.Branch}
             className="inputs"
           />
           {/* error text */}
@@ -153,6 +184,7 @@ const BankDetails = ({ status }) => {
             type="number"
             name="acc_number"
             placeholder=""
+            defaultValue={data?.Acc_Number}
             className="inputs"
           />
           {/* error text */}
@@ -210,6 +242,22 @@ const BankDetails = ({ status }) => {
       <div className="mb-9 font-Poppins text-2xl font-medium">
         Setup Bank Details
       </div>
+
+      {/* approved */}
+      {status === "verified" && (
+        <p className="mb-4 flex items-center gap-x-2 rounded-sm bg-green-500 p-2 italic text-white">
+          <AiFillCheckCircle />
+          Bank details are verified.
+        </p>
+      )}
+
+      {/* rejected */}
+      {status === "rejected" && (
+        <p className="mb-4 flex items-center gap-x-2 rounded-sm bg-red-600 p-2 italic text-white">
+          <RxCrossCircled />
+          Bank details are rejected.
+        </p>
+      )}
 
       {/* bank details form for new accounts */}
       {bankDetailsForm()}
