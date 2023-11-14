@@ -280,14 +280,12 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
             last_name: "Perera",
             email: "samanp@gmail.com",
             phone: "0771234567",
-            address: "No.1, Galle Road",
-            city: "Colombo",
+            address: "",
+            city: "",
             country: "Sri Lanka",
-            delivery_address: "No. 46, Galle road, Kalutara South",
-            delivery_city: "Kalutara",
+            delivery_address: "",
+            delivery_city: "",
             delivery_country: "Sri Lanka",
-            custom_1: "",
-            custom_2: "",
           };
 
           window.payhere.startPayment(payment_object);
