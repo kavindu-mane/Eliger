@@ -2,7 +2,6 @@ import React, { lazy, useState, useCallback, useEffect, useRef } from "react";
 import axios from "axios";
 import { Button, Label, Checkbox, TextInput } from "flowbite-react";
 import { MdOutlineError } from "react-icons/md";
-import { CgSpinnerTwoAlt } from "react-icons/cg";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import ErrorData from "../Data/ErrorData";
@@ -21,6 +20,9 @@ const BackgroundEffect = lazy(() =>
 );
 const PasswordSwitcher = lazy(() =>
   import("../Components/Common/PasswordSwitcher")
+);
+const LoadingSpinner = lazy(() =>
+  import("../Components/Common/LoadingSpinner")
 );
 
 // create sweet alert object
@@ -143,12 +145,9 @@ const Login = () => {
           {/* header */}
           <HeaderSecondary />
           {/* loading */}
-          {isLoading && (
-            <div className="absolute z-[999] flex h-full w-screen items-center justify-center bg-slate-950/60">
-              <CgSpinnerTwoAlt className="h-20 w-20 animate-spin text-emerald-400" />
-            </div>
-          )}
+          {isLoading && <LoadingSpinner />}
 
+          {/* email confirm */}
           {errorCode === 16 && (
             <div className="absolute z-50 flex h-full w-screen items-center justify-center bg-slate-800/80 backdrop-blur-sm">
               <div className="max-w-lg px-4 text-center">

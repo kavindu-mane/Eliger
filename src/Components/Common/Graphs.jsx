@@ -13,7 +13,7 @@ import {
   ArcElement,
   BarController,
   RadialLinearScale,
-  LineController
+  LineController,
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 
@@ -53,7 +53,7 @@ const Graphs = ({
   const getPercentage = (index) => {
     const past = data.datasets[0].data[index];
     const current = data.datasets[1].data[index];
-    return (((current - past) * 100) / past).toFixed(2);
+    return (((current - past) * 100) / past || 0).toFixed(2);
   };
 
   return (
@@ -115,7 +115,7 @@ const Graphs = ({
                       (isPositive ? "text-green-500" : "text-red-500")
                     }
                   >
-                    {percentage}%
+                    {isFinite(percentage) ? percentage + "%" : "-"}
                   </span>
                 </p>
                 {/* line 2 */}

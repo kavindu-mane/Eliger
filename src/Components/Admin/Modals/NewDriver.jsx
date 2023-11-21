@@ -36,7 +36,7 @@ const NewDriver = ({ isOpenModal, setIsOpenModal, details }) => {
           setAlert(
             "error",
             "Changes failed",
-            "Change in Driver Status Failed.Try Again."
+            "Change Driver Status Failed.Try Again."
           );
         }
       })
@@ -44,7 +44,7 @@ const NewDriver = ({ isOpenModal, setIsOpenModal, details }) => {
         setAlert(
           "error",
           "Changes failed",
-          "Change in Driver Status Failed.Try Again."
+          "Change Driver Status Failed.Try Again."
         );
       });
   };

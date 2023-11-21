@@ -32,13 +32,13 @@ const NewBankDetails = ({ isOpenModal, setIsOpenModal, details }) => {
           setAlert(
             "success",
             "Successfully changed",
-            "Successfully change the driver status."
+            "Successfully change the bank details status."
           );
         else {
           setAlert(
             "error",
             "Changes failed",
-            "Change in Driver Status Failed.Try Again."
+            "Change bank details Status Failed.Try Again."
           );
         }
       })
@@ -46,7 +46,7 @@ const NewBankDetails = ({ isOpenModal, setIsOpenModal, details }) => {
         setAlert(
           "error",
           "Changes failed",
-          "Change in Driver Status Failed.Try Again."
+          "Change bank details Status Failed.Try Again."
         );
       });
   };

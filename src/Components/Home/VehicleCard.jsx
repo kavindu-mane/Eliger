@@ -31,7 +31,7 @@ const VehicleCard = ({ Img, vehicle, start, passenger }) => {
           </span>
         </p>
         <a
-          href="/"
+          href="/search"
           className="w-fit rounded-sm bg-emerald-500 px-3 py-2 text-sm font-bold text-white duration-300 ease-in hover:bg-orange-400"
         >
           Rent Now

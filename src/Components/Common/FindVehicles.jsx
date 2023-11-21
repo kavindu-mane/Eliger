@@ -139,6 +139,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
                 type="text"
                 placeholder="Pickup address"
                 name="pick-up"
+                className="inputs"
                 defaultValue={loadedDetails["pick-up"] || ""}
               />
             </Autocomplete>
@@ -153,7 +154,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
         <div className="-mt-1 flex items-center gap-2">
           <Checkbox
             id="current-location"
-            className=" border-2 border-slate-700"
+            className="inputs border-2 border-slate-700"
             name="currenrt-location"
             defaultChecked={loadedDetails["currenrt-location"] === "on"}
             onClick={(event) => getCurrentLocation(event)}
@@ -170,6 +171,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
             <TextInput
               id="destination"
               type="text"
+              className="inputs"
               placeholder="Destination address"
               name="destination"
               defaultValue={loadedDetails["destination"] || ""}
@@ -193,6 +195,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
             id="driver"
             name="driver"
             required
+            className="inputs"
             defaultValue={loadedDetails["driver"] || "with-driver"}
           >
             <option value="Not Null">With Driver</option>
@@ -208,6 +211,7 @@ const FindVehicles = ({ isEmbed = false, findVehicles }) => {
             id="district"
             name="district"
             required
+            className="inputs"
             defaultValue={loadedDetails["district"] || "Colombo"}
           >
             {districtArray.map((district, i) => {

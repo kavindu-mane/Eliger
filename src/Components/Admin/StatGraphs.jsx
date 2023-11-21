@@ -1,11 +1,22 @@
-import React, { lazy } from "react";
+import React, { lazy, useEffect, useCallback, useState } from "react";
 import AccountOption from "../../Data/AdminGraph/AccountOption";
 import VehicleOption from "../../Data/AdminGraph/VehicleOption";
 import RevenueOption from "../../Data/AdminGraph/RevenueOption";
 import BookingOption from "../../Data/AdminGraph/BookingOption";
+import axios from "axios";
+import Swal from "sweetalert2";
+import ErrorData from "../../Data/ErrorData";
+import withReactContent from "sweetalert2-react-content";
 const Graphs = lazy(() => import("../Common/Graphs"));
 
+// create sweet alert object
+const Alert = withReactContent(Swal);
+
 const StatGraphs = () => {
+  const [accountStats, setAccountStats] = useState(null);
+  const [vehicleStats, setVehicleStats] = useState(null);
+  const [revenueStats, setRevenueStats] = useState(null);
+  const [bookingStats, setBookingStats] = useState(null);
   // week days
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   // day labels
@@ -15,36 +26,254 @@ const StatGraphs = () => {
     return weekDays[today.getDay()];
   });
 
+  // custom allert function with sweet alert 2
+  const setAlert = (icon, title, desc) => {
+    return Alert.fire({
+      icon: icon,
+      title: title,
+      text: desc,
+    });
+  };
+
+  // load data function - accounts
+  const fetchAccountStats = useCallback(() => {
+    axios
+      .post("/load_accounts_stats")
+      .then((response) => {
+        if (response.status === 200) {
+          let past = [0, 0, 0];
+          let current = [0, 0, 0];
+          response.data?.forEach((element) => {
+            if (
+              element?.date_range === "current" &&
+              element?.Account_Type === "customer"
+            )
+              current[0] = element?.count;
+            else if (
+              element?.date_range === "past" &&
+              element?.Account_Type === "customer"
+            )
+              past[0] = element?.count;
+            else if (
+              element?.date_range === "current" &&
+              element?.Account_Type === "driver"
+            )
+              current[1] = element?.count;
+            else if (
+              element?.date_range === "past" &&
+              element?.Account_Type === "driver"
+            )
+              past[1] = element?.count;
+            else if (
+              element?.date_range === "current" &&
+              element?.Account_Type === "vehicle_owner"
+            )
+              current[2] = element?.count;
+            else if (
+              element?.date_range === "past" &&
+              element?.Account_Type === "vehicle_owner"
+            )
+              past[2] = element?.count;
+          });
+          setAccountStats({
+            past: past,
+            current: current,
+          });
+        }
+      })
+      .catch((error) => {
+        setAlert("error", "Error occured", ErrorData["500"]);
+      });
+  }, []);
+
+  // load data function - vehicles
+  const fetchVehicleStats = useCallback(() => {
+    axios
+      .post("/load_vehicle_stats")
+      .then((response) => {
+        if (response.status === 200) {
+          let past = [0, 0, 0, 0];
+          let current = [0, 0, 0, 0];
+          response.data?.forEach((element) => {
+            if (
+              element?.date_range === "current" &&
+              element?.Vehicle_Type === "bike"
+            )
+              current[0] = element?.count;
+            else if (
+              element?.date_range === "past" &&
+              element?.Vehicle_Type === "bike"
+            )
+              past[0] = element?.count;
+            else if (
+              element?.date_range === "current" &&
+              element?.Vehicle_Type === "car"
+            )
+              current[1] = element?.count;
+            else if (
+              element?.date_range === "past" &&
+              element?.Vehicle_Type === "car"
+            )
+              past[1] = element?.count;
+            else if (
+              element?.date_range === "current" &&
+              element?.Vehicle_Type === "tuk-tuk"
+            )
+              current[2] = element?.count;
+            else if (
+              element?.date_range === "past" &&
+              element?.Vehicle_Type === "tuk-tuk"
+            )
+              past[2] = element?.count;
+            else if (
+              element?.date_range === "current" &&
+              element?.Vehicle_Type === "van"
+            )
+              current[3] = element?.count;
+            else if (
+              element?.date_range === "past" &&
+              element?.Vehicle_Type === "van"
+            )
+              past[3] = element?.count;
+          });
+          setVehicleStats({
+            past: past,
+            current: current,
+          });
+        }
+      })
+      .catch((error) => {
+        setAlert("error", "Error occured", ErrorData["500"]);
+      });
+  }, []);
+
+  // load data function - revenue
+  const fetchRevenueStats = useCallback(() => {
+    axios
+      .post("/load_accounts_revenue")
+      .then((response) => {
+        if (response.status === 200) {
+          let past = [0, 0, 0, 0, 0, 0, 0];
+          let current = [0, 0, 0, 0, 0, 0, 0];
+          response.data?.forEach((element) => {
+            if (element?.date_range === "current-7") current[0] = element?.sum;
+            else if (element?.date_range === "past-7") past[0] = element?.sum;
+            else if (element?.date_range === "current-6")
+              current[1] = element?.sum;
+            else if (element?.date_range === "past-6") past[1] = element?.sum;
+            else if (element?.date_range === "current-5")
+              current[2] = element?.sum;
+            else if (element?.date_range === "past-5") past[2] = element?.sum;
+            else if (element?.date_range === "current-4")
+              current[3] = element?.sum;
+            else if (element?.date_range === "past-4") past[3] = element?.sum;
+            else if (element?.date_range === "current-3")
+              current[4] = element?.sum;
+            else if (element?.date_range === "past-3") past[4] = element?.sum;
+            else if (element?.date_range === "current-2")
+              current[5] = element?.sum;
+            else if (element?.date_range === "past-2") past[5] = element?.sum;
+            else if (element?.date_range === "current-1")
+              current[6] = element?.sum;
+            else if (element?.date_range === "past-1") past[6] = element?.sum;
+          });
+          setRevenueStats({
+            past: past,
+            current: current,
+          });
+        }
+      })
+      .catch((error) => {
+        setAlert("error", "Error occured", ErrorData["500"]);
+      });
+  }, []);
+
+  // load data function - booking
+  const fetchBookingStats = useCallback(() => {
+    axios
+      .post("/load_accounts_bookings")
+      .then((response) => {
+        if (response.status === 200) {
+          let past = [0, 0, 0, 0, 0, 0, 0];
+          let current = [0, 0, 0, 0, 0, 0, 0];
+          response.data?.forEach((element) => {
+            if (element?.date_range === "current-7")
+              current[0] = element?.count;
+            else if (element?.date_range === "past-7") past[0] = element?.count;
+            else if (element?.date_range === "current-6")
+              current[1] = element?.count;
+            else if (element?.date_range === "past-6") past[1] = element?.count;
+            else if (element?.date_range === "current-5")
+              current[2] = element?.count;
+            else if (element?.date_range === "past-5") past[2] = element?.count;
+            else if (element?.date_range === "current-4")
+              current[3] = element?.count;
+            else if (element?.date_range === "past-4") past[3] = element?.count;
+            else if (element?.date_range === "current-3")
+              current[4] = element?.count;
+            else if (element?.date_range === "past-3") past[4] = element?.count;
+            else if (element?.date_range === "current-2")
+              current[5] = element?.count;
+            else if (element?.date_range === "past-2") past[5] = element?.count;
+            else if (element?.date_range === "current-1")
+              current[6] = element?.count;
+            else if (element?.date_range === "past-1") past[6] = element?.count;
+          });
+          setBookingStats({
+            past: past,
+            current: current,
+          });
+        }
+      })
+      .catch((error) => {
+        setAlert("error", "Error occured", ErrorData["500"]);
+      });
+  }, []);
+
+  // load data function run in component mount
+  useEffect(() => {
+    fetchAccountStats();
+    fetchVehicleStats();
+    fetchRevenueStats();
+    fetchBookingStats();
+  }, [
+    fetchAccountStats,
+    fetchVehicleStats,
+    fetchRevenueStats,
+    fetchBookingStats,
+  ]);
+
   // account chart
   const accountsData = {
-    labels: ["Vehicle Owner", "Customer", "Driver"],
+    labels: ["Customer", "Driver", "Vehicle Owner"],
     datasets: [
       {
-        data: [10, 23, 16],
+        data: accountStats?.past ?? [0, 0, 0],
         borderWidth: 0,
         borderRadius: 5,
         backgroundColor: "#059669",
       },
       {
-        data: [20, 43, 12],
+        data: accountStats?.current ?? [0, 0, 0],
         borderWidth: 0,
         borderRadius: 5,
         backgroundColor: "#ea580c",
       },
     ],
   };
+
   // vehicle chart
   const vehicleData = {
-    labels: ["Cars", "Van", "Tuk Tuk", "Bike"],
+    labels: ["Bike", "Cars", "Tuk Tuk", "Van"],
     datasets: [
       {
-        data: [10, 23, 12, 12],
+        data: vehicleStats?.past ?? [0, 0, 0, 0],
         borderWidth: 0,
         borderRadius: 5,
         backgroundColor: "#d61c4e",
       },
       {
-        data: [14, 18, 27, 10],
+        data: vehicleStats?.current ?? [0, 0, 0, 0],
         borderWidth: 0,
         borderRadius: 5,
         backgroundColor: "#2d4059",
@@ -57,13 +286,13 @@ const StatGraphs = () => {
     labels: dayLable,
     datasets: [
       {
-        data: [100, 230, 120, 120, 390, 150, 280],
+        data: revenueStats?.past ?? [0, 0, 0, 0, 0, 0, 0],
         borderWidth: 2,
         borderColor: "#C70039",
         backgroundColor: "#C70039",
       },
       {
-        data: [140, 180, 270, 100, 480, 520, 290],
+        data: revenueStats?.current ?? [0, 0, 0, 0, 0, 0, 0],
         borderWidth: 2,
         borderColor: "#22A699",
         backgroundColor: "#22A699",
@@ -76,13 +305,13 @@ const StatGraphs = () => {
     labels: dayLable,
     datasets: [
       {
-        data: [10, 21, 17, 12, 39, 29, 28],
+        data: bookingStats?.past ?? [0, 0, 0, 0, 0, 0, 0],
         borderWidth: 2,
         borderColor: "#9A208C",
         backgroundColor: "#9A208C",
       },
       {
-        data: [14, 18, 27, 10, 23, 12, 19],
+        data: bookingStats?.current ?? [0, 0, 0, 0, 0, 0, 0],
         borderWidth: 2,
         borderColor: "#3A8891",
         backgroundColor: "#3A8891",
@@ -97,7 +326,7 @@ const StatGraphs = () => {
       end: 30,
     },
     {
-      start: 30,
+      start: 29,
       end: 0,
     },
   ];
@@ -109,10 +338,11 @@ const StatGraphs = () => {
       end: 7,
     },
     {
-      start: 7,
+      start: 6,
       end: 0,
     },
   ];
+
   return (
     <div className="flex h-auto flex-wrap pb-12">
       <h1 className="w-full py-4 text-center font-Poppins text-xl font-medium md:text-2xl">
