@@ -43,6 +43,14 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
     libraries: libs,
   });
 
+  // add payhere java sdk
+  const addLibrary = (urlOfTheLibrary) => {
+    const script = document.createElement("script");
+    script.src = urlOfTheLibrary;
+    script.async = true;
+    document.body.appendChild(script);
+  };
+
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
     return Alert.fire({
@@ -276,10 +284,10 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
             amount: result?.amount,
             currency: result?.currency,
             hash: result?.hash,
-            first_name: "Saman",
-            last_name: "Perera",
-            email: "samanp@gmail.com",
-            phone: "0771234567",
+            first_name: "",
+            last_name: "",
+            email: "",
+            phone: "",
             address: "",
             city: "",
             country: "Sri Lanka",
@@ -417,6 +425,9 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
       onClose={() => setIsOpenModal(false)}
       size={"4xl"}
     >
+      {/* call addLibrary function for add payhere js sdk */}
+      {addLibrary("https://www.payhere.lk/lib/payhere.js")}
+
       <Modal.Header>
         {active === 0
           ? "Booking details"
