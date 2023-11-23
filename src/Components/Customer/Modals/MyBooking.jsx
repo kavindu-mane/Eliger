@@ -43,13 +43,13 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
     libraries: libs,
   });
 
-  // add payhere java sdk
-  const addLibrary = (urlOfTheLibrary) => {
-    const script = document.createElement("script");
-    script.src = urlOfTheLibrary;
-    script.async = true;
-    document.body.appendChild(script);
-  };
+  // // add payhere java sdk
+  // const addLibrary = (urlOfTheLibrary) => {
+  //   const script = document.createElement("script");
+  //   script.src = urlOfTheLibrary;
+  //   script.async = true;
+  //   document.body.appendChild(script);
+  // };
 
   // custom allert function with sweet alert 2
   const setAlert = (icon, title, desc) => {
@@ -426,7 +426,7 @@ const MyBooking = ({ isOpenModal, setIsOpenModal, details }) => {
       size={"4xl"}
     >
       {/* call addLibrary function for add payhere js sdk */}
-      {addLibrary("https://www.payhere.lk/lib/payhere.js")}
+      {/* {addLibrary("https://www.payhere.lk/lib/payhere.js")} */}
 
       <Modal.Header>
         {active === 0
