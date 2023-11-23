@@ -1,7 +1,7 @@
 {
   "homepage": "https://www.eliger.kavindu.me",
   "name": "eliger",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "dependencies": {
     "@googlemaps/markerclusterer": "^2.5.0",
