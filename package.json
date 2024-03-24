@@ -11,7 +11,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "aos": "^2.3.4",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "chart.js": "^4.3.3",
     "dotenv": "^16.3.1",
     "flowbite": "^1.8.1",
