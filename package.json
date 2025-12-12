@@ -24,7 +24,7 @@
     "react-google-recaptcha": "^3.1.0",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.11.2",
-    "sweetalert2": "^11.7.27",
+    "sweetalert2": "^11.26.4",
     "sweetalert2-react-content": "^5.0.7",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"
